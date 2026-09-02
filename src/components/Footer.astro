@@ -1,0 +1,48 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const year = new Date().getFullYear();
+const email = 'thomas.miller@marvelous.digital';
+const githubUrl = 'https://github.com/thomasmiller';
+const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
+---
+
+<footer class="border-t border-line bg-surface">
+  <div class="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-14 md:px-10">
+    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <p class="max-w-md font-display text-title text-ink">{t('footer.tagline')}</p>
+
+      <ul class="flex flex-wrap items-center gap-x-8 gap-y-3 text-body">
+        <li>
+          <a href={`mailto:${email}`} class="text-ink hover:text-accent">
+            <span class="sr-only">{t('footer.email')}: </span>{email}
+          </a>
+        </li>
+        <li>
+          <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent">
+            {t('footer.github')}
+          </a>
+        </li>
+        <li>
+          <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent">
+            {t('footer.linkedin')}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="flex flex-col-reverse items-start gap-4 border-t border-line pt-6 text-small text-muted md:flex-row md:items-center md:justify-between">
+      <p>© {year} Thomas Miller. {t('footer.rights')}</p>
+      <LanguageSwitcher lang={lang} />
+    </div>
+  </div>
+</footer>

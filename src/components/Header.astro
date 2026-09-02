@@ -1,0 +1,101 @@
+---
+import type { Lang } from '../i18n/ui';
+import { localizedPath, useTranslations } from '../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const homeHref = localizedPath(lang, '/');
+const navItems = [
+  { href: localizedPath(lang, '/work'), label: t('nav.work') },
+  { href: localizedPath(lang, '/about'), label: t('nav.about') },
+  { href: localizedPath(lang, '/contact'), label: t('nav.contact') },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => href.replace(/\/$/, '') === currentPath;
+---
+
+<header class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4 md:px-10">
+    <a
+      href={homeHref}
+      class="flex items-center gap-2 font-display text-lg font-semibold tracking-tight text-ink hover:text-accent"
+      aria-current={isActive(homeHref) ? 'page' : undefined}
+    >
+      <span aria-hidden="true" class="inline-block h-2 w-2 rounded-sm bg-accent"></span>
+      Thomas Miller
+      <span class="sr-only"> — {t('nav.home')}</span>
+    </a>
+
+    <button
+      id="nav-toggle"
+      type="button"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-line text-ink md:hidden"
+      aria-expanded="false"
+      aria-controls="primary-nav"
+      aria-label={t('nav.menuOpen')}
+      data-label-open={t('nav.menuOpen')}
+      data-label-close={t('nav.menuClose')}
+    >
+      <span aria-hidden="true" class="relative block h-3 w-5">
+        <span class="absolute inset-x-0 top-0 h-px bg-ink"></span>
+        <span class="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-ink"></span>
+        <span class="absolute inset-x-0 bottom-0 h-px bg-ink"></span>
+      </span>
+    </button>
+
+    <div
+      id="primary-nav"
+      hidden
+      class="w-full flex-col gap-6 border-t border-line pt-6 md:static md:flex md:w-auto md:flex-row md:items-center md:gap-8 md:border-0 md:pt-0"
+    >
+      <nav aria-label={t('nav.primary')} class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
+        {
+          navItems.map((item) => (
+            <a
+              href={item.href}
+              class="text-body text-ink hover:text-accent"
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+      <LanguageSwitcher lang={lang} />
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const panel = document.getElementById('primary-nav');
+
+  if (toggle && panel) {
+    const openLabel = toggle.dataset.labelOpen || '';
+    const closeLabel = toggle.dataset.labelClose || '';
+
+    const setOpen = (open: boolean) => {
+      panel.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? closeLabel : openLabel);
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    panel.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+</script>
