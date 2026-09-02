@@ -1,0 +1,33 @@
+---
+import type { Lang } from '../i18n/ui';
+import { localizedPath, useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const contactHref = localizedPath(lang, '/contact');
+---
+
+<section class="bg-accent text-accent-ink">
+  <div class="mx-auto max-w-6xl px-6 py-24 md:px-10 md:py-32">
+    <p class="flex items-center gap-3 font-mono text-caption uppercase text-accent-ink/70">
+      <span aria-hidden="true" class="inline-block h-2 w-2 rounded-sm bg-accent-ink"></span>
+      {t('cta.eyebrow')}
+    </p>
+
+    <h2 class="mt-6 max-w-4xl font-display text-headline text-accent-ink">{t('cta.heading')}</h2>
+    <p class="mt-6 max-w-xl text-lead text-accent-ink/80">{t('cta.body')}</p>
+
+    <a
+      href={contactHref}
+      class="mt-10 inline-flex items-center gap-2 rounded-sm bg-accent-ink px-8 py-4 font-mono text-caption uppercase text-accent no-underline transition-transform duration-200 hover:-translate-y-0.5"
+    >
+      {t('cta.button')}
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>

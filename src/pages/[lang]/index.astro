@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import ServiceBlocks from '../../components/ServiceBlocks.astro';
+import CapabilitiesStrip from '../../components/CapabilitiesStrip.astro';
+import SelectedWork from '../../components/SelectedWork.astro';
+import Approach from '../../components/Approach.astro';
+import CTA from '../../components/CTA.astro';
+import { languages, type Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return (Object.keys(languages) as Lang[]).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={t('home.title')} description={t('home.description')} lang={lang}>
+  <Hero lang={lang} />
+  <ServiceBlocks lang={lang} />
+  <CapabilitiesStrip lang={lang} />
+  <SelectedWork lang={lang} />
+  <Approach lang={lang} />
+  <CTA lang={lang} />
+</BaseLayout>

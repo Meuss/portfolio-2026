@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+import { localizedPath, useTranslations } from '../i18n/utils';
+import ProjectCard from './ProjectCard.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const featured = (await getCollection('projects'))
+  .filter((project) => project.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const workHref = localizedPath(lang, '/work');
+---
+
+<section class="border-b border-line bg-paper py-20 md:py-28">
+  <div class="mx-auto max-w-6xl px-6 md:px-10">
+    <!-- Header row -->
+    <header class="flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <p class="flex items-center gap-3 font-mono text-caption uppercase text-muted">
+          <span aria-hidden="true" class="inline-block h-2 w-2 rounded-sm bg-accent"></span>
+          {t('work.eyebrow')}
+        </p>
+        <h2 class="mt-5 font-display text-headline text-ink">{t('work.heading')}</h2>
+      </div>
+      <a
+        href={workHref}
+        class="inline-flex items-center gap-2 font-mono text-caption uppercase text-accent no-underline hover:underline"
+      >
+        {t('work.viewAll')}
+        <span aria-hidden="true">→</span>
+      </a>
+    </header>
+
+    <!-- Project teasers -->
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 md:mt-16">
+      {featured.map((project) => <ProjectCard project={project} lang={lang} />)}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const points = [1, 2, 3, 4].map((n) => ({
+  label: t(`approach.point${n}.label`),
+  text: t(`approach.point${n}.text`),
+}));
+---
+
+<section class="border-b border-line bg-paper py-20 md:py-28">
+  <div class="mx-auto max-w-6xl px-6 md:px-10">
+    <div class="grid gap-12 md:grid-cols-2 md:gap-20">
+      <!-- Opinionated positioning statement -->
+      <header class="md:sticky md:top-28 md:self-start">
+        <p class="flex items-center gap-3 font-mono text-caption uppercase text-muted">
+          <span aria-hidden="true" class="inline-block h-2 w-2 rounded-sm bg-accent"></span>
+          {t('approach.eyebrow')}
+        </p>
+        <h2 class="mt-5 max-w-md font-display text-headline text-ink">{t('approach.heading')}</h2>
+      </header>
+
+      <!-- Hairline-divided principles -->
+      <dl class="flex flex-col">
+        {
+          points.map((point) => (
+            <div class="flex flex-col gap-2 border-t border-line py-6 first:border-t-0 first:pt-0 sm:flex-row sm:gap-8">
+              <dt class="font-mono text-caption uppercase text-accent sm:w-32 sm:shrink-0 sm:pt-1">
+                {point.label}
+              </dt>
+              <dd class="text-lead text-ink">{point.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</section>
