@@ -14,10 +14,10 @@ interface Props {
 const { title, description, lang } = Astro.props;
 const t = useTranslations(lang);
 
-// Canonical production origin (see docs/superpowers/specs — thomasmiller.ch).
-// Used only to build absolute URLs for SEO tags; not read from Astro.site
-// since astro.config.mjs does not declare `site`.
-const siteUrl = 'https://thomasmiller.ch';
+// Canonical production origin, sourced from `site` in astro.config.mjs so
+// there's a single source of truth. Falls back to the production domain if
+// Astro.site is ever undefined (e.g. misconfiguration).
+const siteUrl = Astro.site?.toString() ?? 'https://thomasmiller.ch';
 
 const canonicalURL = new URL(Astro.url.pathname, siteUrl).toString();
 const ogLocale = lang === 'en' ? 'en_US' : 'fr_FR';
