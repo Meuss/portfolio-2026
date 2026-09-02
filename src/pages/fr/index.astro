@@ -1,0 +1,16 @@
+---
+import '../../styles/global.css';
+import { useTranslations } from '../../i18n/utils';
+
+const lang = 'fr' as const;
+const t = useTranslations(lang);
+---
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <title>Portfolio</title>
+  </head>
+  <body class="bg-white text-black p-8">
+    <h1 class="text-3xl font-bold">{t('nav.work')}</h1>
+  </body>
+</html>
