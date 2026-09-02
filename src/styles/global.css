@@ -1,6 +1,162 @@
 @import "tailwindcss";
 
-/* Design tokens filled in Task 4 */
+/* ---------------------------------------------------------------------------
+   Self-hosted fonts (Fontsource → bundled at build, no runtime CDN)
+   - Display : Bricolage Grotesque (variable: opsz + wght) — expressive grotesque
+   - Body    : IBM Plex Sans (variable: wght) — calm, technical, legible
+   - Utility : IBM Plex Mono — code/data voice for eyebrows, labels, tech tags
+--------------------------------------------------------------------------- */
+@import "@fontsource-variable/bricolage-grotesque/index.css";
+@import "@fontsource-variable/ibm-plex-sans/index.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/600.css";
+
+/* ---------------------------------------------------------------------------
+   Design tokens — Tailwind v4 CSS-first theme.
+   Direction: "Swiss lab" — porcelain ground, near-black ink, one electric
+   ultramarine as the single bold colour. Sharp grid, expressive display type.
+   Every token here becomes a Tailwind utility (bg-paper, text-ink, text-display,
+   font-display, font-mono, rounded-md, …) consumed by later tasks.
+--------------------------------------------------------------------------- */
 @theme {
-  --font-sans: system-ui, sans-serif;
+  /* -- Type families ------------------------------------------------------- */
+  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque",
+    ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans Variable", "IBM Plex Sans", ui-sans-serif,
+    system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+    Consolas, monospace;
+
+  /* -- Colour: porcelain + ink + electric ultramarine ---------------------- */
+  --color-paper: #f4f3ee; /* porcelain off-white, page ground */
+  --color-ink: #15130e; /* rich near-black, primary text          */
+  --color-muted: #57554d; /* secondary text on paper (AA ~5.5:1)    */
+  --color-line: #d8d5cb; /* hairline rules / borders               */
+  --color-surface: #eae8e0; /* subtly raised panels / cards           */
+
+  --color-accent: #2a28f0; /* the one bold colour (AA ~7:1 on paper)  */
+  --color-accent-soft: #e5e4fc; /* tinted accent wash for backgrounds  */
+  --color-accent-ink: #f7f7ff; /* text/foreground when set on accent  */
+
+  /* -- Fluid type scale (clamp: mobile → desktop) -------------------------- */
+  /* Utility voice — mono eyebrows, labels, tags */
+  --text-caption: 0.78rem;
+  --text-caption--line-height: 1.35;
+  --text-caption--letter-spacing: 0.08em;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+
+  --text-body: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  --text-body--line-height: 1.6;
+
+  --text-lead: clamp(1.15rem, 1.02rem + 0.62vw, 1.5rem);
+  --text-lead--line-height: 1.5;
+
+  /* Display voice — set with the display family in components */
+  --text-title: clamp(1.5rem, 1.15rem + 1.6vw, 2.25rem);
+  --text-title--line-height: 1.12;
+  --text-title--letter-spacing: -0.01em;
+  --text-title--font-weight: 600;
+
+  --text-headline: clamp(2.25rem, 1.3rem + 4.2vw, 4.5rem);
+  --text-headline--line-height: 1.02;
+  --text-headline--letter-spacing: -0.02em;
+  --text-headline--font-weight: 600;
+
+  --text-display: clamp(3rem, 0.6rem + 10.5vw, 9rem);
+  --text-display--line-height: 0.9;
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 700;
+
+  /* -- Radii: sharp by default, small deliberate softening ----------------- */
+  --radius-sm: 2px;
+  --radius-md: 5px;
+  --radius-lg: 10px;
+}
+
+/* ---------------------------------------------------------------------------
+   Base element styles
+--------------------------------------------------------------------------- */
+@layer base {
+  :root {
+    color-scheme: light; /* committed light-first look (dark = out of scope) */
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    tab-size: 4;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-size: var(--text-body);
+    line-height: 1.6;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern", "liga", "calt";
+  }
+
+  /* Headings speak in the display voice */
+  :where(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    font-optical-sizing: auto; /* Bricolage opsz axis */
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Links carry the accent */
+  a {
+    color: var(--color-accent);
+    text-underline-offset: 0.16em;
+    text-decoration-thickness: max(1px, 0.06em);
+  }
+  a:hover {
+    text-decoration-thickness: max(2px, 0.09em);
+  }
+
+  :where(code, kbd, samp, pre) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--color-line);
+  }
+
+  /* Signature detail + accessibility floor */
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Global Constraint: motion is opt-out at the source */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
