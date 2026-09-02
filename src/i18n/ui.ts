@@ -66,6 +66,22 @@ export const ui: Record<Lang, Record<string, string>> = {
     'workPage.intro':
       'A selection of sites, apps, and platforms I’ve designed and built — from public launches to confidential client work.',
 
+    // --- About page: page meta ---
+    'aboutPage.title': 'About — Thomas Miller',
+    'aboutPage.description':
+      'Swiss freelance web developer working across front-end and back-end — currently building at Marvelous Digital, available for independent projects.',
+
+    // --- About page: intro & bio ---
+    'aboutPage.eyebrow': 'About',
+    'aboutPage.heading': 'The person behind the code',
+    'aboutPage.bioIntro':
+      'I’m Thomas Miller, a freelance web developer based in Switzerland, working across the front end and back end to ship products people actually use.',
+    'aboutPage.bioParagraph1':
+      'Day to day, I work as part of the team at Marvelous Digital, and take on independent projects alongside that — from marketing sites to full-stack web apps. Either way, the standard doesn’t change: clean code, considered design, and software that holds up once it’s live.',
+    'aboutPage.bioParagraph2':
+      'I care about the details most visitors never consciously notice — load times, accessible markup, sensible defaults — because they’re the difference between a site that merely works and one that feels right. If that sounds like what your project needs, I’d be glad to talk it through.',
+    'aboutPage.portraitAlt': 'Portrait of Thomas Miller',
+
     // --- Homepage: approach ---
     'approach.eyebrow': 'How I work',
     'approach.heading': 'Senior craft, without the agency overhead',
@@ -150,6 +166,22 @@ export const ui: Record<Lang, Record<string, string>> = {
     'workPage.heading': 'Projets',
     'workPage.intro':
       'Une sélection de sites, d’applications et de plateformes que j’ai conçus et développés — des lancements publics aux projets clients confidentiels.',
+
+    // --- About page: page meta ---
+    'aboutPage.title': 'À propos — Thomas Miller',
+    'aboutPage.description':
+      'Développeur web freelance en Suisse, actif du frontend au backend — actuellement chez Marvelous Digital, disponible pour des projets indépendants.',
+
+    // --- About page: intro & bio ---
+    'aboutPage.eyebrow': 'À propos',
+    'aboutPage.heading': 'La personne derrière le code',
+    'aboutPage.bioIntro':
+      'Je m’appelle Thomas Miller, développeur web freelance basé en Suisse, actif du frontend au backend pour livrer des produits que les gens utilisent vraiment.',
+    'aboutPage.bioParagraph1':
+      'Au quotidien, je fais partie de l’équipe de Marvelous Digital, et je mène en parallèle des projets indépendants — de sites vitrines à des applications web full-stack. Dans les deux cas, l’exigence reste la même : un code propre, un design réfléchi, et un logiciel qui tient la route une fois en ligne.',
+    'aboutPage.bioParagraph2':
+      'Je porte attention aux détails que la plupart des visiteurs ne remarquent jamais consciemment — temps de chargement, balisage accessible, réglages par défaut sensés — car c’est ce qui distingue un site qui fonctionne d’un site qui donne une bonne impression. Si c’est ce dont votre projet a besoin, je serai heureux d’en discuter.',
+    'aboutPage.portraitAlt': 'Portrait de Thomas Miller',
 
     // --- Homepage: approach ---
     'approach.eyebrow': 'Ma façon de travailler',

@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CapabilitiesStrip from '../../components/CapabilitiesStrip.astro';
+import CTA from '../../components/CTA.astro';
+import { languages, type Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+import portrait from '../../assets/placeholders/portrait.svg';
+
+export function getStaticPaths() {
+  return (Object.keys(languages) as Lang[]).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={t('aboutPage.title')} description={t('aboutPage.description')} lang={lang}>
+  <section class="border-b border-line bg-paper py-20 md:py-28">
+    <div class="mx-auto max-w-6xl px-6 md:px-10">
+      <div class="grid gap-12 md:grid-cols-[18rem_1fr] md:gap-16">
+        <!-- Portrait -->
+        <div data-reveal class="md:sticky md:top-28 md:self-start">
+          <div class="aspect-[4/5] overflow-hidden rounded-md border border-line bg-surface">
+            <Image
+              src={portrait}
+              alt={t('aboutPage.portraitAlt')}
+              width={640}
+              height={800}
+              class="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div>
+          <header data-reveal>
+            <p class="flex items-center gap-3 font-mono text-caption uppercase text-muted">
+              <span aria-hidden="true" class="inline-block h-2 w-2 rounded-sm bg-accent"></span>
+              {t('aboutPage.eyebrow')}
+            </p>
+            <h1 class="mt-5 font-display text-headline text-ink">{t('aboutPage.heading')}</h1>
+          </header>
+
+          <div data-reveal data-reveal-delay="1" class="mt-8 flex max-w-2xl flex-col gap-5">
+            <p class="text-lead text-muted">{t('aboutPage.bioIntro')}</p>
+            <p class="text-body text-muted">{t('aboutPage.bioParagraph1')}</p>
+            <p class="text-body text-muted">{t('aboutPage.bioParagraph2')}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CapabilitiesStrip lang={lang} />
+  <CTA lang={lang} />
+
+  {/* Scroll-reveal island (Vite-bundled; runs client-side, progressive enhancement). */}
+  <script>
+    import '../../components/islands/reveal.ts';
+  </script>
+</BaseLayout>
