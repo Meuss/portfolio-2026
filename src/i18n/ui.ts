@@ -55,6 +55,17 @@ export const ui: Record<Lang, Record<string, string>> = {
     'project.newTab': 'opens in a new tab',
     'project.roleLabel': 'Role',
 
+    // --- Work page: page meta ---
+    'workPage.title': 'Work — Thomas Miller',
+    'workPage.description':
+      'A curated selection of web development projects — e-commerce, dashboards, marketing sites, and client platforms.',
+
+    // --- Work page: intro ---
+    'workPage.eyebrow': 'Work',
+    'workPage.heading': 'Projects',
+    'workPage.intro':
+      'A selection of sites, apps, and platforms I’ve designed and built — from public launches to confidential client work.',
+
     // --- Homepage: approach ---
     'approach.eyebrow': 'How I work',
     'approach.heading': 'Senior craft, without the agency overhead',
@@ -128,6 +139,17 @@ export const ui: Record<Lang, Record<string, string>> = {
     'project.visit': 'Voir le site',
     'project.newTab': 'ouvre un nouvel onglet',
     'project.roleLabel': 'Rôle',
+
+    // --- Work page: page meta ---
+    'workPage.title': 'Projets — Thomas Miller',
+    'workPage.description':
+      'Une sélection de projets de développement web : e-commerce, tableaux de bord, sites vitrines et plateformes clients.',
+
+    // --- Work page: intro ---
+    'workPage.eyebrow': 'Portfolio',
+    'workPage.heading': 'Projets',
+    'workPage.intro':
+      'Une sélection de sites, d’applications et de plateformes que j’ai conçus et développés — des lancements publics aux projets clients confidentiels.',
 
     // --- Homepage: approach ---
     'approach.eyebrow': 'Ma façon de travailler',
