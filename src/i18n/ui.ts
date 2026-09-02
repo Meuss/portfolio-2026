@@ -103,6 +103,32 @@ export const ui: Record<Lang, Record<string, string>> = {
     'cta.heading': 'Let’s talk about your project',
     'cta.body': 'Tell me what you’re building. I’ll reply within two business days.',
     'cta.button': 'Get in touch',
+
+    // --- Contact page: page meta ---
+    'contactPage.title': 'Contact — Thomas Miller',
+    'contactPage.description':
+      'Get in touch about your next web project — send a message, or reach out by email, GitHub, or LinkedIn.',
+
+    // --- Contact page: intro & fallback ---
+    'contactPage.eyebrow': 'Contact',
+    'contactPage.heading': 'Let’s talk about your project',
+    'contactPage.intro':
+      'Tell me a bit about what you’re building. I read every message and reply within two business days.',
+    'contactPage.fallbackHeading': 'Prefer to reach out directly?',
+    'contactPage.fallbackIntro': 'Email, GitHub, or LinkedIn — whichever you prefer.',
+
+    // --- Contact page: form ---
+    'contactForm.nameLabel': 'Name',
+    'contactForm.namePlaceholder': 'Your name',
+    'contactForm.emailLabel': 'Email',
+    'contactForm.emailPlaceholder': 'you@example.com',
+    'contactForm.messageLabel': 'Message',
+    'contactForm.messagePlaceholder': 'Tell me about your project…',
+    'contactForm.honeypotLabel': 'Leave this field empty',
+    'contactForm.submit': 'Send message',
+    'contactForm.sending': 'Sending…',
+    'contactForm.successMessage': 'Thanks — your message is on its way. I’ll reply within two business days.',
+    'contactForm.errorMessage': 'Something went wrong. Please try again, or email me directly.',
   },
   fr: {
     'nav.work': 'Projets',
@@ -204,5 +230,31 @@ export const ui: Record<Lang, Record<string, string>> = {
     'cta.heading': 'Parlons de votre projet',
     'cta.body': 'Dites-moi ce que vous construisez. Je réponds sous deux jours ouvrés.',
     'cta.button': 'Me contacter',
+
+    // --- Contact page: page meta ---
+    'contactPage.title': 'Contact — Thomas Miller',
+    'contactPage.description':
+      'Contactez-moi pour votre prochain projet web — envoyez un message ou écrivez-moi par e-mail, GitHub ou LinkedIn.',
+
+    // --- Contact page: intro & fallback ---
+    'contactPage.eyebrow': 'Contact',
+    'contactPage.heading': 'Parlons de votre projet',
+    'contactPage.intro':
+      'Dites-moi en quelques mots ce que vous construisez. Je lis chaque message et je réponds sous deux jours ouvrés.',
+    'contactPage.fallbackHeading': 'Vous préférez me contacter directement ?',
+    'contactPage.fallbackIntro': 'E-mail, GitHub ou LinkedIn — comme vous préférez.',
+
+    // --- Contact page: form ---
+    'contactForm.nameLabel': 'Nom',
+    'contactForm.namePlaceholder': 'Votre nom',
+    'contactForm.emailLabel': 'E-mail',
+    'contactForm.emailPlaceholder': 'vous@exemple.com',
+    'contactForm.messageLabel': 'Message',
+    'contactForm.messagePlaceholder': 'Parlez-moi de votre projet…',
+    'contactForm.honeypotLabel': 'Laissez ce champ vide',
+    'contactForm.submit': 'Envoyer le message',
+    'contactForm.sending': 'Envoi en cours…',
+    'contactForm.successMessage': 'Merci — votre message est en route. Je réponds sous deux jours ouvrés.',
+    'contactForm.errorMessage': 'Une erreur s’est produite. Réessayez, ou écrivez-moi directement.',
   },
 };

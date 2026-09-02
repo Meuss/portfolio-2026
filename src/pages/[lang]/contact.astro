@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { languages, type Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return (Object.keys(languages) as Lang[]).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+
+// Build-time public env var (see .env.example). Empty/undefined is expected
+// in environments without a real key — the form still renders; submissions
+// just won't deliver until PUBLIC_WEB3FORMS_KEY is set. Never throw here.
+const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+
+// Same handles as the footer (Footer.astro) — a known placeholder-content
+// TODO tracked outside this task, not something to resolve here.
+const email = 'thomas.miller@marvelous.digital';
+const githubUrl = 'https://github.com/thomasmiller';
+const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
+---
+
+<BaseLayout title={t('contactPage.title')} description={t('contactPage.description')} lang={lang}>
+  <section class="border-b border-line bg-paper py-20 md:py-28">
+    <div class="mx-auto max-w-6xl px-6 md:px-10">
+      <div class="grid gap-12 md:grid-cols-[1fr_1.15fr] md:gap-16">
+        <!-- Intro + fallback contact path -->
+        <div>
+          <header data-reveal>
+            <p class="flex items-center gap-3 font-mono text-caption uppercase text-muted">
+              <span aria-hidden="true" class="inline-block h-2 w-2 rounded-sm bg-accent"></span>
+              {t('contactPage.eyebrow')}
+            </p>
+            <h1 class="mt-5 font-display text-headline text-ink">{t('contactPage.heading')}</h1>
+            <p class="mt-6 max-w-md text-lead text-muted">{t('contactPage.intro')}</p>
+          </header>
+
+          <div data-reveal data-reveal-delay="1" class="mt-12 border-t border-line pt-8">
+            <h2 class="font-display text-title text-ink">{t('contactPage.fallbackHeading')}</h2>
+            <p class="mt-2 max-w-sm text-body text-muted">{t('contactPage.fallbackIntro')}</p>
+            <ul class="mt-6 flex flex-col gap-3 text-body">
+              <li>
+                <a href={`mailto:${email}`} class="text-ink hover:text-accent">
+                  <span class="sr-only">{t('footer.email')}: </span>{email}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-ink hover:text-accent"
+                >
+                  {t('footer.github')}
+                  <span class="sr-only"> ({t('project.newTab')})</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-ink hover:text-accent"
+                >
+                  {t('footer.linkedin')}
+                  <span class="sr-only"> ({t('project.newTab')})</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div data-reveal data-reveal-delay="1">
+          <form
+            id="contact-form"
+            action="https://api.web3forms.com/submit"
+            method="POST"
+            class="flex flex-col gap-6 rounded-lg border border-line bg-surface p-6 md:p-8"
+          >
+            <input type="hidden" name="access_key" value={web3formsKey} />
+            <input type="hidden" name="subject" value="New message from the thomasmiller.ch contact form" />
+            <input type="hidden" name="from_name" value="thomasmiller.ch contact form" />
+
+            {/* Honeypot: left visible in the DOM for simple bots to fill, but
+                positioned off-screen and removed from the a11y tree / tab
+                order so real (and assistive-tech) visitors never encounter
+                it. Web3Forms rejects submissions where this is filled in. */}
+            <div class="absolute left-[-9999px] top-auto" aria-hidden="true">
+              <label for="botcheck">{t('contactForm.honeypotLabel')}</label>
+              <input type="text" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="name" class="font-mono text-caption uppercase text-muted">
+                {t('contactForm.nameLabel')}
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                autocomplete="name"
+                placeholder={t('contactForm.namePlaceholder')}
+                class="rounded-md border border-line bg-paper px-4 py-3 text-body text-ink placeholder:text-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="email" class="font-mono text-caption uppercase text-muted">
+                {t('contactForm.emailLabel')}
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                autocomplete="email"
+                placeholder={t('contactForm.emailPlaceholder')}
+                class="rounded-md border border-line bg-paper px-4 py-3 text-body text-ink placeholder:text-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="message" class="font-mono text-caption uppercase text-muted">
+                {t('contactForm.messageLabel')}
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows="6"
+                placeholder={t('contactForm.messagePlaceholder')}
+                class="resize-y rounded-md border border-line bg-paper px-4 py-3 text-body text-ink placeholder:text-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="mt-2 inline-flex items-center justify-center gap-2 rounded-sm bg-accent px-7 py-3.5 font-mono text-caption uppercase text-accent-ink transition-transform duration-200 hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-60"
+            >
+              <span data-submit-label>{t('contactForm.submit')}</span>
+            </button>
+
+            {/* Populated by the enhancement script below; empty and inert
+                without JS, so it never shows a blank box on the no-JS path. */}
+            <p
+              id="contact-form-status"
+              role="status"
+              aria-live="polite"
+              class="hidden text-body text-ink"
+              data-sending-text={t('contactForm.sending')}
+              data-success-text={t('contactForm.successMessage')}
+              data-error-text={t('contactForm.errorMessage')}
+            >
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Scroll-reveal island (Vite-bundled; runs client-side, progressive enhancement). */}
+  <script>
+    import '../../components/islands/reveal.ts';
+  </script>
+
+  {/*
+    Progressive enhancement only: without this script (no JS, or it fails to
+    run) the form is a plain HTML form that POSTs directly to Web3Forms and
+    Web3Forms's own hosted response page confirms the submission — the site
+    never depends on this script to actually deliver the message.
+
+    With JS, submit is intercepted so the same POST happens via fetch and the
+    result is reported inline through the aria-live status paragraph above,
+    with no full-page reload. No alert()/confirm() dialogs are used.
+  */}
+  <script>
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('contact-form-status');
+
+    if (form instanceof HTMLFormElement && status) {
+      const submitButton = form.querySelector('button[type="submit"]');
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const sendingText = status.dataset.sendingText ?? '';
+        const successText = status.dataset.successText ?? '';
+        const errorText = status.dataset.errorText ?? '';
+
+        if (submitButton instanceof HTMLButtonElement) submitButton.disabled = true;
+        status.classList.remove('hidden');
+        status.classList.remove('text-accent');
+        status.textContent = sendingText;
+
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { Accept: 'application/json' },
+          });
+          const result = await response.json().catch(() => null);
+
+          if (response.ok && result && result.success) {
+            status.textContent = successText;
+            status.classList.add('text-accent');
+            form.reset();
+          } else {
+            throw new Error('web3forms-submit-failed');
+          }
+        } catch {
+          status.textContent = errorText;
+        } finally {
+          if (submitButton instanceof HTMLButtonElement) submitButton.disabled = false;
+        }
+      });
+    }
+  </script>
+</BaseLayout>
