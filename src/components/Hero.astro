@@ -66,3 +66,17 @@ const workHref = localizedPath(lang, '/work');
     </ul>
   </div>
 </section>
+
+{/* Signature hero motion — progressive enhancement, loaded after first paint. */}
+<script>
+  // Skip entirely for reduced-motion users; leave the static hero untouched.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const start = () =>
+      import('./islands/HeroMotion').then((m) => m.initHeroMotion()).catch(() => {});
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(start, { timeout: 1500 });
+    } else {
+      setTimeout(start, 200);
+    }
+  }
+</script>

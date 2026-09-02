@@ -30,8 +30,12 @@ const points = [1, 2, 3, 4].map((n) => ({
       <!-- Hairline-divided principles -->
       <dl class="flex flex-col">
         {
-          points.map((point) => (
-            <div class="flex flex-col gap-2 border-t border-line py-6 first:border-t-0 first:pt-0 sm:flex-row sm:gap-8">
+          points.map((point, i) => (
+            <div
+              data-reveal
+              data-reveal-delay={String((i % 3) + 1)}
+              class="flex flex-col gap-2 border-t border-line py-6 first:border-t-0 first:pt-0 sm:flex-row sm:gap-8"
+            >
               <dt class="font-mono text-caption uppercase text-accent sm:w-32 sm:shrink-0 sm:pt-1">
                 {point.label}
               </dt>

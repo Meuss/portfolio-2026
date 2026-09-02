@@ -42,9 +42,10 @@ const rest = headlineServices.filter((_, i) => i !== 1);
       <!-- Supporting blocks -->
       <div class="grid gap-4 sm:grid-cols-2">
         {
-          rest.map((service) => (
+          rest.map((service, i) => (
             <article
               data-reveal
+              data-reveal-delay={String((i % 3) + 1)}
               class="group rounded-md border border-line bg-surface p-8 transition-colors duration-200 hover:border-accent"
             >
               <h3 class="font-display text-title text-ink">{service.title[lang]}</h3>

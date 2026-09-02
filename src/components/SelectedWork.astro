@@ -41,7 +41,13 @@ const workHref = localizedPath(lang, '/work');
 
     <!-- Project teasers -->
     <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 md:mt-16">
-      {featured.map((project) => <ProjectCard project={project} lang={lang} />)}
+      {
+        featured.map((project, i) => (
+          <div data-reveal data-reveal-delay={String((i % 3) + 1)} class="h-full">
+            <ProjectCard project={project} lang={lang} />
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
