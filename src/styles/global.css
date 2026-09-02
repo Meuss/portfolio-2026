@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Design tokens filled in Task 4 */
+@theme {
+  --font-sans: system-ui, sans-serif;
+}
