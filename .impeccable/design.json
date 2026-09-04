@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-05T00:00:00Z",
+  "title": "Design System: Thomas Miller — Portfolio 2026",
+  "extensions": {
+    "colorMeta": {
+      "paper":       { "role": "neutral",  "displayName": "Graphite Ground",   "canonical": "#16181b", "tonalRamp": ["#0c0d0f", "#121316", "#16181b", "#202226", "#2b2e33", "#3a3d44", "#5b5f68", "#9d9b91"] },
+      "ink":         { "role": "neutral",  "displayName": "Warm Off-White Ink", "canonical": "#ece9e1", "tonalRamp": ["#3d3b35", "#5a574f", "#78756b", "#969288", "#b4b0a6", "#d0ccc2", "#ece9e1", "#f6f4ee"] },
+      "muted":       { "role": "neutral",  "displayName": "Muted Sand",        "canonical": "#9d9b91", "tonalRamp": ["#2b2a26", "#403f39", "#57554e", "#6f6d64", "#88857b", "#9d9b91", "#bcbab2", "#dbdad4"] },
+      "line":        { "role": "neutral",  "displayName": "Hairline",          "canonical": "#32343b", "tonalRamp": ["#191a1e", "#212329", "#282a30", "#32343b", "#3f424a", "#4d505a", "#666a76", "#8a8e9a"] },
+      "surface":     { "role": "neutral",  "displayName": "Raised Plate",      "canonical": "#202226", "tonalRamp": ["#0e0f11", "#161719", "#1b1c20", "#202226", "#2b2e33", "#383b42", "#4a4e56", "#666a73"] },
+      "plate":       { "role": "neutral",  "displayName": "Brushed Plate",     "canonical": "#2b2e33", "tonalRamp": ["#131519", "#1c1e22", "#232529", "#2b2e33", "#363940", "#43464f", "#585c66", "#767b86"] },
+      "accent":      { "role": "primary",  "displayName": "Ruby Jewel",        "canonical": "#dd4753", "tonalRamp": ["#3a1418", "#5c1f26", "#8e2b3b", "#b83744", "#dd4753", "#e5707a", "#ef9aa1", "#f8ccd0"] },
+      "accent-soft": { "role": "primary",  "displayName": "Deep Ruby Wash",    "canonical": "#2c1e21", "tonalRamp": ["#160f11", "#201619", "#2c1e21", "#3e2a2e", "#553a3f", "#6f4d53", "#9a6d74", "#c79aa0"] },
+      "accent-ink":  { "role": "primary",  "displayName": "Ruby Foreground",   "canonical": "#fff5f4", "tonalRamp": ["#6b5251", "#8c6d6c", "#ad8988", "#c8a5a4", "#e0c1c0", "#f0dedd", "#fff5f4", "#fffbfb"] },
+      "gilt":        { "role": "secondary", "displayName": "Gilt Brass",       "canonical": "#c6a15b", "tonalRamp": ["#3d3018", "#5a4823", "#786032", "#977c43", "#b5975a", "#c6a15b", "#d8bd86", "#ecdcbb"] },
+      "blued":       { "role": "tertiary", "displayName": "Blued Steel",       "canonical": "#4f6db0", "tonalRamp": ["#182238", "#22304f", "#2f4269", "#3d5688", "#4f6db0", "#7089c2", "#96a8d4", "#c1cbe7"] }
+    },
+    "typographyMeta": {
+      "display":  { "displayName": "Display",  "purpose": "Largest statements; hero name is a scoped sibling." },
+      "headline": { "displayName": "Headline", "purpose": "Page and section H1/H2." },
+      "title":    { "displayName": "Title",    "purpose": "Card, feature, and footer headings (weight 600)." },
+      "lead":     { "displayName": "Lead",     "purpose": "Standfirst / intro paragraphs under headings." },
+      "body":     { "displayName": "Body",     "purpose": "Default running text." },
+      "small":    { "displayName": "Small",    "purpose": "Mono button labels and capability titles." },
+      "caption":  { "displayName": "Caption",  "purpose": "Engraved-data voice: labels, roles, tags, calibre line. Uppercase mono." }
+    },
+    "shadows": [
+      { "name": "plate-inset", "value": "inset 0 0 90px rgba(0,0,0,0.65), inset 0 0 0 1px rgba(255,255,255,0.05)", "purpose": "Sculpts the hero movement plate as brushed metal. Inset only — never used for UI elevation." },
+      { "name": "jewel-set", "value": "inset 0 1px 1px rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.55)", "purpose": "Set-stone modeling for ruby jewel markers (specular highlight + drop)." }
+    ],
+    "motion": [
+      { "name": "movement-rotate", "value": "rotate 360deg over 120s linear infinite", "purpose": "Slow rotation of the hero movement plate; disabled under prefers-reduced-motion." },
+      { "name": "jewel-pulse", "value": "2.8s ease-in-out infinite scale 1 -> 1.22", "purpose": "Gentle breathing of the 'available' status stone; no glow." },
+      { "name": "reveal", "value": "opacity/transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Scroll-reveal; gated behind html.js and prefers-reduced-motion: no-preference." },
+      { "name": "state", "value": "200ms transform/colors", "purpose": "Button lift and border/text hover shifts." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Gilt engraved action for the single lead CTA (hero, contact submit).",
+      "html": "<button class=\"ds-btn-primary\">Start a project <span aria-hidden=\"true\">&#8594;</span></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.625rem; background: var(--color-gilt, #c6a15b); color: #16181b; padding: 0.875rem 1.75rem; border: none; border-radius: 2px; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: transform 0.2s; } .ds-btn-primary:hover { transform: translateY(-2px); } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; } .ds-btn-primary:disabled { opacity: 0.6; pointer-events: none; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Ghost action with hairline border; hover shifts to gilt.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">View work</a>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background: transparent; color: var(--color-ink, #ece9e1); padding: 0.875rem 1.75rem; border: 1px solid var(--color-line, #32343b); border-radius: 2px; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; transition: color 0.2s, border-color 0.2s; } .ds-btn-secondary:hover { color: var(--color-gilt, #c6a15b); border-color: var(--color-gilt, #c6a15b); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; }"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Raised plate with hairline border; hover shifts border to ruby. Image content is a placeholder.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-media\"></div><div class=\"ds-card-body\"><p class=\"ds-card-role\">Full-stack build</p><h3 class=\"ds-card-title\">Project name</h3><p class=\"ds-card-desc\">A one-line summary of the engagement and its outcome.</p><ul class=\"ds-card-tags\"><li>Astro</li><li>TypeScript</li></ul></div></article>",
+      "css": ".ds-card { display: flex; flex-direction: column; overflow: hidden; background: var(--color-surface, #202226); border: 1px solid var(--color-line, #32343b); border-radius: 5px; transition: border-color 0.2s; } .ds-card:hover { border-color: var(--color-accent, #dd4753); } .ds-card-media { aspect-ratio: 3 / 2; background: var(--color-paper, #16181b); } .ds-card-body { display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem; } .ds-card-role { font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #9d9b91); margin: 0; } .ds-card-title { font-family: 'Schibsted Grotesk Variable', system-ui, sans-serif; font-weight: 600; font-size: 1.5rem; letter-spacing: -0.02em; color: var(--color-ink, #ece9e1); margin: 0; } .ds-card-desc { color: var(--color-muted, #9d9b91); margin: 0; } .ds-card-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; padding: 0; margin: 0; } .ds-card-tags li { border: 1px solid var(--color-line, #32343b); border-radius: 2px; padding: 0.25rem 0.625rem; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #9d9b91); }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Graphite-filled field with hairline border and uppercase mono label; ruby focus outline.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-label\" for=\"ds-name\">Name</label><input class=\"ds-input\" id=\"ds-name\" type=\"text\" placeholder=\"Your name\" /></div>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 0.5rem; } .ds-label { font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #9d9b91); } .ds-input { background: var(--color-paper, #16181b); color: var(--color-ink, #ece9e1); border: 1px solid var(--color-line, #32343b); border-radius: 5px; padding: 0.75rem 1rem; font-family: 'Schibsted Grotesk Variable', system-ui, sans-serif; font-size: 1rem; } .ds-input::placeholder { color: var(--color-muted, #9d9b91); } .ds-input:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; }"
+    },
+    {
+      "name": "Jewel Marker",
+      "kind": "custom",
+      "refersTo": "accent",
+      "description": "The ruby as a set stone — a small marker used for availability, list bullets, and the plate's stone. The One Jewel Rule made literal.",
+      "html": "<span class=\"ds-jewel\" aria-hidden=\"true\"></span>",
+      "css": ".ds-jewel { display: inline-block; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #f0768a, #dd4753 60%, #8e2b3b); box-shadow: inset 0 1px 1px rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.55); }"
+    },
+    {
+      "name": "Header Nav",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Sticky translucent header with hairline base; ruby-square wordmark, ink links that hover to ruby.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-nav-brand\" href=\"#\"><span class=\"ds-nav-mark\" aria-hidden=\"true\"></span>Thomas Miller</a><nav class=\"ds-nav-links\"><a href=\"#\">Work</a><a href=\"#\" aria-current=\"page\">About</a><a href=\"#\">Contact</a></nav></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1rem 2.5rem; background: rgba(22,24,27,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--color-line, #32343b); } .ds-nav-brand { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Schibsted Grotesk Variable', system-ui, sans-serif; font-weight: 600; letter-spacing: -0.01em; color: var(--color-ink, #ece9e1); text-decoration: none; } .ds-nav-mark { width: 0.5rem; height: 0.5rem; border-radius: 2px; background: var(--color-accent, #dd4753); } .ds-nav-links { display: flex; gap: 2rem; } .ds-nav-links a { color: var(--color-ink, #ece9e1); text-decoration: none; } .ds-nav-links a:hover, .ds-nav-links a[aria-current='page'] { color: var(--color-accent, #dd4753); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Movement",
+    "overview": "A Swiss watch movement seen from the back — the developer as watchmaker, a maker of precise working mechanisms. The world is committed dark: a graphite ground with brushed-metal raised surfaces, blued-steel screw detail, gilt engraving for labels and the primary action, and exactly one ruby jewel as the single bold colour. It refuses both the generic Swiss-Helvetica-grid it replaced and the dark-mode-neon-startup look — no glows, no saturated gradients, no candy accents. The register is calm, precise, and instrument-like: Schibsted Grotesk at 700 for the name and headlines, DM Mono for all machine data. Depth comes from tonal layering and hairline rules, not drop shadows. The one literal material is the hero's slowly-rotating brushed movement plate with its set ruby jewel.",
+    "keyCharacteristics": [
+      "Graphite dark world, committed (color-scheme: dark), warm off-white ink.",
+      "One ruby accent, used only as a jewel — never as a fill.",
+      "Gilt for engraved labels and the primary button; blued steel for screw detail.",
+      "Two voices: Schibsted Grotesk (display/body) + DM Mono (all data/labels).",
+      "Depth by tonal plates + hairlines, not shadows.",
+      "Sharp-by-default corners (2/5/10px), motion fully opt-out."
+    ],
+    "rules": [
+      { "name": "The One Jewel Rule", "body": "Ruby appears only as a jewel — markers, links, focus rings, the set stone — never as a full-bleed fill or a wall. The closing CTA is a graphite plate with a gilt button, not a ruby band; if ruby ever covers a whole surface, the rule is broken.", "section": "colors" },
+      { "name": "The Engraving Rule", "body": "Gilt is reserved for two jobs: engraved mono labels and the single primary action. It is never body text and never a large fill.", "section": "colors" },
+      { "name": "The Two-Voice Rule", "body": "Prose and headings are Schibsted Grotesk; anything that reads as machine data — labels, roles, tags, availability, buttons — is DM Mono, uppercase, tracked. A voice never crosses into the other's job.", "section": "typography" },
+      { "name": "The Hairline Rule", "body": "Surfaces are separated by a 1px line border, never by a shadow. Depth is one tonal step (paper -> surface) plus a hairline. Reserve real shadows for literal three-dimensional metal (the movement plate) only.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep ruby as a jewel — small markers, links, focus rings, the set stone.",
+      "Do use gilt only for engraved mono labels and the one primary action.",
+      "Do separate surfaces with the line hairline and one tonal step, not shadow.",
+      "Do put all machine data (roles, tags, labels, availability, buttons) in DM Mono, uppercase, 0.08em tracked.",
+      "Do center content in a max-w-6xl column with px-6/px-10 gutters and py-20+ section rhythm.",
+      "Do keep motion opt-out: gate decorative animation behind prefers-reduced-motion: no-preference and reveal-on-scroll behind html.js.",
+      "Do ship every visitor-facing string in both EN and FR (binding product constraint)."
+    ],
+    "donts": [
+      "Don't fill a surface with ruby or build a ruby 'wall' — the closing CTA is a graphite plate, not a ruby band.",
+      "Don't add drop shadows for elevation; reserve inset shadows for literal metal.",
+      "Don't introduce neon glows, saturated gradients, or a second accent colour.",
+      "Don't set body or heading text in gilt, or run prose in the mono voice.",
+      "Don't present the placeholder project images, portrait, or bios as real work.",
+      "Don't add a second display typeface or a system font — the pairing is fixed."
+    ]
+  }
+}
