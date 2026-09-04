@@ -11,7 +11,10 @@ const t = useTranslations(lang);
 const locales = Object.keys(languages) as Lang[];
 ---
 
-<nav aria-label={t('lang.switcher')} class="flex items-center gap-3 font-mono text-caption uppercase tracking-[0.08em]">
+<nav
+  aria-label={t('lang.switcher')}
+  class="flex items-center gap-3 font-mono text-caption uppercase tracking-[0.08em]"
+>
   {
     locales.map((code) => {
       const isCurrent = code === lang;
@@ -19,17 +22,10 @@ const locales = Object.keys(languages) as Lang[];
         <a
           href={switchLocalePath(Astro.url, code)}
           aria-current={isCurrent ? 'true' : undefined}
-          class={
-            isCurrent
-              ? 'text-ink'
-              : 'text-muted hover:text-accent'
-          }
+          class={isCurrent ? 'text-ink' : 'text-muted hover:text-accent'}
         >
           {code}
-          <span class="sr-only">
-            {' '}
-            ({languages[code]})
-          </span>
+          <span class="sr-only"> ({languages[code]})</span>
         </a>
       );
     })

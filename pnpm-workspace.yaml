@@ -1,0 +1,6 @@
+allowBuilds:
+  esbuild: true
+# pnpm settings (moved here from package.json's "pnpm" field in pnpm v11).
+# Allow esbuild (an Astro/Vite dependency) to run its install script.
+onlyBuiltDependencies:
+  - esbuild

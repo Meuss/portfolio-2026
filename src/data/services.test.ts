@@ -15,9 +15,15 @@ describe('services data', () => {
     }
   });
   it('lists the secondary capabilities', () => {
-    const ids = capabilities.map(c => c.id);
-    expect(ids).toEqual(expect.arrayContaining([
-      'api-integrations', 'web-apps', 'automation', 'maintenance', 'audits',
-    ]));
+    const ids = capabilities.map((c) => c.id);
+    expect(ids).toEqual(
+      expect.arrayContaining([
+        'api-integrations',
+        'web-apps',
+        'automation',
+        'maintenance',
+        'audits',
+      ]),
+    );
   });
 });

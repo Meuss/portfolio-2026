@@ -82,11 +82,13 @@ public/
 ### Task 1: Project scaffold (Astro + Tailwind v4 + TS + Vitest)
 
 **Files:**
+
 - Create: `package.json`, `astro.config.mjs`, `tsconfig.json`, `vitest.config.ts`
 - Create: `src/styles/global.css`
 - Create: `src/pages/index.astro` (temporary "hello" page, replaced in Task 2)
 
 **Interfaces:**
+
 - Consumes: nothing.
 - Produces: a working Astro dev/build environment; `src/styles/global.css` importable by layouts; a passing Vitest runner other tasks add tests to.
 
@@ -96,6 +98,7 @@ public/
 npm create astro@latest . -- --template minimal --typescript strict --no-install --no-git --skip-houston
 npm install
 ```
+
 If the directory is non-empty, scaffold into a temp dir and move files in, preserving `docs/` and `.git/`.
 
 - [ ] **Step 2: Add Tailwind v4 + Vitest**
@@ -120,7 +123,7 @@ export default defineConfig({
 - [ ] **Step 4: Create `src/styles/global.css` with Tailwind import**
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Design tokens filled in Task 4 */
 @theme {
@@ -154,8 +157,11 @@ export default defineConfig({ test: { environment: 'node', include: ['src/**/*.t
 // src/pages/index.astro
 import '../styles/global.css';
 ---
-<html lang="en"><head><meta charset="utf-8" /><title>Scaffold OK</title></head>
-<body class="bg-white text-black p-8"><h1 class="text-3xl font-bold">Scaffold OK</h1></body></html>
+
+<html lang="en">
+  <head><meta charset="utf-8" /><title>Scaffold OK</title></head>
+  <body class="bg-white text-black p-8"><h1 class="text-3xl font-bold">Scaffold OK</h1></body>
+</html>
 ```
 
 - [ ] **Step 8: Verify build + test runner**
@@ -174,11 +180,13 @@ git add -A && git commit -m "chore: scaffold Astro + Tailwind v4 + Vitest"
 ### Task 2: i18n foundation (routing, string dictionaries, helpers — test-first)
 
 **Files:**
+
 - Create: `src/i18n/ui.ts`, `src/i18n/utils.ts`, `src/i18n/utils.test.ts`
 - Modify: `astro.config.mjs` (add i18n config)
 - Modify: `src/pages/index.astro` → root redirect to `/en/`
 
 **Interfaces:**
+
 - Consumes: nothing.
 - Produces (exact signatures, relied on by every later task):
   - `ui.ts`: `export const languages = { en: 'English', fr: 'Français' } as const;`
@@ -301,12 +309,14 @@ git add -A && git commit -m "feat(i18n): locale routing, string dictionaries, pa
 ### Task 3: Content model — projects collection + services data (test-first schema)
 
 **Files:**
+
 - Create: `src/content/config.ts`
 - Create: `src/content/projects/*.md` (3–4 placeholder projects, EN+FR fields)
 - Create: `src/data/services.ts`, `src/data/services.test.ts`
 - Create: `src/assets/placeholders/project-*.svg` (committed placeholder art)
 
 **Interfaces:**
+
 - Consumes: `Lang` from `src/i18n/ui.ts`.
 - Produces:
   - `projects` collection with schema fields: `title: {en,fr}`, `role: {en,fr}`, `tech: string[]`, `description: {en,fr}`, `image: image()`, `link?: string`, `featured: boolean`, `nda: boolean`, `order: number`.
@@ -333,10 +343,16 @@ describe('services data', () => {
     }
   });
   it('lists the secondary capabilities', () => {
-    const ids = capabilities.map(c => c.id);
-    expect(ids).toEqual(expect.arrayContaining([
-      'api-integrations','web-apps','automation','maintenance','audits',
-    ]));
+    const ids = capabilities.map((c) => c.id);
+    expect(ids).toEqual(
+      expect.arrayContaining([
+        'api-integrations',
+        'web-apps',
+        'automation',
+        'maintenance',
+        'audits',
+      ]),
+    );
   });
 });
 ```
@@ -352,29 +368,74 @@ import type { Lang } from '../i18n/ui';
 export type Service = { id: string; title: Record<Lang, string>; blurb: Record<Lang, string> };
 
 export const headlineServices: Service[] = [
-  { id: 'fullstack', title: { en: 'Full-stack web development', fr: 'Développement web full-stack' },
-    blurb: { en: 'Frontend and backend, end to end.', fr: 'Frontend et backend, de bout en bout.' } },
-  { id: 'frontend-craft', title: { en: 'Frontend craft & polish', fr: 'Excellence frontend' },
-    blurb: { en: 'Pixel-perfect UI, motion, performance.', fr: 'Interfaces soignées, animation, performance.' } },
-  { id: 'ecommerce-crm', title: { en: 'E-commerce & CRM', fr: 'E-commerce & CRM' },
-    blurb: { en: 'Stores, integrations, business systems.', fr: 'Boutiques, intégrations, systèmes métier.' } },
-  { id: 'ai', title: { en: 'AI integration', fr: 'Intégration IA' },
-    blurb: { en: 'Chat, automation, smart features.', fr: 'Chat, automatisation, fonctions intelligentes.' } },
-  { id: 'seo-perf', title: { en: 'SEO & performance', fr: 'SEO & performance' },
-    blurb: { en: 'Get found, load fast.', fr: 'Soyez trouvé, chargez vite.' } },
+  {
+    id: 'fullstack',
+    title: { en: 'Full-stack web development', fr: 'Développement web full-stack' },
+    blurb: { en: 'Frontend and backend, end to end.', fr: 'Frontend et backend, de bout en bout.' },
+  },
+  {
+    id: 'frontend-craft',
+    title: { en: 'Frontend craft & polish', fr: 'Excellence frontend' },
+    blurb: {
+      en: 'Pixel-perfect UI, motion, performance.',
+      fr: 'Interfaces soignées, animation, performance.',
+    },
+  },
+  {
+    id: 'ecommerce-crm',
+    title: { en: 'E-commerce & CRM', fr: 'E-commerce & CRM' },
+    blurb: {
+      en: 'Stores, integrations, business systems.',
+      fr: 'Boutiques, intégrations, systèmes métier.',
+    },
+  },
+  {
+    id: 'ai',
+    title: { en: 'AI integration', fr: 'Intégration IA' },
+    blurb: {
+      en: 'Chat, automation, smart features.',
+      fr: 'Chat, automatisation, fonctions intelligentes.',
+    },
+  },
+  {
+    id: 'seo-perf',
+    title: { en: 'SEO & performance', fr: 'SEO & performance' },
+    blurb: { en: 'Get found, load fast.', fr: 'Soyez trouvé, chargez vite.' },
+  },
 ];
 
 export const capabilities: Service[] = [
-  { id: 'api-integrations', title: { en: 'API & integrations', fr: 'API & intégrations' },
-    blurb: { en: 'Stripe, shipping, third-party services.', fr: 'Stripe, livraison, services tiers.' } },
-  { id: 'web-apps', title: { en: 'Web apps & dashboards', fr: 'Apps web & tableaux de bord' },
-    blurb: { en: 'Internal tools and SaaS-style apps.', fr: 'Outils internes et apps SaaS.' } },
-  { id: 'automation', title: { en: 'Automation', fr: 'Automatisation' },
-    blurb: { en: 'Workflows that save manual work.', fr: 'Workflows qui éliminent le travail manuel.' } },
-  { id: 'maintenance', title: { en: 'Maintenance & support', fr: 'Maintenance & support' },
-    blurb: { en: 'Ongoing care and retainers.', fr: 'Suivi continu et forfaits.' } },
-  { id: 'audits', title: { en: 'Technical audits', fr: 'Audits techniques' },
-    blurb: { en: 'Code, performance, SEO reviews.', fr: 'Revues code, performance, SEO.' } },
+  {
+    id: 'api-integrations',
+    title: { en: 'API & integrations', fr: 'API & intégrations' },
+    blurb: {
+      en: 'Stripe, shipping, third-party services.',
+      fr: 'Stripe, livraison, services tiers.',
+    },
+  },
+  {
+    id: 'web-apps',
+    title: { en: 'Web apps & dashboards', fr: 'Apps web & tableaux de bord' },
+    blurb: { en: 'Internal tools and SaaS-style apps.', fr: 'Outils internes et apps SaaS.' },
+  },
+  {
+    id: 'automation',
+    title: { en: 'Automation', fr: 'Automatisation' },
+    blurb: {
+      en: 'Workflows that save manual work.',
+      fr: 'Workflows qui éliminent le travail manuel.',
+    },
+  },
+  {
+    id: 'maintenance',
+    title: { en: 'Maintenance & support', fr: 'Maintenance & support' },
+    blurb: { en: 'Ongoing care and retainers.', fr: 'Suivi continu et forfaits.' },
+  },
+  {
+    id: 'audits',
+    title: { en: 'Technical audits', fr: 'Audits techniques' },
+    blurb: { en: 'Code, performance, SEO reviews.', fr: 'Revues code, performance, SEO.' },
+  },
 ];
 ```
 
@@ -390,15 +451,18 @@ import { defineCollection, z } from 'astro:content';
 const loc = z.object({ en: z.string(), fr: z.string() });
 const projects = defineCollection({
   type: 'content',
-  schema: ({ image }) => z.object({
-    title: loc, role: loc, description: loc,
-    tech: z.array(z.string()),
-    image: image(),
-    link: z.string().url().optional(),
-    featured: z.boolean().default(false),
-    nda: z.boolean().default(false),
-    order: z.number().default(0),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: loc,
+      role: loc,
+      description: loc,
+      tech: z.array(z.string()),
+      image: image(),
+      link: z.string().url().optional(),
+      featured: z.boolean().default(false),
+      nda: z.boolean().default(false),
+      order: z.number().default(0),
+    }),
 });
 export const collections = { projects };
 ```
@@ -410,16 +474,21 @@ Create simple committed SVG placeholders in `src/assets/placeholders/`. Example 
 ```md
 ---
 # src/content/projects/example-shop.md
-title: { en: "E-commerce platform", fr: "Plateforme e-commerce" }
-role: { en: "Full-stack developer", fr: "Développeur full-stack" }
-description: { en: "A fast, conversion-focused online store.", fr: "Une boutique rapide et orientée conversion." }
-tech: ["Astro", "Stripe", "TypeScript"]
-image: "../../assets/placeholders/project-1.svg"
+title: { en: 'E-commerce platform', fr: 'Plateforme e-commerce' }
+role: { en: 'Full-stack developer', fr: 'Développeur full-stack' }
+description:
+  {
+    en: 'A fast, conversion-focused online store.',
+    fr: 'Une boutique rapide et orientée conversion.',
+  }
+tech: ['Astro', 'Stripe', 'TypeScript']
+image: '../../assets/placeholders/project-1.svg'
 featured: true
 nda: false
 order: 1
 ---
 ```
+
 Include at least one `featured: true` (≥3 total featured for the homepage teaser) and one `nda: true` example with vague framing.
 
 - [ ] **Step 7: Verify content type-checks**
@@ -438,9 +507,11 @@ git add -A && git commit -m "feat(content): projects collection + services data 
 ### Task 4: Design tokens & global styles
 
 **Files:**
+
 - Modify: `src/styles/global.css`
 
 **Interfaces:**
+
 - Consumes: nothing.
 - Produces: Tailwind theme tokens (colors, type scale, fonts, spacing) usable as utility classes across all components; base element styles.
 
@@ -450,11 +521,11 @@ Invoke `frontend-design:frontend-design` to choose a bold, non-templated type pa
 
 ```css
 /* src/styles/global.css */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-display: /* chosen display face */, system-ui, sans-serif;
-  --font-sans: /* chosen body face */, system-ui, sans-serif;
+  --font-display: /* chosen display face */ , system-ui, sans-serif;
+  --font-sans: /* chosen body face */ , system-ui, sans-serif;
   --color-ink: /* near-black */;
   --color-paper: /* near-white */;
   --color-accent: /* signature accent */;
@@ -462,11 +533,22 @@ Invoke `frontend-design:frontend-design` to choose a bold, non-templated type pa
 }
 
 @layer base {
-  html { color-scheme: light dark; }
-  body { @apply bg-[--color-paper] text-[--color-ink] font-sans antialiased; }
-  :where(h1,h2,h3) { font-family: var(--font-display); }
+  html {
+    color-scheme: light dark;
+  }
+  body {
+    @apply bg-[--color-paper] text-[--color-ink] font-sans antialiased;
+  }
+  :where(h1, h2, h3) {
+    font-family: var(--font-display);
+  }
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
   }
 }
 ```
@@ -490,15 +572,18 @@ git add -A && git commit -m "feat(design): Tailwind design tokens and base style
 ### Task 5: Layout shell — BaseLayout, Header, Footer, LanguageSwitcher
 
 **Files:**
+
 - Create: `src/layouts/BaseLayout.astro`, `src/components/Header.astro`, `src/components/Footer.astro`, `src/components/LanguageSwitcher.astro`
 
 **Interfaces:**
+
 - Consumes: `getLangFromUrl`, `useTranslations`, `localizedPath`, `switchLocalePath` (Task 2); `languages` (Task 2); `global.css` (Task 4).
 - Produces: `BaseLayout` with props `{ title: string; description: string; lang: Lang }`, a `<slot />`, correct `<html lang>`, SEO/OG meta, and `hreflang` alternates for en/fr; `Header`/`Footer` used on every page.
 
 - [ ] **Step 1: BaseLayout with head/meta/hreflang**
 
 Requirements (verified in Step 4):
+
 - `<html lang={lang}>`; `<title>` and `<meta name="description">` from props.
 - Open Graph + Twitter card tags.
 - `<link rel="alternate" hreflang="en|fr|x-default">` built with `switchLocalePath(Astro.url, …)`.
@@ -531,10 +616,12 @@ git add -A && git commit -m "feat(layout): BaseLayout, Header, Footer, LanguageS
 ### Task 6: Homepage assembly (static, pre-motion)
 
 **Files:**
+
 - Create: `src/pages/[lang]/index.astro`
 - Create: `src/components/Hero.astro`, `ServiceBlocks.astro`, `CapabilitiesStrip.astro`, `SelectedWork.astro`, `Approach.astro`, `CTA.astro`, `ProjectCard.astro`
 
 **Interfaces:**
+
 - Consumes: `BaseLayout` (Task 5); `headlineServices`, `capabilities` (Task 3); `getCollection('projects')`; i18n helpers.
 - Produces: a fully static homepage at `/en/` and `/fr/`; `ProjectCard` with props `{ project, lang }` reused by Task 8.
 
@@ -553,6 +640,7 @@ const lang = Astro.params.lang as Lang;
 - [ ] **Step 2: Build each section component**
 
 Use `frontend-design:frontend-design` for the visual execution. Each component's contract:
+
 - **Hero** — display-type name + positioning line (i18n keys `hero.name`, `hero.tagline`), primary CTA to contact. Contains a mount point (`id="hero-motion"`) for Task 7; must look finished with no JS.
 - **ServiceBlocks** — renders the 5 `headlineServices` as bold blocks; frontend-craft (index 1) visually emphasized; each has a scroll-reveal hook `data-reveal` (Task 7).
 - **CapabilitiesStrip** — the 5 `capabilities` as a lighter secondary row.
@@ -581,10 +669,12 @@ git add -A && git commit -m "feat(home): static homepage sections and ProjectCar
 ### Task 7: Motion layer (scroll reveal + signature hero motion)
 
 **Files:**
+
 - Create: `src/components/islands/reveal.ts`, `src/components/islands/HeroMotion.ts`
 - Modify: `Hero.astro` and section components to load the islands
 
 **Interfaces:**
+
 - Consumes: elements with `data-reveal` (Task 6); `#hero-motion` mount (Task 6).
 - Produces: progressive-enhancement scripts; no change to server-rendered HTML output structure.
 
@@ -597,12 +687,20 @@ const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
 if (reduce || !('IntersectionObserver' in window)) {
   els.forEach((el) => el.classList.add('is-visible'));
 } else {
-  const io = new IntersectionObserver((entries) => {
-    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
-  }, { threshold: 0.15 });
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries)
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+    },
+    { threshold: 0.15 },
+  );
   els.forEach((el) => io.observe(el));
 }
 ```
+
 Add CSS: `[data-reveal]{opacity:0;transform:translateY(1rem)} [data-reveal].is-visible{opacity:1;transform:none;transition:.6s}` inside a `@media (prefers-reduced-motion: no-preference)` guard so reduced-motion users see content immediately.
 
 - [ ] **Step 2: Load reveal island**
@@ -612,6 +710,7 @@ In the homepage (and later pages), add `<script>import '../../components/islands
 - [ ] **Step 3: Signature hero motion**
 
 Implement `HeroMotion.ts` as the chosen technique (kinetic type or lightweight canvas/shader). Requirements:
+
 - Guard: `if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;` — leave the static hero untouched.
 - Mount into `#hero-motion`; never block first paint (import dynamically / defer); cheap on mobile (cap DPR / pause offscreen via `visibilitychange`).
 - Prototype the technique first with `mattpocock-skills:prototype` if the visual direction is uncertain.
@@ -619,10 +718,11 @@ Implement `HeroMotion.ts` as the chosen technique (kinetic type or lightweight c
 - [ ] **Step 4: Verify motion + fallbacks**
 
 Manual:
+
 - Normal: sections reveal on scroll; hero animates.
 - DevTools → emulate `prefers-reduced-motion: reduce`: content visible immediately, hero static, no animation.
 - Disable JS: page fully readable, hero shows static fallback.
-Run: `npm run build` → succeeds; Lighthouse performance ≥ 90 on the homepage (`npm run preview` + Lighthouse).
+  Run: `npm run build` → succeeds; Lighthouse performance ≥ 90 on the homepage (`npm run preview` + Lighthouse).
 
 - [ ] **Step 5: Commit**
 
@@ -635,9 +735,11 @@ git add -A && git commit -m "feat(motion): scroll reveal + hero signature motion
 ### Task 8: /work page
 
 **Files:**
+
 - Create: `src/pages/[lang]/work.astro`
 
 **Interfaces:**
+
 - Consumes: `ProjectCard` (Task 6); `getCollection('projects')`; `BaseLayout`; i18n.
 - Produces: a bilingual `/…/work` grid page.
 
@@ -665,10 +767,12 @@ git add -A && git commit -m "feat(work): bilingual work grid"
 ### Task 9: /about page
 
 **Files:**
+
 - Create: `src/pages/[lang]/about.astro`
 - Add: placeholder portrait in `src/assets/placeholders/`
 
 **Interfaces:**
+
 - Consumes: `BaseLayout`, i18n, `<Image>`.
 - Produces: bilingual `/…/about`.
 
@@ -691,9 +795,11 @@ git add -A && git commit -m "feat(about): bilingual about page"
 ### Task 10: /contact page + form
 
 **Files:**
+
 - Create: `src/pages/[lang]/contact.astro`
 
 **Interfaces:**
+
 - Consumes: `BaseLayout`, i18n.
 - Produces: bilingual contact page with a working form via **Web3Forms** (static-friendly; no server needed). Access key stored as a build-time public env var `PUBLIC_WEB3FORMS_KEY`.
 
@@ -726,10 +832,12 @@ git add -A && git commit -m "feat(contact): bilingual contact page with Web3Form
 ### Task 11: Netlify config, SEO essentials, README, final polish
 
 **Files:**
+
 - Create: `netlify.toml`, `public/robots.txt`, `public/favicon.svg`, `README.md`
 - Add: `@astrojs/sitemap` integration; `site` in `astro.config.mjs`
 
 **Interfaces:**
+
 - Consumes: whole site.
 - Produces: deployable build + discoverability basics.
 
@@ -738,6 +846,7 @@ git add -A && git commit -m "feat(contact): bilingual contact page with Web3Form
 ```bash
 npx astro add sitemap --yes
 ```
+
 Set `site: 'https://<final-domain>'` in `astro.config.mjs` (use a placeholder domain, noted in README).
 
 - [ ] **Step 2: `netlify.toml`**
@@ -774,6 +883,7 @@ git add -A && git commit -m "chore(deploy): Netlify config, sitemap, SEO, README
 ## Self-Review
 
 **Spec coverage:**
+
 - Goal (credibility + conversion + impressive) → Tasks 6, 7 (homepage + motion), 8 (work), 10 (contact/CTA). ✔
 - Astro SSG + Tailwind v4 + TS → Tasks 1, 4. ✔
 - Bilingual EN/FR → Task 2 + every page task. ✔

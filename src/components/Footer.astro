@@ -28,19 +28,31 @@ const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
           </a>
         </li>
         <li>
-          <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent">
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-ink hover:text-accent"
+          >
             {t('footer.github')}
           </a>
         </li>
         <li>
-          <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent">
+          <a
+            href={linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-ink hover:text-accent"
+          >
             {t('footer.linkedin')}
           </a>
         </li>
       </ul>
     </div>
 
-    <div class="flex flex-col-reverse items-start gap-4 border-t border-line pt-6 text-small text-muted md:flex-row md:items-center md:justify-between">
+    <div
+      class="flex flex-col-reverse items-start gap-4 border-t border-line pt-6 text-small text-muted md:flex-row md:items-center md:justify-between"
+    >
       <p>© {year} Thomas Miller. {t('footer.rights')}</p>
       <LanguageSwitcher lang={lang} />
     </div>

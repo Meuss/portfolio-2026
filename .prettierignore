@@ -1,0 +1,17 @@
+# Build output & tooling
+dist/
+.astro/
+.netlify/
+node_modules/
+
+# Lockfiles / generated
+pnpm-lock.yaml
+package-lock.json
+
+# Agent / workflow artifacts (not project source)
+.superpowers/
+.impeccable/
+.claude/
+
+# Binary-ish assets Prettier shouldn't touch
+*.svg

@@ -11,17 +11,26 @@ export const headlineServices: Service[] = [
   {
     id: 'frontend-craft',
     title: { en: 'Frontend craft & polish', fr: 'Excellence frontend' },
-    blurb: { en: 'Pixel-perfect UI, motion, performance.', fr: 'Interfaces soignées, animation, performance.' },
+    blurb: {
+      en: 'Pixel-perfect UI, motion, performance.',
+      fr: 'Interfaces soignées, animation, performance.',
+    },
   },
   {
     id: 'ecommerce-crm',
     title: { en: 'E-commerce & CRM', fr: 'E-commerce & CRM' },
-    blurb: { en: 'Stores, integrations, business systems.', fr: 'Boutiques, intégrations, systèmes métier.' },
+    blurb: {
+      en: 'Stores, integrations, business systems.',
+      fr: 'Boutiques, intégrations, systèmes métier.',
+    },
   },
   {
     id: 'ai',
     title: { en: 'AI integration', fr: 'Intégration IA' },
-    blurb: { en: 'Chat, automation, smart features.', fr: 'Chat, automatisation, fonctions intelligentes.' },
+    blurb: {
+      en: 'Chat, automation, smart features.',
+      fr: 'Chat, automatisation, fonctions intelligentes.',
+    },
   },
   {
     id: 'seo-perf',
@@ -34,7 +43,10 @@ export const capabilities: Service[] = [
   {
     id: 'api-integrations',
     title: { en: 'API & integrations', fr: 'API & intégrations' },
-    blurb: { en: 'Stripe, shipping, third-party services.', fr: 'Stripe, livraison, services tiers.' },
+    blurb: {
+      en: 'Stripe, shipping, third-party services.',
+      fr: 'Stripe, livraison, services tiers.',
+    },
   },
   {
     id: 'web-apps',
@@ -44,7 +56,10 @@ export const capabilities: Service[] = [
   {
     id: 'automation',
     title: { en: 'Automation', fr: 'Automatisation' },
-    blurb: { en: 'Workflows that save manual work.', fr: 'Workflows qui éliminent le travail manuel.' },
+    blurb: {
+      en: 'Workflows that save manual work.',
+      fr: 'Workflows qui éliminent le travail manuel.',
+    },
   },
   {
     id: 'maintenance',

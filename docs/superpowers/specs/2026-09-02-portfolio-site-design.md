@@ -10,7 +10,7 @@ Replace the current minimal personal site with a bold, high-craft portfolio
 whose job is to **(1) prove credibility with real work** and **(2) convert
 prospects into freelance leads**. The homepage is the centerpiece and carries
 most of the persuasion. The site must itself be a demonstration of Thomas's
-front-end skill — it has to *look* impressive.
+front-end skill — it has to _look_ impressive.
 
 ## Audience & positioning
 

@@ -81,13 +81,19 @@ const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
             class="flex flex-col gap-6 rounded-lg border border-line bg-surface p-6 md:p-8"
           >
             <input type="hidden" name="access_key" value={web3formsKey} />
-            <input type="hidden" name="subject" value="New message from the thomasmiller.ch contact form" />
+            <input
+              type="hidden"
+              name="subject"
+              value="New message from the thomasmiller.ch contact form"
+            />
             <input type="hidden" name="from_name" value="thomasmiller.ch contact form" />
 
-            {/* Honeypot: left visible in the DOM for simple bots to fill, but
+            {
+              /* Honeypot: left visible in the DOM for simple bots to fill, but
                 positioned off-screen and removed from the a11y tree / tab
                 order so real (and assistive-tech) visitors never encounter
-                it. Web3Forms rejects submissions where this is filled in. */}
+                it. Web3Forms rejects submissions where this is filled in. */
+            }
             <div class="absolute left-[-9999px] top-auto" aria-hidden="true">
               <label for="botcheck">{t('contactForm.honeypotLabel')}</label>
               <input type="text" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off" />
@@ -144,8 +150,10 @@ const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
               <span data-submit-label>{t('contactForm.submit')}</span>
             </button>
 
-            {/* Populated by the enhancement script below; empty and inert
-                without JS, so it never shows a blank box on the no-JS path. */}
+            {
+              /* Populated by the enhancement script below; empty and inert
+                without JS, so it never shows a blank box on the no-JS path. */
+            }
             <p
               id="contact-form-status"
               role="status"
@@ -167,7 +175,8 @@ const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
     import '../../components/islands/reveal.ts';
   </script>
 
-  {/*
+  {
+    /*
     Progressive enhancement only: without this script (no JS, or it fails to
     run) the form is a plain HTML form that POSTs directly to Web3Forms and
     Web3Forms's own hosted response page confirms the submission — the site
@@ -176,7 +185,8 @@ const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
     With JS, submit is intercepted so the same POST happens via fetch and the
     result is reported inline through the aria-live status paragraph above,
     with no full-page reload. No alert()/confirm() dialogs are used.
-  */}
+  */
+  }
   <script>
     const form = document.getElementById('contact-form');
     const status = document.getElementById('contact-form-status');

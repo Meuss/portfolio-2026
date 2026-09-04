@@ -5,33 +5,40 @@ site built with [Astro](https://astro.build) and [Tailwind CSS v4](https://tailw
 
 ## Requirements
 
-- Node.js `>=22.12.0` (see `engines` in `package.json`)
-- npm
+- Node.js `>=26.0.0` (see `engines` in `package.json`; `.nvmrc` pins Node 26 — run `nvm use`)
+- [pnpm](https://pnpm.io) — the package manager for this repo. The exact version is pinned
+  via `packageManager` in `package.json`; the easiest way to get it is Corepack (ships with
+  Node): `corepack enable`, and pnpm auto-resolves to the pinned version.
 
 ## Getting started
 
 ```bash
-npm install
+pnpm install
 cp .env.example .env   # then fill in PUBLIC_WEB3FORMS_KEY (see below)
-npm run dev
+pnpm dev
 ```
 
 ## Commands
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Start the local dev server with hot reload. |
-| `npm run build` | Type-check-free production build to `dist/` (static output, both `/en/` and `/fr/` trees, sitemap included). |
-| `npm run preview` | Serve the built `dist/` locally to sanity-check the production build. |
-| `npm run check` | Run `astro check` (TypeScript + template diagnostics). |
-| `npm run test` | Run the unit test suite (Vitest). |
+| Command             | Purpose                                                                                                      |
+| ------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `pnpm dev`          | Start the local dev server with hot reload.                                                                  |
+| `pnpm build`        | Type-check-free production build to `dist/` (static output, both `/en/` and `/fr/` trees, sitemap included). |
+| `pnpm preview`      | Serve the built `dist/` locally to sanity-check the production build.                                        |
+| `pnpm check`        | Run `astro check` (TypeScript + template diagnostics).                                                       |
+| `pnpm test`         | Run the unit test suite (Vitest).                                                                            |
+| `pnpm format`       | Format the codebase with Prettier (writes changes).                                                          |
+| `pnpm format:check` | Check formatting without writing (CI-friendly).                                                              |
 
-Before pushing or opening a PR, run `npm run check && npm run test && npm run build`.
+Before pushing or opening a PR, run `pnpm check && pnpm test && pnpm build`.
+
+> pnpm settings (e.g. `onlyBuiltDependencies`) live in `pnpm-workspace.yaml`, not
+> `package.json` — pnpm v11 moved them there.
 
 ## Environment variables
 
-| Variable | Required | Purpose |
-| --- | --- | --- |
+| Variable               | Required                                             | Purpose                                                                                                                                                                                                                                                                                                                              |
+| ---------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `PUBLIC_WEB3FORMS_KEY` | For the contact form to actually deliver submissions | Public access key for [Web3Forms](https://web3forms.com), used by `src/pages/[lang]/contact.astro`. It's a build-time `PUBLIC_` var so it ends up in the client bundle — that's expected for Web3Forms' model. The site builds and renders fine with this unset; the form UI just won't deliver submissions until a real key is set. |
 
 Copy `.env.example` to `.env` and fill in real values for local development. `.env` is
@@ -49,22 +56,21 @@ directory with frontmatter like:
 ```yaml
 ---
 title:
-  en: "Project title"
-  fr: "Titre du projet"
+  en: 'Project title'
+  fr: 'Titre du projet'
 role:
-  en: "Your role"
-  fr: "Votre rôle"
+  en: 'Your role'
+  fr: 'Votre rôle'
 description:
-  en: "Short description."
-  fr: "Description courte."
-tech: ["Astro", "Node.js"]
-image: "../../assets/placeholders/project-x.svg"
-link: "https://example.com" # optional
-featured: false             # true = shown on the homepage "selected work" strip
-nda: true                   # true = renders NDA framing instead of client details
-order: 4                    # controls display order (lower = earlier)
+  en: 'Short description.'
+  fr: 'Description courte.'
+tech: ['Astro', 'Node.js']
+image: '../../assets/placeholders/project-x.svg'
+link: 'https://example.com' # optional
+featured: false # true = shown on the homepage "selected work" strip
+nda: true # true = renders NDA framing instead of client details
+order: 4 # controls display order (lower = earlier)
 ---
-
 Optional body content (currently unused by the templates but validated as Markdown).
 ```
 
@@ -81,7 +87,7 @@ No per-project detail pages exist by design (see the project brief's non-goals).
 
 Both files have accompanying tests (`src/i18n/utils.test.ts`, `src/data/services.test.ts`)
 that assert on structural invariants (e.g. locale keys present, service ordering) — run
-`npm run test` after editing.
+`pnpm test` after editing.
 
 ## SEO
 
@@ -101,10 +107,10 @@ that assert on structural invariants (e.g. locale keys present, service ordering
 
 ```toml
 [build]
-  command = "npm run build"
+  command = "pnpm build"
   publish = "dist"
 [build.environment]
-  NODE_VERSION = "22"
+  NODE_VERSION = "26"
 ```
 
 To deploy:
@@ -116,13 +122,15 @@ To deploy:
    contact form works in production.
 4. Point the site's custom domain at `thomasmiller.ch` (or update `site` in
    `astro.config.mjs` and `Sitemap:` in `public/robots.txt` if the final domain differs).
-5. Trigger a deploy — Netlify runs `npm run build` and publishes `dist/`.
+5. Trigger a deploy — Netlify runs `pnpm build` and publishes `dist/`.
 
 ## Tech stack
 
 - [Astro](https://astro.build) (static output, `output: 'static'`)
 - [Tailwind CSS v4](https://tailwindcss.com) via `@tailwindcss/vite`
 - TypeScript
+- [pnpm](https://pnpm.io) as the package manager (version pinned via `packageManager`)
+- [Prettier](https://prettier.io) (with `prettier-plugin-astro`) for formatting
 - [Vitest](https://vitest.dev) for unit tests
 - Astro's built-in `i18n` routing (`/en/`, `/fr/`, `en` as default locale, explicitly
   prefixed) for bilingual content

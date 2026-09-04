@@ -92,8 +92,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     'approach.point2.text':
       'Native-quality work in English and French, built for Switzerland’s multilingual market.',
     'approach.point3.label': 'Performance',
-    'approach.point3.text':
-      'Fast by default. Accessible by default. Measured, not assumed.',
+    'approach.point3.text': 'Fast by default. Accessible by default. Measured, not assumed.',
     'approach.point4.label': 'Direct',
     'approach.point4.text':
       'You work with the person writing the code — clear communication, no layers in between.',
@@ -127,7 +126,8 @@ export const ui: Record<Lang, Record<string, string>> = {
     'contactForm.honeypotLabel': 'Leave this field empty',
     'contactForm.submit': 'Send message',
     'contactForm.sending': 'Sending…',
-    'contactForm.successMessage': 'Thanks — your message is on its way. I’ll reply within two business days.',
+    'contactForm.successMessage':
+      'Thanks — your message is on its way. I’ll reply within two business days.',
     'contactForm.errorMessage': 'Something went wrong. Please try again, or email me directly.',
   },
   fr: {
@@ -219,8 +219,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     'approach.point2.text':
       'Un travail de qualité native en anglais et en français, pensé pour le marché suisse multilingue.',
     'approach.point3.label': 'Performance',
-    'approach.point3.text':
-      'Rapide par défaut. Accessible par défaut. Mesuré, jamais supposé.',
+    'approach.point3.text': 'Rapide par défaut. Accessible par défaut. Mesuré, jamais supposé.',
     'approach.point4.label': 'Direct',
     'approach.point4.text':
       'Vous échangez avec la personne qui écrit le code — communication claire, sans intermédiaires.',
@@ -254,7 +253,8 @@ export const ui: Record<Lang, Record<string, string>> = {
     'contactForm.honeypotLabel': 'Laissez ce champ vide',
     'contactForm.submit': 'Envoyer le message',
     'contactForm.sending': 'Envoi en cours…',
-    'contactForm.successMessage': 'Merci — votre message est en route. Je réponds sous deux jours ouvrés.',
+    'contactForm.successMessage':
+      'Merci — votre message est en route. Je réponds sous deux jours ouvrés.',
     'contactForm.errorMessage': 'Une erreur s’est produite. Réessayez, ou écrivez-moi directement.',
   },
 };

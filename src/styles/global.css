@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* ---------------------------------------------------------------------------
    Self-hosted fonts (Fontsource → bundled at build, no runtime CDN)
@@ -6,11 +6,11 @@
    - Body    : IBM Plex Sans (variable: wght) — calm, technical, legible
    - Utility : IBM Plex Mono — code/data voice for eyebrows, labels, tech tags
 --------------------------------------------------------------------------- */
-@import "@fontsource-variable/bricolage-grotesque/index.css";
-@import "@fontsource-variable/ibm-plex-sans/index.css";
-@import "@fontsource/ibm-plex-mono/400.css";
-@import "@fontsource/ibm-plex-mono/500.css";
-@import "@fontsource/ibm-plex-mono/600.css";
+@import '@fontsource-variable/bricolage-grotesque/index.css';
+@import '@fontsource-variable/ibm-plex-sans/index.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
 
 /* ---------------------------------------------------------------------------
    Design tokens — Tailwind v4 CSS-first theme.
@@ -21,12 +21,12 @@
 --------------------------------------------------------------------------- */
 @theme {
   /* -- Type families ------------------------------------------------------- */
-  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque",
-    ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "IBM Plex Sans Variable", "IBM Plex Sans", ui-sans-serif,
-    system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
-    Consolas, monospace;
+  --font-display:
+    'Bricolage Grotesque Variable', 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-sans:
+    'IBM Plex Sans Variable', 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
   /* -- Colour: porcelain + ink + electric ultramarine ---------------------- */
   --color-paper: #f4f3ee; /* porcelain off-white, page ground */
@@ -97,7 +97,7 @@
     line-height: 1.6;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
-    font-feature-settings: "kern", "liga", "calt";
+    font-feature-settings: 'kern', 'liga', 'calt';
   }
 
   /* Headings speak in the display voice */
@@ -169,13 +169,13 @@
     }
 
     /* Optional tasteful stagger within a group */
-    html.js [data-reveal][data-reveal-delay="1"] {
+    html.js [data-reveal][data-reveal-delay='1'] {
       transition-delay: 0.08s;
     }
-    html.js [data-reveal][data-reveal-delay="2"] {
+    html.js [data-reveal][data-reveal-delay='2'] {
       transition-delay: 0.16s;
     }
-    html.js [data-reveal][data-reveal-delay="3"] {
+    html.js [data-reveal][data-reveal-delay='3'] {
       transition-delay: 0.24s;
     }
   }
