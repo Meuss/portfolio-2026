@@ -20,11 +20,7 @@ const points = [1, 2, 3, 4].map((n) => ({
     <div class="grid gap-12 md:grid-cols-2 md:gap-20">
       <!-- Opinionated positioning statement -->
       <header class="md:sticky md:top-28 md:self-start">
-        <p class="flex items-center gap-3 font-mono text-caption uppercase text-muted">
-          <span aria-hidden="true" class="inline-block h-2 w-2 rounded-sm bg-accent"></span>
-          {t('approach.eyebrow')}
-        </p>
-        <h2 class="mt-5 max-w-md font-display text-headline text-ink">{t('approach.heading')}</h2>
+        <h2 class="max-w-md font-display text-headline text-ink">{t('approach.heading')}</h2>
       </header>
 
       <!-- Hairline-divided principles -->
@@ -36,7 +32,7 @@ const points = [1, 2, 3, 4].map((n) => ({
               data-reveal-delay={String((i % 3) + 1)}
               class="flex flex-col gap-2 border-t border-line py-6 first:border-t-0 first:pt-0 sm:flex-row sm:gap-8"
             >
-              <dt class="font-mono text-caption uppercase text-accent sm:w-32 sm:shrink-0 sm:pt-1">
+              <dt class="font-mono text-caption uppercase text-gilt sm:w-32 sm:shrink-0 sm:pt-1">
                 {point.label}
               </dt>
               <dd class="text-lead text-ink">{point.text}</dd>

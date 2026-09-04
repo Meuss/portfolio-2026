@@ -20,11 +20,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     <div class="mx-auto max-w-6xl px-6 md:px-10">
       <!-- Page intro -->
       <header class="max-w-2xl" data-reveal>
-        <p class="flex items-center gap-3 font-mono text-caption uppercase text-muted">
-          <span aria-hidden="true" class="inline-block h-2 w-2 rounded-sm bg-accent"></span>
-          {t('workPage.eyebrow')}
-        </p>
-        <h1 class="mt-5 font-display text-headline text-ink">{t('workPage.heading')}</h1>
+        <h1 class="font-display text-headline text-ink">{t('workPage.heading')}</h1>
         <p class="mt-4 text-lead text-muted">{t('workPage.intro')}</p>
       </header>
 

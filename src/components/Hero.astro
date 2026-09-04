@@ -13,25 +13,34 @@ const contactHref = localizedPath(lang, '/contact');
 const workHref = localizedPath(lang, '/work');
 ---
 
-<section class="relative overflow-hidden border-b border-line bg-paper">
-  {/* Motion mount point — populated in Task 7 (progressive enhancement only). */}
-  <div id="hero-motion" aria-hidden="true" class="pointer-events-none absolute inset-0 z-0"></div>
+<section class="hero relative overflow-hidden border-b border-line bg-paper">
+  {/* Signature movement plate — decorative, progressive-enhancement rotation. */}
+  <div aria-hidden="true" class="hero-plate-wrap">
+    <div class="hero-plate">
+      <span class="screw" style="--x: 16%; --y: 20%"></span>
+      <span class="screw" style="--x: 82%; --y: 30%"></span>
+      <span class="screw" style="--x: 74%; --y: 80%"></span>
+      <span class="screw" style="--x: 24%; --y: 78%"></span>
+    </div>
+  </div>
+  {/* Legibility veil: graphite fading from the text side toward the plate. */}
+  <div aria-hidden="true" class="hero-veil"></div>
 
   <div class="relative z-10 mx-auto max-w-6xl px-6 py-24 md:px-10 md:py-32 lg:py-40">
-    <!-- Eyebrow -->
-    <p class="flex items-center gap-3 font-mono text-caption uppercase text-muted">
-      <span aria-hidden="true" class="inline-block h-2 w-2 rounded-sm bg-accent"></span>
+    <!-- Calibre nomenclature — instrument data, engraved in gilt -->
+    <p class="flex items-center gap-3 font-mono text-caption tracking-wide text-gilt">
+      <span aria-hidden="true" class="jewel"></span>
       {t('hero.eyebrow')}
     </p>
 
-    <!-- Signature: oversized display name -->
-    <h1 class="mt-8 font-display text-display text-ink">
-      <span class="block">{t('hero.name')}</span>
-    </h1>
-    <!-- Accent baseline rule (measurement device) -->
+    <!-- Signature: the name -->
+    <h1 class="hero-name mt-7 font-display text-ink">{t('hero.name')}</h1>
+
+    <!-- Regulator rule -->
     <div aria-hidden="true" class="mt-6 flex items-center gap-4">
       <span class="h-px w-16 bg-accent md:w-24"></span>
       <span class="h-px flex-1 bg-line"></span>
+      <span class="h-1.5 w-1.5 rotate-45 bg-gilt"></span>
     </div>
 
     <!-- Positioning line -->
@@ -43,14 +52,17 @@ const workHref = localizedPath(lang, '/work');
     <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
       <a
         href={contactHref}
-        class="inline-flex items-center justify-center gap-2 rounded-sm bg-accent px-7 py-3.5 font-mono text-caption uppercase text-accent-ink no-underline transition-transform duration-200 hover:-translate-y-0.5 hover:text-accent-ink"
+        class="group inline-flex items-center justify-center gap-2.5 rounded-sm bg-gilt px-7 py-3.5 font-mono text-small font-medium uppercase tracking-wide text-[#16181b] no-underline transition-transform duration-200 hover:-translate-y-0.5"
       >
         {t('hero.cta')}
-        <span aria-hidden="true">→</span>
+        <span
+          aria-hidden="true"
+          class="transition-transform duration-200 group-hover:translate-x-0.5">→</span
+        >
       </a>
       <a
         href={workHref}
-        class="inline-flex items-center justify-center gap-2 rounded-sm border border-line px-7 py-3.5 font-mono text-caption uppercase text-ink no-underline transition-colors duration-200 hover:border-accent hover:text-accent"
+        class="inline-flex items-center justify-center gap-2 rounded-sm border border-line px-7 py-3.5 font-mono text-small uppercase tracking-wide text-ink no-underline transition-colors duration-200 hover:border-gilt hover:text-gilt"
       >
         {t('hero.ctaSecondary')}
       </a>
@@ -58,10 +70,10 @@ const workHref = localizedPath(lang, '/work');
 
     <!-- Credibility meta -->
     <ul
-      class="mt-16 flex flex-col gap-4 border-t border-line pt-8 font-mono text-caption uppercase text-muted sm:flex-row sm:gap-12"
+      class="mt-16 flex flex-col gap-4 border-t border-line pt-8 font-mono text-caption tracking-wide text-muted sm:flex-row sm:gap-12"
     >
-      <li class="flex items-center gap-2.5">
-        <span aria-hidden="true" class="inline-block h-2 w-2 rounded-full bg-accent"></span>
+      <li class="flex items-center gap-2.5 text-ink">
+        <span aria-hidden="true" class="jewel jewel--pulse"></span>
         {t('hero.availability')}
       </li>
       <li>{t('hero.based')}</li>
@@ -69,16 +81,140 @@ const workHref = localizedPath(lang, '/work');
   </div>
 </section>
 
-{/* Signature hero motion — progressive enhancement, loaded after first paint. */}
-<script>
-  // Skip entirely for reduced-motion users; leave the static hero untouched.
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const start = () =>
-      import('./islands/HeroMotion').then((m) => m.initHeroMotion()).catch(() => {});
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(start, { timeout: 1500 });
-    } else {
-      setTimeout(start, 200);
+<style>
+  .hero-name {
+    font-size: clamp(3rem, 1.4rem + 6.4vw, 6rem);
+    font-weight: 700;
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+  }
+
+  /* --- Movement plate ---------------------------------------------------- */
+  .hero-plate-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .hero-plate {
+    position: absolute;
+    top: 50%;
+    right: -14%;
+    width: min(46rem, 78vw);
+    aspect-ratio: 1;
+    translate: 0 -50%;
+    border-radius: 50%;
+    background:
+      repeating-conic-gradient(
+        from 0deg,
+        rgba(255, 255, 255, 0.05) 0deg 0.6deg,
+        rgba(0, 0, 0, 0.14) 0.6deg 1.2deg
+      ),
+      radial-gradient(circle at 42% 36%, #43464c 0%, #2c2f34 46%, #202226 72%, #191b1e 100%);
+    box-shadow:
+      inset 0 0 90px rgba(0, 0, 0, 0.65),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    opacity: 0.9;
+  }
+  /* Guilloché inner ring */
+  .hero-plate::before {
+    content: '';
+    position: absolute;
+    inset: 16%;
+    border-radius: 50%;
+    background: repeating-radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.045) 0 3px,
+      rgba(0, 0, 0, 0.14) 3px 6px
+    );
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 0 0 1px rgba(0, 0, 0, 0.3);
+  }
+  /* Jewelled center — a set ruby: specular highlight + bezel, not a neon halo */
+  .hero-plate::after {
+    content: '';
+    position: absolute;
+    left: 42%;
+    top: 36%;
+    width: 3.4%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #f0768a, #dd4753 55%, #8e2b3b 100%);
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.45),
+      0 2px 5px rgba(0, 0, 0, 0.6),
+      0 0 0 4px rgba(20, 22, 25, 0.85);
+  }
+  .screw {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: 2.6%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.4)),
+      radial-gradient(circle at 40% 35%, #6b7ea8, #3f5c96 70%, #26364f);
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.5),
+      0 1px 2px rgba(0, 0, 0, 0.6);
+  }
+  /* Slotted screw head */
+  .screw::after {
+    content: '';
+    position: absolute;
+    inset: 32% 12%;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 1px;
+  }
+
+  .hero-veil {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      100deg,
+      var(--color-paper) 0%,
+      var(--color-paper) 34%,
+      color-mix(in oklab, var(--color-paper) 55%, transparent) 60%,
+      transparent 82%
+    );
+  }
+
+  /* Small ruby jewel markers — set stones with a specular highlight */
+  .jewel {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #f0768a, #dd4753 60%, #8e2b3b);
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.5),
+      0 1px 2px rgba(0, 0, 0, 0.55);
+    flex: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-plate {
+      animation: movement-rotate 120s linear infinite;
+    }
+    /* The "available" stone breathes — a gentle scale, no glow */
+    .jewel--pulse {
+      animation: jewel-pulse 2.8s ease-in-out infinite;
+    }
+    @keyframes jewel-pulse {
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.85;
+      }
+      50% {
+        transform: scale(1.22);
+        opacity: 1;
+      }
     }
   }
-</script>
+</style>

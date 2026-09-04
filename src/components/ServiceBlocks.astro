@@ -20,23 +20,19 @@ const rest = headlineServices.filter((_, i) => i !== 1);
   <div class="mx-auto max-w-6xl px-6 md:px-10">
     <!-- Section header -->
     <header class="max-w-2xl">
-      <p class="flex items-center gap-3 font-mono text-caption uppercase text-muted">
-        <span aria-hidden="true" class="inline-block h-2 w-2 rounded-sm bg-accent"></span>
-        {t('services.eyebrow')}
-      </p>
-      <h2 class="mt-5 font-display text-headline text-ink">{t('services.heading')}</h2>
+      <h2 class="font-display text-headline text-ink">{t('services.heading')}</h2>
       <p class="mt-4 text-lead text-muted">{t('services.intro')}</p>
     </header>
 
     <div class="mt-12 grid gap-4 md:mt-16">
-      <!-- Feature block: frontend craft -->
+      <!-- Feature block: frontend craft — the "main plate" -->
       <article
         data-reveal
-        class="group rounded-md border-l-4 border-accent bg-accent-soft p-8 md:p-12"
+        class="group relative overflow-hidden rounded-md border border-line bg-surface p-8 md:p-12"
       >
-        <p class="font-mono text-caption uppercase text-accent">{t('services.featuredLabel')}</p>
-        <h3 class="mt-4 max-w-xl font-display text-title text-ink">{feature.title[lang]}</h3>
-        <p class="mt-3 max-w-xl text-lead text-ink/80">{feature.blurb[lang]}</p>
+        <span aria-hidden="true" class="absolute inset-x-0 top-0 h-px bg-gilt/70"></span>
+        <h3 class="max-w-xl font-display text-title text-ink">{feature.title[lang]}</h3>
+        <p class="mt-3 max-w-xl text-lead text-muted">{feature.blurb[lang]}</p>
       </article>
 
       <!-- Supporting blocks -->
@@ -46,7 +42,7 @@ const rest = headlineServices.filter((_, i) => i !== 1);
             <article
               data-reveal
               data-reveal-delay={String((i % 3) + 1)}
-              class="group rounded-md border border-line bg-surface p-8 transition-colors duration-200 hover:border-accent"
+              class="group rounded-md border border-line bg-surface p-8 transition-colors duration-200 hover:border-gilt"
             >
               <h3 class="font-display text-title text-ink">{service.title[lang]}</h3>
               <p class="mt-3 text-body text-muted">{service.blurb[lang]}</p>

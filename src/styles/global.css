@@ -2,45 +2,45 @@
 
 /* ---------------------------------------------------------------------------
    Self-hosted fonts (Fontsource → bundled at build, no runtime CDN)
-   - Display : Bricolage Grotesque (variable: opsz + wght) — expressive grotesque
-   - Body    : IBM Plex Sans (variable: wght) — calm, technical, legible
-   - Utility : IBM Plex Mono — code/data voice for eyebrows, labels, tech tags
+   - Display / body : Schibsted Grotesk (variable wght) — precise, modern grotesque
+   - Data / labels  : DM Mono — calibre data, engraved labels, tech tags
 --------------------------------------------------------------------------- */
-@import '@fontsource-variable/bricolage-grotesque/index.css';
-@import '@fontsource-variable/ibm-plex-sans/index.css';
-@import '@fontsource/ibm-plex-mono/400.css';
-@import '@fontsource/ibm-plex-mono/500.css';
-@import '@fontsource/ibm-plex-mono/600.css';
+@import '@fontsource-variable/schibsted-grotesk/index.css';
+@import '@fontsource/dm-mono/400.css';
+@import '@fontsource/dm-mono/500.css';
 
 /* ---------------------------------------------------------------------------
    Design tokens — Tailwind v4 CSS-first theme.
-   Direction: "Swiss lab" — porcelain ground, near-black ink, one electric
-   ultramarine as the single bold colour. Sharp grid, expressive display type.
-   Every token here becomes a Tailwind utility (bg-paper, text-ink, text-display,
-   font-display, font-mono, rounded-md, …) consumed by later tasks.
+   Direction: "The Movement" — a Swiss watch movement seen from the back.
+   Graphite ground, brushed metal and blued steel, one ruby jewel as the single
+   bold colour, gilt for engraved labels. Every token becomes a Tailwind utility
+   (bg-paper, text-ink, text-gilt, font-display, font-mono, …).
 --------------------------------------------------------------------------- */
 @theme {
   /* -- Type families ------------------------------------------------------- */
   --font-display:
-    'Bricolage Grotesque Variable', 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+    'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
   --font-sans:
-    'IBM Plex Sans Variable', 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
-    sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
-  /* -- Colour: porcelain + ink + electric ultramarine ---------------------- */
-  --color-paper: #f4f3ee; /* porcelain off-white, page ground */
-  --color-ink: #15130e; /* rich near-black, primary text          */
-  --color-muted: #57554d; /* secondary text on paper (AA ~5.5:1)    */
-  --color-line: #d8d5cb; /* hairline rules / borders               */
-  --color-surface: #eae8e0; /* subtly raised panels / cards           */
+  /* -- Colour: graphite + warm metal + ruby jewel + gilt ------------------- */
+  --color-paper: #16181b; /* graphite page ground                     */
+  --color-ink: #ece9e1; /* warm off-white primary text (~13:1)      */
+  --color-muted: #9d9b91; /* secondary text (~6:1 on ground)          */
+  --color-line: #32343b; /* hairline rules / borders                 */
+  --color-surface: #202226; /* raised plate / panel                     */
 
-  --color-accent: #2a28f0; /* the one bold colour (AA ~7:1 on paper)  */
-  --color-accent-soft: #e5e4fc; /* tinted accent wash for backgrounds  */
-  --color-accent-ink: #f7f7ff; /* text/foreground when set on accent  */
+  --color-accent: #dd4753; /* the one bold colour — ruby jewel         */
+  --color-accent-soft: #2c1e21; /* deep ruby wash for panels           */
+  --color-accent-ink: #fff5f4; /* foreground on ruby                   */
+
+  --color-gilt: #c6a15b; /* engraved brass label / secondary accent  */
+  --color-blued: #4f6db0; /* blued-steel screw detail                 */
+  --color-plate: #2b2e33; /* brushed movement-plate tone              */
 
   /* -- Fluid type scale (clamp: mobile → desktop) -------------------------- */
-  /* Utility voice — mono eyebrows, labels, tags */
+  /* Utility voice — mono labels, calibre data, tags */
   --text-caption: 0.78rem;
   --text-caption--line-height: 1.35;
   --text-caption--letter-spacing: 0.08em;
@@ -54,20 +54,20 @@
   --text-lead: clamp(1.15rem, 1.02rem + 0.62vw, 1.5rem);
   --text-lead--line-height: 1.5;
 
-  /* Display voice — set with the display family in components */
+  /* Display voice — Schibsted Grotesk, confident weights */
   --text-title: clamp(1.5rem, 1.15rem + 1.6vw, 2.25rem);
   --text-title--line-height: 1.12;
-  --text-title--letter-spacing: -0.01em;
+  --text-title--letter-spacing: -0.02em;
   --text-title--font-weight: 600;
 
   --text-headline: clamp(2.25rem, 1.3rem + 4.2vw, 4.5rem);
   --text-headline--line-height: 1.02;
-  --text-headline--letter-spacing: -0.02em;
-  --text-headline--font-weight: 600;
+  --text-headline--letter-spacing: -0.03em;
+  --text-headline--font-weight: 700;
 
   --text-display: clamp(3rem, 0.6rem + 10.5vw, 9rem);
   --text-display--line-height: 0.9;
-  --text-display--letter-spacing: -0.035em;
+  --text-display--letter-spacing: -0.04em;
   --text-display--font-weight: 700;
 
   /* -- Radii: sharp by default, small deliberate softening ----------------- */
@@ -81,7 +81,7 @@
 --------------------------------------------------------------------------- */
 @layer base {
   :root {
-    color-scheme: light; /* committed light-first look (dark = out of scope) */
+    color-scheme: dark; /* committed dark world — themes scrollbars & form UI */
   }
 
   html {
@@ -106,7 +106,6 @@
     font-weight: 600;
     line-height: 1.04;
     letter-spacing: -0.02em;
-    font-optical-sizing: auto; /* Bricolage opsz axis */
     text-wrap: balance;
   }
 
@@ -136,8 +135,8 @@
 
   /* Signature detail + accessibility floor */
   ::selection {
-    background: var(--color-accent);
-    color: var(--color-accent-ink);
+    background: var(--color-gilt);
+    color: #16181b;
   }
   :focus-visible {
     outline: 2px solid var(--color-accent);
@@ -146,7 +145,7 @@
   }
 
   /* -------------------------------------------------------------------------
-     Scroll-reveal (Task 7, progressive enhancement)
+     Scroll-reveal (progressive enhancement)
      The hidden/animated base state is scoped to `no-preference` so that
      reduced-motion users — and no-JS users (the `.is-visible` class is never
      added) — always see fully-visible content with zero layout shift.
@@ -193,5 +192,42 @@
       transition-duration: 0.001ms !important;
       scroll-behavior: auto !important;
     }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Themed browser surfaces — the parts we don't draw still carry the world.
+--------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper);
+}
+::-webkit-scrollbar-thumb {
+  background: #3a3d44;
+  border: 3px solid var(--color-paper);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4a4e56;
+}
+
+/* Closing CTA: a graphite plate rather than a full ruby wall (ruby stays a
+   jewel), with the same gilt action button as the hero. */
+.cta-band {
+  background: radial-gradient(130% 150% at 82% -10%, #24262b 0%, #191b1e 62%, #131417 100%);
+  border-top: 1px solid var(--color-line);
+}
+.cta-band a {
+  background: var(--color-gilt);
+  color: #16181b;
+}
+
+/* Signature motion: the movement plate rotates slowly behind the hero. */
+@keyframes movement-rotate {
+  to {
+    transform: rotate(360deg);
   }
 }

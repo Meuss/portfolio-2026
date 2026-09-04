@@ -8,3 +8,7 @@ dist/
 .env.*
 !.env.example
 .idea/
+
+# Impeccable: machine-local config + transient review captures
+.impeccable/config.local.json
+.impeccable/review/

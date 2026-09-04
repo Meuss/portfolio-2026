@@ -29,11 +29,7 @@ const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
         <!-- Intro + fallback contact path -->
         <div>
           <header data-reveal>
-            <p class="flex items-center gap-3 font-mono text-caption uppercase text-muted">
-              <span aria-hidden="true" class="inline-block h-2 w-2 rounded-sm bg-accent"></span>
-              {t('contactPage.eyebrow')}
-            </p>
-            <h1 class="mt-5 font-display text-headline text-ink">{t('contactPage.heading')}</h1>
+            <h1 class="font-display text-headline text-ink">{t('contactPage.heading')}</h1>
             <p class="mt-6 max-w-md text-lead text-muted">{t('contactPage.intro')}</p>
           </header>
 
@@ -145,7 +141,7 @@ const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
 
             <button
               type="submit"
-              class="mt-2 inline-flex items-center justify-center gap-2 rounded-sm bg-accent px-7 py-3.5 font-mono text-caption uppercase text-accent-ink transition-transform duration-200 hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-60"
+              class="mt-2 inline-flex items-center justify-center gap-2 rounded-sm bg-gilt px-7 py-3.5 font-mono text-small font-medium uppercase tracking-wide text-[#16181b] transition-transform duration-200 hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-60"
             >
               <span data-submit-label>{t('contactForm.submit')}</span>
             </button>
