@@ -3,7 +3,7 @@
 /* ---------------------------------------------------------------------------
    Self-hosted fonts (Fontsource → bundled at build, no runtime CDN)
    - Display / body : Schibsted Grotesk (variable wght) — precise, modern grotesque
-   - Data / labels  : DM Mono — calibre data, engraved labels, tech tags
+   - Data / labels  : DM Mono — labels, roles, tech, buttons
 --------------------------------------------------------------------------- */
 @import '@fontsource-variable/schibsted-grotesk/index.css';
 @import '@fontsource/dm-mono/400.css';
@@ -11,9 +11,9 @@
 
 /* ---------------------------------------------------------------------------
    Design tokens — Tailwind v4 CSS-first theme.
-   Direction: "The Movement" — a Swiss watch movement seen from the back.
-   Graphite ground, brushed metal and blued steel, one ruby jewel as the single
-   bold colour, gilt for engraved labels. Every token becomes a Tailwind utility
+   Direction: "Graphite & Gilt" — a dark, precise working surface where the
+   shipped work is the hero. Graphite ground, one ruby mark as the single bold
+   colour, gilt for labels and the primary action. Every token becomes a Tailwind utility
    (bg-paper, text-ink, text-gilt, font-display, font-mono, …).
 --------------------------------------------------------------------------- */
 @theme {
@@ -24,23 +24,21 @@
     'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
-  /* -- Colour: graphite + warm metal + ruby jewel + gilt ------------------- */
+  /* -- Colour: graphite + ruby mark + gilt -------------------------------- */
   --color-paper: #16181b; /* graphite page ground                     */
   --color-ink: #ece9e1; /* warm off-white primary text (~13:1)      */
   --color-muted: #9d9b91; /* secondary text (~6:1 on ground)          */
   --color-line: #32343b; /* hairline rules / borders                 */
-  --color-surface: #202226; /* raised plate / panel                     */
+  --color-surface: #202226; /* raised surface / panel                   */
 
-  --color-accent: #dd4753; /* the one bold colour — ruby jewel         */
+  --color-accent: #dd4753; /* the one bold colour — ruby mark          */
   --color-accent-soft: #2c1e21; /* deep ruby wash for panels           */
   --color-accent-ink: #fff5f4; /* foreground on ruby                   */
 
-  --color-gilt: #c6a15b; /* engraved brass label / secondary accent  */
-  --color-blued: #4f6db0; /* blued-steel screw detail                 */
-  --color-plate: #2b2e33; /* brushed movement-plate tone              */
+  --color-gilt: #c6a15b; /* gilt — labels, primary action, hover     */
 
   /* -- Fluid type scale (clamp: mobile → desktop) -------------------------- */
-  /* Utility voice — mono labels, calibre data, tags */
+  /* Utility voice — mono labels, data, tags */
   --text-caption: 0.78rem;
   --text-caption--line-height: 1.35;
   --text-caption--letter-spacing: 0.08em;
@@ -136,7 +134,10 @@
   /* Signature detail + accessibility floor */
   ::selection {
     background: var(--color-gilt);
-    color: #16181b;
+    color: var(--color-paper);
+  }
+  :where(input, textarea) {
+    caret-color: var(--color-accent);
   }
   :focus-visible {
     outline: 2px solid var(--color-accent);
@@ -214,20 +215,63 @@
   background: #4a4e56;
 }
 
-/* Closing CTA: a graphite plate rather than a full ruby wall (ruby stays a
-   jewel), with the same gilt action button as the hero. */
+/* ---------------------------------------------------------------------------
+   Buttons — mono, uppercase, sharp. One gilt primary per view.
+--------------------------------------------------------------------------- */
+@layer components {
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition:
+      transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.2s,
+      color 0.2s,
+      background-color 0.2s;
+  }
+  .btn-primary {
+    background: var(--color-gilt);
+    color: var(--color-paper);
+  }
+  .btn-primary:hover {
+    background: #d4b273;
+    transform: translateY(-2px);
+  }
+  .btn-secondary {
+    border: 1px solid var(--color-line);
+    color: var(--color-ink);
+  }
+  .btn-secondary:hover {
+    border-color: var(--color-gilt);
+    color: var(--color-gilt);
+  }
+}
+
+/* Freelance context mark — the ruby dot (macmac / Marvelous show their logos). */
+.context-mark {
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  flex: none;
+}
+.context-mark--independent {
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* Closing CTA: a graphite band rather than a full ruby wall (ruby stays a
+   single mark). */
 .cta-band {
   background: radial-gradient(130% 150% at 82% -10%, #24262b 0%, #191b1e 62%, #131417 100%);
   border-top: 1px solid var(--color-line);
-}
-.cta-band a {
-  background: var(--color-gilt);
-  color: #16181b;
-}
-
-/* Signature motion: the movement plate rotates slowly behind the hero. */
-@keyframes movement-rotate {
-  to {
-    transform: rotate(360deg);
-  }
 }

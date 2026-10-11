@@ -20,76 +20,99 @@ export const ui: Record<Lang, Record<string, string>> = {
     'footer.rights': 'All rights reserved.',
 
     // --- Homepage: page meta ---
-    'home.title': 'Thomas Miller — Freelance web developer in Switzerland',
+    'home.title': 'Thomas Miller — Web developer in Switzerland',
     'home.description':
-      'Swiss freelance web developer building fast, bilingual websites, online stores, and web apps, front end through back end.',
+      'Web developer at Marvelous Digital in Vevey, and freelance on the side. Fast, multilingual websites for Swiss businesses and institutions.',
 
     // --- Homepage: hero ---
-    'hero.eyebrow': 'Freelance web developer · Switzerland',
     'hero.name': 'Thomas Miller',
     'hero.tagline':
-      'I design and build fast, bilingual websites and web apps, and see them through to production.',
+      'Web developer at Marvelous Digital in Vevey, and freelance on the side. I build fast, multilingual websites and see them through to launch.',
     'hero.cta': 'Start a project',
-    'hero.ctaSecondary': 'See selected work',
-    'hero.availability': 'Available for new projects',
-    'hero.based': 'Based in Switzerland · working remotely',
+    'hero.ctaSecondary': 'See the work',
+    'hero.availability': 'Open to a few freelance projects',
+    'hero.based': 'Switzerland · FR / EN',
+    'hero.wallPause': 'Pause',
+    'hero.wallPlay': 'Play',
 
     // --- Homepage: services ---
     'services.heading': 'What I build',
-    'services.intro': 'Five ways I help teams and founders ship.',
-
-    // --- Homepage: capabilities strip ---
-    'capabilities.eyebrow': 'Capabilities',
-    'capabilities.lead': 'Supporting skills that round out a project.',
+    'services.intro': 'From a small showcase site to a custom web app, frontend through backend.',
+    'capabilities.heading': 'Around the build',
 
     // --- Homepage: selected work ---
-    'work.heading': 'Recent projects',
-    'work.viewAll': 'See all work',
+    'work.heading': 'Selected work',
+    'work.intro':
+      'Built directly for clients, with the macmac studio, and with the team at Marvelous Digital.',
+    'work.viewAll': 'All projects',
 
     // --- Shared: project card ---
-    'project.nda': 'Client work',
-    'project.visit': 'Visit site',
+    'project.context.independent': 'Freelance',
+    'project.context.macmac': 'With macmac',
+    'project.context.marvelous': 'At Marvelous',
+    'project.nda': 'Under NDA',
+    'project.ndaFrame': 'Confidential',
+    'project.soon': 'Launching soon',
     'project.newTab': 'opens in a new tab',
-    'project.roleLabel': 'Role',
+    'project.stackLabel': 'Stack',
+    'project.screenshotAlt': 'Homepage of {name}',
 
     // --- Work page: page meta ---
     'workPage.title': 'Work — Thomas Miller',
     'workPage.description':
-      'Web development projects: online stores, dashboards, marketing sites, and client platforms.',
+      'Websites and web apps for Swiss businesses and institutions: freelance projects, work with the macmac studio, and projects at Marvelous Digital.',
 
     // --- Work page: intro ---
-    'workPage.heading': 'Projects',
+    'workPage.heading': 'Work',
     'workPage.intro':
-      'Sites, apps, and platforms I’ve designed and built. Some are public; some I can’t name.',
+      'Everything I can show. Each project says how it came about: freelance, with the macmac studio, or with the team at Marvelous Digital.',
+    'workPage.filterLabel': 'Filter projects',
+    'workPage.filterAll': 'All',
+    'workPage.filterStatus': '{n} projects shown',
 
     // --- About page: page meta ---
     'aboutPage.title': 'About — Thomas Miller',
     'aboutPage.description':
-      'Swiss freelance web developer working across front-end and back-end. Currently at Marvelous Digital, available for independent projects.',
+      'Web developer at Marvelous Digital in Vevey, taking on freelance projects alongside: directly for clients, and for the macmac studio.',
 
     // --- About page: intro & bio ---
-    'aboutPage.heading': 'The person behind the code',
+    'aboutPage.heading': 'Developer at an agency, freelance on the side',
     'aboutPage.bioIntro':
-      'I’m Thomas Miller, a freelance web developer based in Switzerland, working across the front end and back end to ship products people actually use.',
+      'I’m Thomas Miller, a web developer. I work at Marvelous Digital, an agency in Vevey, and take on freelance projects alongside it.',
     'aboutPage.bioParagraph1':
-      'Day to day I’m part of the team at Marvelous Digital, and I take on independent projects alongside that, from small marketing sites to full-stack web apps. The standard doesn’t change either way. Clean code, a considered design, and software that still works long after launch.',
+      'At Marvelous I work with the team on sites for Swiss institutions and brands, and on projects for large international clients I can’t name.',
     'aboutPage.bioParagraph2':
-      'I care about the details most visitors never notice. Load times, accessible markup, sensible defaults. They’re what separates a site that works from one that’s genuinely good to use. If that’s what your project needs, let’s talk.',
+      'On my own time I build for clients directly, from a nightclub to a public-sector platform, and I develop sites for macmac, a branding and interiors studio in Marly.',
+    'aboutPage.bioParagraph3':
+      'I care about the details most visitors never notice. Load times, accessible markup, sensible defaults. They’re what separates a site that works from one that’s genuinely good to use.',
     'aboutPage.portraitAlt': 'Portrait of Thomas Miller',
+    'aboutPage.waysHeading': 'Where the work comes from',
+    'aboutPage.way1.name': 'Marvelous Digital',
+    'aboutPage.way1.meta': 'Employer · Vevey',
+    'aboutPage.way1.text':
+      'Team projects for research, tourism and industry, among them CSEM, SPIE and Les Bains de Lavey.',
+    'aboutPage.way2.name': 'macmac',
+    'aboutPage.way2.meta': 'Studio partner · Marly',
+    'aboutPage.way2.text':
+      'Hotels, restaurants, architects and foundations, many of them around Murten.',
+    'aboutPage.way3.name': 'Freelance',
+    'aboutPage.way3.meta': 'Directly with you',
+    'aboutPage.way3.text':
+      'You deal with me, the person writing the code, from the first conversation to launch and the upkeep after.',
 
     // --- Homepage: approach ---
-    'approach.heading': 'Senior craft, without the agency overhead',
+    'approach.heading': 'Agency standards, one person to talk to',
     'approach.point1.label': 'Craft',
     'approach.point1.text':
       'Every detail considered. Typography, motion, edge cases, the parts users feel but can’t point to.',
-    'approach.point2.label': 'Bilingual',
+    'approach.point2.label': 'Languages',
     'approach.point2.text':
-      'Native-quality work in English and French, built for Switzerland’s multilingual market.',
+      'Most of these sites ship in two to four languages. We can work together in French or English.',
     'approach.point3.label': 'Performance',
     'approach.point3.text': 'Fast by default. Accessible by default. Measured, not assumed.',
     'approach.point4.label': 'Direct',
     'approach.point4.text':
-      'You work with the person writing the code. Clear communication, no one in between.',
+      'On a freelance project there’s no one in between. You talk to the person building your site.',
 
     // --- Homepage: closing CTA ---
     'cta.heading': 'Let’s talk about your project',
@@ -139,76 +162,100 @@ export const ui: Record<Lang, Record<string, string>> = {
     'footer.rights': 'Tous droits réservés.',
 
     // --- Homepage: page meta ---
-    'home.title': 'Thomas Miller — Développeur web freelance en Suisse',
+    'home.title': 'Thomas Miller — Développeur web en Suisse',
     'home.description':
-      'Développeur web freelance en Suisse. Je crée des sites, des boutiques en ligne et des apps web rapides et bilingues, du frontend au backend.',
+      'Développeur web chez Marvelous Digital à Vevey, et freelance en parallèle. Des sites rapides et multilingues pour les entreprises et institutions suisses.',
 
     // --- Homepage: hero ---
-    'hero.eyebrow': 'Développeur web freelance · Suisse',
     'hero.name': 'Thomas Miller',
     'hero.tagline':
-      'Je conçois et développe des sites et des apps web rapides et bilingues, et je les mène jusqu’en production.',
+      'Développeur web chez Marvelous Digital à Vevey, et freelance en parallèle. Je crée des sites rapides et multilingues, et je les mène jusqu’à la mise en ligne.',
     'hero.cta': 'Démarrer un projet',
     'hero.ctaSecondary': 'Voir les projets',
-    'hero.availability': 'Disponible pour de nouveaux projets',
-    'hero.based': 'Basé en Suisse · à distance',
+    'hero.availability': 'Ouvert à quelques projets freelance',
+    'hero.based': 'Suisse · FR / EN',
+    'hero.wallPause': 'Pause',
+    'hero.wallPlay': 'Lecture',
 
     // --- Homepage: services ---
     'services.heading': 'Ce que je construis',
-    'services.intro': 'Cinq façons d’aider équipes et fondateurs à livrer.',
-
-    // --- Homepage: capabilities strip ---
-    'capabilities.eyebrow': 'Capacités',
-    'capabilities.lead': 'Des compétences complémentaires pour compléter un projet.',
+    'services.intro':
+      'Du petit site vitrine à l’application web sur mesure, du frontend au backend.',
+    'capabilities.heading': 'Autour du projet',
 
     // --- Homepage: selected work ---
-    'work.heading': 'Projets récents',
-    'work.viewAll': 'Voir tous les projets',
+    'work.heading': 'Projets choisis',
+    'work.intro':
+      'Réalisés en direct pour des clients, avec le studio macmac, et avec l’équipe de Marvelous Digital.',
+    'work.viewAll': 'Tous les projets',
 
     // --- Shared: project card ---
-    'project.nda': 'Projet client',
-    'project.visit': 'Voir le site',
+    'project.context.independent': 'Freelance',
+    'project.context.macmac': 'Avec macmac',
+    'project.context.marvelous': 'Chez Marvelous',
+    'project.nda': 'Sous NDA',
+    'project.ndaFrame': 'Confidentiel',
+    'project.soon': 'Bientôt en ligne',
     'project.newTab': 'ouvre un nouvel onglet',
-    'project.roleLabel': 'Rôle',
+    'project.stackLabel': 'Stack',
+    'project.screenshotAlt': 'Page d’accueil de {name}',
 
     // --- Work page: page meta ---
     'workPage.title': 'Projets — Thomas Miller',
     'workPage.description':
-      'Une sélection de projets de développement web : boutiques en ligne, tableaux de bord, sites vitrines et plateformes clients.',
+      'Sites et applications web pour des entreprises et institutions suisses : projets freelance, collaborations avec le studio macmac et projets chez Marvelous Digital.',
 
     // --- Work page: intro ---
     'workPage.heading': 'Projets',
     'workPage.intro':
-      'Des sites, des applications et des plateformes que j’ai conçus et développés. Certains sont publics, d’autres je ne peux pas les nommer.',
+      'Tout ce que je peux montrer. Chaque projet indique son contexte : en freelance, avec le studio macmac, ou avec l’équipe de Marvelous Digital.',
+    'workPage.filterLabel': 'Filtrer les projets',
+    'workPage.filterAll': 'Tous',
+    'workPage.filterStatus': '{n} projets affichés',
 
     // --- About page: page meta ---
     'aboutPage.title': 'À propos — Thomas Miller',
     'aboutPage.description':
-      'Développeur web freelance en Suisse, actif du frontend au backend. Actuellement chez Marvelous Digital, disponible pour des projets indépendants.',
+      'Développeur web chez Marvelous Digital à Vevey, avec des projets freelance en parallèle : en direct pour des clients, et pour le studio macmac.',
 
     // --- About page: intro & bio ---
-    'aboutPage.heading': 'La personne derrière le code',
+    'aboutPage.heading': 'Développeur en agence, freelance en parallèle',
     'aboutPage.bioIntro':
-      'Je m’appelle Thomas Miller, développeur web freelance basé en Suisse, actif du frontend au backend pour livrer des produits que les gens utilisent vraiment.',
+      'Je m’appelle Thomas Miller, développeur web. Je travaille chez Marvelous Digital, une agence à Vevey, et je mène des projets freelance en parallèle.',
     'aboutPage.bioParagraph1':
-      'Au quotidien, je fais partie de l’équipe de Marvelous Digital, et je mène en parallèle des projets indépendants, du petit site vitrine à l’application web full-stack. Dans les deux cas, l’exigence reste la même. Un code propre, un design réfléchi, et un logiciel qui tient encore la route longtemps après la mise en ligne.',
+      'Chez Marvelous, je travaille en équipe sur des sites pour des institutions et des marques suisses, ainsi que sur des projets pour de grands clients internationaux que je ne peux pas citer.',
     'aboutPage.bioParagraph2':
-      'Je porte attention aux détails que la plupart des visiteurs ne remarquent jamais. Temps de chargement, balisage accessible, réglages par défaut sensés. C’est ce qui distingue un site qui fonctionne d’un site vraiment agréable à utiliser. Si c’est ce dont votre projet a besoin, parlons-en.',
+      'À côté, je développe en direct pour des clients, d’un club à une plateforme du secteur public, et je réalise des sites pour macmac, un studio de branding et d’architecture d’intérieur à Marly.',
+    'aboutPage.bioParagraph3':
+      'Je porte attention aux détails que la plupart des visiteurs ne remarquent jamais. Temps de chargement, balisage accessible, réglages par défaut sensés. C’est ce qui distingue un site qui fonctionne d’un site vraiment agréable à utiliser.',
     'aboutPage.portraitAlt': 'Portrait de Thomas Miller',
+    'aboutPage.waysHeading': 'D’où viennent les projets',
+    'aboutPage.way1.name': 'Marvelous Digital',
+    'aboutPage.way1.meta': 'Employeur · Vevey',
+    'aboutPage.way1.text':
+      'Des projets d’équipe pour la recherche, le tourisme et l’industrie, dont le CSEM, SPIE et les Bains de Lavey.',
+    'aboutPage.way2.name': 'macmac',
+    'aboutPage.way2.meta': 'Studio partenaire · Marly',
+    'aboutPage.way2.text':
+      'Hôtels, restaurants, architectes et fondations, souvent dans la région de Morat.',
+    'aboutPage.way3.name': 'Freelance',
+    'aboutPage.way3.meta': 'En direct avec vous',
+    'aboutPage.way3.text':
+      'Vous échangez avec moi, la personne qui écrit le code, du premier échange à la mise en ligne et au suivi.',
 
     // --- Homepage: approach ---
-    'approach.heading': 'Un travail soigné, sans les lourdeurs d’agence',
+    'approach.heading': 'La rigueur d’une agence, un seul interlocuteur',
     'approach.point1.label': 'Exigence',
     'approach.point1.text':
       'Chaque détail compte. Typographie, animation, cas limites, ce que l’on ressent sans pouvoir le nommer.',
-    'approach.point2.label': 'Bilingue',
+    'approach.point2.label': 'Langues',
     'approach.point2.text':
-      'Un travail de qualité native en anglais et en français, pensé pour le marché suisse multilingue.',
+      'La plupart de ces sites existent en deux à quatre langues. Nous pouvons travailler en français ou en anglais.',
     'approach.point3.label': 'Performance',
     'approach.point3.text': 'Rapide par défaut. Accessible par défaut. Mesuré, jamais supposé.',
     'approach.point4.label': 'Direct',
     'approach.point4.text':
-      'Vous échangez avec la personne qui écrit le code. Communication claire, sans intermédiaire.',
+      'En freelance, il n’y a pas d’intermédiaire. Vous parlez à la personne qui construit votre site.',
 
     // --- Homepage: closing CTA ---
     'cta.heading': 'Parlons de votre projet',

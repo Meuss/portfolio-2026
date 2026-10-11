@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
+import CTA from '../../components/CTA.astro';
+import ContextBadge from '../../components/ContextBadge.astro';
 import { languages, type Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 
@@ -13,32 +15,95 @@ const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+
+const contexts = ['independent', 'macmac', 'marvelous'] as const;
+const counts = Object.fromEntries(
+  contexts.map((c) => [c, projects.filter((p) => p.data.context === c).length]),
+);
 ---
 
 <BaseLayout title={t('workPage.title')} description={t('workPage.description')} lang={lang}>
-  <section class="border-b border-line bg-paper py-20 md:py-28">
+  <section class="border-b border-line bg-paper pb-24 pt-20 md:pb-32 md:pt-28">
     <div class="mx-auto max-w-6xl px-6 md:px-10">
-      <!-- Page intro -->
-      <header class="max-w-2xl" data-reveal>
-        <h1 class="font-display text-headline text-ink">{t('workPage.heading')}</h1>
-        <p class="mt-4 text-lead text-muted">{t('workPage.intro')}</p>
+      <header class="grid gap-8 md:grid-cols-[1fr_minmax(0,22rem)] md:items-end md:gap-16">
+        <div>
+          <h1 class="font-display text-headline text-ink">{t('workPage.heading')}</h1>
+          <p class="mt-5 max-w-2xl text-lead text-muted">{t('workPage.intro')}</p>
+        </div>
+
+        {/* Legend doubles as a filter once JS is available. */}
+        <div class="work-filter" data-filter hidden>
+          <p class="sr-only" id="filter-label">
+            {t('workPage.filterLabel')}
+          </p>
+          <div
+            role="group"
+            aria-labelledby="filter-label"
+            class="flex flex-wrap gap-2 font-mono text-caption uppercase"
+          >
+            <button type="button" class="chip" data-filter-value="all" aria-pressed="true">
+              {t('workPage.filterAll')}
+              <span class="text-muted">{projects.length}</span>
+            </button>
+            {contexts.map((c) => (
+              <button type="button" class="chip" data-filter-value={c} aria-pressed="false">
+                <ContextBadge context={c} lang={lang} />
+                <span class="text-muted">{counts[c]}</span>
+              </button>
+            ))}
+          </div>
+        </div>
       </header>
 
-      <!-- Project grid -->
-      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 md:mt-16">
-        {
-          projects.map((project, i) => (
-            <div data-reveal data-reveal-delay={String((i % 3) + 1)} class="h-full">
-              <ProjectCard project={project} lang={lang} />
-            </div>
-          ))
-        }
-      </div>
+      <p
+        class="sr-only"
+        aria-live="polite"
+        data-filter-status
+        data-template={t('workPage.filterStatus')}
+      ></p>
+
+      <ul class="mt-16 grid gap-x-10 gap-y-20 md:mt-24 md:grid-cols-2 md:gap-y-24" role="list">
+        {projects.map((project, i) => (
+          <li
+            data-context={project.data.context}
+            data-reveal
+            data-reveal-delay={String((i % 2) + 1)}
+          >
+            <ProjectCard project={project} lang={lang} eager={i < 2} />
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  {/* Scroll-reveal island (Vite-bundled; runs client-side, progressive enhancement). */}
+  <CTA lang={lang} />
+
   <script>
     import '../../components/islands/reveal.ts';
+    import '../../components/islands/work-filter.ts';
   </script>
 </BaseLayout>
+
+<style>
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    color: var(--color-ink);
+    background: transparent;
+    cursor: pointer;
+    transition:
+      border-color 0.2s,
+      background-color 0.2s;
+  }
+  .chip:hover {
+    border-color: var(--color-gilt);
+  }
+  .chip[aria-pressed='true'] {
+    background: var(--color-surface);
+    border-color: var(--color-gilt);
+  }
+</style>

@@ -14,9 +14,20 @@ site built with [Astro](https://astro.build) and [Tailwind CSS v4](https://tailw
 
 ```bash
 pnpm install
-cp .env.example .env   # then fill in PUBLIC_WEB3FORMS_KEY (see below)
 pnpm dev
 ```
+
+## TODO
+
+- [ ] **Contact form → Netlify Forms.** The form in `src/pages/[lang]/contact.astro` still
+      posts to Web3Forms, but no key is set, so submissions don't go anywhere yet.
+      Once the site is on Netlify, switch it to [Netlify Forms](https://docs.netlify.com/forms/setup/):
+      add `data-netlify="true"` and a `name` to the `<form>`, a hidden `form-name` input,
+      and make the honeypot `netlify-honeypot`. In the progressive-enhancement script,
+      POST url-encoded data to `/`. Then remove the Web3Forms code, `PUBLIC_WEB3FORMS_KEY`
+      and `.env.example`, and set up email notifications to `contact@thomasmiller.ch` in
+      the Netlify dashboard (Forms → Notifications). Until then the page still shows the
+      email, GitHub and LinkedIn links.
 
 ## Commands
 
@@ -37,13 +48,9 @@ Before pushing or opening a PR, run `pnpm check && pnpm test && pnpm build`.
 
 ## Environment variables
 
-| Variable               | Required                                             | Purpose                                                                                                                                                                                                                                                                                                                              |
-| ---------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `PUBLIC_WEB3FORMS_KEY` | For the contact form to actually deliver submissions | Public access key for [Web3Forms](https://web3forms.com), used by `src/pages/[lang]/contact.astro`. It's a build-time `PUBLIC_` var so it ends up in the client bundle — that's expected for Web3Forms' model. The site builds and renders fine with this unset; the form UI just won't deliver submissions until a real key is set. |
-
-Copy `.env.example` to `.env` and fill in real values for local development. `.env` is
-gitignored — never commit real secrets. In Netlify, set `PUBLIC_WEB3FORMS_KEY` under
-**Site settings → Environment variables**.
+None are needed right now. `.env.example` lists `PUBLIC_WEB3FORMS_KEY`, which is left over
+from the original Web3Forms setup and is deliberately unused (see TODO). The site builds
+and renders fine without it.
 
 ## Content model
 
@@ -55,23 +62,23 @@ directory with frontmatter like:
 
 ```yaml
 ---
-title:
-  en: 'Project title'
-  fr: 'Titre du projet'
-role:
-  en: 'Your role'
-  fr: 'Votre rôle'
+title: 'Client name' # proper noun, not translated
+context: independent # independent | macmac | marvelous (shows the partner logo)
+kind:
+  en: 'Restaurant website'
+  fr: 'Site de restaurant'
 description:
   en: 'Short description.'
   fr: 'Description courte.'
-tech: ['Astro', 'Node.js']
-image: '../../assets/placeholders/project-x.svg'
+tech: ['Astro', 'Netlify']
+image: '../../assets/projects/<slug>.jpg' # 2000×1250 screenshot (optional)
+imageMobile: '../../assets/projects/<slug>-mobile.jpg' # 600px-wide phone capture (optional)
 link: 'https://example.com' # optional
-featured: false # true = shown on the homepage "selected work" strip
-nda: true # true = renders NDA framing instead of client details
-order: 4 # controls display order (lower = earlier)
+status: live # live | soon
+featured: false # true = shown in the homepage "selected work" section
+nda: false # true = renders NDA framing instead of client details
+order: 4 # display order (lower = earlier)
 ---
-Optional body content (currently unused by the templates but validated as Markdown).
 ```
 
 The `/work` page lists all projects; the homepage shows only `featured: true` projects.
@@ -118,8 +125,7 @@ To deploy:
 1. Create a new Netlify site from this Git repository (or connect an existing one).
 2. Netlify picks up `netlify.toml` automatically — build command and publish directory
    need no manual configuration.
-3. Set the `PUBLIC_WEB3FORMS_KEY` environment variable in Netlify's site settings so the
-   contact form works in production.
+3. Switch the contact form to Netlify Forms (see TODO).
 4. Point the site's custom domain at `thomasmiller.ch` (or update `site` in
    `astro.config.mjs` and `Sitemap:` in `public/robots.txt` if the final domain differs).
 5. Trigger a deploy — Netlify runs `pnpm build` and publishes `dist/`.
@@ -134,4 +140,4 @@ To deploy:
 - [Vitest](https://vitest.dev) for unit tests
 - Astro's built-in `i18n` routing (`/en/`, `/fr/`, `en` as default locale, explicitly
   prefixed) for bilingual content
-- [Web3Forms](https://web3forms.com) for the contact form (no backend required)
+- Contact form: Web3Forms for now, moving to Netlify Forms (see TODO)

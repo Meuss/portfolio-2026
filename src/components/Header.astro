@@ -22,7 +22,7 @@ const isActive = (href: string) => href.replace(/\/$/, '') === currentPath;
 ---
 
 <header class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur">
-  <div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4 md:px-10">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-4 px-6 py-4 md:flex-nowrap md:px-10">
     <a
       href={homeHref}
       class="flex items-center gap-2 font-display text-lg font-semibold tracking-tight text-ink hover:text-accent"
@@ -52,24 +52,21 @@ const isActive = (href: string) => href.replace(/\/$/, '') === currentPath;
 
     <div
       id="primary-nav"
-      hidden
-      class="w-full flex-col gap-6 border-t border-line pt-6 md:static md:flex md:w-auto md:flex-row md:items-center md:gap-8 md:border-0 md:pt-0"
+      class="flex w-full flex-col max-md:hidden gap-6 border-t border-line pt-6 md:static md:flex md:w-auto md:flex-row md:items-center md:gap-8 md:border-0 md:pt-0"
     >
       <nav
         aria-label={t('nav.primary')}
         class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8"
       >
-        {
-          navItems.map((item) => (
-            <a
-              href={item.href}
-              class="text-body text-ink hover:text-accent"
-              aria-current={isActive(item.href) ? 'page' : undefined}
-            >
-              {item.label}
-            </a>
-          ))
-        }
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="text-body text-ink hover:text-accent"
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))}
       </nav>
       <LanguageSwitcher lang={lang} />
     </div>
@@ -85,7 +82,7 @@ const isActive = (href: string) => href.replace(/\/$/, '') === currentPath;
     const closeLabel = toggle.dataset.labelClose || '';
 
     const setOpen = (open: boolean) => {
-      panel.hidden = !open;
+      panel.classList.toggle('max-md:hidden', !open);
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? closeLabel : openLabel);
     };

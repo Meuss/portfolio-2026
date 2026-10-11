@@ -8,12 +8,20 @@ const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
   schema: ({ image }) =>
     z.object({
-      title: localized,
-      role: localized,
+      // Client or project name — a proper noun, not translated.
+      title: z.string(),
+      // Who the work was done with: directly for the client, through the
+      // macmac studio, or as part of the team at Marvelous Digital.
+      context: z.enum(['independent', 'macmac', 'marvelous']),
+      // Short "what it is" line, e.g. "Restaurant website".
+      kind: localized,
       description: localized,
-      tech: z.array(z.string()),
-      image: image(),
+      tech: z.array(z.string()).default([]),
+      // Real screenshots of the shipped site. Optional: NDA work has none.
+      image: image().optional(),
+      imageMobile: image().optional(),
       link: z.url().optional(),
+      status: z.enum(['live', 'soon']).default('live'),
       featured: z.boolean().default(false),
       nda: z.boolean().default(false),
       order: z.number().default(0),

@@ -35,10 +35,8 @@ const xDefaultHref = new URL(switchLocalePath(Astro.url, 'en'), siteUrl).toStrin
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {
-      /* Mark JS as available before paint so the scroll-reveal hidden state only
-        applies when JS can reveal it — no-JS users see all content, no flash. */
-    }
+    {/* Mark JS as available before paint so the scroll-reveal hidden state only
+        applies when JS can reveal it — no-JS users see all content, no flash. */}
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
@@ -49,7 +47,9 @@ const xDefaultHref = new URL(switchLocalePath(Astro.url, 'en'), siteUrl).toStrin
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
-    {alternateLinks.map((alt) => <link rel="alternate" hreflang={alt.lang} href={alt.href} />)}
+    {alternateLinks.map((alt) => (
+      <link rel="alternate" hreflang={alt.lang} href={alt.href} />
+    ))}
     <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
 
     <meta property="og:type" content="website" />

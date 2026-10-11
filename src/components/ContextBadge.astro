@@ -1,0 +1,33 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+import MacmacLogo from './icons/MacmacLogo.astro';
+import MarvelousLogo from './icons/MarvelousLogo.astro';
+
+interface Props {
+  context: 'independent' | 'macmac' | 'marvelous';
+  lang: Lang;
+  /** 'sm' for card meta lines and chips, 'lg' for About page headings. */
+  size?: 'sm' | 'lg';
+}
+
+const { context, lang, size = 'sm' } = Astro.props;
+const t = useTranslations(lang);
+const label = t(`project.context.${context}`);
+---
+
+{context === 'independent' ? (
+  <span class="inline-flex items-center gap-2">
+    <span aria-hidden="true" class="h-[0.4rem] w-[0.4rem] shrink-0 rounded-full bg-accent" />
+    {label}
+  </span>
+) : (
+  <span class="inline-flex items-center" title={label}>
+    <span class="sr-only">{label}</span>
+    {context === 'macmac' ? (
+      <MacmacLogo class={size === 'lg' ? 'h-[1.4rem] w-auto' : 'h-[0.62rem] w-auto'} />
+    ) : (
+      <MarvelousLogo class={size === 'lg' ? 'h-[1.9rem] w-auto' : 'h-[0.92rem] w-auto'} />
+    )}
+  </span>
+)}

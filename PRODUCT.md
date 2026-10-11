@@ -26,11 +26,14 @@ message (or reaches out via a direct channel).
 
 ## Positioning
 
-A **single accountable full-stack developer** who takes a project from frontend craft through
-backend and delivery — no agency overhead, no handoffs between designer, developer, and vendor.
-Three claims a neighboring freelancer could not all truthfully copy at once:
+Thomas is **employed as a web developer at Marvelous Digital** (agency, Vevey) and takes on
+**freelance work on the side** — directly for clients, and as the developer for **macmac**
+(branding/interiors studio, Marly FR). The site says this
+openly: agency experience is a credibility point, not something hidden. The pitch is
+"agency standards, one person to talk to". Claims:
 
-- **Solo end-to-end delivery** — one person owns the whole build.
+- **Direct, accountable delivery on freelance work** — the client talks to the person writing
+  the code.
 - **Native bilingual EN/FR delivery** — genuinely bilingual work and communication, not a
   machine-translated afterthought.
 - **Performance & SEO as the core promise** — fast, findable sites are the baseline the site
@@ -42,11 +45,12 @@ AI integration is offered as a service capability but is not a lead differentiat
 
 - Fully **bilingual site (EN/FR)**: both `/en/` and `/fr/` trees are first-class and every
   visitor-facing string exists in both locales, kept in sync.
-- Based in **Switzerland, working remotely**; canonical domain `thomasmiller.ch`.
+- Based in **Switzerland**; employer Marvelous Digital is in Vevey. Canonical domain
+  `thomasmiller.ch`.
 - Conversion path is a **contact form (Web3Forms)** with direct fallbacks (email, GitHub,
   LinkedIn) for visitors who prefer to reach out themselves.
-- Availability is signalled on the site ("available for new projects"); this is a state that
-  changes over time, not a permanent claim.
+- Availability is signalled on the site ("open to a few freelance projects"), limited because
+  freelance is a side activity; a state that changes over time, not a permanent claim.
 
 ## Capabilities and Constraints
 
@@ -70,33 +74,36 @@ Durable constraints:
 
 ## Brand Commitments
 
-- Real identity: **Thomas Miller**, freelance web developer, Switzerland; domain
-  `thomasmiller.ch`.
+- Real identity: **Thomas Miller**, web developer at Marvelous Digital and freelancer,
+  Switzerland; domain `thomasmiller.ch`; GitHub `Meuss`.
 - **Bilingual EN/FR** is a binding identity constraint, not just a feature.
 - Voice observed in existing copy: calm, precise, technical, plain-spoken — no hype or
   buzzword inflation. Future copy should preserve this register.
 
 ## Evidence on Hand
 
-**Important for all future work: the current project entries, the NDA sample, the portrait,
-and the bio paragraphs are PLACEHOLDERS** (example.com links, generic titles, placeholder
-SVGs). Real client work exists and will be supplied by Thomas later; some of it may be under
-**NDA** and require anonymized framing.
+Real project entries live in `src/content/projects/`, each tagged with a `context`:
+`independent` (direct freelance), `macmac` (built for the macmac studio) or `marvelous`
+(team work at Marvelous Digital). Imagery is **real screenshots of the live sites**, captured
+2026-10. One NDA entry covers unnamed international Marvelous clients.
 
-Until Thomas provides real content, future work **must not fabricate** case studies,
-testimonials, client names, logos, metrics, Lighthouse scores, or years-of-experience claims.
-Placeholders are scaffolding to be replaced, never claims to be dressed up. There are currently
-**no real testimonials, client logos, or published benchmarks** on hand.
+- **No role / credit split.** Thomas did the development on essentially all of these; the site
+  does not mention who designed what. Partner context is shown with the macmac / Marvelous logos.
+- Tech stacks list only what was verified from the live sites' HTML/headers or the repo README.
+- Citron Caviar is not yet launched (`status: soon`, no link).
+- The About page uses Thomas's **real photo** (`src/assets/portrait.jpg`). There are **no
+  testimonials, client logos, metrics or benchmarks**. Never fabricate them; never generate a
+  portrait of Thomas.
 
 ## Product Principles
 
 1. **Never manufacture proof.** Real clients, metrics, and testimonials go in only when Thomas
-   provides them; placeholders are visibly provisional, not fake credibility.
+   provides them. Say honestly where work came from (freelance, macmac, Marvelous).
 2. **Bilingual parity always.** Every visitor-facing string ships in EN and FR together.
 3. **The site is the portfolio.** Performance, findability, and craft are promises, so the site
    must itself exemplify them.
-4. **One accountable maker.** The experience should read as a single craftsperson taking full
-   ownership, never as a faceless agency.
+4. **One accountable maker.** The experience should read as one person, open about working
+   within an agency and with a studio partner, never as a faceless agency.
 5. **Serve the Swiss SME decision-maker.** Lead with credibility and clarity over jargon, and
    make starting a project the obvious next step.
 

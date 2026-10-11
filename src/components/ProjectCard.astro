@@ -1,76 +1,116 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../i18n/ui';
 import { useTranslations } from '../i18n/utils';
+import ProjectFrame from './ProjectFrame.astro';
+import Arrow from './icons/Arrow.astro';
+import ContextBadge from './ContextBadge.astro';
 
 interface Props {
   project: CollectionEntry<'projects'>;
   lang: Lang;
+  eager?: boolean;
 }
 
-const { project, lang } = Astro.props;
+const { project, lang, eager = false } = Astro.props;
 const t = useTranslations(lang);
-const { title, role, description, tech, image, link, nda } = project.data;
+const { title, context, kind, description, tech, image, imageMobile, link, status, nda } =
+  project.data;
 
 const hasLink = Boolean(link) && !nda;
+const displayLink = link ? new URL(link).hostname.replace(/^www\./, '') : undefined;
+const alt = t('project.screenshotAlt').replace('{name}', title);
 ---
 
-<article
-  class="group flex h-full flex-col overflow-hidden rounded-md border border-line bg-surface transition-colors duration-200 hover:border-accent"
->
-  <!-- Visual -->
-  <div class="aspect-[3/2] overflow-hidden bg-paper">
-    <Image
-      src={image}
-      alt={title[lang]}
-      class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-    />
+<article data-context={context} class="project group grid gap-8">
+  <div class="pb-5">
+    {hasLink ? (
+      <a href={link} target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+        <ProjectFrame image={image} imageMobile={imageMobile} alt="" eager={eager} />
+      </a>
+    ) : (
+      <ProjectFrame image={image} imageMobile={imageMobile} alt={image ? alt : ''} eager={eager}>
+        {nda && (
+          <span slot="blank" class="font-mono text-caption uppercase text-muted">
+            {t('project.ndaFrame')}
+          </span>
+        )}
+      </ProjectFrame>
+    )}
   </div>
 
-  <!-- Meta -->
-  <div class="flex flex-1 flex-col gap-4 p-6 md:p-8">
-    <div>
+  <div class="flex flex-col gap-4">
+    <p class="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-caption uppercase text-muted">
+      <span class="text-ink">
+        <ContextBadge context={context} lang={lang} />
+      </span>
+      <span aria-hidden="true" class="text-line">
+        /
+      </span>
+      <span>{kind[lang]}</span>
+    </p>
+
+    <h3 class="font-display text-title text-ink">
+      {hasLink ? (
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="project-link text-ink no-underline"
+        >
+          {title}
+          <span class="sr-only"> ({t('project.newTab')})</span>
+        </a>
+      ) : (
+        title
+      )}
+    </h3>
+
+    <p class="max-w-[60ch] text-body text-muted">{description[lang]}</p>
+
+    {tech.length > 0 && (
       <p class="font-mono text-caption uppercase text-muted">
-        <span class="sr-only">{t('project.roleLabel')}: </span>{role[lang]}
+        <span class="sr-only">{t('project.stackLabel')}: </span>
+        {tech.join(' · ')}
       </p>
-      <h3 class="mt-2 font-display text-title text-ink">{title[lang]}</h3>
-    </div>
+    )}
 
-    <p class="text-body text-muted">{description[lang]}</p>
-
-    <!-- Tech tags -->
-    <ul class="mt-auto flex flex-wrap gap-2 pt-2">
-      {
-        tech.map((item) => (
-          <li class="rounded-sm border border-line px-2.5 py-1 font-mono text-caption uppercase text-muted">
-            {item}
-          </li>
-        ))
-      }
-    </ul>
-
-    <!-- Link or NDA badge -->
-    <div class="pt-2">
-      {
-        hasLink ? (
-          <a
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 font-mono text-caption uppercase text-accent no-underline hover:underline"
-          >
-            {t('project.visit')}
-            <span aria-hidden="true">↗</span>
-            <span class="sr-only">({t('project.newTab')})</span>
-          </a>
-        ) : nda ? (
-          <span class="inline-flex items-center gap-2 rounded-sm bg-accent-soft px-2.5 py-1 font-mono text-caption uppercase text-accent">
-            <span aria-hidden="true" class="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-            {t('project.nda')}
-          </span>
-        ) : null
-      }
+    <div class="pt-1 font-mono text-caption uppercase">
+      {hasLink ? (
+        <span class="inline-flex items-center gap-2 text-gilt" aria-hidden="true">
+          {displayLink}
+          <Arrow dir="out" class="arrow" />
+        </span>
+      ) : status === 'soon' ? (
+        <span class="text-gilt">{t('project.soon')}</span>
+      ) : nda ? (
+        <span class="inline-flex items-center gap-2 text-accent">
+          <span aria-hidden="true" class="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+          {t('project.nda')}
+        </span>
+      ) : null}
     </div>
   </div>
 </article>
+
+<style>
+  /* The whole article is the hit target for the title link, without nesting
+     interactive elements: the frame link is aria-hidden and out of tab order. */
+  .project-link {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .project:hover .project-link,
+  .project-link:focus-visible {
+    background-size: 100% 1px;
+  }
+  .project :global(.arrow) {
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .project:hover :global(.arrow) {
+    transform: translate(2px, -2px);
+  }
+</style>

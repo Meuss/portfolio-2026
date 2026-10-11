@@ -159,8 +159,13 @@ import '../styles/global.css';
 ---
 
 <html lang="en">
-  <head><meta charset="utf-8" /><title>Scaffold OK</title></head>
-  <body class="bg-white text-black p-8"><h1 class="text-3xl font-bold">Scaffold OK</h1></body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Scaffold OK</title>
+  </head>
+  <body class="bg-white text-black p-8">
+    <h1 class="text-3xl font-bold">Scaffold OK</h1>
+  </body>
 </html>
 ```
 

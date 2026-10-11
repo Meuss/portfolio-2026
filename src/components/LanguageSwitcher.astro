@@ -15,19 +15,17 @@ const locales = Object.keys(languages) as Lang[];
   aria-label={t('lang.switcher')}
   class="flex items-center gap-3 font-mono text-caption uppercase tracking-[0.08em]"
 >
-  {
-    locales.map((code) => {
-      const isCurrent = code === lang;
-      return (
-        <a
-          href={switchLocalePath(Astro.url, code)}
-          aria-current={isCurrent ? 'true' : undefined}
-          class={isCurrent ? 'text-ink' : 'text-muted hover:text-accent'}
-        >
-          {code}
-          <span class="sr-only"> ({languages[code]})</span>
-        </a>
-      );
-    })
-  }
+  {locales.map((code) => {
+    const isCurrent = code === lang;
+    return (
+      <a
+        href={switchLocalePath(Astro.url, code)}
+        aria-current={isCurrent ? 'true' : undefined}
+        class={isCurrent ? 'text-ink' : 'text-muted hover:text-accent'}
+      >
+        {code}
+        <span class="sr-only"> ({languages[code]})</span>
+      </a>
+    );
+  })}
 </nav>

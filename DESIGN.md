@@ -1,24 +1,21 @@
 ---
 name: Thomas Miller — Portfolio 2026
-description: The developer as watchmaker — a Swiss movement seen from the back.
+description: Graphite & Gilt — a dark, precise working surface where the shipped work is the hero.
 colors:
   paper: '#16181b'
   ink: '#ece9e1'
   muted: '#9d9b91'
   line: '#32343b'
   surface: '#202226'
-  plate: '#2b2e33'
   accent: '#dd4753'
-  accent-soft: '#2c1e21'
   accent-ink: '#fff5f4'
   gilt: '#c6a15b'
-  blued: '#4f6db0'
 typography:
   display:
     fontFamily: 'Schibsted Grotesk Variable, Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
-    fontSize: 'clamp(3rem, 0.6rem + 10.5vw, 9rem)'
+    fontSize: 'clamp(3.25rem, 1.2rem + 7vw, 6rem)'
     fontWeight: 700
-    lineHeight: 0.9
+    lineHeight: 0.92
     letterSpacing: '-0.04em'
   headline:
     fontFamily: 'Schibsted Grotesk Variable, Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
@@ -47,6 +44,7 @@ typography:
     fontSize: '0.875rem'
     fontWeight: 500
     lineHeight: 1.5
+    letterSpacing: '0.06em'
   caption:
     fontFamily: 'DM Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
     fontSize: '0.78rem'
@@ -65,248 +63,347 @@ components:
     rounded: '{rounded.sm}'
     padding: '0.875rem 1.75rem'
   button-primary-hover:
-    backgroundColor: '{colors.gilt}'
+    backgroundColor: '#d4b273'
     textColor: '{colors.paper}'
   button-secondary:
-    backgroundColor: '{colors.paper}'
+    backgroundColor: 'transparent'
     textColor: '{colors.ink}'
     typography: '{typography.small}'
     rounded: '{rounded.sm}'
     padding: '0.875rem 1.75rem'
-  card:
+  button-secondary-hover:
+    textColor: '{colors.gilt}'
+  chip-filter:
+    backgroundColor: 'transparent'
+    textColor: '{colors.ink}'
+    typography: '{typography.caption}'
+    rounded: '{rounded.sm}'
+    padding: '0.5rem 0.8rem'
+  chip-filter-selected:
     backgroundColor: '{colors.surface}'
     textColor: '{colors.ink}'
+  chip-capability:
+    backgroundColor: 'transparent'
+    textColor: '{colors.ink}'
+    typography: '{typography.caption}'
+    rounded: '{rounded.sm}'
+    padding: '0.375rem 0.75rem'
+  project-frame:
+    backgroundColor: '{colors.surface}'
     rounded: '{rounded.md}'
-    padding: '2rem'
+  project-frame-phone:
+    backgroundColor: '{colors.paper}'
+    rounded: '{rounded.lg}'
+    width: '22%'
   input:
     backgroundColor: '{colors.paper}'
     textColor: '{colors.ink}'
     typography: '{typography.body}'
     rounded: '{rounded.md}'
     padding: '0.75rem 1rem'
+  form-panel:
+    backgroundColor: '{colors.surface}'
+    rounded: '{rounded.lg}'
+    padding: '2rem'
 ---
 
 # Design System: Thomas Miller — Portfolio 2026
 
 ## Overview
 
-**Creative North Star: "The Movement"**
+**Creative North Star: "Graphite & Gilt"**
 
-A Swiss watch movement seen from the back — the developer as watchmaker, a maker
-of precise working mechanisms. The world is committed dark (`color-scheme: dark`):
-a graphite ground with brushed-metal raised surfaces, blued-steel screw detail,
-gilt engraving for labels and the primary action, and exactly one ruby jewel as
-the single bold colour. It deliberately refuses two defaults: the generic
-Swiss-Helvetica-grid it replaced, and the dark-mode-neon-startup look (there are
-no glows, no saturated gradients, no candy accents).
+A dark, precise working surface where the shipped work is the hero. The world is
+committed dark (`color-scheme: dark`): a graphite ground, warm off-white ink,
+gilt for labels and the one primary action, and a single ruby mark as the only
+bold colour. The interface steps back so real screenshots of live client sites
+carry the page: they drift in the hero's wall of work, and they sit in hairline
+frames on every project card. Nothing on the surface is illustration; the
+imagery is the evidence.
 
-The register is calm, precise, and instrument-like. Type is confident and tight
-(Schibsted Grotesk at 700 for the name and headlines), while all machine data —
-availability, roles, tech tags, section labels — speaks in DM Mono, as if
-engraved onto a caliber. Depth comes from tonal layering (surface plates lifted a
-step off the ground and framed by hairline rules), not from drop shadows. The one
-place the material becomes literal is the hero's slowly-rotating brushed movement
-plate with its set ruby jewel.
+The register is calm, exact, and workmanlike. Headings are Schibsted Grotesk,
+tight and confident at 600–700; every piece of data (stacks, context
+tags, hostnames, form labels, button labels) speaks in uppercase DM Mono. Depth
+is tonal: one step from ground to surface, drawn with 1px hairlines. The single
+exception is physical overlap: a phone capture laid over the lower-right corner
+of a desktop screenshot casts one soft shadow, because it really sits on top.
 
-Density is generous and editorial: a single centered 6xl column, wide vertical
-rhythm between sections, and hairline dividers doing the structural work. Nothing
-shouts; the ruby's scarcity is what makes it register.
+Density is generous and editorial: a centered 72rem column, wide vertical
+rhythm, sections divided by full-width hairlines, lists divided by hairlines
+instead of boxed into cards. The world refuses the dark-mode-neon-startup look
+(no glows, no saturated gradients, no candy accents) and the generic
+Swiss-Helvetica grid it replaced.
 
 **Key Characteristics:**
 
 - Graphite dark world, committed (`color-scheme: dark`), warm off-white ink.
-- One ruby accent, used only as a jewel — never as a fill.
-- Gilt for engraved labels and the primary button; blued steel for screw detail.
+- Real screenshots of shipped sites are the imagery; no placeholders, no illustration.
+- One ruby accent, used as a single mark: never a fill, never a wall.
+- Gilt for mono labels, the one primary action, and the selected/hover state.
 - Two voices: Schibsted Grotesk (display/body) + DM Mono (all data/labels).
-- Depth by tonal plates + hairlines, not shadows.
-- Sharp-by-default corners (2/5/10px), motion fully opt-out.
+- Depth by tonal step + hairlines; one soft shadow, only for the overlapping phone capture.
+- Sharp-by-default corners (2/5/10px); one signature motion (the wall), fully opt-out.
 
 ## Colors
 
-A graphite ground carrying warm metal, with a single ruby jewel and gilt
-engraving as the only chromatic events.
+A graphite ground with warm neutral text, gilt as the working accent, and a
+single ruby mark as the only bold event.
 
 ### Primary
 
-- **Ruby Jewel** (`accent`, #dd4753): The one bold colour. Used as a jewel only —
-  small set-stone markers, the "available" pulse dot, inline link text, focus
-  rings, the hero plate's set stone, the tech-tag/NDA accent. Never a full-bleed
-  fill. Its companions: **Deep Ruby Wash** (`accent-soft`, #2c1e21) backs the NDA
-  badge; **Ruby Foreground** (`accent-ink`, #fff5f4) is the warm-white text on
-  ruby surfaces.
+- **Ruby Mark** (`accent`): The one bold colour. Used only as small marks and
+  thin signals: the hero's short accent rule, the availability dot, the
+  Freelance context dot, the wordmark square, nav and footer link hover, inline
+  link text, focus rings, the caret, the NDA marker. Its companion **Ruby
+  Foreground** (`accent-ink`) is the warm-white text on the ruby skip-link.
 
 ### Secondary
 
-- **Gilt Brass** (`gilt`, #c6a15b): Engraved-label voice and the primary action.
-  Colours mono section labels (approach, capabilities, hero calibre line), the
-  primary button fill, hover/border shifts on interactive plates, and `::selection`.
-- **Blued Steel** (`blued`, #4f6db0): Screw-detail tone. Lives inside the hero
-  movement plate's slotted screws; a decorative material colour, not a UI accent.
+- **Gilt** (`gilt`): The working accent. Mono labels (Approach terms, the
+  capabilities heading), the primary button fill, project hostname links and
+  "coming soon" lines, the hover and selected border of chips and secondary
+  buttons, service-title hover, the wall's pause-control hover, the macmac
+  context diamond, and `::selection`.
 
 ### Neutral
 
-- **Graphite Ground** (`paper`, #16181b): Page background; also input fill and the
-  dark text on gilt/gold surfaces.
-- **Warm Off-White Ink** (`ink`, #ece9e1): Primary text (~13:1 on ground).
-- **Muted Sand** (`muted`, #9d9b91): Secondary text, meta, placeholders (~6:1).
-- **Raised Plate** (`surface`, #202226): Cards, panels, footer — one tonal step
-  lifted off the ground.
-- **Brushed Plate** (`plate`, #2b2e33): Brushed movement-plate tone (material
-  reference for plate gradients).
-- **Hairline** (`line`, #32343b): All borders, rules, and dividers.
+- **Graphite Ground** (`paper`): Page background, input fill, the phone-capture
+  frame, and the dark text on gilt.
+- **Warm Off-White Ink** (`ink`): Primary text (~13:1 on ground); also the
+  Marvelous context ring.
+- **Muted Sand** (`muted`): Secondary text, intros, captions, `dt` labels,
+  placeholders (~6:1).
+- **Graphite Surface** (`surface`): One tonal step up: screenshot frames, the
+  contact form panel, the selected filter chip.
+- **Hairline** (`line`): Every border, rule, divider, and the `/` separator in
+  card meta lines.
 
 ### Named Rules
 
-**The One Jewel Rule.** Ruby appears only as a jewel — markers, links, focus
-rings, the set stone — never as a full-bleed fill or a wall. The closing CTA is a
-graphite plate with a gilt button, not a ruby band; if ruby ever covers a whole
-surface, the rule is broken.
+**The Single Mark Rule.** Ruby appears only as a mark: a dot, a short rule, a
+link, a focus ring. It never fills a surface. The closing CTA is a graphite
+panel with a gilt button, not a ruby band; if ruby covers an area larger than a
+dot or a line, the rule is broken.
 
-**The Engraving Rule.** Gilt is reserved for two jobs: engraved mono labels and
-the single primary action. It is never body text and never a large fill.
+**The Gilt Job Rule.** Gilt has three jobs: mono labels, the single primary
+action, and interactive state (hover/selected borders, hostname links). It is
+never body text, never a heading, never a large fill.
+
+**The Context Mark Rule.** How a project came about is shown by who it was
+with, never a colour wash: Freelance is a 0.4rem ruby dot plus the word;
+macmac and Marvelous Digital appear as their own wordmarks, monochrome in
+`currentColor` (`ContextBadge.astro`, SVGs in `src/components/icons/`), with
+the name as screen-reader text. Sizes: 0.62rem (macmac) / 0.92rem (Marvelous)
+in caption lines and chips, ~1.4/1.9rem on the About page. Never recolour or
+restyle the partner wordmarks.
 
 ## Typography
 
 **Display / Body Font:** Schibsted Grotesk Variable (with system-ui fallback)
-**Data / Label Font:** DM Mono (with ui-monospace fallback)
+**Label / Mono Font:** DM Mono 400/500 (with ui-monospace fallback)
 
-**Character:** A precise modern grotesque paired with a mechanical monospace — the
-watchmaker's confident engraving over the caliber's stamped data. Headings run
-tight and mixed-case; all instrument data runs uppercase mono with wide tracking.
-Self-hosted via Fontsource; `font-synthesis: none`, kern/liga/calt on.
+**Character:** A precise modern grotesque over a plain working monospace.
+Headings run tight and mixed-case; all data runs uppercase mono with wide
+tracking. Self-hosted via Fontsource; `font-synthesis: none`, kern/liga/calt on,
+headings `text-wrap: balance`, paragraphs `text-wrap: pretty`.
 
 ### Hierarchy
 
-- **Display** (700, `clamp(3rem, 9rem)`, lh 0.9, -0.04em): Reserved for the
-  largest statements. The hero name is a scoped sibling at `clamp(3rem, 6rem)` /
-  lh 0.94.
-- **Headline** (700, `clamp(2.25rem, 4.5rem)`, lh 1.02, -0.03em): Page and
-  section H1/H2 (services, work, approach, contact, CTA).
-- **Title** (600, `clamp(1.5rem, 2.25rem)`, lh 1.12, -0.02em): Card and feature
-  headings, footer tagline. (Bare `h1–h6` default to weight 600 / -0.02em.)
-- **Lead** (400, `clamp(1.15rem, 1.5rem)`, lh 1.5): Intro and standfirst
-  paragraphs under headings.
-- **Body** (400, `clamp(1rem, 1.0625rem)`, lh 1.6): Default running text.
-- **Small** (500 mono, 0.875rem): Button labels, capability titles.
-- **Caption** (400 mono, 0.78rem, 0.08em, UPPERCASE): The engraved-data voice —
-  calibre line, section labels, roles, tech tags, form labels.
+- **Display** (700, `clamp(3.25rem → 6rem)`, lh 0.92, -0.04em): The hero name
+  only.
+- **Headline** (700, `clamp(2.25rem → 4.5rem)`, lh 1.02, -0.03em): Page and
+  section H1/H2, the CTA heading.
+- **Title** (600, `clamp(1.5rem → 2.25rem)`, lh 1.12, -0.02em): Project card
+  titles, service rows, About "ways" rows, contact sub-heading.
+- **Lead** (400, `clamp(1.15rem → 1.5rem)`, lh 1.5): Intros under headings,
+  hero tagline, Approach statements.
+- **Body** (400, `clamp(1rem → 1.0625rem)`, lh 1.6): Running text, card
+  descriptions (`max-w-[60ch]`), nav links.
+- **Small** (500 mono, 0.875rem, 0.06em, UPPERCASE): Button labels.
+- **Caption** (400 mono, 0.78rem, 0.08em, UPPERCASE): The data voice — context
+  tags and kind lines, stack lines, hostnames, chips, screenshot
+  captions, form labels, availability line, language switcher.
 
 ### Named Rules
 
 **The Two-Voice Rule.** Prose and headings are Schibsted Grotesk; anything that
-reads as machine data — labels, roles, tags, availability, buttons — is DM Mono,
+reads as data (labels, stacks, tags, hostnames, buttons) is DM Mono,
 uppercase, tracked. A voice never crosses into the other's job.
+
+**The No-Eyebrow Rule.** Headings stand alone. No mono kicker or label sits
+above a section heading; mono labels only name data next to it (a `dt` beside
+its `dd`, a context tag above a card title that it describes).
 
 ## Layout
 
-A single centered column: `max-w-6xl` (72rem) with `px-6` gutters, opening to
-`px-10` at `md`. Sections carry generous vertical rhythm — `py-20` rising to
-`py-28`/`py-32` (hero up to `py-40`) — and are separated by a full-width
-`border-line` hairline rather than by background changes. Two-column editorial
-splits appear on interior pages via `md:grid-cols-2` or ratio grids
-(`[1fr_1.15fr]`, `[minmax(0,16rem)_1fr]`), often with a `md:sticky` header beside
-a scrolling list. Card grids step 1 → 2 → 3 (`sm:grid-cols-2 lg:grid-cols-3`).
-Spacing follows the default Tailwind 4px scale; there are no custom spacing
-tokens. Breakpoints are Tailwind defaults (`sm` 640, `md` 768, `lg` 1024).
+A single centered column: `max-w-6xl` (72rem) with 1.5rem gutters opening to
+2.5rem at `md`. Sections carry generous vertical rhythm (5rem rising to 7rem;
+the CTA to 8rem) and are separated by a full-width hairline bottom border, not
+by background changes. Interior sections pair a heading column with content:
+ratio grids such as `minmax(0,20rem) 1fr` (services) or two equal columns
+(approach), with the heading column `sticky` at `top: 7rem` on wide screens.
+The hero is a `1.1fr / 1fr` split at `lg` (intro left, wall right), stacking
+below 1024px with the wall becoming a full-bleed horizontal strip.
+
+Project lists are equal cards with very open gaps: three columns for the
+homepage selection, two columns on `/work` (2rem columns, 4rem rows).
+Service, approach, and About lists are hairline-divided rows, never boxes.
+Spacing uses the Tailwind 4px scale; no custom spacing tokens. Breakpoints are
+Tailwind defaults (`sm` 640, `md` 768, `lg` 1024).
 
 ## Elevation & Depth
 
-No drop shadows in the UI. Depth is **tonal layering**: the graphite ground
-(#16181b) sits under raised plates (`surface` #202226), and every plate is drawn
-with a 1px `line` hairline rather than a cast shadow. State is a border-colour
-shift, not a lift. The only `box-shadow` in the system is _inset_, used inside the
-hero movement plate to sculpt the brushed metal, the guilloché ring, the set
-jewel, and the screws — material modeling, not elevation.
+Flat by default, tonal by construction. The graphite ground sits under one
+lifted step (`surface`), and every container is drawn with a 1px `line`
+hairline rather than a cast shadow. State is a border-colour or text-colour
+shift (to gilt), plus a 2px lift on buttons. The system has exactly one shadow:
+the soft drop under the phone capture where it physically overlaps the desktop
+screenshot. Depth elsewhere comes from the wall's masked fade, which dissolves
+screenshots into the ground at the top and bottom (left and right on mobile).
+
+### Shadow Vocabulary
+
+- **Overlap** (`box-shadow: 0 18px 40px -12px rgb(0 0 0 / 0.7)`): Only on the
+  phone capture laid over a desktop screenshot. It describes a real layer, not
+  elevation for emphasis.
 
 ### Named Rules
 
-**The Hairline Rule.** Surfaces are separated by a 1px `line` border, never by a
-shadow. Depth is one tonal step (`paper` → `surface`) plus a hairline. Reserve
-real shadows for literal three-dimensional metal (the movement plate) only.
+**The Hairline Rule.** Surfaces are separated by a 1px `line` border and one
+tonal step, never by a shadow. The only shadow marks a literal physical overlap
+of one capture over another.
 
 ## Shapes
 
-Sharp by default with small, deliberate softening. Radii are restrained:
-**2px** (`sm`) on buttons, tags, and small chips; **5px** (`md`) on cards, panels,
-and inputs; **10px** (`lg`) on the largest containers (the contact form panel).
-Borders are always the single `line` hairline. Recurring geometry: the rotated
-gilt square ("regulator" diamond), the small round set-stone jewel, and the
-circular movement plate — the world's silhouettes are the screw, the jewel, and
-the plate.
+Sharp by default with small, deliberate softening: **2px** (`sm`) on buttons,
+chips, the nav toggle, and focus rings; **5px** (`md`) on screenshot frames and
+inputs; **10px** (`lg`) on the phone capture and the contact form panel.
+Borders are always the single `line` hairline. Screenshots crop to fixed
+aspect ratios (16:10 desktop, 390:844 phone), anchored to the top of the page.
+The recurring small geometry is the 0.4rem freelance dot and the 0.5rem ruby
+availability dot; partner context uses the partners' wordmarks. Icons are inline SVG, 1.5px square-capped
+strokes sized to the text (`0.95em`): a right arrow for internal actions and an
+up-right arrow for external links.
 
 ## Components
 
 ### Buttons
 
-- **Shape:** Sharp (2px radius, `sm`). Mono, uppercase, tracked; `text-small`
-  weight 500.
-- **Primary:** Gilt fill (#c6a15b) with graphite text (#16181b), padding
-  ~`0.875rem 1.75rem`. Used for the single lead action (hero, contact submit) and,
-  via `.cta-band a`, the closing CTA button.
-- **Secondary:** Ghost — transparent on ground with a `line` border and ink text;
-  hover shifts border and text to gilt.
-- **Hover / Focus:** `translateY(-2px)` lift over 200ms; no colour change on the
-  primary. Focus is the global `:focus-visible` ruby outline.
+Mono, uppercase, sharp, and few: one gilt primary per view.
+
+- **Shape:** 2px radius; DM Mono 500 at 0.875rem, 0.06em tracking, padding
+  `0.875rem 1.75rem`, an SVG arrow trailing with a 0.65rem gap.
+- **Primary:** Gilt fill, graphite text. Hero "start a project", the closing
+  CTA, contact submit.
+- **Hover / Focus:** Primary lightens to a paler gilt (#d4b273) and lifts 2px
+  over 200ms (`cubic-bezier(0.22, 1, 0.36, 1)`); the arrow nudges 2px right.
+  Focus is the global 2px ruby outline, 2px offset.
+- **Secondary:** Transparent with a `line` hairline and ink text; hover shifts
+  border and text to gilt. Used for "view work" / "view all".
 - **Disabled:** `opacity: 0.6`, pointer-events off (contact submit while sending).
 
-### Cards / Containers
+### Chips
 
-- **Corner Style:** 5px (`md`); the contact form panel uses 10px (`lg`).
-- **Background:** Raised plate (`surface` #202226) on the graphite ground.
-- **Shadow Strategy:** None — hairline border only (see Elevation).
-- **Border:** 1px `line`; hover shifts to `accent` (project cards) or `gilt`
-  (service blocks). The feature "main plate" block carries a top gilt hairline
-  (`bg-gilt/70`).
-- **Internal Padding:** `p-6` → `p-8`/`p-12` on larger plates.
-- **Note:** Project-card images and the portrait are PLACEHOLDERS; the card frame
-  is real, its content is not yet.
+- **Filter chips (/work):** Transparent, `line` hairline, 2px radius, caption
+  mono in ink, padding `0.5rem 0.8rem`; each carries its context mark and a
+  muted count. Hover shifts the border to gilt; the selected chip
+  (`aria-pressed="true"`) fills with `surface` and keeps the gilt border.
+- **Capability chips (services):** Static, `line` hairline, 2px radius, caption
+  mono in ink; the full blurb lives in `title`.
+
+### Project Card
+
+The shipped site is the card. There is no card box: an open composition of
+frame and text.
+
+- **Frame:** The real desktop screenshot in a 5px, hairline-bordered `surface`
+  frame (16:10); on hover the image scales to 1.02 over 700ms. When a phone
+  capture exists it overlaps the lower-right corner (22% wide, 10px radius,
+  `paper` backing, 1.25rem below the frame) with the Overlap shadow. NDA work
+  shows a blank frame with a faint diagonal hatch and a mono caption.
+- **Meta line:** Context badge (ruby dot + "Freelance", or the macmac /
+  Marvelous wordmark) in ink, a `line`-coloured `/`,
+  then the kind in muted caption mono.
+- **Title:** Title, ink; the whole article is the hover
+  target and draws a 1px underline left-to-right over 400ms.
+- **Description:** Muted body, max 60ch.
+- **Stack:** One muted caption-mono line, joined with `·` (no role line — the
+  site does not split credit between design and development).
+- **Link line:** The hostname in gilt caption mono with an up-right SVG arrow
+  that shifts 2px diagonally on hover; "coming soon" in gilt; NDA as a small
+  ruby dot plus label.
 
 ### Inputs / Fields
 
-- **Style:** Graphite fill (`paper`), 1px `line` border, 5px radius, `body` text,
-  `muted` placeholders. Label above in uppercase mono caption.
-- **Focus:** 2px `accent` outline, 2px offset (`focus-visible`). No glow.
-- **Status:** Inline `aria-live` status paragraph, success text turns ruby.
+- **Style:** Graphite fill (`paper`), 1px `line` border, 5px radius, body text,
+  muted placeholders; uppercase caption-mono label above in muted. Fields sit
+  on a 10px `surface` panel with hairline border.
+- **Focus:** 2px ruby outline, 2px offset. No glow. Caret is ruby.
+- **Status:** Inline `aria-live` status paragraph below the submit.
 
 ### Navigation
 
-- **Header:** Sticky, `bg-paper/95` with `backdrop-blur`, hairline bottom border.
-  Wordmark in Schibsted Grotesk semibold with a small ruby square mark; nav links
-  are `body` ink, hover → ruby, `aria-current="page"` on the active route.
-- **Mobile:** Hairline-bordered toggle button (three ink hairlines), panel toggled
-  with `hidden`, Escape-to-close; fully labelled.
+- **Header:** Sticky, 95% graphite with backdrop blur, hairline bottom border.
+  Wordmark in Schibsted Grotesk semibold beside a small 2px-radius ruby square;
+  nav links in body ink, hover to ruby, `aria-current="page"` on the active
+  route; the EN/FR switcher in caption mono.
+- **Mobile:** A 2.5rem hairline-bordered toggle with three ink hairlines opens
+  a stacked panel; labelled, Escape closes and returns focus.
 
-### Signature: The Movement Plate (hero)
+### Service List
 
-A large brushed circular plate behind the hero, built entirely in CSS: layered
-`repeating-conic-gradient` + `radial-gradient` for the brushed metal and
-guilloché, four blued slotted screws, and a set ruby jewel with a specular
-highlight and bezel. It rotates 360° over 120s (`movement-rotate`, linear,
-infinite) and is disabled under reduced-motion. A graphite `hero-veil` gradient
-fades across the text side to hold contrast. Decorative and `aria-hidden`.
+Five services as hairline-divided rows (no cards): title in Title weight on the
+left, muted blurb on the right from `sm`; the title turns gilt on row hover.
+Capability chips follow under a gilt caption-mono heading.
+
+### Signature: The Wall of Work (hero)
+
+The one signature motion. Up to ten real desktop screenshots of shipped sites
+(NDA work excluded) in two columns that drift vertically in opposite
+directions: up over 70s, down over 80s, linear and seamless (each track is
+rendered twice). The second column is offset 9rem up so rows never align. Each
+shot is a 5px hairline `surface` frame with a caption-mono title bar. A mask
+fades the column ends into the ground (transparent → solid at 14% / 86%).
+
+Below 1024px it becomes one full-bleed horizontal strip drifting left over 60s,
+masked at 8% / 92%. Animation runs only under
+`prefers-reduced-motion: no-preference`; it pauses on hover, when the wall is
+off-screen (IntersectionObserver), and via a mono "pause / play" text button
+(`aria-pressed`, hover gilt) that appears only when motion is on. Under reduced
+motion the wall is a static grid. The wall is decorative (`aria-hidden`); the
+same work is reachable through the project list.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- **Do** keep ruby as a jewel — small markers, links, focus rings, the set stone.
-- **Do** use gilt only for engraved mono labels and the one primary action.
-- **Do** separate surfaces with the `line` hairline and one tonal step, not shadow.
-- **Do** put all machine data (roles, tags, labels, availability, buttons) in DM
-  Mono, uppercase, `0.08em` tracked.
-- **Do** center content in a `max-w-6xl` column with `px-6`/`px-10` gutters and
-  `py-20`+ section rhythm.
-- **Do** keep motion opt-out: gate decorative animation behind
-  `prefers-reduced-motion: no-preference` and reveal-on-scroll behind `html.js`.
+- **Do** let real screenshots of shipped sites be the imagery; crop them to
+  16:10 (desktop) or 390:844 (phone), top-anchored, inside a hairline frame.
+- **Do** keep ruby as a single mark: dots, a short rule, links, focus rings.
+- **Do** use gilt for mono labels, the one primary action, and hover/selected state.
+- **Do** show project context with the ContextBadge (freelance dot or partner wordmark) wherever context appears.
+- **Do** separate surfaces with the `line` hairline and one tonal step; divide
+  lists with hairlines instead of boxing them into cards.
+- **Do** put all data (stacks, tags, hostnames, labels, buttons) in DM
+  Mono, uppercase, tracked.
+- **Do** draw icons as inline SVG strokes (1.5px, square caps) sized in `em`.
+- **Do** gate every animation behind `prefers-reduced-motion: no-preference`,
+  give continuous motion a pause control, and stop it when off-screen.
 - **Do** ship every visitor-facing string in both EN and FR (binding product
   constraint).
 
 ### Don't:
 
-- **Don't** fill a surface with ruby or build a ruby "wall" — the closing CTA is a
-  graphite plate, not a ruby band.
-- **Don't** add drop shadows for elevation; reserve inset shadows for literal metal.
-- **Don't** introduce neon glows, saturated gradients, or a second accent colour.
+- **Don't** fill a surface with ruby or build a ruby band; the closing CTA is a
+  graphite panel with a gilt button.
+- **Don't** add drop shadows for elevation; the only shadow is the phone
+  capture's physical overlap.
+- **Don't** use placeholder imagery or stock illustration in place of real work.
+  The only portrait is Thomas's real photo (`src/assets/portrait.jpg`, About page).
+- **Don't** put a mono eyebrow or kicker above a heading.
+- **Don't** use unicode glyph arrows (→ ↗) or emoji as icons.
+- **Don't** introduce neon glows, saturated gradients, or a second bold accent.
 - **Don't** set body or heading text in gilt, or run prose in the mono voice.
-- **Don't** present the placeholder project images, portrait, or bios as real work.
-- **Don't** add a second display typeface or a system font — the pairing is fixed.
+- **Don't** add a second continuous animation; the wall of work is the one
+  signature motion.
+- **Don't** add a second display typeface or a system font; the pairing is fixed.

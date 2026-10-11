@@ -1,0 +1,67 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  image?: ImageMetadata;
+  imageMobile?: ImageMetadata;
+  alt: string;
+  /** Rendered width hint for responsive srcset (CSS px of the frame). */
+  sizes?: string;
+  eager?: boolean;
+}
+
+const {
+  image,
+  imageMobile,
+  alt,
+  sizes = '(min-width: 1024px) 34rem, 92vw',
+  eager = false,
+} = Astro.props;
+---
+
+{/* A real screenshot of the shipped site on a graphite plate; the phone
+    capture overlaps the lower-right corner when there is one. */}
+<div class="frame relative">
+  <div class="frame-desktop overflow-hidden rounded-md border border-line bg-surface">
+    {image ? (
+      <Image
+        src={image}
+        alt={alt}
+        widths={[480, 800, 1200, 1600]}
+        sizes={sizes}
+        loading={eager ? 'eager' : 'lazy'}
+        class="block aspect-[16/10] h-auto w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+      />
+    ) : (
+      <div class="frame-blank aspect-[16/10] w-full" aria-hidden="true">
+        <slot name="blank" />
+      </div>
+    )}
+  </div>
+  {imageMobile && (
+    <div class="frame-mobile absolute -bottom-5 right-4 w-[22%] min-w-[4.5rem] overflow-hidden rounded-lg border border-line bg-paper md:right-6">
+      <Image
+        src={imageMobile}
+        alt=""
+        widths={[160, 320]}
+        sizes="10rem"
+        loading={eager ? 'eager' : 'lazy'}
+        class="block aspect-[390/844] h-auto w-full object-cover object-top"
+      />
+    </div>
+  )}
+</div>
+
+<style>
+  .frame-mobile {
+    box-shadow: 0 18px 40px -12px rgb(0 0 0 / 0.7);
+  }
+  .frame-blank {
+    display: grid;
+    place-items: center;
+    background:
+      repeating-linear-gradient(135deg, rgb(255 255 255 / 0.025) 0 1px, transparent 1px 14px),
+      var(--color-surface);
+  }
+</style>

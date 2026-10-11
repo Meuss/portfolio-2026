@@ -1,0 +1,40 @@
+---
+import type { Lang } from '../i18n/ui';
+import { contact } from '../data/contact';
+import { useTranslations } from '../i18n/utils';
+import SocialIcon from './icons/SocialIcon.astro';
+
+interface Props {
+  lang: Lang;
+  class?: string;
+}
+
+const { lang, class: className } = Astro.props;
+const t = useTranslations(lang);
+
+const links = [
+  { name: 'github', href: contact.githubUrl, label: t('footer.github') },
+  { name: 'linkedin', href: contact.linkedinUrl, label: t('footer.linkedin') },
+] as const;
+---
+
+{/* Icon-only links; the visible mark is the brand logo, the name is for
+    screen readers. Each target is 44px for touch. */}
+<ul class:list={['flex items-center', className]}>
+  {links.map(({ name, href, label }) => (
+    <li>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        title={label}
+        class="inline-grid size-11 place-items-center text-[1.35rem] text-muted transition-colors hover:text-accent focus-visible:text-accent"
+      >
+        <SocialIcon name={name} />
+        <span class="sr-only">
+          {label} ({t('project.newTab')})
+        </span>
+      </a>
+    </li>
+  ))}
+</ul>

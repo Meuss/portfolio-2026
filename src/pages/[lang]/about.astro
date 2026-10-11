@@ -1,11 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CapabilitiesStrip from '../../components/CapabilitiesStrip.astro';
+import portrait from '../../assets/portrait.jpg';
 import CTA from '../../components/CTA.astro';
+import ContextBadge from '../../components/ContextBadge.astro';
 import { languages, type Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
-import portrait from '../../assets/placeholders/portrait.svg';
 
 export function getStaticPaths() {
   return (Object.keys(languages) as Lang[]).map((lang) => ({ params: { lang } }));
@@ -13,45 +13,81 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
+
+const ways = (['marvelous', 'macmac', 'independent'] as const).map((context, i) => ({
+  context,
+  name: t(`aboutPage.way${i + 1}.name`),
+  meta: t(`aboutPage.way${i + 1}.meta`),
+  text: t(`aboutPage.way${i + 1}.text`),
+}));
 ---
 
 <BaseLayout title={t('aboutPage.title')} description={t('aboutPage.description')} lang={lang}>
   <section class="border-b border-line bg-paper py-20 md:py-28">
     <div class="mx-auto max-w-6xl px-6 md:px-10">
-      <div class="grid gap-12 md:grid-cols-[18rem_1fr] md:gap-16">
-        <!-- Portrait -->
-        <div data-reveal class="md:sticky md:top-28 md:self-start">
-          <div class="aspect-[4/5] overflow-hidden rounded-md border border-line bg-surface">
-            <Image
-              src={portrait}
-              alt={t('aboutPage.portraitAlt')}
-              width={640}
-              height={800}
-              class="h-full w-full object-cover"
-            />
-          </div>
-        </div>
+      <h1 data-reveal class="max-w-4xl font-display text-headline text-ink">
+        {t('aboutPage.heading')}
+      </h1>
 
-        <!-- Bio -->
-        <div>
-          <header data-reveal>
-            <h1 class="font-display text-headline text-ink">{t('aboutPage.heading')}</h1>
-          </header>
+      <div class="mt-12 grid gap-10 md:mt-16 md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] md:gap-16 lg:gap-20">
+        <figure data-reveal class="md:sticky md:top-28 md:self-start">
+          <Image
+            src={portrait}
+            alt={t('aboutPage.portraitAlt')}
+            widths={[400, 640, 960]}
+            sizes="(min-width: 768px) 20rem, 92vw"
+            loading="eager"
+            class="aspect-[4/5] h-auto w-full rounded-md border border-line object-cover object-[50%_30%]"
+          />
+        </figure>
 
-          <div data-reveal data-reveal-delay="1" class="mt-8 flex max-w-2xl flex-col gap-5">
-            <p class="text-lead text-muted">{t('aboutPage.bioIntro')}</p>
-            <p class="text-body text-muted">{t('aboutPage.bioParagraph1')}</p>
-            <p class="text-body text-muted">{t('aboutPage.bioParagraph2')}</p>
-          </div>
+        <div data-reveal data-reveal-delay="1" class="flex max-w-[62ch] flex-col gap-5">
+          <p class="text-lead text-ink">{t('aboutPage.bioIntro')}</p>
+          <p class="text-body text-muted">{t('aboutPage.bioParagraph1')}</p>
+          <p class="text-body text-muted">{t('aboutPage.bioParagraph2')}</p>
+          <p class="text-body text-muted">{t('aboutPage.bioParagraph3')}</p>
         </div>
       </div>
     </div>
   </section>
 
-  <CapabilitiesStrip lang={lang} />
+  <section class="border-b border-line bg-paper py-20 md:py-28">
+    <div class="mx-auto max-w-6xl px-6 md:px-10">
+      <h2 class="font-display text-headline text-ink">{t('aboutPage.waysHeading')}</h2>
+
+      <ol class="mt-12 border-b border-line md:mt-16" role="list">
+        {ways.map((way, i) => (
+          <li
+            data-reveal
+            data-reveal-delay={String(i + 1)}
+            class="grid gap-3 border-t border-line py-8 md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] md:gap-12 md:py-10"
+          >
+            <div>
+              <h3 class="font-display text-title text-ink">
+                {way.context === 'independent' ? (
+                  way.name
+                ) : (
+                  <span class="inline-flex h-[2.25rem] items-center">
+                    <ContextBadge context={way.context} lang={lang} size="lg" />
+                  </span>
+                )}
+              </h3>
+              <p class="mt-2 inline-flex items-center gap-2 font-mono text-caption uppercase text-muted">
+                {way.context === 'independent' && (
+                  <span aria-hidden="true" class="context-mark context-mark--independent" />
+                )}
+                {way.meta}
+              </p>
+            </div>
+            <p class="max-w-[52ch] text-lead text-ink md:pt-1">{way.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
   <CTA lang={lang} />
 
-  {/* Scroll-reveal island (Vite-bundled; runs client-side, progressive enhancement). */}
   <script>
     import '../../components/islands/reveal.ts';
   </script>

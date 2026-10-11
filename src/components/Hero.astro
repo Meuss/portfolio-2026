@@ -1,6 +1,9 @@
 ---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import type { Lang } from '../i18n/ui';
 import { localizedPath, useTranslations } from '../i18n/utils';
+import Arrow from './icons/Arrow.astro';
 
 interface Props {
   lang: Lang;
@@ -11,210 +14,251 @@ const t = useTranslations(lang);
 
 const contactHref = localizedPath(lang, '/contact');
 const workHref = localizedPath(lang, '/work');
+
+// The wall: real desktop screenshots of shipped sites, split into two columns.
+const shots = (await getCollection('projects'))
+  .filter((p) => p.data.image && !p.data.nda)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 10);
+const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i % 2 === 1)];
 ---
 
 <section class="hero relative overflow-hidden border-b border-line bg-paper">
-  {/* Signature movement plate — decorative, progressive-enhancement rotation. */}
-  <div aria-hidden="true" class="hero-plate-wrap">
-    <div class="hero-plate">
-      <span class="screw" style="--x: 16%; --y: 20%"></span>
-      <span class="screw" style="--x: 82%; --y: 30%"></span>
-      <span class="screw" style="--x: 74%; --y: 80%"></span>
-      <span class="screw" style="--x: 24%; --y: 78%"></span>
+  <div class="relative mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-14 px-6 pb-16 pt-20 md:px-10 md:pt-28 lg:min-h-[min(52rem,calc(100svh-4.5rem))] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center lg:gap-10 lg:py-24">
+    <div class="relative z-10">
+      <h1 class="hero-name font-display text-ink">{t('hero.name')}</h1>
+
+      <div aria-hidden="true" class="mt-7 flex max-w-md items-center gap-4">
+        <span class="h-px w-16 bg-accent"></span>
+        <span class="h-px flex-1 bg-line"></span>
+      </div>
+
+      <p class="mt-8 max-w-xl text-lead text-ink">{t('hero.tagline')}</p>
+
+      <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a href={contactHref} class="btn-primary group">
+          {t('hero.cta')}
+          <Arrow class="transition-transform duration-200 group-hover:translate-x-0.5" />
+        </a>
+        <a href={workHref} class="btn-secondary">
+          {t('hero.ctaSecondary')}
+        </a>
+      </div>
+
+      <ul class="mt-14 flex flex-col gap-3 border-t border-line pt-7 font-mono text-caption uppercase text-muted sm:flex-row sm:flex-wrap sm:gap-x-10">
+        <li class="flex items-center gap-2.5 text-ink">
+          <span aria-hidden="true" class="status-dot"></span>
+          {t('hero.availability')}
+        </li>
+        <li>{t('hero.based')}</li>
+      </ul>
     </div>
-  </div>
-  {/* Legibility veil: graphite fading from the text side toward the plate. */}
-  <div aria-hidden="true" class="hero-veil"></div>
 
-  <div class="relative z-10 mx-auto max-w-6xl px-6 py-24 md:px-10 md:py-32 lg:py-40">
-    <!-- Calibre nomenclature — instrument data, engraved in gilt -->
-    <p class="flex items-center gap-3 font-mono text-caption tracking-wide text-gilt">
-      <span aria-hidden="true" class="jewel"></span>
-      {t('hero.eyebrow')}
-    </p>
-
-    <!-- Signature: the name -->
-    <h1 class="hero-name mt-7 font-display text-ink">{t('hero.name')}</h1>
-
-    <!-- Regulator rule -->
-    <div aria-hidden="true" class="mt-6 flex items-center gap-4">
-      <span class="h-px w-16 bg-accent md:w-24"></span>
-      <span class="h-px flex-1 bg-line"></span>
-      <span class="h-1.5 w-1.5 rotate-45 bg-gilt"></span>
-    </div>
-
-    <!-- Positioning line -->
-    <p class="mt-8 max-w-2xl text-lead text-ink">
-      {t('hero.tagline')}
-    </p>
-
-    <!-- Calls to action -->
-    <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-      <a
-        href={contactHref}
-        class="group inline-flex items-center justify-center gap-2.5 rounded-sm bg-gilt px-7 py-3.5 font-mono text-small font-medium uppercase tracking-wide text-[#16181b] no-underline transition-transform duration-200 hover:-translate-y-0.5"
-      >
-        {t('hero.cta')}
-        <span
-          aria-hidden="true"
-          class="transition-transform duration-200 group-hover:translate-x-0.5">→</span
+    {shots.length > 0 && (
+      <div class="wall-wrap relative min-w-0" data-wall>
+        <div class="wall" aria-hidden="true">
+          {columns.map((col, c) => (
+            <div class:list={['wall-col', c === 1 && 'wall-col--down']}>
+              {/* Rendered twice so the loop is seamless. */}
+              {[0, 1].map((copy) => (
+                <div class="wall-track">
+                  {col.map((p, i) => (
+                    <figure class="wall-shot">
+                      <Image
+                        src={p.data.image!}
+                        alt=""
+                        widths={[360, 560, 720]}
+                        sizes="(min-width: 1024px) 15rem, 60vw"
+                        loading={copy === 0 && i < 2 ? 'eager' : 'lazy'}
+                        class="block aspect-[16/10] h-auto w-full object-cover object-top"
+                      />
+                      <figcaption>{p.data.title}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        <button
+          type="button"
+          class="wall-toggle"
+          data-wall-toggle
+          hidden
+          data-label-pause={t('hero.wallPause')}
+          data-label-play={t('hero.wallPlay')}
+          aria-pressed="false"
         >
-      </a>
-      <a
-        href={workHref}
-        class="inline-flex items-center justify-center gap-2 rounded-sm border border-line px-7 py-3.5 font-mono text-small uppercase tracking-wide text-ink no-underline transition-colors duration-200 hover:border-gilt hover:text-gilt"
-      >
-        {t('hero.ctaSecondary')}
-      </a>
-    </div>
-
-    <!-- Credibility meta -->
-    <ul
-      class="mt-16 flex flex-col gap-4 border-t border-line pt-8 font-mono text-caption tracking-wide text-muted sm:flex-row sm:gap-12"
-    >
-      <li class="flex items-center gap-2.5 text-ink">
-        <span aria-hidden="true" class="jewel jewel--pulse"></span>
-        {t('hero.availability')}
-      </li>
-      <li>{t('hero.based')}</li>
-    </ul>
+          {t('hero.wallPause')}
+        </button>
+      </div>
+    )}
   </div>
 </section>
 
+<script>
+  const wall = document.querySelector<HTMLElement>('[data-wall]');
+  const toggle = wall?.querySelector<HTMLButtonElement>('[data-wall-toggle]');
+  const moving = window.matchMedia('(prefers-reduced-motion: no-preference)');
+  if (wall && toggle && moving.matches) {
+    toggle.hidden = false;
+    toggle.addEventListener('click', () => {
+      const paused = wall.classList.toggle('is-paused');
+      toggle.setAttribute('aria-pressed', String(paused));
+      toggle.textContent = (paused ? toggle.dataset.labelPlay : toggle.dataset.labelPause) ?? '';
+    });
+    // Don't spend frames on a wall nobody can see.
+    new IntersectionObserver(([entry]) => {
+      wall.classList.toggle('is-offscreen', !entry.isIntersecting);
+    }).observe(wall);
+  }
+</script>
+
 <style>
   .hero-name {
-    font-size: clamp(3rem, 1.4rem + 6.4vw, 6rem);
+    font-size: clamp(3.25rem, 1.2rem + 7vw, 6rem);
     font-weight: 700;
-    line-height: 0.94;
+    line-height: 0.92;
     letter-spacing: -0.04em;
   }
 
-  /* --- Movement plate ---------------------------------------------------- */
-  .hero-plate-wrap {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
-  }
-  .hero-plate {
-    position: absolute;
-    top: 50%;
-    right: -14%;
-    width: min(46rem, 78vw);
-    aspect-ratio: 1;
-    translate: 0 -50%;
-    border-radius: 50%;
-    background:
-      repeating-conic-gradient(
-        from 0deg,
-        rgba(255, 255, 255, 0.05) 0deg 0.6deg,
-        rgba(0, 0, 0, 0.14) 0.6deg 1.2deg
-      ),
-      radial-gradient(circle at 42% 36%, #43464c 0%, #2c2f34 46%, #202226 72%, #191b1e 100%);
-    box-shadow:
-      inset 0 0 90px rgba(0, 0, 0, 0.65),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-    opacity: 0.9;
-  }
-  /* Guilloché inner ring */
-  .hero-plate::before {
-    content: '';
-    position: absolute;
-    inset: 16%;
-    border-radius: 50%;
-    background: repeating-radial-gradient(
-      circle at 50% 50%,
-      rgba(255, 255, 255, 0.045) 0 3px,
-      rgba(0, 0, 0, 0.14) 3px 6px
-    );
-    box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-      0 0 0 1px rgba(0, 0, 0, 0.3);
-  }
-  /* Jewelled center — a set ruby: specular highlight + bezel, not a neon halo */
-  .hero-plate::after {
-    content: '';
-    position: absolute;
-    left: 42%;
-    top: 36%;
-    width: 3.4%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #f0768a, #dd4753 55%, #8e2b3b 100%);
-    box-shadow:
-      inset 0 1px 2px rgba(255, 255, 255, 0.45),
-      0 2px 5px rgba(0, 0, 0, 0.6),
-      0 0 0 4px rgba(20, 22, 25, 0.85);
-  }
-  .screw {
-    position: absolute;
-    left: var(--x);
-    top: var(--y);
-    width: 2.6%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background:
-      linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.4)),
-      radial-gradient(circle at 40% 35%, #6b7ea8, #3f5c96 70%, #26364f);
-    box-shadow:
-      inset 0 0 0 1px rgba(0, 0, 0, 0.5),
-      0 1px 2px rgba(0, 0, 0, 0.6);
-  }
-  /* Slotted screw head */
-  .screw::after {
-    content: '';
-    position: absolute;
-    inset: 32% 12%;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 1px;
-  }
-
-  .hero-veil {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background: linear-gradient(
-      100deg,
-      var(--color-paper) 0%,
-      var(--color-paper) 34%,
-      color-mix(in oklab, var(--color-paper) 55%, transparent) 60%,
-      transparent 82%
-    );
-  }
-
-  /* Small ruby jewel markers — set stones with a specular highlight */
-  .jewel {
-    display: inline-block;
+  .status-dot {
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #f0768a, #dd4753 60%, #8e2b3b);
-    box-shadow:
-      inset 0 1px 1px rgba(255, 255, 255, 0.5),
-      0 1px 2px rgba(0, 0, 0, 0.55);
+    background: var(--color-accent);
     flex: none;
   }
 
+  /* --- The wall of work -------------------------------------------------- */
+  .wall-wrap {
+    --wall-h: 34rem;
+  }
+  .wall {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    height: var(--wall-h);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  }
+  .wall-col {
+    display: flex;
+    flex-direction: column;
+  }
+  .wall-col--down {
+    margin-top: -9rem;
+  }
+  .wall-track {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 1rem;
+  }
+  .wall-shot {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+  .wall-shot figcaption {
+    padding: 0.55rem 0.75rem;
+    border-top: 1px solid var(--color-line);
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .wall-toggle {
+    position: absolute;
+    right: 0;
+    bottom: -2.25rem;
+    padding: 0.25rem 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .wall-toggle:hover {
+    color: var(--color-gilt);
+  }
+
+  /* Mobile: one horizontal strip under the intro. */
+  @media (max-width: 1023px) {
+    .wall-wrap {
+      margin-inline: -1.5rem;
+      --wall-h: auto;
+    }
+    .wall {
+      display: block;
+      height: auto;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    }
+    .wall-col {
+      flex-direction: row;
+      width: max-content;
+    }
+    .wall-col--down {
+      display: none;
+    }
+    .wall-track {
+      flex-direction: row;
+      padding: 0 1rem 0 0;
+    }
+    .wall-shot {
+      width: min(16rem, 62vw);
+    }
+    .wall-toggle {
+      right: 1.5rem;
+    }
+  }
+
   @media (prefers-reduced-motion: no-preference) {
-    .hero-plate {
-      animation: movement-rotate 120s linear infinite;
+    .wall-col {
+      animation: wall-up 70s linear infinite;
     }
-    /* The "available" stone breathes — a gentle scale, no glow */
-    .jewel--pulse {
-      animation: jewel-pulse 2.8s ease-in-out infinite;
+    .wall-col--down {
+      animation: wall-down 80s linear infinite;
     }
-    @keyframes jewel-pulse {
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 0.85;
+    .wall-wrap:hover .wall-col,
+    .wall-wrap.is-paused .wall-col,
+    .wall-wrap.is-offscreen .wall-col {
+      animation-play-state: paused;
+    }
+    @media (max-width: 1023px) {
+      .wall-col {
+        animation: wall-left 60s linear infinite;
       }
-      50% {
-        transform: scale(1.22);
-        opacity: 1;
-      }
+    }
+  }
+  @keyframes wall-up {
+    to {
+      transform: translateY(-50%);
+    }
+  }
+  @keyframes wall-down {
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @keyframes wall-left {
+    to {
+      transform: translateX(-50%);
     }
   }
 </style>

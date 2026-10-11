@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
 import { languages, type Lang } from '../../i18n/ui';
+import { contact } from '../../data/contact';
 import { useTranslations } from '../../i18n/utils';
 
 export function getStaticPaths() {
@@ -15,11 +17,7 @@ const t = useTranslations(lang);
 // just won't deliver until PUBLIC_WEB3FORMS_KEY is set. Never throw here.
 const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
 
-// Same handles as the footer (Footer.astro) — a known placeholder-content
-// TODO tracked outside this task, not something to resolve here.
-const email = 'thomas.miller@marvelous.digital';
-const githubUrl = 'https://github.com/thomasmiller';
-const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
+const { email } = contact;
 ---
 
 <BaseLayout title={t('contactPage.title')} description={t('contactPage.description')} lang={lang}>
@@ -36,35 +34,13 @@ const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
           <div data-reveal data-reveal-delay="1" class="mt-12 border-t border-line pt-8">
             <h2 class="font-display text-title text-ink">{t('contactPage.fallbackHeading')}</h2>
             <p class="mt-2 max-w-sm text-body text-muted">{t('contactPage.fallbackIntro')}</p>
-            <ul class="mt-6 flex flex-col gap-3 text-body">
-              <li>
-                <a href={`mailto:${email}`} class="text-ink hover:text-accent">
-                  <span class="sr-only">{t('footer.email')}: </span>{email}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-ink hover:text-accent"
-                >
-                  {t('footer.github')}
-                  <span class="sr-only"> ({t('project.newTab')})</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href={linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-ink hover:text-accent"
-                >
-                  {t('footer.linkedin')}
-                  <span class="sr-only"> ({t('project.newTab')})</span>
-                </a>
-              </li>
-            </ul>
+            <div class="mt-6 flex flex-col items-start gap-3 text-body">
+              <a href={`mailto:${email}`} class="text-ink hover:text-accent">
+                <span class="sr-only">{t('footer.email')}: </span>
+                {email}
+              </a>
+              <SocialLinks lang={lang} class="-ml-3" />
+            </div>
           </div>
         </div>
 
@@ -84,12 +60,10 @@ const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
             />
             <input type="hidden" name="from_name" value="thomasmiller.ch contact form" />
 
-            {
-              /* Honeypot: left visible in the DOM for simple bots to fill, but
+            {/* Honeypot: left visible in the DOM for simple bots to fill, but
                 positioned off-screen and removed from the a11y tree / tab
                 order so real (and assistive-tech) visitors never encounter
-                it. Web3Forms rejects submissions where this is filled in. */
-            }
+                it. Web3Forms rejects submissions where this is filled in. */}
             <div class="absolute left-[-9999px] top-auto" aria-hidden="true">
               <label for="botcheck">{t('contactForm.honeypotLabel')}</label>
               <input type="text" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off" />
@@ -141,15 +115,13 @@ const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
 
             <button
               type="submit"
-              class="mt-2 inline-flex items-center justify-center gap-2 rounded-sm bg-gilt px-7 py-3.5 font-mono text-small font-medium uppercase tracking-wide text-[#16181b] transition-transform duration-200 hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-60"
+              class="btn-primary mt-2 disabled:pointer-events-none disabled:opacity-60"
             >
               <span data-submit-label>{t('contactForm.submit')}</span>
             </button>
 
-            {
-              /* Populated by the enhancement script below; empty and inert
-                without JS, so it never shows a blank box on the no-JS path. */
-            }
+            {/* Populated by the enhancement script below; empty and inert
+                without JS, so it never shows a blank box on the no-JS path. */}
             <p
               id="contact-form-status"
               role="status"
@@ -158,8 +130,7 @@ const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
               data-sending-text={t('contactForm.sending')}
               data-success-text={t('contactForm.successMessage')}
               data-error-text={t('contactForm.errorMessage')}
-            >
-            </p>
+            ></p>
           </form>
         </div>
       </div>
@@ -170,9 +141,7 @@ const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
   <script>
     import '../../components/islands/reveal.ts';
   </script>
-
-  {
-    /*
+  {/*
     Progressive enhancement only: without this script (no JS, or it fails to
     run) the form is a plain HTML form that POSTs directly to Web3Forms and
     Web3Forms's own hosted response page confirms the submission — the site
@@ -181,8 +150,7 @@ const linkedinUrl = 'https://www.linkedin.com/in/thomasmiller';
     With JS, submit is intercepted so the same POST happens via fetch and the
     result is reported inline through the aria-live status paragraph above,
     with no full-page reload. No alert()/confirm() dialogs are used.
-  */
-  }
+  */}
   <script>
     const form = document.getElementById('contact-form');
     const status = document.getElementById('contact-form-status');
