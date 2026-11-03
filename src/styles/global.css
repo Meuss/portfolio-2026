@@ -293,8 +293,7 @@
   inset: 0;
   pointer-events: none;
 }
-.fx-layer:empty,
-.fx-orb:empty {
+.fx-layer:empty {
   display: none;
 }
 
@@ -343,8 +342,7 @@
 /* Name entrances: text split into cells sized by their final glyph (a hidden
    ghost), with variant layers stacked on top. Cells can't kern across each
    other, so the slot drops kerning for good: no shift when plain text returns. */
-[data-fx-slot~='heroName'],
-[data-fx-slot~='contactHeading'] {
+[data-fx-slot~='heroName'] {
   font-kerning: none;
   font-variant-ligatures: none;
 }

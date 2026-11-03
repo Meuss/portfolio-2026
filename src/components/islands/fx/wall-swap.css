@@ -4,11 +4,15 @@
   inset: 0;
   perspective: 1200px;
   perspective-origin: 40% 45%;
+  user-select: none;
 }
+/* The deck's box shares the cards' 3D space and sits in front of any card with
+   negative depth, so it must never take the pointer: only the cards do. */
 .fx-swap-deck {
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
+  pointer-events: none;
 }
 /* Front card sits left and is lowered by half the deck's rise, so the fanned
    deck stays centred in the wall's box. Its width leaves room for the fan but
@@ -21,7 +25,7 @@
   margin: 0;
   transform-origin: 50% 100%;
   will-change: transform, opacity;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
 }
 .fx-swap-card.wall-shot {
   border-radius: var(--fx-swap-radius, 10px);
@@ -38,13 +42,10 @@
   pointer-events: none;
   transition: opacity 0.6s;
 }
-.fx-swap-stage.is-draggable .fx-swap-card.is-front {
+.fx-swap-stage.is-draggable .fx-swap-card.is-front,
+.fx-swap-stage.is-draggable .fx-swap-card.is-leaving {
   cursor: grab;
 }
-.fx-swap-stage.is-draggable .fx-swap-card {
-  user-select: none;
-}
-.fx-swap-card.is-dragging {
+.fx-swap-stage.is-draggable .fx-swap-card.is-dragging {
   cursor: grabbing;
-  transition: none;
 }

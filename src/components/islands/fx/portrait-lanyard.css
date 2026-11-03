@@ -13,7 +13,7 @@
 }
 .fx-lanyard-badge.is-draggable {
   cursor: grab;
-  touch-action: none;
+  touch-action: pan-y;
   user-select: none;
 }
 .fx-lanyard-badge.is-dragging {

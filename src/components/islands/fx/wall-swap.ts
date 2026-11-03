@@ -6,6 +6,11 @@
  * out on hover (`spread`), dims cards with depth (`dim`), and the front card
  * can be flung to the back by dragging (`drag`).
  *
+ * Nothing locks the deck while it moves: every card animates on its own and any
+ * animation can be interrupted from wherever the card is right now. The front
+ * card can be grabbed mid-step, and a card still dropping away can be caught,
+ * which puts it back in front.
+ *
  * Desktop (≥1024px) only; below that the drifting strip is untouched. Autoplay
  * pauses on hover (`pause`), off-screen and in hidden tabs. Reduced motion: a
  * still deck, no autoplay, no parallax. The deck is aria-hidden like the wall
@@ -30,10 +35,11 @@ export const mount: FxMount = (host, params) => {
   let deck: HTMLElement | null = null;
   let order: HTMLElement[] = [];
   let timer = 0;
-  let busy = false;
+  let dragging = false;
   let hovered = false;
   let visible = true;
-  const anims = new Set<Animation>();
+  /** Cards on their way to the back: `drop` can still be caught, `sink` can't. */
+  const leaving = new Map<HTMLElement, 'drop' | 'sink'>();
 
   const ms = (base: number) => base / Math.max(0.2, p.speed ?? 1);
   const stepEase = () =>
@@ -49,75 +55,106 @@ export const mount: FxMount = (host, params) => {
   };
   const dimAt = (i: number) => Math.min(1, (p.dim ?? 0.7) * (i / Math.max(1, order.length - 1)));
 
-  const place = (card: HTMLElement, i: number) => {
-    card.style.transform = slot(i);
-    card.style.zIndex = String(100 - i);
-    card.classList.toggle('is-front', i === 0);
-    card.style.setProperty('--fx-swap-dim', String(dimAt(i)));
-  };
-  const placeAll = () => order.forEach(place);
-
-  /** Run a WAAPI animation, then commit its end state inline and drop it. */
-  const animate = (el: HTMLElement, k: Keyframe[], o: KeyframeAnimationOptions) => {
-    const a = el.animate(k, { fill: 'forwards', ...o });
-    anims.add(a);
-    return a.finished
-      .then(() => {
-        a.commitStyles();
-        a.cancel();
-      })
-      .catch(() => {})
-      .finally(() => anims.delete(a));
-  };
-
-  /**
-   * Send the front card to the back of the stack, like React Bits' CardSwap:
-   * it leaves the deck (dropping below it, or the way a drag threw it), travels
-   * back to the deepest position while clear of the others, then slides into
-   * the last slot behind them. `dir` is the unit direction it leaves in;
-   * `from` is where a drag left it.
-   */
-  const swap = async (dir = { x: 0, y: 1 }, from?: string) => {
-    if (busy || order.length < 2) return;
-    busy = true;
-    const [front, ...rest] = order;
-    front.classList.remove('is-dragging');
-    const last = order.length - 1;
-    // Far enough to clear the deck in that direction.
-    const r = front.getBoundingClientRect();
-    // Lifted toward the viewer so it never z-fights the card stepping up behind it.
-    const out = `translate3d(${dir.x * r.width * 1.1}px, ${dir.y * r.height * 1.15}px, 40px)`;
-
-    const step = rest.map((card, i) => {
-      card.style.setProperty('--fx-swap-dim', String(dimAt(i)));
+  /** Depth order, dimming and the front flag. Cards on their way out keep their look. */
+  const markDepths = () => {
+    order.forEach((card, i) => {
+      if (leaving.has(card)) return;
       card.style.zIndex = String(100 - i);
       card.classList.toggle('is-front', i === 0);
-      return animate(card, [{ transform: slot(i + 1) }, { transform: slot(i) }], {
+      card.style.setProperty('--fx-swap-dim', String(dimAt(i)));
+    });
+  };
+
+  /** Stop the card where it is right now and return that transform. */
+  const freeze = (card: HTMLElement) => {
+    const now = getComputedStyle(card).transform;
+    card.getAnimations().forEach((a) => a.cancel());
+    card.style.transform = now;
+    return now;
+  };
+
+  /** Animate from wherever the card is; resolves false if something interrupted it. */
+  const glide = (card: HTMLElement, to: string, o: KeyframeAnimationOptions) => {
+    const a = card.animate([{ transform: freeze(card) }, { transform: to }], {
+      fill: 'both',
+      ...o,
+    });
+    return a.finished.then(
+      () => {
+        card.style.transform = to;
+        a.cancel();
+        return true;
+      },
+      () => false,
+    );
+  };
+
+  /** Jump every card in the deck to its slot (first build, panel changes). */
+  const placeAll = () => {
+    markDepths();
+    order.forEach((card, i) => {
+      if (leaving.has(card) || (dragging && i === 0)) return;
+      card.getAnimations().forEach((a) => a.cancel());
+      card.style.transform = slot(i);
+    });
+  };
+
+  /** Move the cards still in the deck to their slots, the resting ones staggered. */
+  const stepDeck = (stagger: boolean) => {
+    markDepths();
+    order.forEach((card, i) => {
+      if (leaving.has(card) || (dragging && i === 0)) return;
+      const moving = card.getAnimations().length > 0;
+      void glide(card, slot(i), {
         duration: ms(850),
-        delay: ms(220 + i * 40),
+        delay: stagger && !moving ? ms(220 + i * 40) : 0,
         easing: stepEase(),
       });
     });
-    await animate(front, [{ transform: from ?? slot(0) }, { transform: `${slot(0)} ${out}` }], {
-      duration: ms(600),
-      easing: DROP,
-    });
+  };
+
+  /**
+   * The card's trip to the back, like React Bits' CardSwap: it leaves the deck
+   * (dropping below it, or the way a drag threw it), travels back to the deepest
+   * position while clear of the others, then slides into the last slot behind
+   * them. `dir` is the unit direction it leaves in.
+   */
+  const leave = async (card: HTMLElement, dir: { x: number; y: number }) => {
+    // Far enough to clear the deck in that direction.
+    const r = card.getBoundingClientRect();
+    // Lifted toward the viewer so it never z-fights the card stepping up behind it.
+    const out = `translate3d(${dir.x * r.width * 1.1}px, ${dir.y * r.height * 1.15}px, 40px)`;
+    const backSlot = () => Math.max(0, order.indexOf(card));
+
+    leaving.set(card, 'drop');
+    card.classList.remove('is-front');
+    card.classList.add('is-leaving');
+    const dropped = await glide(card, `${slot(0)} ${out}`, { duration: ms(600), easing: DROP });
+    if (!dropped) return;
+
     // Out of the way: sink to the back of the deck, then slide in behind it.
-    front.style.zIndex = '0';
-    front.style.setProperty('--fx-swap-dim', String(dimAt(last)));
-    await animate(
-      front,
-      [{ transform: `${slot(0)} ${out}` }, { transform: `${slot(last)} ${out}` }],
-      { duration: ms(450), easing: 'ease-in-out' },
-    );
-    await animate(front, [{ transform: `${slot(last)} ${out}` }, { transform: slot(last) }], {
-      duration: ms(750),
-      easing: stepEase(),
+    leaving.set(card, 'sink');
+    card.classList.remove('is-leaving');
+    card.style.zIndex = '0';
+    card.style.setProperty('--fx-swap-dim', String(dimAt(backSlot())));
+    const sunk = await glide(card, `${slot(backSlot())} ${out}`, {
+      duration: ms(450),
+      easing: 'ease-in-out',
     });
-    await Promise.all(step);
+    if (!sunk) return;
+
+    leaving.delete(card);
+    await glide(card, slot(backSlot()), { duration: ms(750), easing: stepEase() });
+  };
+
+  /** Send the front card to the back; the rest step forward right away. */
+  const swap = async (dir = { x: 0, y: 1 }) => {
+    if (order.length < 2) return;
+    const [front, ...rest] = order;
     order = [...rest, front];
-    placeAll();
-    busy = false;
+    const trip = leave(front, dir);
+    stepDeck(true);
+    await trip;
   };
 
   const schedule = () => {
@@ -147,20 +184,32 @@ export const mount: FxMount = (host, params) => {
   };
 
   // --- Drag: fling the front card to the back -------------------------------
-  let dragging = false;
   let start = { x: 0, y: 0, id: -1 };
   let delta = { x: 0, y: 0 };
+  /** Where the card was when grabbed, so picking it up mid-flight doesn't jump. */
+  let grabbedAt = '';
   const dragTransform = () =>
-    `${slot(0)} translate(${delta.x}px, ${delta.y}px) rotate(${delta.x * 0.04}deg)`;
+    `translate(${delta.x}px, ${delta.y}px) ${grabbedAt} rotate(${delta.x * 0.04}deg)`;
 
   const onDown = (e: PointerEvent) => {
-    const front = order[0];
-    if (!(p.drag ?? 1) || busy || !front || !front.contains(e.target as Node)) return;
+    if (!(p.drag ?? 1)) return;
+    const card = (e.target as Element).closest<HTMLElement>('.fx-swap-card');
+    if (!card) return;
+    const caught = leaving.get(card) === 'drop';
+    if (card !== order[0] && !caught) return;
+    grabbedAt = freeze(card);
     dragging = true;
     start = { x: e.clientX, y: e.clientY, id: e.pointerId };
     delta = { x: 0, y: 0 };
-    front.setPointerCapture(e.pointerId);
-    front.classList.add('is-dragging');
+    if (caught) {
+      // Caught on its way out: it's the front card again, the others make room.
+      leaving.delete(card);
+      card.classList.remove('is-leaving');
+      order = [card, ...order.filter((c) => c !== card)];
+      stepDeck(false);
+    }
+    card.setPointerCapture(e.pointerId);
+    card.classList.add('is-dragging');
   };
   const onDrag = (e: PointerEvent) => {
     if (!dragging || e.pointerId !== start.id) return;
@@ -171,17 +220,13 @@ export const mount: FxMount = (host, params) => {
     if (!dragging || e.pointerId !== start.id) return;
     dragging = false;
     const front = order[0];
-    const from = dragTransform();
+    front.classList.remove('is-dragging');
     const dist = Math.hypot(delta.x, delta.y);
     if (dist > 70) {
       // Keep travelling the way it was thrown.
-      void swap({ x: delta.x / dist, y: delta.y / dist }, from);
+      void swap({ x: delta.x / dist, y: delta.y / dist });
     } else {
-      front.classList.remove('is-dragging');
-      void animate(front, [{ transform: from }, { transform: slot(0) }], {
-        duration: ms(450),
-        easing: stepEase(),
-      });
+      void glide(front, slot(0), { duration: ms(450), easing: stepEase() });
     }
     schedule();
   };
@@ -243,9 +288,8 @@ export const mount: FxMount = (host, params) => {
     clearTimeout(timer);
     cancelAnimationFrame(tiltRaf);
     tiltRaf = 0;
-    anims.forEach((a) => a.cancel());
-    anims.clear();
-    busy = false;
+    order.forEach((card) => card.getAnimations().forEach((a) => a.cancel()));
+    leaving.clear();
     dragging = false;
     stage?.remove();
     stage = null;
@@ -260,7 +304,8 @@ export const mount: FxMount = (host, params) => {
   const setHover = (on: boolean) => {
     hovered = on;
     applyLook();
-    if (!busy && !dragging) placeAll();
+    // Without a spread hovering moves nothing, so it mustn't disturb a running step.
+    if (p.spread) stepDeck(false);
   };
   const onEnter = () => setHover(true);
   const onLeave = () => {
@@ -288,7 +333,7 @@ export const mount: FxMount = (host, params) => {
       const replay = next.delay !== p.delay || next.autoplay !== p.autoplay;
       p = { ...next };
       applyLook();
-      if (!busy && !dragging) placeAll();
+      placeAll();
       kickTilt();
       if (replay) schedule();
     },

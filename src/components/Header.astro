@@ -30,7 +30,6 @@ const isActive = (href: string) => href.replace(/\/$/, '') === currentPath;
     <a
       href={homeHref}
       class="relative flex items-center text-ink"
-      data-fx-slot="logo"
       aria-label={`Thomas Miller — ${t('nav.home')}`}
       aria-current={isActive(homeHref) ? 'page' : undefined}
     >
