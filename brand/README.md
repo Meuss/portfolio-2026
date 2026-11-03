@@ -1,7 +1,7 @@
 # Thomas Miller · brand kit
 
 **Symbol: "Sommet qui perce".** An orange ring, open at the top, with the Moléson's peaks inside. The tall peak breaks out through the gap.
-**Name:** "Thomas / Miller" on two lines in Archivo Expanded Black, with the tagline "Développeur web · Bulle".
+**Name:** "Thomas Miller" in Schibsted Grotesk ExtraBold, on two lines, one line or stacked, with or without the tagline "Développeur web · Bulle".
 
 All text is outlined, so the SVGs render the same everywhere without fonts installed.
 `preview.png` shows every variant at a glance.
@@ -19,12 +19,16 @@ Orange is for shapes and large accents. Don't use it for small text on white: it
 
 ## Fonts (for the website, not needed for the logo files)
 
-- Name and headings: **Archivo** Black (900), width 125 ("Expanded"), tracking −0.03em
+- Name in the logo, and website headings: **Schibsted Grotesk** ExtraBold (800), tracking −0.04em (titles use Bold 700)
+- Website body text: **Instrument Sans** Regular (400)
 - Tagline, labels: **DM Mono** Medium, uppercase, tracking +0.12em
 
-Both are free on Google Fonts:
-`https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&family=DM+Mono:wght@500&display=swap`
-then `font-family: "Archivo"; font-weight: 900; font-stretch: 125%;`.
+All three are free on Google Fonts and on Fontsource (`@fontsource-variable/schibsted-grotesk`,
+`@fontsource-variable/instrument-sans`, `@fontsource/dm-mono`).
+The name in the logo files is outlined from `fonts/SchibstedGrotesk.ttf` (variable, used at weight 800)
+and the tagline from `fonts/DMMono-Medium.ttf`. These are the only two fonts the build needs.
+
+The full website styleguide (dark colour tokens, type scale): https://claude.ai/artifact/Sn8r8BG7e8FA6TNQPVU1iu
 
 ## Which file where
 
@@ -83,7 +87,8 @@ python3 -m venv .venv && .venv/bin/pip install fonttools uharfbuzz resvg-py
 magick favicon/favicon-16.png favicon/favicon-32.png favicon/favicon-48.png favicon/favicon.ico   # ImageMagick
 ```
 
-## Explorations
+## Business cards
 
-`explorations/` holds the design rounds as HTML pages: first ideas, the red business cards,
-the orange round, the ring + mountain builder, and the business cards for this logo.
+`explorations/05-business-cards.html` has the earlier card layouts for this logo (Swiss 85 × 55 mm).
+They still set the name in Archivo Expanded; switch it to Schibsted Grotesk ExtraBold when making the
+print files. Tracked in https://github.com/Meuss/portfolio-2026/issues/1.
