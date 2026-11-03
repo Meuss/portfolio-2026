@@ -14,7 +14,7 @@
   background:
     radial-gradient(
       120% 90% at 70% 0%,
-      color-mix(in srgb, var(--color-gilt) 8%, transparent),
+      color-mix(in srgb, var(--color-accent) 8%, transparent),
       transparent 60%
     ),
     var(--color-paper);
@@ -40,7 +40,7 @@
   text-align: center;
   font-family: var(--font-mono);
   font-size: var(--text-caption);
-  letter-spacing: 0.08em;
+  letter-spacing: var(--text-caption--letter-spacing);
   text-transform: uppercase;
   color: var(--color-muted);
 }
@@ -49,7 +49,7 @@
   color: var(--color-ink);
 }
 .fx-pixel-caption span {
-  color: var(--color-gilt);
+  color: var(--color-accent);
 }
 .fx-pixel-grid {
   position: absolute;
@@ -58,14 +58,14 @@
 }
 .fx-pixel-cell {
   background: var(--color-surface);
-  box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--color-gilt) 18%, transparent);
+  box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--color-accent) 18%, transparent);
   opacity: 0;
 }
 .fx-pixel-cell.is-on {
   opacity: 1;
 }
-.fx-pixel-cell.is-gilt {
-  background: color-mix(in srgb, var(--color-gilt) 22%, var(--color-surface));
+.fx-pixel-cell.is-lit {
+  background: color-mix(in srgb, var(--color-accent) 22%, var(--color-surface));
 }
 .fx-pixel-host .frame-mobile {
   transition: opacity 0.2s ease;

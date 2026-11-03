@@ -1,6 +1,6 @@
 /**
  * Staggered menu (below 768px): opening the mobile nav sweeps two layered
- * panels in from the right (graphite surface, then a gilt-edged paper sheet),
+ * panels in from the right (surface, then an orange-edged paper sheet),
  * the nav becomes a full-height overlay whose links rise in at display size one
  * after another, the language switcher fading in last; the hamburger folds
  * into an X. Closing sweeps the layers back out.

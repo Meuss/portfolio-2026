@@ -4,7 +4,10 @@
 import type { FxConfig } from './effects-registry';
 
 export const effects: FxConfig = {
-  heroBackground: { variant: 'ascii', params: { intensity: 1.2, speed: 0.6, cell: 15, ruby: 0 } },
+  heroBackground: {
+    variant: 'ascii',
+    params: { intensity: 1.2, speed: 0.6, cell: 15, accent: 0.2 },
+  },
   heroWall: {
     variant: 'swap',
     params: {

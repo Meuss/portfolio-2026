@@ -39,7 +39,7 @@ const { email } = contact;
             <h2 class="font-display text-title text-ink">{t('contactPage.fallbackHeading')}</h2>
             <p class="mt-2 max-w-sm text-body text-muted">{t('contactPage.fallbackIntro')}</p>
             <div class="mt-6 flex flex-col items-start gap-3 text-body">
-              <a href={`mailto:${email}`} class="text-ink hover:text-accent">
+              <a href={`mailto:${email}`} class="text-ink underline hover:text-accent">
                 <span class="sr-only">{t('footer.email')}: </span>
                 {email}
               </a>
@@ -91,7 +91,7 @@ const { email } = contact;
                 required
                 autocomplete="name"
                 placeholder={t('contactForm.namePlaceholder')}
-                class="rounded-md border border-line bg-paper px-4 py-3 text-body text-ink placeholder:text-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                class="rounded-md border border-line bg-paper px-4 py-3 text-body text-ink placeholder:text-faint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               />
             </div>
 
@@ -106,7 +106,7 @@ const { email } = contact;
                 required
                 autocomplete="email"
                 placeholder={t('contactForm.emailPlaceholder')}
-                class="rounded-md border border-line bg-paper px-4 py-3 text-body text-ink placeholder:text-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                class="rounded-md border border-line bg-paper px-4 py-3 text-body text-ink placeholder:text-faint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               />
             </div>
 
@@ -120,7 +120,7 @@ const { email } = contact;
                 required
                 rows="6"
                 placeholder={t('contactForm.messagePlaceholder')}
-                class="resize-y rounded-md border border-line bg-paper px-4 py-3 text-body text-ink placeholder:text-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                class="resize-y rounded-md border border-line bg-paper px-4 py-3 text-body text-ink placeholder:text-faint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               ></textarea>
             </div>
 
@@ -179,7 +179,7 @@ const { email } = contact;
 
         if (submitButton instanceof HTMLButtonElement) submitButton.disabled = true;
         status.classList.remove('hidden');
-        status.classList.remove('text-accent');
+        status.classList.remove('text-success', 'text-error');
         status.textContent = sendingText;
 
         try {
@@ -192,13 +192,14 @@ const { email } = contact;
 
           if (response.ok && result && result.success) {
             status.textContent = successText;
-            status.classList.add('text-accent');
+            status.classList.add('text-success');
             form.reset();
           } else {
             throw new Error('web3forms-submit-failed');
           }
         } catch {
           status.textContent = errorText;
+          status.classList.add('text-error');
         } finally {
           if (submitButton instanceof HTMLButtonElement) submitButton.disabled = false;
         }

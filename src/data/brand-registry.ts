@@ -1,6 +1,6 @@
 /**
  * Brand options the site can wear: colour palettes, display / body fonts and
- * the logo (the Moléson M, from the brand kit). Pure data plus the functions
+ * the logo (the kit symbol, see `brand/`). Pure data plus the functions
  * that turn a choice into CSS custom properties and `<html>` attributes.
  *
  * `BaseLayout` renders the shipped choice (`src/data/brand.ts`) server-side, so
@@ -10,86 +10,40 @@
 
 export interface Palette {
   label: string;
-  scheme: 'dark' | 'light';
   /** Values for the `--color-*` tokens in `src/styles/global.css`. */
   colors: {
     paper: string;
+    surface: string;
+    'surface-2': string;
+    line: string;
     ink: string;
     muted: string;
-    line: string;
-    surface: string;
+    faint: string;
     accent: string;
-    'accent-soft': string;
+    'accent-hover': string;
     'accent-ink': string;
-    gilt: string;
+    error: string;
+    success: string;
   };
 }
 
-/** Brand kit red. The mark always wears it; palettes may lighten the text accent for contrast. */
-export const BRAND_RED = '#d8232a';
-
 export const palettes = {
-  gilt: {
-    label: 'Graphite & Gilt',
-    scheme: 'dark',
+  // The website styleguide: kit black ground, kit orange as the only colour.
+  kit: {
+    label: 'Kit orange',
     colors: {
-      paper: '#16181b',
-      ink: '#ece9e1',
-      muted: '#9d9b91',
-      line: '#32343b',
-      surface: '#202226',
-      accent: '#dd4753',
-      'accent-soft': '#2c1e21',
-      'accent-ink': '#fff5f4',
-      gilt: '#c6a15b',
-    },
-  },
-  // Brand kit ink + red. Text-sized red is lifted to #ec4a4f: kit red on ink is 3.5:1.
-  moleson: {
-    label: 'Moléson red',
-    scheme: 'dark',
-    colors: {
-      paper: '#16191d',
-      ink: '#eef0ed',
-      muted: '#9aa1a8',
-      line: '#2d3238',
-      surface: '#1d2126',
-      accent: '#ec4a4f',
-      'accent-soft': '#2b1a1c',
-      'accent-ink': '#ffffff',
-      gilt: '#ec4a4f',
-    },
-  },
-  // Same ground, red kept for the mark and links; labels and the primary action go white.
-  molesonInk: {
-    label: 'Moléson ink',
-    scheme: 'dark',
-    colors: {
-      paper: '#16191d',
-      ink: '#eef0ed',
-      muted: '#9aa1a8',
-      line: '#2d3238',
-      surface: '#1d2126',
-      accent: '#ec4a4f',
-      'accent-soft': '#2b1a1c',
-      'accent-ink': '#ffffff',
-      gilt: '#eef0ed',
-    },
-  },
-  // The kit's "color" scheme: white ground, ink text, red.
-  molesonLight: {
-    label: 'Moléson light',
-    scheme: 'light',
-    colors: {
-      paper: '#f5f6f3',
-      ink: '#16191d',
-      muted: '#5d636b',
-      line: '#dcdfdb',
-      surface: '#ffffff',
-      accent: BRAND_RED,
-      'accent-soft': '#fbe8e8',
-      'accent-ink': '#ffffff',
-      gilt: BRAND_RED,
+      paper: '#121212',
+      surface: '#1b1b1a',
+      'surface-2': '#242423',
+      line: '#333331',
+      ink: '#f3f2ee',
+      muted: '#a3a39e',
+      faint: '#82817a',
+      accent: '#ff6a13',
+      'accent-hover': '#ff8a47',
+      'accent-ink': '#121212',
+      error: '#ff6b78',
+      success: '#4fd18f',
     },
   },
 } satisfies Record<string, Palette>;
@@ -98,15 +52,16 @@ export type PaletteId = keyof typeof palettes;
 
 const SANS_FALLBACK = 'ui-sans-serif, system-ui, sans-serif';
 
-/** Self-hosted faces (imported in `src/styles/fonts.css`). */
+/** Self-hosted faces (imported in `src/styles/global.css`). */
 export const fonts = {
   schibsted: {
     label: 'Schibsted',
     stack: `'Schibsted Grotesk Variable', 'Schibsted Grotesk', ${SANS_FALLBACK}`,
   },
-  bricolage: { label: 'Bricolage', stack: `'Bricolage Grotesque Variable', ${SANS_FALLBACK}` },
-  instrument: { label: 'Instrument', stack: `'Instrument Sans Variable', ${SANS_FALLBACK}` },
-  space: { label: 'Space Grotesk', stack: `'Space Grotesk Variable', ${SANS_FALLBACK}` },
+  instrument: {
+    label: 'Instrument',
+    stack: `'Instrument Sans Variable', 'Instrument Sans', ${SANS_FALLBACK}`,
+  },
   mono: {
     label: 'DM Mono',
     stack: `'DM Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`,
@@ -116,19 +71,13 @@ export const fonts = {
 export type FontId = keyof typeof fonts;
 
 /** Fonts offered for headings / running text (the mono face stays the label voice). */
-export const textFonts = [
-  'schibsted',
-  'bricolage',
-  'instrument',
-  'space',
-] as const satisfies FontId[];
+export const textFonts = ['schibsted', 'instrument'] as const satisfies FontId[];
 export type TextFontId = (typeof textFonts)[number];
 
 export const lockups = {
-  markName: { label: 'Mark + name' },
+  markName: { label: 'Symbol + name' },
   markNameTagline: { label: '+ tagline' },
-  peaksName: { label: 'Peaks + name' },
-  mark: { label: 'Mark only' },
+  mark: { label: 'Symbol only' },
   name: { label: 'Name only' },
 } satisfies Record<string, { label: string }>;
 
@@ -141,7 +90,7 @@ export interface RangeSpec {
   step: number;
 }
 
-/** Numeric logo settings. Brand kit: Bricolage Bold, tracking −0.03em. */
+/** Numeric logo settings. Brand kit: Schibsted Grotesk ExtraBold, tracking −0.04em. */
 export const logoRanges = {
   weight: { label: 'Weight', min: 300, max: 800, step: 50 },
   tracking: { label: 'Tracking', min: -0.08, max: 0.06, step: 0.005 },
@@ -197,7 +146,6 @@ export function brandVars(config: BrandConfig): Record<string, string> {
   const { colors } = palettes[config.palette];
   const vars: Record<string, string> = {};
   for (const [key, value] of Object.entries(colors)) vars[`--color-${key}`] = value;
-  vars['--color-brand'] = BRAND_RED;
   vars['--font-display'] = fonts[config.display].stack;
   vars['--font-sans'] = fonts[config.body].stack;
   vars['--logo-font'] = fonts[config.logo.font].stack;
@@ -207,13 +155,11 @@ export function brandVars(config: BrandConfig): Record<string, string> {
   return vars;
 }
 
-/** `<html>` attributes the CSS keys off (lockup layout, Bricolage optical size, colour scheme). */
+/** `<html>` attributes the CSS keys off (lockup layout). */
 export function brandAttrs(config: BrandConfig): Record<string, string> {
   return {
     'data-palette': config.palette,
-    'data-scheme': palettes[config.palette].scheme,
     'data-logo-lockup': config.logo.lockup,
-    'data-logo-font': config.logo.font,
   };
 }
 

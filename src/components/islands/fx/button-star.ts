@@ -1,11 +1,11 @@
 /**
  * Star border: a small comet of warm light orbits each primary button just
- * outside its edge, trailing gilt, with a faint bloom underneath.
+ * outside its edge, trailing orange, with a faint bloom underneath.
  *
  * - Pure CSS (an `@property` angle drives a masked conic gradient); two
  *   aria-hidden spans per button, no layout change, label and focus ring untouched.
  * - `orbit` is seconds per lap; `hover` parks it until hover / keyboard focus.
- * - Reduced motion: a still, faint gilt ring (see button-star.css).
+ * - Reduced motion: a still, faint orange ring (see button-star.css).
  */
 import './button-star.css';
 import type { FxMount, FxParams } from './types';

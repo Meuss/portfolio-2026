@@ -1,6 +1,6 @@
 /**
- * Crystal ball: a glass sphere resting on the graphite page, a thin gilt rim
- * crackling with electric arcs (the odd ruby flicker), gilt dust swirling
+ * Crystal ball: a glass sphere resting on the dark page, a thin neutral rim
+ * crackling with electric arcs (the odd orange flicker), neutral dust swirling
  * inside, spun by the pointer's drift, and a soft shadow and reflection on the
  * floor beneath. Raw WebGL2 via the shared shader runner.
  *
@@ -12,7 +12,7 @@ import { runShader } from './gl';
 import type { FxMount } from './types';
 
 const FRAG = `
-uniform float uRuby;
+uniform float uAccent;
 
 mat2 rot(float a) { float c = cos(a), s = sin(a); return mat2(c, -s, s, c); }
 
@@ -34,9 +34,9 @@ void main() {
     vec2 n = p / R;
     // Glass body: darker heart, light gathered toward the lower rim as if refracted.
     float body = mix(-0.025, 0.0, d) + smoothstep(0.2, 1.0, -n.y * 0.8 + d * 0.5) * 0.05;
-    light += GILT * max(body, 0.0) + vec3(min(body, 0.0));
+    light += LIGHT * max(body, 0.0) + vec3(min(body, 0.0));
     // Fresnel rim.
-    light += GILT * pow(1.0 - z, 3.0) * 0.55;
+    light += LIGHT * pow(1.0 - z, 3.0) * 0.55;
     // Specular highlights, nudged by the pointer.
     light += INK * exp(-length(n - vec2(-0.38, 0.42) - lean * 0.15) * 9.0) * 0.35;
     light += INK * exp(-length(n - vec2(0.3, -0.55)) * 14.0) * 0.06;
@@ -45,9 +45,9 @@ void main() {
     vec2 q = rot(t * 0.22 + lean.x * 2.4) * n;
     q = rot(length(q) * 2.2 - t * 0.15) * q; // a vortex: inner layers turn faster
     float motes = dust(q * 1.4 + lean * 0.4, 9.0, t, 1.0) + dust(q * 1.4, 17.0, t * 1.3, 7.0) * 0.7;
-    light += GILT * motes * (0.25 + 0.5 * z) * 0.75;
+    light += LIGHT * motes * (0.25 + 0.5 * z) * 0.75;
     // Faint nebula the dust sits in.
-    light += GILT * fbm(q * 2.5 + t * 0.05) * z * 0.05;
+    light += LIGHT * fbm(q * 2.5 + t * 0.05) * z * 0.05;
   }
 
   // Electric rim: arcs crawl the edge and occasionally leap off it.
@@ -62,10 +62,10 @@ void main() {
     float flick = smoothstep(0.35, 0.75, noise2(vec2(ang * 3.0 + fi * 9.0, t * 6.0)));
     arcs += line * flick;
   }
-  float rubyHit = step(1.0 - uRuby * 0.45, noise2(vec2(ang * 4.0, floor(t * 10.0))));
-  light += mix(GILT, RUBY, rubyHit) * arcs * 0.55;
+  float accentHit = step(1.0 - uAccent * 0.45, noise2(vec2(ang * 4.0, floor(t * 10.0))));
+  light += mix(LIGHT, ACCENT, accentHit) * arcs * 0.55;
   // Halo hugging the glass.
-  light += GILT * exp(-max(rimDist, 0.0) * 18.0) * step(0.0, rimDist) * 0.05;
+  light += LIGHT * exp(-max(rimDist, 0.0) * 18.0) * step(0.0, rimDist) * 0.05;
 
   // Floor: a contact shadow and a blurred reflection of the ball.
   float floorY = -R - 0.035;
@@ -76,7 +76,7 @@ void main() {
   float md = length(mirror) / R;
   float below = step(p.y, floorY);
   float refl = exp(-max(md - 1.0, 0.0) * 10.0) * pow(max(1.0 - md, 0.0) + 0.2, 1.0);
-  light += GILT * refl * below * exp(-(floorY - p.y) * 18.0) * 0.07;
+  light += LIGHT * refl * below * exp(-(floorY - p.y) * 18.0) * 0.07;
 
   outColor = finish(light);
 }`;

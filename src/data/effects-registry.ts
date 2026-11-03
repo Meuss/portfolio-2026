@@ -29,7 +29,13 @@ export interface SlotSpec {
 
 const intensity: ParamSpec = { label: 'Intensity', min: 0, max: 2, step: 0.05, default: 1 };
 const speed: ParamSpec = { label: 'Speed', min: 0, max: 3, step: 0.05, default: 1 };
-const ruby = (d: number): ParamSpec => ({ label: 'Ruby', min: 0, max: 1, step: 0.05, default: d });
+const accent = (d: number): ParamSpec => ({
+  label: 'Orange',
+  min: 0,
+  max: 1,
+  step: 0.05,
+  default: d,
+});
 const entrance: ParamSpec = { label: 'Speed', min: 0.4, max: 2.5, step: 0.05, default: 1 };
 const toggle = (label: string, d: 0 | 1): ParamSpec => ({
   label,
@@ -52,7 +58,7 @@ const cursorVariants = {
     params: {
       intensity,
       trail: { label: 'Trail', min: 0.2, max: 3, step: 0.05, default: 1 },
-      ruby: ruby(0.35),
+      accent: accent(0.35),
     },
   },
   crosshair: {
@@ -114,7 +120,7 @@ export const fxRegistry = {
         params: {
           intensity,
           speed,
-          ruby: ruby(0.35),
+          accent: accent(0.35),
           dust: { label: 'Dust', min: 0, max: 2, step: 0.05, default: 1 },
         },
       },
@@ -124,7 +130,7 @@ export const fxRegistry = {
           intensity,
           speed,
           cell: { label: 'Cell (px)', min: 8, max: 28, step: 1, default: 13 },
-          ruby: ruby(0.2),
+          accent: accent(0.2),
         },
       },
       lightfall: {
@@ -133,7 +139,7 @@ export const fxRegistry = {
           intensity,
           speed,
           bend: { label: 'Cursor bend', min: 0, max: 2, step: 0.05, default: 1 },
-          ruby: ruby(0.25),
+          accent: accent(0.25),
         },
       },
       glitch: {
@@ -142,7 +148,7 @@ export const fxRegistry = {
           intensity,
           speed,
           cell: { label: 'Cell (px)', min: 10, max: 32, step: 1, default: 16 },
-          ruby: ruby(0.2),
+          accent: accent(0.2),
         },
       },
       off: { label: 'Off', params: {} },
@@ -237,7 +243,7 @@ export const fxRegistry = {
     where: 'Home closing CTA',
     variants: {
       off: { label: 'Off', params: {} },
-      laser: { label: 'Laser flow', params: { intensity, speed, ruby: ruby(0.3) } },
+      laser: { label: 'Laser flow', params: { intensity, speed, accent: accent(0.3) } },
       magnet: {
         label: 'Magnet lines',
         params: {
@@ -276,7 +282,7 @@ export const fxRegistry = {
     where: '/contact',
     variants: {
       off: { label: 'Off', params: {} },
-      crystal: { label: 'Crystal ball', params: { intensity, speed, ruby: ruby(0.3) } },
+      crystal: { label: 'Crystal ball', params: { intensity, speed, accent: accent(0.3) } },
     },
   },
   contactLead: {

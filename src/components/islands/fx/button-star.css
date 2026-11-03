@@ -19,8 +19,8 @@
     from var(--fx-star-angle),
     transparent 0turn,
     transparent 0.78turn,
-    color-mix(in srgb, var(--color-gilt) 90%, transparent) 0.92turn,
-    color-mix(in srgb, var(--color-gilt) 15%, white) 0.985turn,
+    color-mix(in srgb, var(--color-accent) 90%, transparent) 0.92turn,
+    color-mix(in srgb, var(--color-accent) 15%, white) 0.985turn,
     transparent 1turn
   );
   opacity: var(--fx-star-opacity, 1);
@@ -68,11 +68,11 @@
   }
 }
 
-/* Reduced motion: a still, faint gilt ring instead of an orbiting comet. */
+/* Reduced motion: a still, faint orange ring instead of an orbiting comet. */
 @media (prefers-reduced-motion: reduce) {
   .fx-star-ring {
     animation: none;
-    background: color-mix(in srgb, var(--color-gilt) 45%, transparent);
+    background: color-mix(in srgb, var(--color-accent) 45%, transparent);
   }
   .fx-star-bloom {
     display: none;

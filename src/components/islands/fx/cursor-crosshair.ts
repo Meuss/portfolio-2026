@@ -1,7 +1,7 @@
 /**
  * Crosshair (fine pointers only): two hairlines cross at the pointer with a
  * live mono readout ("X 0412 · Y 0233"). Over a link, button or field it snaps:
- * gilt corner ticks frame the element and the readout measures it ("184 × 48").
+ * orange corner ticks frame the element and the readout measures it ("184 × 48").
  *
  * - The native cursor stays; everything here is an aria-hidden overlay.
  * - Movement eases (~0.25 lerp) and the loop stops once settled.

@@ -1,6 +1,6 @@
 /**
  * Magnet lines: a field of short hairlines across the closing CTA that all
- * turn to point at the cursor, brightening from graphite to gilt near it.
+ * turn to point at the cursor, brightening from dark to orange near it.
  * With the pointer elsewhere they settle into a slow idle wave.
  *
  * Contract: Canvas2D at DPR (capped at 2), transparent over the CTA band.
@@ -10,7 +10,7 @@
 import { prefersReducedMotion, tokenRgb, type FxMount, type FxParams } from './types';
 
 export const mount: FxMount = (host, params) => {
-  const GILT = tokenRgb('gilt');
+  const LIT = tokenRgb('accent');
   // A step brighter than the hairline token, so idle needles still read.
   const LINE = tokenRgb('line').map((v, i) => Math.round(v + (tokenRgb('ink')[i] - v) * 0.06));
   let p: FxParams = { ...params };
@@ -68,7 +68,7 @@ export const mount: FxMount = (host, params) => {
       let d = target - pt.a;
       d = Math.atan2(Math.sin(d), Math.cos(d));
       pt.a += still ? d : d * 0.12;
-      const c = LINE.map((v, i) => Math.round(v + (GILT[i] - v) * glow));
+      const c = LINE.map((v, i) => Math.round(v + (LIT[i] - v) * glow));
       ctx.strokeStyle = `rgb(${c[0]} ${c[1]} ${c[2]} / ${0.55 + 0.45 * glow})`;
       const cx = Math.cos(pt.a) * len;
       const cy = Math.sin(pt.a) * len;

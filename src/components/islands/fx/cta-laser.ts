@@ -1,8 +1,8 @@
 /**
- * Laser flow: a thin gilt beam falls from the top of the closing CTA onto the
+ * Laser flow: a thin neutral beam falls from the top of the closing CTA onto the
  * block of copy, splashes where it lands, and the light runs sideways along
  * the block's top edge and pours over its corners, with fog drifting around
- * the beam and a faint ruby fringe.
+ * the beam and a faint orange fringe.
  *
  * Contract: shader via the shared runner (paused off-screen / hidden, still
  * frame under reduced motion). It outputs light only and is screen-blended,
@@ -14,7 +14,7 @@ import { runShader } from './gl';
 import type { FxMount, FxParams } from './types';
 
 const FRAG = `
-uniform float uRuby;
+uniform float uAccent;
 uniform float uBoxL;
 uniform float uBoxR;
 uniform float uBoxT;
@@ -57,9 +57,9 @@ void main() {
   float amtR = exp(-abs(uBoxR - uBeamX) * uRes.x / reach);
   float pour = (exp(-dl * dl / 3.0) * amtL + exp(-dr * dr / 3.0) * amtR) * fall;
 
-  vec3 light = GILT * (core * 1.1 + halo * 0.5 + splash * 0.7 + edge * 0.8 + edgeGlow + pour * 0.7)
-             + RUBY * fringe * uRuby * 0.6
-             + RUBY * edgeGlow * uRuby * 0.5;
+  vec3 light = LIGHT * (core * 1.1 + halo * 0.5 + splash * 0.7 + edge * 0.8 + edgeGlow + pour * 0.7)
+             + ACCENT * fringe * uAccent * 0.6
+             + ACCENT * edgeGlow * uAccent * 0.5;
   // Fade where the band meets the footer.
   light *= smoothstep(0.0, 0.18, uv.y);
   vec3 col = light * uIntensity;

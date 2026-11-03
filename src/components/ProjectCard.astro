@@ -90,15 +90,15 @@ const alt = t('project.screenshotAlt').replace('{name}', title);
 
     <div class="pt-1 font-mono text-caption uppercase">
       {hasLink ? (
-        <span class="inline-flex items-center gap-2 text-gilt" aria-hidden="true">
+        <span class="inline-flex items-center gap-2 text-accent" aria-hidden="true">
           {displayLink}
           <Arrow dir="out" class="arrow" />
         </span>
       ) : status === 'soon' ? (
-        <span class="text-gilt">{t('project.soon')}</span>
+        <span class="text-muted">{t('project.soon')}</span>
       ) : nda ? (
-        <span class="inline-flex items-center gap-2 text-accent">
-          <span aria-hidden="true" class="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+        <span class="inline-flex items-center gap-2 text-muted">
+          <span aria-hidden="true" class="inline-block h-1.5 w-1.5 rounded-full bg-current" />
           {t('project.nda')}
         </span>
       ) : null}

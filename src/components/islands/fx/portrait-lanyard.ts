@@ -37,7 +37,7 @@ export const mount: FxMount = (figure, params) => {
   const colors = {
     edge: line.map((v, i) => v + (ink[i] - v) * 0.06),
     strap: surface.map((v, i) => v + (line[i] - v) * 0.3),
-    gilt: tokenRgb('gilt'),
+    stitch: tokenRgb('accent'),
   };
   const fr = document.documentElement.lang === 'fr';
 
@@ -178,7 +178,7 @@ export const mount: FxMount = (figure, params) => {
     ctx.stroke();
     path();
     ctx.setLineDash([3, 4]);
-    ctx.strokeStyle = rgbCss(colors.gilt, 0.7);
+    ctx.strokeStyle = rgbCss(colors.stitch, 0.7);
     ctx.lineWidth = 1;
     ctx.stroke();
     ctx.setLineDash([]);

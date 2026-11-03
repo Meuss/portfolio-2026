@@ -1,7 +1,7 @@
 /**
  * Pixel transition: hovering (or focusing) a project card fills its desktop
- * screenshot with a grid of graphite pixels in random order, swaps in the
- * phone capture large on a graphite plate (or, without one, a mono caption
+ * screenshot with a grid of dark pixels in random order, swaps in the
+ * phone capture large on a dark plate (or, without one, a mono caption
  * with the title and hostname), then dissolves the pixels to reveal it.
  * Reverses on leave.
  *
@@ -76,7 +76,7 @@ export const mount: FxMount = (host, params) => {
     cells = Array.from({ length: cols * rows }, () => {
       const c = document.createElement('span');
       c.className = 'fx-pixel-cell';
-      if (Math.random() < 0.12) c.classList.add('is-gilt');
+      if (Math.random() < 0.12) c.classList.add('is-lit');
       grid.append(c);
       return c;
     });

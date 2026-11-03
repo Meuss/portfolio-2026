@@ -23,7 +23,7 @@
 .fx-tech-outline text {
   font: inherit;
   fill: none;
-  stroke: var(--color-gilt);
+  stroke: var(--color-accent);
   stroke-width: 1.2px;
   stroke-dasharray: var(--fx-tech-dash, 6px 4px);
 }

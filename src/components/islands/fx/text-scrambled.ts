@@ -1,6 +1,6 @@
 /**
  * Scrambled text: characters within `radius` px of the pointer flicker into
- * gilt `.` and `:` for `duration` seconds, then settle back. The flicker rate
+ * orange `.` and `:` for `duration` seconds, then settle back. The flicker rate
  * follows `speed`.
  *
  * Every character keeps the width of its real glyph (measured once), so the

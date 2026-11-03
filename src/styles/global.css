@@ -1,88 +1,80 @@
 @import 'tailwindcss';
 
 /* ---------------------------------------------------------------------------
-   Self-hosted fonts (Fontsource → bundled at build, no runtime CDN)
-   - Display / body : Schibsted Grotesk (variable wght) — precise, modern grotesque
-   - Data / labels  : DM Mono — labels, roles, tech, buttons
-   - Brand candidates (src/data/brand-registry.ts): Bricolage Grotesque (the
-     logo kit face, with its optical-size axis), Instrument Sans, Space Grotesk.
-     @font-face only: a browser downloads a face only once something uses it.
+   Self-hosted fonts (Fontsource: bundled at build, no runtime CDN)
+   - Headings and the logo name: Schibsted Grotesk (variable wght)
+   - Body                      : Instrument Sans (variable wght)
+   - Labels, tags, buttons     : DM Mono
 --------------------------------------------------------------------------- */
 @import '@fontsource-variable/schibsted-grotesk/index.css';
+@import '@fontsource-variable/instrument-sans/index.css';
 @import '@fontsource/dm-mono/400.css';
 @import '@fontsource/dm-mono/500.css';
-@import '@fontsource-variable/bricolage-grotesque/opsz.css';
-@import '@fontsource-variable/instrument-sans/index.css';
-@import '@fontsource-variable/space-grotesk/index.css';
 
 /* ---------------------------------------------------------------------------
-   Design tokens — Tailwind v4 CSS-first theme.
-   Direction: "Graphite & Gilt" — a dark, precise working surface where the
-   shipped work is the hero. Graphite ground, one ruby mark as the single bold
-   colour, gilt for labels and the primary action. Every token becomes a Tailwind utility
-   (bg-paper, text-ink, text-gilt, font-display, font-mono, …).
+   Design tokens: Tailwind v4 CSS-first theme, from the website styleguide
+   (https://claude.ai/artifact/Sn8r8BG7e8FA6TNQPVU1iu). Kit black ground, kit
+   orange as the only colour, accent only. Every token becomes a utility (bg-paper,
+   text-ink, font-display, font-mono, ...).
 --------------------------------------------------------------------------- */
 @theme {
   /* -- Type families ------------------------------------------------------- */
   --font-display:
     'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
-  --font-sans:
-    'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Instrument Sans Variable', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
-  /* -- Colour: graphite + ruby mark + gilt -------------------------------- */
-  --color-paper: #16181b; /* graphite page ground                     */
-  --color-ink: #ece9e1; /* warm off-white primary text (~13:1)      */
-  --color-muted: #9d9b91; /* secondary text (~6:1 on ground)          */
-  --color-line: #32343b; /* hairline rules / borders                 */
-  --color-surface: #202226; /* raised surface / panel                   */
+  /* -- Colour. src/data/brand-registry.ts must mirror these values. --------- */
+  --color-paper: #121212; /* page ground, the kit black */
+  --color-surface: #1b1b1a; /* cards, panels, the form */
+  --color-surface-2: #242423; /* hover on surface, selected chip */
+  --color-line: #333331; /* hairlines and borders only */
+  --color-ink: #f3f2ee; /* headings and body text */
+  --color-muted: #a3a39e; /* secondary text, labels, captions */
+  --color-faint: #82817a; /* placeholders, disabled text */
+  --color-accent: #ff6a13; /* the kit orange: accent only */
+  --color-accent-hover: #ff8a47; /* hover state of orange elements */
+  --color-accent-ink: #121212; /* text on orange: black, never white */
+  --color-error: #ff6b78; /* form errors */
+  --color-success: #4fd18f; /* availability dot, "message sent" */
 
-  --color-accent: #dd4753; /* the one bold colour — ruby mark          */
-  --color-accent-soft: #2c1e21; /* deep ruby wash for panels           */
-  --color-accent-ink: #fff5f4; /* foreground on ruby                   */
-
-  --color-gilt: #c6a15b; /* gilt — labels, primary action, hover     */
-
-  /* Brand kit red: the logo mark only, identical in every palette. These are
-     the "Graphite & Gilt" defaults; src/data/brand.ts can swap the palette by
-     overriding the tokens inline on <html> (see brand-registry.ts). */
-  --color-brand: #d8232a;
-
-  /* -- Fluid type scale (clamp: mobile → desktop) -------------------------- */
-  /* Utility voice — mono labels, data, tags */
+  /* -- Fluid type scale (clamp: mobile to desktop) ------------------------- */
+  /* Labels: DM Mono, uppercase */
   --text-caption: 0.78rem;
   --text-caption--line-height: 1.35;
-  --text-caption--letter-spacing: 0.08em;
+  --text-caption--letter-spacing: 0.12em;
+  --text-caption--font-weight: 500;
 
+  /* Body: Instrument Sans */
   --text-small: 0.875rem;
   --text-small--line-height: 1.5;
 
   --text-body: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
   --text-body--line-height: 1.6;
 
-  --text-lead: clamp(1.15rem, 1.02rem + 0.62vw, 1.5rem);
+  --text-lead: clamp(1.125rem, 1.02rem + 0.5vw, 1.375rem);
   --text-lead--line-height: 1.5;
 
-  /* Display voice — Schibsted Grotesk, confident weights */
-  --text-title: clamp(1.5rem, 1.15rem + 1.6vw, 2.25rem);
-  --text-title--line-height: 1.12;
-  --text-title--letter-spacing: -0.02em;
-  --text-title--font-weight: 600;
+  /* Headings: Schibsted Grotesk */
+  --text-title: clamp(1.35rem, 1.1rem + 1vw, 1.875rem);
+  --text-title--line-height: 1.15;
+  --text-title--letter-spacing: -0.025em;
+  --text-title--font-weight: 700;
 
-  --text-headline: clamp(2.25rem, 1.3rem + 4.2vw, 4.5rem);
-  --text-headline--line-height: 1.02;
-  --text-headline--letter-spacing: -0.03em;
-  --text-headline--font-weight: 700;
+  --text-headline: clamp(2rem, 1.3rem + 3vw, 3.75rem);
+  --text-headline--line-height: 1;
+  --text-headline--letter-spacing: -0.035em;
+  --text-headline--font-weight: 800;
 
-  --text-display: clamp(3rem, 0.6rem + 10.5vw, 9rem);
-  --text-display--line-height: 0.9;
+  --text-display: clamp(2.75rem, 1.4rem + 5.6vw, 6rem);
+  --text-display--line-height: 0.92;
   --text-display--letter-spacing: -0.04em;
-  --text-display--font-weight: 700;
+  --text-display--font-weight: 800;
 
-  /* -- Radii: sharp by default, small deliberate softening ----------------- */
+  /* -- Radii ---------------------------------------------------------------- */
   --radius-sm: 2px;
-  --radius-md: 5px;
-  --radius-lg: 10px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
 }
 
 /* ---------------------------------------------------------------------------
@@ -91,9 +83,6 @@
 @layer base {
   :root {
     color-scheme: dark; /* themes scrollbars & form UI */
-  }
-  :root[data-scheme='light'] {
-    color-scheme: light;
   }
 
   html {
@@ -115,9 +104,9 @@
   /* Headings speak in the display voice */
   :where(h1, h2, h3, h4, h5, h6) {
     font-family: var(--font-display);
-    font-weight: 600;
-    line-height: 1.04;
-    letter-spacing: -0.02em;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
     text-wrap: balance;
   }
 
@@ -125,14 +114,15 @@
     text-wrap: pretty;
   }
 
-  /* Links carry the accent */
+  /* Links: ink text, orange underline, orange text on hover */
   a {
-    color: var(--color-accent);
-    text-underline-offset: 0.16em;
-    text-decoration-thickness: max(1px, 0.06em);
+    color: var(--color-ink);
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
   }
   a:hover {
-    text-decoration-thickness: max(2px, 0.09em);
+    color: var(--color-accent);
   }
 
   :where(code, kbd, samp, pre) {
@@ -147,8 +137,8 @@
 
   /* Signature detail + accessibility floor */
   ::selection {
-    background: var(--color-gilt);
-    color: var(--color-paper);
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
   }
   :where(input, textarea) {
     caret-color: var(--color-accent);
@@ -230,7 +220,7 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Buttons — mono, uppercase, sharp. One gilt primary per view.
+   Buttons: mono, uppercase. One orange primary per screen, always black text.
 --------------------------------------------------------------------------- */
 @layer components {
   .btn-primary,
@@ -239,12 +229,14 @@
     align-items: center;
     justify-content: center;
     gap: 0.65rem;
-    padding: 0.875rem 1.75rem;
+    padding: 0.9375rem 1.375rem;
+    border: 1px solid transparent;
     border-radius: var(--radius-sm);
     font-family: var(--font-mono);
-    font-size: var(--text-small);
+    font-size: 0.8rem;
     font-weight: 500;
-    letter-spacing: 0.06em;
+    line-height: 1;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     text-decoration: none;
     transition:
@@ -254,24 +246,25 @@
       background-color 0.2s;
   }
   .btn-primary {
-    background: var(--color-gilt);
-    color: var(--color-paper);
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
   }
   .btn-primary:hover {
-    background: color-mix(in srgb, var(--color-gilt) 86%, var(--color-ink));
+    background: var(--color-accent-hover);
+    color: var(--color-accent-ink);
     transform: translateY(-2px);
   }
   .btn-secondary {
-    border: 1px solid var(--color-line);
+    border-color: var(--color-line);
     color: var(--color-ink);
   }
   .btn-secondary:hover {
-    border-color: var(--color-gilt);
-    color: var(--color-gilt);
+    border-color: var(--color-ink);
+    color: var(--color-ink);
   }
 }
 
-/* Freelance context mark — the ruby dot (macmac / Marvelous show their logos). */
+/* Freelance context mark: a dot in the text colour, like the partners' wordmarks. */
 .context-mark {
   display: inline-block;
   width: 0.4rem;
@@ -280,27 +273,13 @@
 }
 .context-mark--independent {
   border-radius: 50%;
-  background: var(--color-accent);
+  background: currentColor;
 }
 
-/* Closing CTA: a graphite band rather than a full ruby wall (ruby stays a
-   single mark). */
+/* Closing CTA: one tonal step up from the ground. */
 .cta-band {
-  background: radial-gradient(
-    130% 150% at 82% -10%,
-    color-mix(in srgb, var(--color-surface) 80%, var(--color-ink)) 0%,
-    var(--color-paper) 62%,
-    color-mix(in srgb, var(--color-paper) 85%, black) 100%
-  );
+  background: var(--color-surface);
   border-top: 1px solid var(--color-line);
-}
-:root[data-scheme='light'] .cta-band {
-  background: radial-gradient(
-    130% 150% at 82% -10%,
-    var(--color-surface) 0%,
-    var(--color-paper) 70%,
-    color-mix(in srgb, var(--color-paper) 96%, var(--color-ink)) 100%
-  );
 }
 
 /* ---------------------------------------------------------------------------
@@ -332,7 +311,7 @@
   opacity: 1;
 }
 
-/* Cursor lamp: a soft pool of gilt light trailing a fine pointer. Screen-blended
+/* Cursor lamp: a soft pool of orange light trailing a fine pointer. Screen-blended
    so it only ever lightens; invisible on touch and until the pointer moves. */
 .fx-lamp {
   --lamp-size: 44rem;
@@ -347,8 +326,8 @@
   border-radius: 50%;
   background: radial-gradient(
     closest-side,
-    color-mix(in srgb, var(--color-gilt) calc(7.5% * var(--lamp-strength)), transparent),
-    color-mix(in srgb, var(--color-gilt) calc(3% * var(--lamp-strength)), transparent) 45%,
+    color-mix(in srgb, var(--color-accent) calc(7.5% * var(--lamp-strength)), transparent),
+    color-mix(in srgb, var(--color-accent) calc(3% * var(--lamp-strength)), transparent) 45%,
     transparent
   );
   mix-blend-mode: screen;
@@ -387,12 +366,12 @@
   text-align: center;
 }
 
-/* Scramble: gilt stand-ins flicker, then lock into ink. */
+/* Scramble: orange stand-ins flicker, then lock into ink. */
 .fx-glyph {
   clip-path: inset(-0.3em -0.03em);
 }
 .fx-glyph--pending {
-  color: var(--color-gilt);
+  color: var(--color-accent);
   opacity: 0;
 }
 .fx-glyph--pending.is-live {
@@ -403,12 +382,12 @@
 }
 @keyframes fx-lock {
   from {
-    color: var(--color-gilt);
-    text-shadow: 0 0 0.35em color-mix(in srgb, var(--color-gilt) 55%, transparent);
+    color: var(--color-accent);
+    text-shadow: 0 0 0.35em color-mix(in srgb, var(--color-accent) 55%, transparent);
   }
 }
 
-/* Decode: a ruby caret block wipes each cell before the glyph glitches in. */
+/* Decode: an orange caret block wipes each cell before the glyph glitches in. */
 .fx-glyph--hidden {
   visibility: hidden;
 }
@@ -419,10 +398,10 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Logo — the Moléson M (Logo.astro). Geometry from the brand kit; font,
-   weight, tracking and size come from --logo-* (src/data/brand.ts), the
-   header lockup from <html data-logo-lockup>. `.brand-logo--full` (footer)
-   always shows mark, name and tagline.
+   Logo: the kit symbol, "Sommet qui perce" (Logo.astro; geometry in
+   brand/README.md). The name is live text; font, weight, tracking and size come
+   from --logo-* (src/data/brand.ts), the header lockup from <html data-logo-lockup>.
+   `.brand-logo--full` (footer) always shows symbol, name and tagline.
 --------------------------------------------------------------------------- */
 .brand-logo {
   --logo-size-v: var(--logo-size, 36px);
@@ -435,23 +414,17 @@
   width: var(--logo-size-v);
   height: var(--logo-size-v);
   overflow: visible;
-}
-.brand-mark-box {
-  fill: var(--color-brand);
-}
-.brand-mark-peaks,
-.brand-mark-free {
   fill: none;
-  stroke-width: 6.5;
-  stroke-linejoin: round;
   stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.brand-mark-ring {
+  stroke: var(--color-accent);
+  stroke-width: 6;
 }
 .brand-mark-peaks {
-  stroke: #fff;
-}
-.brand-mark-free {
-  display: none;
-  stroke: var(--color-brand);
+  stroke: var(--color-ink);
+  stroke-width: 5;
 }
 .brand-text {
   display: flex;
@@ -461,21 +434,18 @@
 .brand-name {
   font-family: var(--logo-font, var(--font-display));
   font-size: calc(var(--logo-size-v) * 0.5);
-  font-weight: var(--logo-weight, 700);
-  letter-spacing: var(--logo-tracking, -0.03em);
+  font-weight: var(--logo-weight, 800);
+  letter-spacing: var(--logo-tracking, -0.04em);
   line-height: 1;
   white-space: nowrap;
-}
-/* The kit draws the name at Bricolage's largest optical size. */
-:root[data-logo-font='bricolage'] .brand-name {
-  font-variation-settings: 'opsz' 96;
+  color: var(--color-ink);
 }
 .brand-tagline {
   display: none;
   font-family: var(--font-mono);
   font-size: max(0.625rem, calc(var(--logo-size-v) * 0.2));
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
@@ -484,15 +454,6 @@
 .brand-logo--full .brand-tagline,
 :root[data-logo-lockup='markNameTagline'] .brand-logo .brand-tagline {
   display: block;
-}
-:root[data-logo-lockup='peaksName'] .brand-logo:not(.brand-logo--full) {
-  & .brand-mark-box,
-  & .brand-mark-peaks {
-    display: none;
-  }
-  & .brand-mark-free {
-    display: inline;
-  }
 }
 :root[data-logo-lockup='mark'] .brand-logo:not(.brand-logo--full) .brand-text,
 :root[data-logo-lockup='name'] .brand-logo:not(.brand-logo--full) .brand-mark {

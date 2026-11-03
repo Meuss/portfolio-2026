@@ -1,5 +1,5 @@
 /**
- * Scramble: every letter flickers through gilt stand-ins and locks into ink,
+ * Scramble: every letter flickers through orange stand-ins and locks into ink,
  * resolving left to right with a little randomness.
  */
 import { buildBoard, layer, restore } from './name-cells';
