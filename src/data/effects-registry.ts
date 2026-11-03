@@ -98,14 +98,6 @@ const mediaVariants = {
   },
 } satisfies Record<string, VariantSpec>;
 
-const techVariant: VariantSpec = {
-  label: 'Tech text',
-  params: {
-    radius: { label: 'Reach (rem)', min: 2, max: 16, step: 0.5, default: 6 },
-    dash: { label: 'Dash', min: 2, max: 14, step: 1, default: 6 },
-  },
-};
-
 /**
  * Variants whose id maps to no module in `islands/fx/runtime.ts` keep the
  * component's own markup and behaviour (`off`, `plain`, `drift`, `default`, `static`).
@@ -191,28 +183,7 @@ export const fxRegistry = {
       plain: { label: 'Plain', params: {} },
     },
   },
-  heroNameHover: {
-    label: 'Hero name hover',
-    where: 'Home hero',
-    variants: {
-      off: { label: 'Off', params: {} },
-      tech: techVariant,
-    },
-  },
-  logo: {
-    label: 'Logo',
-    where: 'Header, every page',
-    variants: {
-      off: { label: 'Off', params: {} },
-      electric: { label: 'Electric', params: { intensity, always: toggle('Always on', 0) } },
-    },
-  },
   cursor: { label: 'Cursor', where: 'Every page', variants: cursorVariants },
-  contactCursor: {
-    label: 'Contact cursor',
-    where: '/contact (on top of the site-wide cursor)',
-    variants: cursorVariants,
-  },
   primaryButton: {
     label: 'Primary buttons',
     where: 'Hero, CTA, contact form',
@@ -238,22 +209,6 @@ export const fxRegistry = {
     where: '/work',
     variants: mediaVariants,
   },
-  ctaBackground: {
-    label: 'CTA background',
-    where: 'Home closing CTA',
-    variants: {
-      off: { label: 'Off', params: {} },
-      laser: { label: 'Laser flow', params: { intensity, speed, accent: accent(0.3) } },
-      magnet: {
-        label: 'Magnet lines',
-        params: {
-          spacing: { label: 'Spacing (px)', min: 16, max: 56, step: 1, default: 30 },
-          length: { label: 'Length (px)', min: 6, max: 30, step: 1, default: 14 },
-          intensity,
-        },
-      },
-    },
-  },
   mobileMenu: {
     label: 'Mobile menu',
     where: 'Header below 768px',
@@ -275,14 +230,6 @@ export const fxRegistry = {
           length: { label: 'Strap (rem)', min: 1.5, max: 12, step: 0.5, default: 3.5 },
         },
       },
-    },
-  },
-  contactOrb: {
-    label: 'Contact accent',
-    where: '/contact',
-    variants: {
-      off: { label: 'Off', params: {} },
-      crystal: { label: 'Crystal ball', params: { intensity, speed, accent: accent(0.3) } },
     },
   },
   contactLead: {
@@ -314,11 +261,6 @@ export const fxRegistry = {
         },
       },
     },
-  },
-  contactHeading: {
-    label: 'Contact heading',
-    where: '/contact',
-    variants: { off: { label: 'Off', params: {} }, tech: techVariant },
   },
 } satisfies Record<string, SlotSpec>;
 

@@ -13,20 +13,19 @@ import type { FxInstance, FxMount } from './types';
 
 type Loader = () => Promise<{ mount: FxMount }>;
 
-// Shared by slots that offer the same variants in different places.
 const cursorLoaders = {
   lamp: () => import('./cursor-lamp'),
   glow: () => import('./cursor-glow'),
   crosshair: () => import('./cursor-crosshair'),
   off: null,
 };
+// Shared by slots that offer the same variants in different places.
 const mediaLoaders = {
   off: null,
   tilt: () => import('./media-tilt'),
   pixel: () => import('./media-pixel'),
   refine: () => import('./media-refine'),
 };
-const techLoaders = { off: null, tech: () => import('./name-tech') };
 
 const loaders: Record<FxSlot, Record<string, Loader | null>> = {
   heroBackground: {
@@ -42,22 +41,12 @@ const loaders: Record<FxSlot, Record<string, Loader | null>> = {
     decode: () => import('./name-decode'),
     plain: null,
   },
-  heroNameHover: techLoaders,
-  logo: { off: null, electric: () => import('./logo-electric') },
   cursor: cursorLoaders,
-  contactCursor: cursorLoaders,
   primaryButton: { off: null, star: () => import('./button-star') },
   featuredMedia: mediaLoaders,
   workMedia: mediaLoaders,
-  ctaBackground: {
-    off: null,
-    laser: () => import('./cta-laser'),
-    magnet: () => import('./cta-magnet'),
-  },
   mobileMenu: { default: null, staggered: () => import('./menu-staggered') },
   aboutPortrait: { static: null, lanyard: () => import('./portrait-lanyard') },
-  contactOrb: { off: null, crystal: () => import('./orb-crystal') },
-  contactHeading: techLoaders,
   contactLead: { off: null, scrambled: () => import('./text-scrambled') },
   notFound: { plain: null, fuzzy: () => import('./text-fuzzy') },
 };

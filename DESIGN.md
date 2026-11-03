@@ -436,7 +436,8 @@ darkened by a ground-coloured veil that thickens toward the back. Every 3.25s th
 front card drops below the deck, travels back, and slides into the last slot
 behind the others while the rest step forward (slow, `speed` 0.6, no bounce).
 The deck tilts toward the pointer, pauses on hover, and the front card can be
-flung to the back by dragging. Below 1024px, and as the deck's fallback, the
+flung to the back by dragging. Nothing locks while it moves: the front card can be
+grabbed mid-step, and a card still dropping away can be caught back to the front. Below 1024px, and as the deck's fallback, the
 original Wall of Work runs instead.
 
 ### The Wall of Work (hero, mobile and fallback)
@@ -461,9 +462,11 @@ same work is reachable through the project list.
 Thomas's real photo becomes an ID badge: a `surface` plate with a punched slot
 and a steel clip (`muted`), the photo inside its hairline frame, and a decorative
 caption-mono strip ("Thomas Miller · Web developer", localized). It hangs from
-a short surface-toned strap with orange stitching, swings gently on load, follows a
-drag and settles. The photo keeps its alt text; the strip and strap are
-`aria-hidden`.
+a short surface-toned strap with orange stitching and swings gently on load. Its
+weight sits at the centre of the photo, so it moves like something heavy on a short
+strap: held anywhere, it pivots around the grip; pulled past the strap's reach, the
+strap stretches a little and springs back. The photo keeps its alt text; the strip
+and strap are `aria-hidden`.
 
 ### Not Found (404)
 
@@ -483,13 +486,13 @@ switches variants and tunes params live; "Save as default" rewrites
 stated exception to the interface's no-glow rule.
 
 Tinting follows two tiers. Small interaction moments are orange: the decode caret
-and glitch, the button comet, the refine scan line, the crosshair, tech text,
+and glitch, the button comet, the refine scan line, the crosshair,
 scrambled text, the staggered menu's edge, the tilt glare. Shader backgrounds use a
 neutral `LIGHT` uniform (`--color-muted`) with an `ACCENT` uniform
 (`--color-accent`) as a trace, controlled by the `accent` param (labelled Orange in
 the FX panel). The lanyard is a steel (`muted`) clip with orange stitching.
 
-Slots (an element can host several: `data-fx-slot="heroName heroNameHover"`;
+Slots (an element can host several: `data-fx-slot="a b"`;
 every matching element gets its own instance):
 
 | Slot             | Where                        | Variants                                                                 |
@@ -497,18 +500,12 @@ every matching element gets its own instance):
 | `heroBackground` | Home hero                    | Light shafts · ASCII field · Lightfall · Letter glitch · Off             |
 | `heroWall`       | Home hero                    | Drift (the wall) · Card swap (desktop)                                   |
 | `heroName`       | Home hero                    | Scramble · Decode · Plain                                                |
-| `heroNameHover`  | Home hero                    | Off · Tech text (dashed outlines under the cursor)                       |
-| `logo`           | Header                       | Off · Electric                                                           |
 | `cursor`         | Every page                   | Lamp · Glow trail · Crosshair · Off                                      |
-| `contactCursor`  | /contact (adds to `cursor`)  | Same as `cursor`; the crosshair fades while a field is focused           |
 | `primaryButton`  | Hero, CTA, contact form, 404 | Off · Star border                                                        |
 | `featuredMedia`  | Home selected work           | Off · Tilted card · Pixel transition · Refine                            |
 | `workMedia`      | /work                        | Off · Tilted card · Pixel transition · Refine                            |
-| `ctaBackground`  | Home closing CTA             | Off · Laser flow · Magnet lines                                          |
 | `mobileMenu`     | Header < 768px               | Default · Staggered                                                      |
 | `aboutPortrait`  | /about                       | Static · Lanyard                                                         |
-| `contactOrb`     | /contact                     | Off · Crystal ball                                                       |
-| `contactHeading` | /contact h1                  | Off · Tech text                                                          |
 | `contactLead`    | /contact lead paragraph      | Off · Scrambled text (letters near the cursor flicker to orange `.` `:`) |
 | `notFound`       | 404 pages, each heading line | Plain · Fuzzy text (rows jitter sideways, swelling on hover)             |
 
