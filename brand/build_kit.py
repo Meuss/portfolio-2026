@@ -1,4 +1,4 @@
-"""Build the Thomas Miller logo kit (R3 "Sommet qui perce", Archivo Expanded, black/white/orange).
+"""Build the Thomas Miller logo kit (R3 "Sommet qui perce", Schibsted Grotesk ExtraBold, black/white/orange).
 
 Usage: python build_kit.py <output-dir>
 Outputs outlined SVGs (no fonts needed) and PNGs.
@@ -69,8 +69,17 @@ class Face:
         return pen.getCommands(), x * s, self.cap * s
 
 
-NAME_FACE = Face(os.path.join(HERE, "fonts/Archivo.ttf"), {"wght": 900, "wdth": 125})
+NAME_FACE = Face(os.path.join(HERE, "fonts/SchibstedGrotesk.ttf"), {"wght": 800})
+NAME_TRACK = -0.04
 TAG_FACE = Face(os.path.join(HERE, "fonts/DMMono-Medium.ttf"))
+
+
+def name_size(cap_px):
+    """Font size that gives the name this cap height, so layouts keep their proportions."""
+    return cap_px * NAME_FACE.upm / NAME_FACE.cap
+
+# Cap heights of the original Archivo Expanded build (25px and 30px at cap 0.686 em).
+NAME_CAP, STACK_CAP = 25 * 0.686, 30 * 0.686
 
 
 def text(d, x, y, fill):
@@ -95,9 +104,9 @@ SCHEMES = {
 }
 
 M, PAD = 64, 4
-L1 = NAME_FACE.run(NAME_LINES[0], 25, -0.03)
-L2 = NAME_FACE.run(NAME_LINES[1], 25, -0.03)
-ONE = NAME_FACE.run(" ".join(NAME_LINES), 25, -0.03)
+L1 = NAME_FACE.run(NAME_LINES[0], name_size(NAME_CAP), NAME_TRACK)
+L2 = NAME_FACE.run(NAME_LINES[1], name_size(NAME_CAP), NAME_TRACK)
+ONE = NAME_FACE.run(" ".join(NAME_LINES), name_size(NAME_CAP), NAME_TRACK)
 TAG = TAG_FACE.run(TAGLINE, 6.2, 0.12)
 CAP = L1[2]
 
@@ -129,7 +138,8 @@ def one_line(c):
 
 def stacked(c):
     mk = 88
-    n1 = NAME_FACE.run(NAME_LINES[0], 30, -0.03); n2 = NAME_FACE.run(NAME_LINES[1], 30, -0.03)
+    n1 = NAME_FACE.run(NAME_LINES[0], name_size(STACK_CAP), NAME_TRACK)
+    n2 = NAME_FACE.run(NAME_LINES[1], name_size(STACK_CAP), NAME_TRACK)
     tg = TAG_FACE.run(TAGLINE, 9, 0.12)
     w = max(n1[1], n2[1], tg[1], mk) + 2 * PAD
     b1 = PAD + mk + 16 + n1[2]
