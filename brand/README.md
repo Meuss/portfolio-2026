@@ -25,8 +25,8 @@ Orange is for shapes and large accents. Don't use it for small text on white: it
 
 All three are free on Google Fonts and on Fontsource (`@fontsource-variable/schibsted-grotesk`,
 `@fontsource-variable/instrument-sans`, `@fontsource/dm-mono`).
-The name in the logo files is outlined from `fonts/SchibstedGrotesk.ttf` (variable, used at weight 800).
-`fonts/Archivo.ttf` is kept only for the archived Archivo Expanded version of the logo.
+The name in the logo files is outlined from `fonts/SchibstedGrotesk.ttf` (variable, used at weight 800)
+and the tagline from `fonts/DMMono-Medium.ttf`. These are the only two fonts the build needs.
 
 The full website styleguide (dark colour tokens, type scale): https://claude.ai/artifact/Sn8r8BG7e8FA6TNQPVU1iu
 
@@ -87,7 +87,8 @@ python3 -m venv .venv && .venv/bin/pip install fonttools uharfbuzz resvg-py
 magick favicon/favicon-16.png favicon/favicon-32.png favicon/favicon-48.png favicon/favicon.ico   # ImageMagick
 ```
 
-## Explorations
+## Business cards
 
-`explorations/` holds the design rounds as HTML pages: first ideas, the red business cards,
-the orange round, the ring + mountain builder, and the business cards for this logo.
+`explorations/05-business-cards.html` has the earlier card layouts for this logo (Swiss 85 × 55 mm).
+They still set the name in Archivo Expanded; switch it to Schibsted Grotesk ExtraBold when making the
+print files. Tracked in https://github.com/Meuss/portfolio-2026/issues/1.
