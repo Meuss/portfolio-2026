@@ -10,9 +10,9 @@
  *
  * Every shader gets `uRes`, `uTime` (already scaled by the `speed` param),
  * `uPointer` (0..1, eased) and `uIntensity`, plus one uniform per extra param
- * named `u` + Capitalized key (e.g. `ruby` → `uRuby`).
+ * named `u` + Capitalized key (e.g. `accent` → `uAccent`).
  *
- * PAPER / INK / GILT / RUBY are the palette tokens (read at mount, so a brand
+ * PAPER / INK / LIGHT / ACCENT are the palette tokens (read at mount, so a brand
  * palette switch re-colours them). On a light ground `finish` darkens towards
  * the light's hue instead of adding light.
  */
@@ -28,8 +28,8 @@ out vec4 outColor;
 
 uniform vec3 PAPER; // --color-paper
 uniform vec3 INK;   // --color-ink
-uniform vec3 GILT;  // --color-gilt
-uniform vec3 RUBY;  // --color-accent
+uniform vec3 LIGHT;  // --color-muted
+uniform vec3 ACCENT;  // --color-accent
 uniform float uLightGround;
 
 float hash(vec2 p) {
@@ -136,7 +136,7 @@ export function runShader(host: HTMLElement, opts: ShaderOptions): FxInstance {
   gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
   opts.setup?.(gl, prog);
 
-  const tokens = { PAPER: 'paper', INK: 'ink', GILT: 'gilt', RUBY: 'accent' };
+  const tokens = { PAPER: 'paper', INK: 'ink', LIGHT: 'muted', ACCENT: 'accent' };
   for (const [uniform, token] of Object.entries(tokens)) {
     const [r, g, b] = tokenRgb(token);
     gl.uniform3f(gl.getUniformLocation(prog, uniform), r / 255, g / 255, b / 255);

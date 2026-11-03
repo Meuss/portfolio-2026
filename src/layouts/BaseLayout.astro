@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import { languages, type Lang } from '../i18n/ui';
 import { switchLocalePath, useTranslations } from '../i18n/utils';
 import { brand } from '../data/brand';
-import { BRAND_RED, brandAttrs, brandStyle } from '../data/brand-registry';
+import { brandAttrs, brandStyle, palettes } from '../data/brand-registry';
 
 interface Props {
   title: string;
@@ -62,7 +62,7 @@ const ogImage = new URL('/og-image.png', siteUrl).toString();
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content={BRAND_RED} />
+    <meta name="theme-color" content={palettes[brand.palette].colors.paper} />
 
     <title>{title}</title>
     <meta name="description" content={description} />

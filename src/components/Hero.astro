@@ -33,7 +33,7 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
       </h1>
 
       <div aria-hidden="true" class="mt-7 flex max-w-md items-center gap-4">
-        <span class="hero-rule h-px w-16 bg-accent"></span>
+        <span class="hero-rule h-px w-16 bg-ink"></span>
         <span class="h-px flex-1 bg-line"></span>
       </div>
 
@@ -120,10 +120,10 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
 
 <style>
   .hero-name {
-    font-size: clamp(3.25rem, 1.2rem + 7vw, 6rem);
-    font-weight: 700;
-    line-height: 0.92;
-    letter-spacing: -0.04em;
+    font-size: var(--text-display);
+    font-weight: var(--text-display--font-weight);
+    line-height: var(--text-display--line-height);
+    letter-spacing: var(--text-display--letter-spacing);
     /* Flap cells can't kern across each other; matching that here means the
        board hands back to plain text without a shift. */
     font-kerning: none;
@@ -157,7 +157,7 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background: var(--color-accent);
+    background: var(--color-success);
     flex: none;
   }
 
@@ -199,7 +199,7 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
     border-top: 1px solid var(--color-line);
     font-family: var(--font-mono);
     font-size: var(--text-caption);
-    letter-spacing: 0.08em;
+    letter-spacing: var(--text-caption--letter-spacing);
     text-transform: uppercase;
     color: var(--color-muted);
     white-space: nowrap;
@@ -214,7 +214,7 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
     padding: 0.25rem 0;
     font-family: var(--font-mono);
     font-size: var(--text-caption);
-    letter-spacing: 0.08em;
+    letter-spacing: var(--text-caption--letter-spacing);
     text-transform: uppercase;
     color: var(--color-muted);
     background: none;
@@ -222,7 +222,7 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
     cursor: pointer;
   }
   .wall-toggle:hover {
-    color: var(--color-gilt);
+    color: var(--color-ink);
   }
 
   /* Mobile: one horizontal strip under the intro. */

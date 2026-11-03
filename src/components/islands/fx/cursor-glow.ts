@@ -1,6 +1,6 @@
 /**
- * Glow trail (fine pointers only): the pointer spills soft motes of gilt light
- * that drift upward through the air and cool toward ruby as they fade.
+ * Glow trail (fine pointers only): the pointer spills soft motes of orange light
+ * that drift upward through the air and cool to the deeper orange as they fade.
  *
  * - One fixed, screen-blended Canvas2D over the page; particles are a single
  *   pre-rendered radial sprite drawn additively.
@@ -45,7 +45,7 @@ export const mount: FxMount = (_host, initial) => {
   canvas.setAttribute('aria-hidden', 'true');
   document.body.append(canvas);
   const ctx = canvas.getContext('2d')!;
-  const warm = sprite(tokenRgb('gilt'));
+  const warm = sprite(tokenRgb('accent-hover'));
   const cool = sprite(tokenRgb('accent'));
   // A hot core so fresh motes read as light, not paint.
   const core = sprite([255, 236, 200]);
@@ -90,7 +90,7 @@ export const mount: FxMount = (_host, initial) => {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.globalCompositeOperation = 'lighter';
     const intensity = params.intensity ?? 1;
-    const ruby = params.ruby ?? 0.35;
+    const shift = params.accent ?? 0.35;
 
     for (let i = motes.length - 1; i >= 0; i--) {
       const m = motes[i];
@@ -109,9 +109,9 @@ export const mount: FxMount = (_host, initial) => {
       const fade = (1 - k) * (1 - k);
       const size = m.size * (0.6 + k * 1.1);
       const a = fade * 0.32 * intensity;
-      ctx.globalAlpha = a * (1 - k * ruby);
+      ctx.globalAlpha = a * (1 - k * shift);
       ctx.drawImage(warm, m.x - size, m.y - size, size * 2, size * 2);
-      ctx.globalAlpha = a * k * ruby * 1.4;
+      ctx.globalAlpha = a * k * shift * 1.4;
       ctx.drawImage(cool, m.x - size, m.y - size, size * 2, size * 2);
       if (k < 0.25) {
         const c = size * 0.35;

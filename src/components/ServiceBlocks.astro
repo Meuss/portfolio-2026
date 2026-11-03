@@ -34,7 +34,7 @@ const t = useTranslations(lang);
         </ol>
 
         <div class="mt-12" data-reveal>
-          <h3 class="font-mono text-caption uppercase text-gilt">{t('capabilities.heading')}</h3>
+          <h3 class="font-mono text-caption uppercase text-muted">{t('capabilities.heading')}</h3>
           <ul class="mt-5 flex flex-wrap gap-2" role="list">
             {capabilities.map((cap) => (
               <li
@@ -50,12 +50,3 @@ const t = useTranslations(lang);
     </div>
   </div>
 </section>
-
-<style>
-  .service h3 {
-    transition: color 0.25s;
-  }
-  .service:hover h3 {
-    color: var(--color-gilt);
-  }
-</style>

@@ -1,6 +1,6 @@
 /**
  * ASCII field: a slow flowing noise field drawn as a grid of DM Mono glyphs,
- * densest in the upper right and swelling under the pointer, gilt with ruby
+ * densest in the upper right and swelling under the pointer, neutral with orange
  * in the hottest cells.
  */
 import { runShader } from './gl';
@@ -11,7 +11,7 @@ const TILE = 64;
 
 const FRAG = `
 uniform float uCell;
-uniform float uRuby;
+uniform float uAccent;
 uniform float uScale;
 uniform sampler2D uAtlas;
 
@@ -34,7 +34,7 @@ void main() {
   float idx = min(floor(v * n), n - 1.0);
   float glyph = texture(uAtlas, vec2((idx + local.x) / n, 1.0 - local.y)).r;
 
-  vec3 tint = mix(GILT, RUBY, smoothstep(0.75, 1.0, v) * uRuby);
+  vec3 tint = mix(LIGHT, ACCENT, smoothstep(0.75, 1.0, v) * uAccent);
   float side = smoothstep(0.15, 0.6, c.x);
   outColor = finish(tint * glyph * (0.1 + v * 0.5) * side);
 }`;

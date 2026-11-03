@@ -27,7 +27,7 @@
   border-radius: var(--fx-swap-radius, 10px);
   box-shadow: 0 24px 50px -24px rgb(0 0 0 / 0.8);
 }
-/* Depth dimming: a graphite veil that thickens toward the back. */
+/* Depth dimming: a dark veil that thickens toward the back. */
 .fx-swap-card::after {
   content: '';
   position: absolute;

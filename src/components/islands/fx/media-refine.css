@@ -21,8 +21,8 @@
   right: 0;
   top: 0;
   height: 1px;
-  background: var(--color-gilt);
-  box-shadow: 0 0 12px 1px color-mix(in srgb, var(--color-gilt) 45%, transparent);
+  background: var(--color-accent);
+  box-shadow: 0 0 12px 1px color-mix(in srgb, var(--color-accent) 45%, transparent);
   opacity: 0;
 }
 .fx-refine-chip {
@@ -36,8 +36,8 @@
   background: color-mix(in srgb, var(--color-paper) 82%, transparent);
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--text-caption--letter-spacing);
   text-transform: uppercase;
-  color: var(--color-gilt);
+  color: var(--color-accent);
   transition: opacity 0.5s ease;
 }

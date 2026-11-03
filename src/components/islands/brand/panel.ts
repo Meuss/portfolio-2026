@@ -199,9 +199,9 @@ function build() {
           c.palette,
           (palette) => commit({ ...c, palette }, { remount: true }),
           (chip, id) => {
-            const { paper, accent, gilt } = palettes[id].colors;
-            // Prepended, so the dots read paper · accent · gilt.
-            for (const colour of [gilt, accent, paper]) {
+            const { paper, accent } = palettes[id].colors;
+            // Prepended, so the dots read paper · accent.
+            for (const colour of [accent, paper]) {
               const dot = el('span', { className: 'fxp-swatch' });
               dot.style.background = colour;
               dot.style.marginRight = '0.15rem';

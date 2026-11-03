@@ -1,5 +1,5 @@
 /**
- * Cursor lamp (fine pointers only): a soft pool of gilt light trailing the
+ * Cursor lamp (fine pointers only): a soft pool of orange light trailing the
  * pointer, screen-blended so it only ever lightens.
  *
  * Reduced motion: the lamp tracks the pointer directly, without trailing.

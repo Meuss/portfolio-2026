@@ -1,7 +1,7 @@
 /**
- * Electric logo: on hover / keyboard focus of the header wordmark, a gilt
+ * Electric logo: on hover / keyboard focus of the header wordmark, an orange
  * lightning outline crackles around it (and the logo mark), with short arcs
- * leaping off the edges, inside a faint ruby glow.
+ * leaping off the edges, inside a faint orange glow.
  *
  * - An aria-hidden SVG overlay; the outline is distorted by an feTurbulence +
  *   feDisplacementMap whose seed jumps ~30 times a second while visible only.
@@ -85,8 +85,8 @@ export const mount: FxMount = (host, initial) => {
     svg.style.left = `${-PAD}px`;
     svg.style.top = `${-PAD}px`;
     outline = rectPath(PAD - 8, PAD - 6, w + 16, h + 12, 4);
-    // Also trace the logo mark's box, if it shows.
-    const square = host.querySelector<SVGRectElement>('.brand-mark-box');
+    // Also trace the logo symbol, if it shows.
+    const square = host.querySelector<SVGSVGElement>('.brand-mark');
     if (square && square.getBoundingClientRect().width) {
       const hr = host.getBoundingClientRect();
       const sr = square.getBoundingClientRect();
@@ -97,7 +97,7 @@ export const mount: FxMount = (host, initial) => {
           PAD + sr.top - hr.top - 3,
           sr.width + 6,
           sr.height + 6,
-          (sr.width * 14) / 64 + 3,
+          sr.width / 2 + 3,
         );
     }
     glow.replaceChildren(

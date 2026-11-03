@@ -1,7 +1,7 @@
 /**
  * Refine: as a project screenshot scrolls into view it "develops" like an
  * image being generated: coarse pixels, finer pixels, a soft blur, then the
- * sharp screenshot. A gilt scan line sweeps each pass in from the top, and a
+ * sharp screenshot. An orange scan line sweeps each pass in from the top, and a
  * mono status chip counts "PASS 2/4" up to "RENDERED" before fading out.
  * Frames that come into view together (a row of cards) start `stagger` ms
  * apart, in the order they were seen; a frame seen alone starts at once.

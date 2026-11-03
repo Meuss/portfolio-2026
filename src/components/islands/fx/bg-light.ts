@@ -1,12 +1,12 @@
 /**
- * Light shafts: warm gilt light falling through an unseen window from the
+ * Light shafts: soft neutral light falling through an unseen window from the
  * upper right, with dust that only shows where the light catches it.
  */
 import { runShader } from './gl';
 import type { FxMount } from './types';
 
 const FRAG = `
-uniform float uRuby;
+uniform float uAccent;
 uniform float uDust;
 
 // Shafts: banded noise across the angle from the light source.
@@ -37,8 +37,8 @@ void main() {
   vec2 du = uv * vec2(aspect, 1.0);
   float motes = (dust(du, 14.0, t, 0.0) + dust(du, 26.0, t * 1.3, 11.0) * 0.6) * s * 1.8 * uDust;
 
-  float rubyBand = smoothstep(0.62, 0.9, noise1(ang * 6.0 - t * 0.03 + 2.0)) * uRuby;
-  vec3 tint = mix(GILT, RUBY, rubyBand);
+  float accentBand = smoothstep(0.62, 0.9, noise1(ang * 6.0 - t * 0.03 + 2.0)) * uAccent;
+  vec3 tint = mix(LIGHT, ACCENT, accentBand);
   float floorFade = smoothstep(0.0, 0.45, uv.y);
 
   outColor = finish(tint * (s * 0.2 + haze * 0.06 + motes * 0.5) * floorFade);

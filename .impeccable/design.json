@@ -1,142 +1,202 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-16T07:38:22+00:00",
+  "generatedAt": "2026-11-03T22:03:07+00:00",
   "title": "Design System: Thomas Miller — Portfolio 2026",
   "extensions": {
     "colorMeta": {
       "paper": {
         "role": "neutral",
-        "displayName": "Graphite Ground",
-        "canonical": "#16181b",
+        "displayName": "Kit Black",
+        "canonical": "#121212",
         "tonalRamp": [
-          "#0c0d0f",
-          "#121316",
-          "#16181b",
-          "#202226",
-          "#2b2e33",
-          "#3a3d44",
-          "#5b5f68",
-          "#9d9b91"
+          "#121212",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
         ]
       },
-      "ink": {
+      "surface": {
         "role": "neutral",
-        "displayName": "Warm Off-White Ink",
-        "canonical": "#ece9e1",
+        "displayName": "Surface",
+        "canonical": "#1b1b1a",
         "tonalRamp": [
-          "#3d3b35",
-          "#5a574f",
-          "#78756b",
-          "#969288",
-          "#b4b0a6",
-          "#d0ccc2",
-          "#ece9e1",
-          "#f6f4ee"
+          "#0b0b0a",
+          "#1b1b1a",
+          "#424241",
+          "#616160",
+          "#828281",
+          "#a5a5a4",
+          "#c9c9c8",
+          "#eeeeed"
         ]
       },
-      "muted": {
+      "surface-2": {
         "role": "neutral",
-        "displayName": "Muted Sand",
-        "canonical": "#9d9b91",
+        "displayName": "Second Surface",
+        "canonical": "#242423",
         "tonalRamp": [
-          "#2b2a26",
-          "#403f39",
-          "#57554e",
-          "#6f6d64",
-          "#88857b",
-          "#9d9b91",
-          "#bcbab2",
-          "#dbdad4"
+          "#0b0b0a",
+          "#242423",
+          "#424241",
+          "#616160",
+          "#828281",
+          "#a5a5a4",
+          "#c9c9c8",
+          "#eeeeed"
         ]
       },
       "line": {
         "role": "neutral",
         "displayName": "Hairline",
-        "canonical": "#32343b",
+        "canonical": "#333331",
         "tonalRamp": [
-          "#191a1e",
-          "#212329",
-          "#282a30",
-          "#32343b",
-          "#3f424a",
-          "#4d505a",
-          "#666a76",
-          "#8a8e9a"
+          "#0b0b0a",
+          "#333331",
+          "#424240",
+          "#61615f",
+          "#828280",
+          "#a5a5a3",
+          "#c9c9c7",
+          "#efefec"
         ]
       },
-      "surface": {
+      "ink": {
         "role": "neutral",
-        "displayName": "Graphite Surface",
-        "canonical": "#202226",
+        "displayName": "Warm Off-White Ink",
+        "canonical": "#f3f2ee",
         "tonalRamp": [
-          "#0e0f11",
-          "#161719",
-          "#1b1c20",
-          "#202226",
-          "#2b2e33",
-          "#383b42",
-          "#4a4e56",
-          "#666a73"
+          "#0c0b09",
+          "#262522",
+          "#43423f",
+          "#62615e",
+          "#83827f",
+          "#a6a5a1",
+          "#cac9c5",
+          "#f3f2ee"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Grey",
+        "canonical": "#a3a39e",
+        "tonalRamp": [
+          "#0b0b08",
+          "#252521",
+          "#42423e",
+          "#61615d",
+          "#83837e",
+          "#a3a39e",
+          "#c9c9c4",
+          "#efefe9"
+        ]
+      },
+      "faint": {
+        "role": "neutral",
+        "displayName": "Faint Grey",
+        "canonical": "#82817a",
+        "tonalRamp": [
+          "#0c0b07",
+          "#26251f",
+          "#43423c",
+          "#62615b",
+          "#82817a",
+          "#a6a59e",
+          "#cac9c2",
+          "#f0efe7"
         ]
       },
       "accent": {
         "role": "primary",
-        "displayName": "Ruby Mark",
-        "canonical": "#dd4753",
+        "displayName": "Kit Orange",
+        "canonical": "#ff6a13",
         "tonalRamp": [
-          "#3a1418",
-          "#5c1f26",
-          "#8e2b3b",
-          "#b83744",
-          "#dd4753",
-          "#e5707a",
-          "#ef9aa1",
-          "#f8ccd0"
+          "#1a0400",
+          "#421500",
+          "#6f2901",
+          "#a03e01",
+          "#d55400",
+          "#ff6a13",
+          "#ffb597",
+          "#feeae1"
+        ]
+      },
+      "accent-hover": {
+        "role": "primary",
+        "displayName": "Lit Orange",
+        "canonical": "#ff8a47",
+        "tonalRamp": [
+          "#180500",
+          "#3f1800",
+          "#6c2d00",
+          "#9b4402",
+          "#cd5d06",
+          "#ff8a47",
+          "#ffb690",
+          "#ffeadf"
         ]
       },
       "accent-ink": {
         "role": "primary",
-        "displayName": "Ruby Foreground",
-        "canonical": "#fff5f4",
+        "displayName": "Black on Orange",
+        "canonical": "#121212",
         "tonalRamp": [
-          "#6b5251",
-          "#8c6d6c",
-          "#ad8988",
-          "#c8a5a4",
-          "#e0c1c0",
-          "#f0dedd",
-          "#fff5f4",
-          "#fffbfb"
+          "#121212",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
         ]
       },
-      "gilt": {
-        "role": "secondary",
-        "displayName": "Gilt",
-        "canonical": "#c6a15b",
+      "error": {
+        "role": "tertiary",
+        "displayName": "Status Red",
+        "canonical": "#ff6b78",
         "tonalRamp": [
-          "#3d3018",
-          "#5a4823",
-          "#786032",
-          "#977c43",
-          "#b5975a",
-          "#c6a15b",
-          "#d4b273",
-          "#ecdcbb"
+          "#1e0003",
+          "#4c0111",
+          "#7f0222",
+          "#b01c39",
+          "#d94859",
+          "#ff6b78",
+          "#ffb2b3",
+          "#ffe8e8"
+        ]
+      },
+      "success": {
+        "role": "tertiary",
+        "displayName": "Status Green",
+        "canonical": "#4fd18f",
+        "tonalRamp": [
+          "#000f06",
+          "#012e19",
+          "#034f2f",
+          "#027447",
+          "#079b60",
+          "#4fd18f",
+          "#67e6a3",
+          "#c4ffdb"
         ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "The hero name only."
+        "purpose": "The hero name and the 404's first line."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Page and section H1/H2, the CTA heading."
+        "purpose": "Page and section H1/H2, the CTA heading, the 404's second line."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Project card titles, service rows, About rows (weight 600)."
+        "purpose": "Project card titles, service rows, About rows (weight 700)."
       },
       "lead": {
         "displayName": "Lead",
@@ -148,15 +208,15 @@
       },
       "small": {
         "displayName": "Small",
-        "purpose": "Mono button labels, uppercase, 0.06em."
+        "purpose": "The footer's fine print, in Instrument Sans."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Mono button labels, uppercase, +0.12em."
       },
       "caption": {
         "displayName": "Caption",
-        "purpose": "The data voice: context tags, Role/Stack, hostnames, chips, screenshot captions, form labels. Uppercase mono."
-      },
-      "display-xl": {
-        "displayName": "Display XL",
-        "purpose": "The 404 code only (--text-display)."
+        "purpose": "The data voice: context tags, stack lines, hostnames, chips, screenshot captions, form labels. Uppercase mono."
       }
     },
     "shadows": [
@@ -190,7 +250,7 @@
       {
         "name": "state",
         "value": "200ms cubic-bezier(0.22, 1, 0.36, 1) transform, colors",
-        "purpose": "Button 2px lift, arrow nudge, border/text shifts to gilt."
+        "purpose": "Primary button 2px lift, arrow nudge, border and text colour shifts."
       },
       {
         "name": "frame-zoom",
@@ -214,7 +274,7 @@
       },
       {
         "name": "name-decode",
-        "value": "per letter 62ms stagger: ruby block 70ms in / 110ms out, 210ms 3-step glitch (÷ speed 1.3)",
+        "value": "per letter 62ms stagger: orange block 70ms in / 110ms out, 210ms 3-step glitch (÷ speed 1.3)",
         "purpose": "Hero name entrance."
       },
       {
@@ -224,7 +284,7 @@
       },
       {
         "name": "refine",
-        "value": "4 passes × 500ms, gilt scan line top → bottom",
+        "value": "4 passes × 500ms, orange scan line top → bottom",
         "purpose": "Featured screenshots refining into focus on scroll-in."
       }
     ],
@@ -248,41 +308,41 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Gilt action for the single lead CTA per view (hero, closing CTA, contact submit).",
+      "description": "Orange action with black text for the single lead CTA per screen (hero, closing CTA, contact submit, 404).",
       "html": "<a class=\"ds-btn-primary\" href=\"#\">Start a project <svg aria-hidden=\"true\" viewBox=\"0 0 16 16\" width=\"0.95em\" height=\"0.95em\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"square\"><path d=\"M2.5 8h10M9 4.5 12.5 8 9 11.5\"/></svg></a>",
-      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.65rem; background: var(--color-gilt, #c6a15b); color: var(--color-paper, #16181b); padding: 0.875rem 1.75rem; border: none; border-radius: 2px; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s; } .ds-btn-primary svg { transition: transform 0.2s; } .ds-btn-primary:hover { background: #d4b273; transform: translateY(-2px); } .ds-btn-primary:hover svg { transform: translateX(2px); } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; }"
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.65rem; padding: 0.9375rem 1.375rem; border-radius: 2px; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.8rem; font-weight: 500; line-height: 1; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; background: var(--color-accent, #ff6a13); color: var(--color-accent-ink, #121212); border: 1px solid transparent; cursor: pointer; transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s; } .ds-btn-primary svg { transition: transform 0.2s; } .ds-btn-primary:hover { background: var(--color-accent-hover, #ff8a47); transform: translateY(-2px); } .ds-btn-primary:hover svg { transform: translateX(2px); } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-accent, #ff6a13); outline-offset: 2px; }"
     },
     {
       "name": "Primary Button (star border)",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The primary action with its hover/focus star border: a warm comet orbiting just outside the edge.",
+      "description": "The primary action with its hover/focus star border: an orange comet orbiting just outside the edge.",
       "html": "<a class=\"ds-btn-star\" href=\"#\">START A PROJECT <svg width=\"14\" height=\"14\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"square\"><path d=\"M2 8h11M9 4l4 4-4 4\"/></svg></a>",
-      "css": "@property --ds-star { syntax: '<angle>'; inherits: false; initial-value: 0deg; } .ds-btn-star { position: relative; isolation: isolate; display: inline-flex; align-items: center; gap: 0.65rem; padding: 0.875rem 1.75rem; border-radius: 2px; background: var(--color-gilt, #c6a15b); color: var(--color-paper, #16181b); font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: background 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1); } .ds-btn-star::before { content: ''; position: absolute; inset: -2px; z-index: -1; border-radius: 4px; padding: 1.5px; background: conic-gradient(from var(--ds-star), transparent 0 78%, #c6a15b 88%, #fff5e6 93%, transparent 96%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.3s; } .ds-btn-star:hover, .ds-btn-star:focus-visible { background: #d4b273; transform: translateY(-2px); } .ds-btn-star:hover::before, .ds-btn-star:focus-visible::before { opacity: 1; animation: ds-star 3.5s linear infinite; } .ds-btn-star:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; } @keyframes ds-star { to { --ds-star: 360deg; } }"
+      "css": "@property --ds-star { syntax: '<angle>'; inherits: false; initial-value: 0deg; } .ds-btn-star { display: inline-flex; align-items: center; justify-content: center; gap: 0.65rem; padding: 0.9375rem 1.375rem; border-radius: 2px; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.8rem; font-weight: 500; line-height: 1; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; position: relative; isolation: isolate; background: var(--color-accent, #ff6a13); color: var(--color-accent-ink, #121212); transition: background 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1); } .ds-btn-star::before { content: ''; position: absolute; inset: -2px; z-index: -1; border-radius: 4px; padding: 1.5px; background: conic-gradient(from var(--ds-star), transparent 0 78%, color-mix(in srgb, var(--color-accent, #ff6a13) 90%, transparent) 92%, color-mix(in srgb, var(--color-accent, #ff6a13) 15%, white) 98.5%, transparent 100%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.3s; } .ds-btn-star:hover, .ds-btn-star:focus-visible { background: var(--color-accent-hover, #ff8a47); transform: translateY(-2px); } .ds-btn-star:hover::before, .ds-btn-star:focus-visible::before { opacity: 1; animation: ds-star 3.5s linear infinite; } .ds-btn-star:focus-visible { outline: 2px solid var(--color-accent, #ff6a13); outline-offset: 2px; } @keyframes ds-star { to { --ds-star: 360deg; } }"
     },
     {
       "name": "Secondary Button",
       "kind": "button",
       "refersTo": "button-secondary",
-      "description": "Hairline ghost action; hover shifts border and text to gilt.",
+      "description": "Hairline ghost action; hover shifts the border to ink.",
       "html": "<a class=\"ds-btn-secondary\" href=\"#\">View all work</a>",
-      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 0.65rem; background: transparent; color: var(--color-ink, #ece9e1); padding: 0.875rem 1.75rem; border: 1px solid var(--color-line, #32343b); border-radius: 2px; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: color 0.2s, border-color 0.2s; } .ds-btn-secondary:hover { color: var(--color-gilt, #c6a15b); border-color: var(--color-gilt, #c6a15b); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; }"
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 0.65rem; padding: 0.9375rem 1.375rem; border-radius: 2px; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.8rem; font-weight: 500; line-height: 1; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; background: transparent; color: var(--color-ink, #f3f2ee); border: 1px solid var(--color-line, #333331); transition: color 0.2s, border-color 0.2s; } .ds-btn-secondary:hover { color: var(--color-ink, #f3f2ee); border-color: var(--color-ink, #f3f2ee); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--color-accent, #ff6a13); outline-offset: 2px; }"
     },
     {
       "name": "Filter Chips",
       "kind": "chip",
       "refersTo": "chip-filter",
-      "description": "/work context filter (progressive enhancement): hairline chips with context mark and count; selected fills with surface and keeps a gilt border.",
-      "html": "<div class=\"ds-chips\" role=\"group\"><button type=\"button\" class=\"ds-chip\" aria-pressed=\"true\">All <span class=\"ds-chip-n\">12</span></button><button type=\"button\" class=\"ds-chip\" aria-pressed=\"false\"><span class=\"ds-mark ds-mark--independent\"></span>Freelance <span class=\"ds-chip-n\">5</span></button><button type=\"button\" class=\"ds-chip\" aria-pressed=\"false\"><span class=\"ds-mark ds-mark--macmac\"></span>With macmac <span class=\"ds-chip-n\">4</span></button><button type=\"button\" class=\"ds-chip\" aria-pressed=\"false\"><span class=\"ds-mark ds-mark--marvelous\"></span>At Marvelous <span class=\"ds-chip-n\">3</span></button></div>",
-      "css": ".ds-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; } .ds-chip { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.5rem 0.8rem; border: 1px solid var(--color-line, #32343b); border-radius: 2px; background: transparent; color: var(--color-ink, #ece9e1); font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: border-color 0.2s, background-color 0.2s; } .ds-chip:hover { border-color: var(--color-gilt, #c6a15b); } .ds-chip[aria-pressed='true'] { background: var(--color-surface, #202226); border-color: var(--color-gilt, #c6a15b); } .ds-chip:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; } .ds-chip-n { color: var(--color-muted, #9d9b91); } .ds-mark { display: inline-block; width: 0.4rem; height: 0.4rem; flex: none; } .ds-mark--independent { border-radius: 50%; background: var(--color-accent, #dd4753); } .ds-mark--macmac { rotate: 45deg; background: var(--color-gilt, #c6a15b); } .ds-mark--marvelous { border-radius: 50%; border: 1px solid var(--color-ink, #ece9e1); }"
+      "description": "/work context filter (progressive enhancement): hairline chips with context mark and count; hover border muted, selected fills with surface-2 and takes an ink border.",
+      "html": "<div class=\"ds-chips\" role=\"group\"><button type=\"button\" class=\"ds-chip\" aria-pressed=\"true\">All <span class=\"ds-chip-n\">12</span></button><button type=\"button\" class=\"ds-chip\" aria-pressed=\"false\"><span class=\"ds-mark\"></span>Freelance <span class=\"ds-chip-n\">5</span></button><button type=\"button\" class=\"ds-chip\" aria-pressed=\"false\">With macmac <span class=\"ds-chip-n\">4</span></button><button type=\"button\" class=\"ds-chip\" aria-pressed=\"false\">At Marvelous <span class=\"ds-chip-n\">3</span></button></div>",
+      "css": ".ds-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; } .ds-chip { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.5rem 0.8rem; border: 1px solid var(--color-line, #333331); border-radius: 2px; background: transparent; color: var(--color-ink, #f3f2ee); font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: border-color 0.2s, background-color 0.2s; } .ds-chip:hover { border-color: var(--color-muted, #a3a39e); } .ds-chip[aria-pressed='true'] { background: var(--color-surface-2, #242423); border-color: var(--color-ink, #f3f2ee); } .ds-chip:focus-visible { outline: 2px solid var(--color-accent, #ff6a13); outline-offset: 2px; } .ds-chip-n { color: var(--color-muted, #a3a39e); } .ds-mark { display: inline-block; width: 0.4rem; height: 0.4rem; flex: none; border-radius: 50%; background: currentColor; }"
     },
     {
       "name": "Project Card",
       "kind": "card",
       "refersTo": "project-frame",
-      "description": "Real screenshot in a hairline frame with the phone capture overlapping lower-right (the one soft shadow); context meta, title with underline-draw hover, Role/Stack mono list, gilt hostname with SVG arrow.",
+      "description": "Real screenshot in a hairline frame with the phone capture overlapping lower-right (the one soft shadow); context meta, title with underline-draw hover, muted stack line, orange live hostname with SVG arrow.",
       "html": "<article class=\"ds-project\"><div class=\"ds-frame\"><div class=\"ds-frame-desktop\"></div><div class=\"ds-frame-phone\"></div></div><div class=\"ds-project-body\"><p class=\"ds-project-meta\"><span class=\"ds-project-ctx\"><span class=\"ds-mark\"></span>Freelance</span><span class=\"ds-sep\">/</span><span>Marketing site</span></p><h3 class=\"ds-project-title\"><a href=\"#\">Client site</a></h3><p class=\"ds-project-desc\">A one-line summary of what was shipped and why it mattered.</p><p class=\"ds-project-stack\">Astro · TypeScript</p><span class=\"ds-project-host\">client.com <svg aria-hidden=\"true\" viewBox=\"0 0 16 16\" width=\"0.95em\" height=\"0.95em\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"square\"><path d=\"M5 11 11 5M6 5h5v5\"/></svg></span></div></article>",
-      "css": ".ds-project { display: grid; gap: 2rem; max-width: 30rem; } .ds-frame { position: relative; padding-bottom: 1.25rem; } .ds-frame-desktop { aspect-ratio: 16 / 10; border: 1px solid var(--color-line, #32343b); border-radius: 5px; background: linear-gradient(180deg, #2b2e33 0 12%, var(--color-surface, #202226) 12%); overflow: hidden; } .ds-frame-phone { position: absolute; right: 1rem; bottom: 0; width: 22%; aspect-ratio: 390 / 844; border: 1px solid var(--color-line, #32343b); border-radius: 10px; background: var(--color-paper, #16181b); box-shadow: 0 18px 40px -12px rgb(0 0 0 / 0.7); } .ds-project-body { display: flex; flex-direction: column; gap: 1rem; } .ds-project-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem; margin: 0; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #9d9b91); } .ds-project-ctx { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-ink, #ece9e1); } .ds-mark { display: inline-block; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--color-accent, #dd4753); } .ds-sep { color: var(--color-line, #32343b); } .ds-project-title { margin: 0; font-family: 'Schibsted Grotesk Variable', system-ui, sans-serif; font-weight: 600; font-size: 1.75rem; line-height: 1.12; letter-spacing: -0.02em; } .ds-project-title a { color: var(--color-ink, #ece9e1); text-decoration: none; background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1); } .ds-project:hover .ds-project-title a, .ds-project-title a:focus-visible { background-size: 100% 1px; } .ds-project-title a:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; } .ds-project-desc { margin: 0; max-width: 60ch; color: var(--color-muted, #9d9b91); } .ds-project-facts { display: grid; gap: 0.25rem; margin: 0.25rem 0 0; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; } .ds-project-facts div { display: flex; gap: 0.75rem; } .ds-project-facts dt { width: 3.5rem; flex: none; color: var(--color-muted, #9d9b91); } .ds-project-facts dd { margin: 0; color: var(--color-ink, #ece9e1); } .ds-project-host { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-gilt, #c6a15b); } .ds-project-host svg { transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1); } .ds-project:hover .ds-project-host svg { transform: translate(2px, -2px); }"
+      "css": ".ds-project { display: grid; gap: 2rem; max-width: 30rem; } .ds-frame { position: relative; padding-bottom: 1.25rem; } .ds-frame-desktop { aspect-ratio: 16 / 10; border: 1px solid var(--color-line, #333331); border-radius: 4px; background: linear-gradient(180deg, var(--color-surface-2, #242423) 0 12%, var(--color-surface, #1b1b1a) 12%); overflow: hidden; } .ds-frame-phone { position: absolute; right: 1rem; bottom: 0; width: 22%; aspect-ratio: 390 / 844; border: 1px solid var(--color-line, #333331); border-radius: 8px; background: var(--color-paper, #121212); box-shadow: 0 18px 40px -12px rgb(0 0 0 / 0.7); } .ds-project-body { display: flex; flex-direction: column; gap: 1rem; } .ds-project-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem; margin: 0; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted, #a3a39e); } .ds-project-ctx { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-ink, #f3f2ee); } .ds-mark { display: inline-block; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: currentColor; } .ds-sep { color: var(--color-line, #333331); } .ds-project-title { margin: 0; font-family: 'Schibsted Grotesk Variable', system-ui, sans-serif; font-weight: 700; font-size: 1.75rem; line-height: 1.15; letter-spacing: -0.025em; } .ds-project-title a { color: var(--color-ink, #f3f2ee); text-decoration: none; background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1); } .ds-project:hover .ds-project-title a, .ds-project-title a:focus-visible { background-size: 100% 1px; } .ds-project-title a:focus-visible { outline: 2px solid var(--color-accent, #ff6a13); outline-offset: 2px; } .ds-project-desc { margin: 0; font-family: 'Instrument Sans Variable', system-ui, sans-serif; max-width: 60ch; color: var(--color-muted, #a3a39e); } .ds-project-stack { margin: 0; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted, #a3a39e); } .ds-project-host { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent, #ff6a13); } .ds-project-host svg { transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1); } .ds-project:hover .ds-project-host svg { transform: translate(2px, -2px); }"
     },
     {
       "name": "Deck of Work",
@@ -290,7 +350,7 @@
       "refersTo": "project-frame",
       "description": "The hero signature on desktop: screenshots dealt as a 3D deck, offset 36/30/70px per card, skewed 1°, dimmed with depth.",
       "html": "<div class=\"ds-deck\"><figure class=\"ds-deck-card\" style=\"--i:3\"><div></div><figcaption>CITRON CAVIAR</figcaption></figure><figure class=\"ds-deck-card\" style=\"--i:2\"><div></div><figcaption>MEUSS PADEL CLUB</figcaption></figure><figure class=\"ds-deck-card\" style=\"--i:1\"><div></div><figcaption>MELOCOTON CLUB</figcaption></figure><figure class=\"ds-deck-card\" style=\"--i:0\"><div></div><figcaption>INFO RETOUR</figcaption></figure></div>",
-      "css": ".ds-deck { position: relative; height: 22rem; max-width: 30rem; perspective: 1200px; } .ds-deck-card { position: absolute; left: 0; top: 50%; width: calc(100% - 108px); margin: 0; overflow: hidden; border: 1px solid var(--color-line, #32343b); border-radius: 10px; background: var(--color-surface, #202226); box-shadow: 0 24px 50px -24px rgb(0 0 0 / 0.8); transform: translate3d(calc(var(--i) * 36px), calc(-50% + 45px - var(--i) * 30px), calc(var(--i) * -70px)) skewY(1deg); z-index: calc(10 - var(--i)); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-deck-card::after { content: ''; position: absolute; inset: 0; background: var(--color-paper, #16181b); opacity: calc(var(--i) * 0.233); pointer-events: none; } .ds-deck-card div { aspect-ratio: 16 / 10; background: linear-gradient(180deg, #2b2e33 0 14%, var(--color-surface, #202226) 14%); } .ds-deck-card figcaption { padding: 0.55rem 0.75rem; border-top: 1px solid var(--color-line, #32343b); font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #9d9b91); } .ds-deck:hover .ds-deck-card[style*='--i:0'] { transform: translate3d(0, calc(-50% + 45px), 0) skewY(1deg) translateY(-4px); }"
+      "css": ".ds-deck { position: relative; height: 22rem; max-width: 30rem; perspective: 1200px; } .ds-deck-card { position: absolute; left: 0; top: 50%; width: calc(100% - 108px); margin: 0; overflow: hidden; border: 1px solid var(--color-line, #333331); border-radius: 10px; background: var(--color-surface, #1b1b1a); box-shadow: 0 24px 50px -24px rgb(0 0 0 / 0.8); transform: translate3d(calc(var(--i) * 36px), calc(-50% + 45px - var(--i) * 30px), calc(var(--i) * -70px)) skewY(1deg); z-index: calc(10 - var(--i)); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-deck-card::after { content: ''; position: absolute; inset: 0; background: var(--color-paper, #121212); opacity: calc(var(--i) * 0.233); pointer-events: none; } .ds-deck-card div { aspect-ratio: 16 / 10; background: linear-gradient(180deg, var(--color-surface-2, #242423) 0 14%, var(--color-surface, #1b1b1a) 14%); } .ds-deck-card figcaption { padding: 0.55rem 0.75rem; border-top: 1px solid var(--color-line, #333331); font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted, #a3a39e); } .ds-deck:hover .ds-deck-card[style*='--i:0'] { transform: translate3d(0, calc(-50% + 45px), 0) skewY(1deg) translateY(-4px); }"
     },
     {
       "name": "Wall of Work",
@@ -298,57 +358,57 @@
       "refersTo": "project-frame",
       "description": "The hero below 1024px and the deck's fallback: real screenshots drifting in opposite columns under a masked fade; pausable, paused off-screen and on hover, static under reduced motion.",
       "html": "<div class=\"ds-wall-wrap\"><div class=\"ds-wall\" aria-hidden=\"true\"><div class=\"ds-wall-col\"><figure class=\"ds-shot\"><div></div><figcaption>Client one</figcaption></figure><figure class=\"ds-shot\"><div></div><figcaption>Client three</figcaption></figure><figure class=\"ds-shot\"><div></div><figcaption>Client one</figcaption></figure><figure class=\"ds-shot\"><div></div><figcaption>Client three</figcaption></figure></div><div class=\"ds-wall-col ds-wall-col--down\"><figure class=\"ds-shot\"><div></div><figcaption>Client two</figcaption></figure><figure class=\"ds-shot\"><div></div><figcaption>Client four</figcaption></figure><figure class=\"ds-shot\"><div></div><figcaption>Client two</figcaption></figure><figure class=\"ds-shot\"><div></div><figcaption>Client four</figcaption></figure></div></div><button type=\"button\" class=\"ds-wall-toggle\" aria-pressed=\"false\">Pause</button></div>",
-      "css": ".ds-wall-wrap { position: relative; max-width: 30rem; padding-bottom: 2rem; } .ds-wall { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; height: 24rem; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); } .ds-wall-col { display: flex; flex-direction: column; gap: 1rem; } .ds-wall-col--down { margin-top: -6rem; } .ds-shot { margin: 0; overflow: hidden; border: 1px solid var(--color-line, #32343b); border-radius: 5px; background: var(--color-surface, #202226); } .ds-shot div { aspect-ratio: 16 / 10; background: linear-gradient(180deg, #2b2e33 0 14%, var(--color-surface, #202226) 14%); } .ds-shot figcaption { padding: 0.55rem 0.75rem; border-top: 1px solid var(--color-line, #32343b); font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #9d9b91); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-wall-toggle { position: absolute; right: 0; bottom: 0; padding: 0.25rem 0; background: none; border: 0; cursor: pointer; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #9d9b91); } .ds-wall-toggle:hover { color: var(--color-gilt, #c6a15b); } .ds-wall-toggle:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; } @media (prefers-reduced-motion: no-preference) { .ds-wall-col { animation: ds-wall-up 40s linear infinite; } .ds-wall-col--down { animation: ds-wall-down 46s linear infinite; } .ds-wall-wrap:hover .ds-wall-col { animation-play-state: paused; } } @keyframes ds-wall-up { to { transform: translateY(-50%); } } @keyframes ds-wall-down { from { transform: translateY(-50%); } to { transform: translateY(0); } }"
+      "css": ".ds-wall-wrap { position: relative; max-width: 30rem; padding-bottom: 2rem; } .ds-wall { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; height: 24rem; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); } .ds-wall-col { display: flex; flex-direction: column; gap: 1rem; } .ds-wall-col--down { margin-top: -6rem; } .ds-shot { margin: 0; overflow: hidden; border: 1px solid var(--color-line, #333331); border-radius: 4px; background: var(--color-surface, #1b1b1a); } .ds-shot div { aspect-ratio: 16 / 10; background: linear-gradient(180deg, var(--color-surface-2, #242423) 0 14%, var(--color-surface, #1b1b1a) 14%); } .ds-shot figcaption { padding: 0.55rem 0.75rem; border-top: 1px solid var(--color-line, #333331); font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted, #a3a39e); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-wall-toggle { position: absolute; right: 0; bottom: 0; padding: 0.25rem 0; background: none; border: 0; cursor: pointer; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted, #a3a39e); } .ds-wall-toggle:hover { color: var(--color-ink, #f3f2ee); } .ds-wall-toggle:focus-visible { outline: 2px solid var(--color-accent, #ff6a13); outline-offset: 2px; } @media (prefers-reduced-motion: no-preference) { .ds-wall-col { animation: ds-wall-up 40s linear infinite; } .ds-wall-col--down { animation: ds-wall-down 46s linear infinite; } .ds-wall-wrap:hover .ds-wall-col { animation-play-state: paused; } } @keyframes ds-wall-up { to { transform: translateY(-50%); } } @keyframes ds-wall-down { from { transform: translateY(-50%); } to { transform: translateY(0); } }"
     },
     {
       "name": "Text Input",
       "kind": "input",
       "refersTo": "input",
-      "description": "Graphite-filled field with hairline border and uppercase mono label; ruby focus outline and caret.",
+      "description": "Kit-black field with hairline border, faint placeholder and uppercase muted mono label; orange focus outline and caret.",
       "html": "<div class=\"ds-field\"><label class=\"ds-label\" for=\"ds-name\">Name</label><input class=\"ds-input\" id=\"ds-name\" type=\"text\" placeholder=\"Your name\" /></div>",
-      "css": ".ds-field { display: flex; flex-direction: column; gap: 0.5rem; } .ds-label { font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #9d9b91); } .ds-input { background: var(--color-paper, #16181b); color: var(--color-ink, #ece9e1); caret-color: var(--color-accent, #dd4753); border: 1px solid var(--color-line, #32343b); border-radius: 5px; padding: 0.75rem 1rem; font-family: 'Schibsted Grotesk Variable', system-ui, sans-serif; font-size: 1rem; } .ds-input::placeholder { color: var(--color-muted, #9d9b91); } .ds-input:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; }"
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 0.5rem; } .ds-label { font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted, #a3a39e); } .ds-input { background: var(--color-paper, #121212); color: var(--color-ink, #f3f2ee); caret-color: var(--color-accent, #ff6a13); border: 1px solid var(--color-line, #333331); border-radius: 4px; padding: 0.75rem 1rem; font-family: 'Instrument Sans Variable', system-ui, sans-serif; font-size: 1rem; } .ds-input::placeholder { color: var(--color-faint, #82817a); } .ds-input:focus-visible { outline: 2px solid var(--color-accent, #ff6a13); outline-offset: 2px; }"
     },
     {
       "name": "Header Nav",
       "kind": "nav",
       "refersTo": "nav",
-      "description": "Sticky translucent graphite header with hairline base; ruby-square wordmark, ink links that hover to ruby, mono language switcher.",
-      "html": "<header class=\"ds-nav\"><a class=\"ds-nav-brand\" href=\"#\"><span class=\"ds-nav-mark\" aria-hidden=\"true\"></span>Thomas Miller</a><nav class=\"ds-nav-links\"><a href=\"#\" aria-current=\"page\">Work</a><a href=\"#\">About</a><a href=\"#\">Contact</a><span class=\"ds-nav-lang\">EN / FR</span></nav></header>",
-      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1rem 2.5rem; background: rgba(22,24,27,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--color-line, #32343b); } .ds-nav-brand { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Schibsted Grotesk Variable', system-ui, sans-serif; font-size: 1.125rem; font-weight: 600; letter-spacing: -0.025em; color: var(--color-ink, #ece9e1); text-decoration: none; } .ds-nav-brand:hover { color: var(--color-accent, #dd4753); } .ds-nav-mark { width: 0.5rem; height: 0.5rem; border-radius: 2px; background: var(--color-accent, #dd4753); } .ds-nav-links { display: flex; align-items: center; gap: 2rem; } .ds-nav-links a { color: var(--color-ink, #ece9e1); text-decoration: none; } .ds-nav-links a:hover { color: var(--color-accent, #dd4753); } .ds-nav-links a:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; } .ds-nav-lang { font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #9d9b91); }"
+      "description": "Sticky translucent kit-black header with hairline base; the kit symbol beside the live-text name (no hover colour), ink links that hover to orange, muted mono language switcher.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-nav-brand\" href=\"#\"><svg class=\"ds-nav-mark\" viewBox=\"0 0 64 64\" aria-hidden=\"true\"><path class=\"ds-nav-ring\" d=\"M43.74 11.93 A25 25 0 1 1 14.89 15.77\"></path><path class=\"ds-nav-peaks\" d=\"M17 45 L25.5 30 L31 38 L38.5 7 L47.5 45\"></path></svg>Thomas Miller</a><nav class=\"ds-nav-links\"><a href=\"#\" aria-current=\"page\">Work</a><a href=\"#\">About</a><a href=\"#\">Contact</a><span class=\"ds-nav-lang\">EN / FR</span></nav></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1rem 2.5rem; background: rgba(18,18,18,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--color-line, #333331); } .ds-nav-brand { display: inline-flex; align-items: center; gap: 10.8px; font-family: 'Schibsted Grotesk Variable', system-ui, sans-serif; font-size: 18px; font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: var(--color-ink, #f3f2ee); text-decoration: none; } .ds-nav-mark { flex: none; width: 36px; height: 36px; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; } .ds-nav-ring { stroke: var(--color-accent, #ff6a13); stroke-width: 6; } .ds-nav-peaks { stroke: var(--color-ink, #f3f2ee); stroke-width: 5; } .ds-nav-links { display: flex; align-items: center; gap: 2rem; } .ds-nav-links a { color: var(--color-ink, #f3f2ee); text-decoration: none; } .ds-nav-links a:hover { color: var(--color-accent, #ff6a13); } .ds-nav a:focus-visible { outline: 2px solid var(--color-accent, #ff6a13); outline-offset: 2px; } .ds-nav-lang { font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted, #a3a39e); }"
     }
   ],
   "narrative": {
-    "northStar": "Graphite & Gilt",
-    "overview": "A dark, precise working surface where the shipped work is the hero. The world is committed dark (`color-scheme: dark`): a graphite ground, warm off-white ink, gilt for labels and the one primary action, and a single ruby mark as the only bold colour. The interface steps back so real screenshots of live client sites carry the page: they are dealt as a 3D deck in the hero, and they sit in hairline frames on every project card. Nothing on the surface is illustration; the imagery is the evidence.\n\nThe register is calm, exact, and workmanlike. Headings are Schibsted Grotesk, tight and confident at 600–700; every piece of data (stacks, context tags, hostnames, form labels, button labels) speaks in uppercase DM Mono. Depth is tonal: one step from ground to surface, drawn with 1px hairlines. The exception is physical layering: a phone capture laid over a desktop screenshot, screenshots stacked in the hero deck, and the portrait badge hanging on its strap each cast a soft shadow, because they really sit on top of something.\n\nDensity is generous and editorial: a centered 72rem column, wide vertical rhythm, sections divided by full-width hairlines, lists divided by hairlines instead of boxed into cards. The surface is alive with light and motion: a field of gilt mono glyphs flowing behind the hero, a name that decodes itself under a ruby caret, screenshots dealt and re-shuffled as a deck, a crosshair that measures the contact page. Each page gets its own effects rather than one global trick. Effects are welcome and meant to show craft, but they are always drawn from the palette (gilt light, ruby as a trace, ink on graphite). The world still refuses rainbow neon, candy accents, and the generic Swiss-Helvetica grid it replaced.",
+    "northStar": "Kit Black & Orange",
+    "overview": "A dark, precise working surface where the shipped work is the hero, dressed in the brand kit's colours. The world is dark only (`color-scheme: dark`): the kit's black ground, warm off-white ink, neutral labels, and the kit's orange as the only colour, with a job every time it appears. The interface steps back so real screenshots of live client sites carry the page: they are dealt as a 3D deck in the hero, and they sit in hairline frames on every project card. Nothing on the surface is illustration; the imagery is the evidence, and the screenshots bring the colour the interface withholds.\n\nThe register is calm, exact, and workmanlike. Headings are Schibsted Grotesk, tight and heavy at 700–800; running text is Instrument Sans; every piece of data (stacks, context tags, hostnames, form labels, button labels) speaks in uppercase DM Mono. Depth is tonal: ground to surface to second surface, one step at a time, drawn with 1px hairlines and no glow. The exception is physical layering: a phone capture laid over a desktop screenshot, screenshots stacked in the hero deck, and the portrait badge hanging on its strap each cast a soft shadow, because they really sit on top of something.\n\nDensity is generous and editorial: a centered 72rem column, wide vertical rhythm, sections divided by full-width hairlines, lists divided by hairlines instead of boxed into cards. Effects stay alive against that restraint as a stated exception: a field of neutral mono glyphs with a trace of orange flowing behind the hero, a name that decodes itself under an orange caret, screenshots dealt and re-shuffled as a deck, a crosshair that measures the contact page. Each page gets its own effects rather than one global trick. Effects are welcome and meant to show craft, but they are opt-out and always drawn from the palette. The world still refuses rainbow neon, candy accents, and the generic Swiss-Helvetica grid it replaced.",
     "keyCharacteristics": [
-      "Graphite dark world, committed (`color-scheme: dark`), warm off-white ink.",
+      "Kit black, dark only (`color-scheme: dark`), warm off-white ink.",
       "Real screenshots of shipped sites are the imagery; no placeholders, no illustration.",
-      "One ruby accent, used as a single mark: never a fill, never a wall.",
-      "Gilt for mono labels, the one primary action, and the selected/hover state.",
-      "Two voices: Schibsted Grotesk (display/body) + DM Mono (all data/labels).",
-      "Depth by tonal step + hairlines; soft shadows only where something physically sits on something else.",
-      "Sharp-by-default corners (2/5/10px).",
-      "Expressive light and motion (shaders, glyph fields, type reveals, 3D decks), tinted from the palette, chosen per page, fully opt-out."
+      "One colour, the kit's orange, with a named list of jobs: never a section background, never under white text, never body text.",
+      "Neutral labels: mono labels are muted, and status has its own green and red.",
+      "Three voices: Schibsted Grotesk (headings), Instrument Sans (running text), DM Mono (all data/labels).",
+      "Depth by tonal step + hairlines; no glows or coloured shadows on the interface; soft shadows only where something physically sits on something else.",
+      "Sharp-by-default corners (2/4/8px).",
+      "Expressive light and motion (shaders, glyph fields, type reveals, 3D decks) as an opt-out, palette-tinted exception, chosen per page."
     ],
     "rules": [
       {
-        "name": "The Single Mark Rule",
-        "body": "Ruby appears only as a mark: a dot, a short rule, a link, a focus ring. It never fills a surface. The closing CTA is a graphite panel with a gilt button, not a ruby band; if ruby covers an area larger than a dot or a line, the rule is broken.",
+        "name": "The Orange Job Rule",
+        "body": "Orange appears only for a job: the logo ring, the main button (one per screen, black text), link underlines and link text on hover, focus rings and selection, one emphasised word in a headline at most, the \"live\" hostname line. It is never a section background, never under white text, never body text, never beside error red as a second accent, and never decoration with no job. If you cannot name the job, use a neutral.",
         "section": "colors"
       },
       {
-        "name": "The Gilt Job Rule",
-        "body": "Gilt has three jobs: mono labels, the single primary action, and interactive state (hover/selected borders, hostname links). It is never body text, never a heading, never a large fill.",
+        "name": "The Neutral Label Rule",
+        "body": "Mono labels are muted, not coloured. A hostname line is the one label that is orange, because orange there means the site is live: \"coming soon\" and NDA lines stay muted, so the colour carries information.",
         "section": "colors"
       },
       {
         "name": "The Context Mark Rule",
-        "body": "How a project came about is shown by who it was with, never a colour wash: Freelance is a 0.4rem ruby dot plus the word; macmac and Marvelous Digital appear as their own wordmarks, monochrome in `currentColor` (`ContextBadge.astro`, SVGs in `src/components/icons/`), with the name as screen-reader text. Sizes: 0.62rem (macmac) / 0.92rem (Marvelous) in caption lines and chips, ~1.4/1.9rem on the About page. Never recolour or restyle the partner wordmarks.",
+        "body": "How a project came about is shown by who it was with, never a colour wash: Freelance is a 0.4rem `currentColor` dot plus the word; macmac and Marvelous Digital appear as their own wordmarks, monochrome in `currentColor` (`ContextBadge.astro`, SVGs in `src/components/icons/`), with the name as screen-reader text. Sizes: 0.62rem (macmac) / 0.92rem (Marvelous) in caption lines and chips, ~1.4/1.9rem on the About page. Never recolour or restyle the partner wordmarks.",
         "section": "colors"
       },
       {
-        "name": "The Two-Voice Rule",
-        "body": "Prose and headings are Schibsted Grotesk; anything that reads as data (labels, stacks, tags, hostnames, buttons) is DM Mono, uppercase, tracked. A voice never crosses into the other's job.",
+        "name": "The Three-Voice Rule",
+        "body": "Headings are Schibsted Grotesk; prose is Instrument Sans; anything that reads as data (labels, stacks, tags, hostnames, buttons) is DM Mono, uppercase, tracked. A voice never crosses into another's job.",
         "section": "typography"
       },
       {
@@ -360,31 +420,44 @@
         "name": "The Hairline Rule",
         "body": "Surfaces are separated by a 1px `line` border and one tonal step, never by a shadow. A shadow only ever marks a literal physical overlap: something resting on, or hanging in front of, something else.",
         "section": "elevation"
+      },
+      {
+        "name": "The Screenshots Carry The Colour Rule",
+        "body": "The interface has no glows and no coloured shadows. Colour and richness come from the screenshots; if a surface needs more presence, give the work more room rather than the chrome more light.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Effects Exception Rule",
+        "body": "Effects keep expressive light and motion, including glow, as a stated exception to the no-glow rule, because they are opt-out, palette-tinted moments. The exception covers `src/components/islands/fx/` only; static interface elements never inherit it.",
+        "section": "elevation"
       }
     ],
     "dos": [
       "Do let real screenshots of shipped sites be the imagery; crop them to 16:10 (desktop) or 390:844 (phone), top-anchored, inside a hairline frame.",
-      "Do keep ruby as a single mark: dots, a short rule, links, focus rings.",
-      "Do use gilt for mono labels, the one primary action, and hover/selected state.",
+      "Do give orange a job: the logo ring, the main button (one per screen, black text), link underlines and link text on hover, focus rings and selection, one emphasised word in a headline at most, the \"live\" hostname line.",
+      "Do keep mono labels muted, and report state with `success` and `error`, not orange.",
       "Do show project context with the ContextBadge (freelance dot or partner wordmark) wherever context appears.",
-      "Do separate surfaces with the `line` hairline and one tonal step; divide lists with hairlines instead of boxing them into cards.",
+      "Do step depth one tone at a time (ground, `surface`, `surface-2`), separate surfaces with the `line` hairline, and divide lists with hairlines instead of boxing them into cards.",
       "Do put all data (stacks, tags, hostnames, labels, buttons) in DM Mono, uppercase, tracked.",
       "Do draw icons as inline SVG strokes (1.5px, square caps) sized in `em`.",
       "Do gate every animation behind `prefers-reduced-motion: no-preference` with an intentional still alternative, give long-running content motion a pause control, and stop loops and shaders when off-screen or the tab is hidden.",
-      "Do tint every glow, shader, and light effect from the palette: gilt as the light, ruby only as a trace, screen/additive blending over graphite.",
+      "Do tint every effect from the palette through tokens: orange for small interaction moments; neutral `LIGHT` with `ACCENT` as a trace (the `accent` param) for shader backgrounds.",
       "Do keep content in the HTML and visible without JS; effects decorate it (`aria-hidden` layers, a CSS failsafe for anything hidden before it animates).",
       "Do ship every visitor-facing string in both EN and FR (binding product constraint)."
     ],
     "donts": [
-      "Don't fill a surface with ruby or build a ruby band; the closing CTA is a graphite panel with a gilt button.",
+      "Don't use orange as a section background, under white text, as body text, beside error red as a second accent, or as decoration with no job; the closing CTA is a flat `surface` band with an orange button.",
+      "Don't add glows or coloured shadows to the interface; only opt-out effects may carry light.",
       "Don't add drop shadows for elevation; shadows only mark physical layering (the phone capture, the hero deck, the hanging badge).",
       "Don't use placeholder imagery or stock illustration in place of real work. The only portrait is Thomas's real photo (`src/assets/portrait.jpg`, About page).",
       "Don't put a mono eyebrow or kicker above a heading.",
       "Don't use unicode glyph arrows (→ ↗) or emoji as icons.",
       "Don't use off-palette glows, rainbow or saturated neon gradients, or a second bold accent.",
-      "Don't set body or heading text in gilt, or run prose in the mono voice.",
+      "Don't add a light theme; the world is dark only.",
+      "Don't recolour the logo's ring and peaks.",
+      "Don't run prose in the mono voice, or data in the prose voice.",
       "Don't let an effect cut text contrast below AA, tint the screenshots themselves, or add heavy runtime dependencies when a small hand-written island does the job.",
-      "Don't add a second display typeface or a system font; the pairing is fixed."
+      "Don't add a further typeface or a system font; the three faces are fixed."
     ]
   }
 }

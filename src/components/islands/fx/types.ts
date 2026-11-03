@@ -11,7 +11,7 @@ export type FxMount = (host: HTMLElement, params: FxParams, variant: string) => 
 export const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/** A colour token (`--color-gilt`, …) as [r, g, b] 0–255, read live so effects follow the palette. */
+/** A colour token (`--color-accent`, …) as [r, g, b] 0–255, read live so effects follow the palette. */
 export function tokenRgb(name: string): [number, number, number] {
   const value = getComputedStyle(document.documentElement).getPropertyValue(`--color-${name}`);
   const ctx = document.createElement('canvas').getContext('2d')!;

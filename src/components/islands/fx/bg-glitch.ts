@@ -1,6 +1,6 @@
 /**
- * Letter glitch: the hero ground is a grid of DM Mono characters in graphite
- * tones, a few re-rolling every tick with a brief gilt (sometimes ruby) flash.
+ * Letter glitch: the hero ground is a grid of DM Mono characters in dark
+ * tones, a few re-rolling every tick with a brief ink (sometimes orange) flash.
  * A heavy vignette keeps the copy side dark; the edges and the upper right
  * carry the texture.
  *
@@ -14,8 +14,8 @@ const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&*+-/<=>?@[]';
 // Palette tokens, read at mount so the field follows the brand palette.
 let PAPER: number[] = [];
 let MUTED: number[] = [];
-let GILT: number[] = [];
-let RUBY: number[] = [];
+let FLASH: number[] = [];
+let ACCENT: number[] = [];
 const FLASH_MS = 420;
 const FRAME_MS = 33;
 
@@ -31,7 +31,7 @@ interface Cell {
 }
 
 export const mount: FxMount = (host, params) => {
-  [PAPER, MUTED, GILT, RUBY] = ['paper', 'muted', 'gilt', 'accent'].map(tokenRgb);
+  [PAPER, MUTED, FLASH, ACCENT] = ['paper', 'muted', 'ink', 'accent'].map(tokenRgb);
   let p: FxParams = { ...params };
   const canvas = document.createElement('canvas');
   canvas.className = 'fx-canvas';
@@ -52,7 +52,7 @@ export const mount: FxMount = (host, params) => {
 
   const random = () => CHARS[Math.floor(Math.random() * CHARS.length)];
 
-  /** Graphite tone by position: dark where the copy sits, lit at the edges and upper right. */
+  /** Dark tone by position: dark where the copy sits, lit at the edges and upper right. */
   const tone = (x: number, y: number) => {
     const dx = (x - 0.3) * 1.3;
     const dy = y - 0.55;
@@ -92,7 +92,7 @@ export const mount: FxMount = (host, params) => {
       ch: random(),
       base: tone(((i % cols) + 0.5) / cols, (Math.floor(i / cols) + 0.5) / rows),
       flash: 0,
-      hue: GILT,
+      hue: FLASH,
     }));
     cells.forEach((_, i) => drawCell(i));
   };
@@ -111,7 +111,7 @@ export const mount: FxMount = (host, params) => {
       c.ch = random();
       if (Math.random() < 0.18) {
         c.flash = FLASH_MS;
-        c.hue = Math.random() < (p.ruby ?? 0.2) * 0.5 ? RUBY : GILT;
+        c.hue = Math.random() < (p.accent ?? 0.2) * 0.5 ? ACCENT : FLASH;
         flashing.add(i);
       }
       drawCell(i);

@@ -1,8 +1,8 @@
 /**
- * Lightfall: gilt streaks of light falling down a gently curved tunnel from a
+ * Lightfall: neutral streaks of light falling down a gently curved tunnel from a
  * vanishing point above the screenshot wall. Streaks bend away from the
  * cursor; holding the pointer down over the hero stretches them into warp
- * trails, easing back on release. A few streaks run ruby.
+ * trails, easing back on release. A few streaks run orange.
  *
  * Contract: shader via the shared runner (paused off-screen / hidden, still
  * frame under reduced motion). The left copy stays readable: streaks fade
@@ -13,7 +13,7 @@ import { prefersReducedMotion, type FxMount, type FxParams } from './types';
 
 const FRAG = `
 uniform float uBend;
-uniform float uRuby;
+uniform float uAccent;
 uniform float uWarp;
 
 const float TAU = 6.2831853;
@@ -55,10 +55,10 @@ void main() {
   float s = streaks(a, r, t, 110.0, 1.0, tintA);
   float s2 = streaks(a + 0.013, r, t * 0.8, 170.0, 5.0, tintB) * 0.6;
 
-  vec3 light = mix(GILT, RUBY, step(1.0 - uRuby * 0.45, tintA)) * s
-             + mix(GILT, RUBY, step(1.0 - uRuby * 0.45, tintB)) * s2;
+  vec3 light = mix(LIGHT, ACCENT, step(1.0 - uAccent * 0.45, tintA)) * s
+             + mix(LIGHT, ACCENT, step(1.0 - uAccent * 0.45, tintB)) * s2;
   // The mouth of the tunnel glows faintly.
-  light += GILT * exp(-r * 4.0) * 0.06;
+  light += LIGHT * exp(-r * 4.0) * 0.06;
 
   float side = smoothstep(0.18, 0.7, uv.x);
   float floorFade = smoothstep(0.0, 0.3, uv.y);

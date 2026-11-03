@@ -19,8 +19,8 @@
   stroke: var(--color-accent);
 }
 .fx-electric-line {
-  stroke: var(--color-gilt);
+  stroke: var(--color-accent);
 }
 .fx-electric-core {
-  stroke: color-mix(in srgb, var(--color-gilt) 18%, white);
+  stroke: color-mix(in srgb, var(--color-accent) 18%, white);
 }

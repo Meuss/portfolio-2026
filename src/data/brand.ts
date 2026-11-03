@@ -4,8 +4,8 @@
 import type { BrandConfig } from './brand-registry';
 
 export const brand: BrandConfig = {
-  palette: 'gilt',
+  palette: 'kit',
   display: 'schibsted',
-  body: 'schibsted',
-  logo: { lockup: 'markName', font: 'bricolage', weight: 700, tracking: -0.03, size: 36 },
+  body: 'instrument',
+  logo: { lockup: 'markName', font: 'schibsted', weight: 800, tracking: -0.04, size: 36 },
 };

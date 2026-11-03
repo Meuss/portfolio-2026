@@ -1,5 +1,5 @@
 /**
- * Decode: a ruby block caret runs through the name; each letter it passes
+ * Decode: an orange block caret runs through the name; each letter it passes
  * glitches in through two sliced frames before settling, like a terminal
  * decrypting a line.
  */
@@ -45,12 +45,12 @@ export const mount: FxMount = (el, params) => {
           {
             clipPath: 'inset(0 0 58% 0)',
             transform: 'translateX(0.07em)',
-            color: 'var(--color-gilt)',
+            color: 'var(--color-accent)',
           },
           {
             clipPath: 'inset(36% 0 0 0)',
             transform: 'translateX(-0.05em)',
-            color: 'var(--color-gilt)',
+            color: 'var(--color-accent)',
           },
           { clipPath: 'inset(-0.3em -0.03em)', transform: 'none' },
         ],

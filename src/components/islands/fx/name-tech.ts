@@ -1,6 +1,6 @@
 /**
  * Tech text (fine pointers only): letters of the hero name near the pointer
- * turn into dashed gilt vector outlines that march slowly, easing back to solid
+ * turn into dashed orange vector outlines that march slowly, easing back to solid
  * ink as the pointer moves away.
  *
  * - Each letter keeps its real glyph plus an inline SVG <text> of the same
