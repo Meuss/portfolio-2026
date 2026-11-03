@@ -32,7 +32,7 @@ const workHref = localizedPath(lang, '/work');
     <ul class="mt-14 grid gap-x-8 gap-y-16 md:mt-20 md:grid-cols-3" role="list">
       {featured.map((project, i) => (
         <li data-reveal data-reveal-delay={String((i % 3) + 1)}>
-          <ProjectCard project={project} lang={lang} />
+          <ProjectCard project={project} lang={lang} fxSlot="featuredMedia" />
         </li>
       ))}
     </ul>

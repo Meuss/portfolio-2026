@@ -1,0 +1,70 @@
+/* The header has a backdrop-filter, so it is the containing block for these:
+   `top: 100%` sits them right under the header bar. */
+.fx-menu-layer,
+.fx-menu-panel {
+  position: fixed;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: calc(100dvh - var(--fx-menu-top, 4.5rem));
+}
+.fx-menu-layer {
+  z-index: 1;
+  pointer-events: none;
+  /* Parked by clipping, not translating, so it never widens the page. */
+  clip-path: inset(0 0 0 100%);
+}
+.fx-menu-layer--1 {
+  background: var(--color-surface);
+}
+.fx-menu-layer--2 {
+  background: var(--color-paper);
+  border-left: 1px solid var(--color-gilt);
+}
+.fx-menu-panel {
+  z-index: 2;
+  overflow-y: auto;
+  padding: 2.5rem 1.5rem 2rem;
+  background: var(--color-paper);
+  border-top: 0 !important;
+  justify-content: space-between;
+}
+.fx-menu-panel > nav:first-child {
+  gap: 0.25rem;
+}
+.fx-menu-panel > nav:first-child a {
+  display: block;
+  padding: 0.35rem 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 11vw, 3.75rem);
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  border-bottom: 1px solid var(--color-line);
+}
+.fx-menu-panel > nav:first-child a[aria-current='page'] {
+  color: var(--color-gilt);
+}
+html.fx-menu-lock {
+  overflow: hidden;
+}
+
+/* Hamburger to X. */
+.fx-menu-toggle > span > span {
+  transition:
+    top 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    bottom 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.2s ease;
+}
+.fx-menu-toggle.is-x > span > span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+.fx-menu-toggle.is-x > span > span:nth-child(2) {
+  opacity: 0;
+}
+.fx-menu-toggle.is-x > span > span:nth-child(3) {
+  bottom: 50%;
+  transform: translateY(50%) rotate(-45deg);
+}

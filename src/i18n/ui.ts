@@ -8,6 +8,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     'nav.about': 'About',
     'nav.contact': 'Contact',
     'nav.home': 'Home',
+    'brand.tagline': 'Web developer · Bulle',
     'nav.primary': 'Primary navigation',
     'nav.menuOpen': 'Open menu',
     'nav.menuClose': 'Close menu',
@@ -124,6 +125,13 @@ export const ui: Record<Lang, Record<string, string>> = {
     'contactPage.description':
       'Get in touch about your next web project. Send a message, or reach me by email, GitHub, or LinkedIn.',
 
+    // --- 404 ---
+    'notFound.title': 'Page not found — Thomas Miller',
+    'notFound.description': 'This page doesn’t exist or has moved.',
+    'notFound.line1': 'Error 404',
+    'notFound.line2': 'Not found',
+    'notFound.home': 'Get me out of here',
+
     // --- Contact page: intro & fallback ---
     'contactPage.heading': 'Let’s talk about your project',
     'contactPage.intro':
@@ -150,6 +158,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     'nav.about': 'À propos',
     'nav.contact': 'Contact',
     'nav.home': 'Accueil',
+    'brand.tagline': 'Développeur web · Bulle',
     'nav.primary': 'Navigation principale',
     'nav.menuOpen': 'Ouvrir le menu',
     'nav.menuClose': 'Fermer le menu',
@@ -266,6 +275,13 @@ export const ui: Record<Lang, Record<string, string>> = {
     'contactPage.title': 'Contact — Thomas Miller',
     'contactPage.description':
       'Contactez-moi pour votre prochain projet web. Envoyez un message ou écrivez-moi par e-mail, GitHub ou LinkedIn.',
+
+    // --- 404 ---
+    'notFound.title': 'Page introuvable — Thomas Miller',
+    'notFound.description': 'Cette page n’existe pas ou a été déplacée.',
+    'notFound.line1': 'Erreur 404',
+    'notFound.line2': 'Page introuvable',
+    'notFound.home': 'Sortez-moi d’ici',
 
     // --- Contact page: intro & fallback ---
     'contactPage.heading': 'Parlons de votre projet',

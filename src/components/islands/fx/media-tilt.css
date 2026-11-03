@@ -1,0 +1,22 @@
+.fx-tilt-host {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.fx-tilt-host .frame-desktop {
+  position: relative;
+}
+.fx-tilt-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0;
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgb(255 248 235 / 0.32),
+    color-mix(in srgb, var(--color-gilt) 8%, transparent) 35%,
+    transparent 65%
+  );
+}

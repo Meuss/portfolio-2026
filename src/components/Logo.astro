@@ -1,0 +1,33 @@
+---
+/**
+ * The Moléson M: an M drawn as two peaks, the higher one on the right (brand
+ * kit in ../logos). Drawn inline so the name stays live text: its font,
+ * weight, tracking and size follow src/data/brand.ts, and the lockup follows
+ * <html data-logo-lockup> (see "Logo" in global.css). Decorative: the caller
+ * labels the link around it.
+ */
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  /** Always mark + name + tagline, whatever the header lockup is. */
+  full?: boolean;
+  class?: string;
+}
+
+const { lang, full = false, class: className } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<span class:list={['brand-logo', full && 'brand-logo--full', className]} aria-hidden="true">
+  <svg class="brand-mark" viewBox="0 0 64 64" focusable="false">
+    <rect class="brand-mark-box" width="64" height="64" rx="14"></rect>
+    <path class="brand-mark-peaks" d="M11 47 L23.5 21 L32 35 L43 14 L53 47"></path>
+    <path class="brand-mark-free" d="M7 51 L21 22 L32 39 L44 13 L57 51"></path>
+  </svg>
+  <span class="brand-text">
+    <span class="brand-name">Thomas Miller</span>
+    <span class="brand-tagline">{t('brand.tagline')}</span>
+  </span>
+</span>

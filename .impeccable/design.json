@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-11T00:00:00Z",
+  "generatedAt": "2026-10-16T07:38:22+00:00",
   "title": "Design System: Thomas Miller — Portfolio 2026",
   "extensions": {
     "colorMeta": {
@@ -153,20 +153,29 @@
       "caption": {
         "displayName": "Caption",
         "purpose": "The data voice: context tags, Role/Stack, hostnames, chips, screenshot captions, form labels. Uppercase mono."
+      },
+      "display-xl": {
+        "displayName": "Display XL",
+        "purpose": "The 404 code only (--text-display)."
       }
     },
     "shadows": [
       {
         "name": "overlap",
         "value": "0 18px 40px -12px rgb(0 0 0 / 0.7)",
-        "purpose": "Only on the phone capture where it physically overlaps a desktop screenshot. Never used for elevation."
+        "purpose": "The phone capture over its desktop screenshot, and the hanging portrait badge. A real layer, not emphasis."
+      },
+      {
+        "name": "deck",
+        "value": "0 24px 50px -24px rgb(0 0 0 / 0.8)",
+        "purpose": "Each card of the hero deck, falling on the card behind it."
       }
     ],
     "motion": [
       {
         "name": "wall-drift",
         "value": "translateY(-50%) 70s linear infinite (up) / 80s reverse (down); translateX(-50%) 60s below 1024px",
-        "purpose": "The wall of work, the one signature motion. Paused on hover, off-screen, or via the pause button; static under reduced motion."
+        "purpose": "The Wall of Work: the hero below 1024px and the deck's fallback. Paused on hover, off-screen, or via the pause button; static under reduced motion."
       },
       {
         "name": "reveal",
@@ -187,6 +196,36 @@
         "name": "frame-zoom",
         "value": "scale 1.02 over 700ms ease-out",
         "purpose": "Screenshot zoom inside its frame on project card hover."
+      },
+      {
+        "name": "ease-arrive",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Confident arrivals in effects: deck cards stepping forward, layer fade-ins, decode caret."
+      },
+      {
+        "name": "ease-drop",
+        "value": "cubic-bezier(0.55, 0, 1, 0.45)",
+        "purpose": "A deck card leaving the stack (accelerating away)."
+      },
+      {
+        "name": "deck-swap",
+        "value": "every 3250ms: drop 600ms, travel back 450ms, slide in 750ms, others step 850ms (all ÷ speed 0.6)",
+        "purpose": "The Deck of Work cycle; pauses on hover, off-screen and in hidden tabs."
+      },
+      {
+        "name": "name-decode",
+        "value": "per letter 62ms stagger: ruby block 70ms in / 110ms out, 210ms 3-step glitch (÷ speed 1.3)",
+        "purpose": "Hero name entrance."
+      },
+      {
+        "name": "star-orbit",
+        "value": "one lap per 3.5s, while hovered or focused",
+        "purpose": "Primary button star border."
+      },
+      {
+        "name": "refine",
+        "value": "4 passes × 500ms, gilt scan line top → bottom",
+        "purpose": "Featured screenshots refining into focus on scroll-in."
       }
     ],
     "breakpoints": [
@@ -214,6 +253,14 @@
       "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.65rem; background: var(--color-gilt, #c6a15b); color: var(--color-paper, #16181b); padding: 0.875rem 1.75rem; border: none; border-radius: 2px; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s; } .ds-btn-primary svg { transition: transform 0.2s; } .ds-btn-primary:hover { background: #d4b273; transform: translateY(-2px); } .ds-btn-primary:hover svg { transform: translateX(2px); } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; }"
     },
     {
+      "name": "Primary Button (star border)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The primary action with its hover/focus star border: a warm comet orbiting just outside the edge.",
+      "html": "<a class=\"ds-btn-star\" href=\"#\">START A PROJECT <svg width=\"14\" height=\"14\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"square\"><path d=\"M2 8h11M9 4l4 4-4 4\"/></svg></a>",
+      "css": "@property --ds-star { syntax: '<angle>'; inherits: false; initial-value: 0deg; } .ds-btn-star { position: relative; isolation: isolate; display: inline-flex; align-items: center; gap: 0.65rem; padding: 0.875rem 1.75rem; border-radius: 2px; background: var(--color-gilt, #c6a15b); color: var(--color-paper, #16181b); font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: background 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1); } .ds-btn-star::before { content: ''; position: absolute; inset: -2px; z-index: -1; border-radius: 4px; padding: 1.5px; background: conic-gradient(from var(--ds-star), transparent 0 78%, #c6a15b 88%, #fff5e6 93%, transparent 96%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.3s; } .ds-btn-star:hover, .ds-btn-star:focus-visible { background: #d4b273; transform: translateY(-2px); } .ds-btn-star:hover::before, .ds-btn-star:focus-visible::before { opacity: 1; animation: ds-star 3.5s linear infinite; } .ds-btn-star:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; } @keyframes ds-star { to { --ds-star: 360deg; } }"
+    },
+    {
       "name": "Secondary Button",
       "kind": "button",
       "refersTo": "button-secondary",
@@ -238,10 +285,18 @@
       "css": ".ds-project { display: grid; gap: 2rem; max-width: 30rem; } .ds-frame { position: relative; padding-bottom: 1.25rem; } .ds-frame-desktop { aspect-ratio: 16 / 10; border: 1px solid var(--color-line, #32343b); border-radius: 5px; background: linear-gradient(180deg, #2b2e33 0 12%, var(--color-surface, #202226) 12%); overflow: hidden; } .ds-frame-phone { position: absolute; right: 1rem; bottom: 0; width: 22%; aspect-ratio: 390 / 844; border: 1px solid var(--color-line, #32343b); border-radius: 10px; background: var(--color-paper, #16181b); box-shadow: 0 18px 40px -12px rgb(0 0 0 / 0.7); } .ds-project-body { display: flex; flex-direction: column; gap: 1rem; } .ds-project-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem; margin: 0; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #9d9b91); } .ds-project-ctx { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-ink, #ece9e1); } .ds-mark { display: inline-block; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--color-accent, #dd4753); } .ds-sep { color: var(--color-line, #32343b); } .ds-project-title { margin: 0; font-family: 'Schibsted Grotesk Variable', system-ui, sans-serif; font-weight: 600; font-size: 1.75rem; line-height: 1.12; letter-spacing: -0.02em; } .ds-project-title a { color: var(--color-ink, #ece9e1); text-decoration: none; background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1); } .ds-project:hover .ds-project-title a, .ds-project-title a:focus-visible { background-size: 100% 1px; } .ds-project-title a:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; } .ds-project-desc { margin: 0; max-width: 60ch; color: var(--color-muted, #9d9b91); } .ds-project-facts { display: grid; gap: 0.25rem; margin: 0.25rem 0 0; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; } .ds-project-facts div { display: flex; gap: 0.75rem; } .ds-project-facts dt { width: 3.5rem; flex: none; color: var(--color-muted, #9d9b91); } .ds-project-facts dd { margin: 0; color: var(--color-ink, #ece9e1); } .ds-project-host { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-gilt, #c6a15b); } .ds-project-host svg { transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1); } .ds-project:hover .ds-project-host svg { transform: translate(2px, -2px); }"
     },
     {
+      "name": "Deck of Work",
+      "kind": "custom",
+      "refersTo": "project-frame",
+      "description": "The hero signature on desktop: screenshots dealt as a 3D deck, offset 36/30/70px per card, skewed 1°, dimmed with depth.",
+      "html": "<div class=\"ds-deck\"><figure class=\"ds-deck-card\" style=\"--i:3\"><div></div><figcaption>CITRON CAVIAR</figcaption></figure><figure class=\"ds-deck-card\" style=\"--i:2\"><div></div><figcaption>MEUSS PADEL CLUB</figcaption></figure><figure class=\"ds-deck-card\" style=\"--i:1\"><div></div><figcaption>MELOCOTON CLUB</figcaption></figure><figure class=\"ds-deck-card\" style=\"--i:0\"><div></div><figcaption>INFO RETOUR</figcaption></figure></div>",
+      "css": ".ds-deck { position: relative; height: 22rem; max-width: 30rem; perspective: 1200px; } .ds-deck-card { position: absolute; left: 0; top: 50%; width: calc(100% - 108px); margin: 0; overflow: hidden; border: 1px solid var(--color-line, #32343b); border-radius: 10px; background: var(--color-surface, #202226); box-shadow: 0 24px 50px -24px rgb(0 0 0 / 0.8); transform: translate3d(calc(var(--i) * 36px), calc(-50% + 45px - var(--i) * 30px), calc(var(--i) * -70px)) skewY(1deg); z-index: calc(10 - var(--i)); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-deck-card::after { content: ''; position: absolute; inset: 0; background: var(--color-paper, #16181b); opacity: calc(var(--i) * 0.233); pointer-events: none; } .ds-deck-card div { aspect-ratio: 16 / 10; background: linear-gradient(180deg, #2b2e33 0 14%, var(--color-surface, #202226) 14%); } .ds-deck-card figcaption { padding: 0.55rem 0.75rem; border-top: 1px solid var(--color-line, #32343b); font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #9d9b91); } .ds-deck:hover .ds-deck-card[style*='--i:0'] { transform: translate3d(0, calc(-50% + 45px), 0) skewY(1deg) translateY(-4px); }"
+    },
+    {
       "name": "Wall of Work",
       "kind": "custom",
       "refersTo": "project-frame",
-      "description": "The hero's signature motion: two columns of real screenshots drifting in opposite directions under a masked fade; pausable, paused off-screen and on hover, static under reduced motion.",
+      "description": "The hero below 1024px and the deck's fallback: real screenshots drifting in opposite columns under a masked fade; pausable, paused off-screen and on hover, static under reduced motion.",
       "html": "<div class=\"ds-wall-wrap\"><div class=\"ds-wall\" aria-hidden=\"true\"><div class=\"ds-wall-col\"><figure class=\"ds-shot\"><div></div><figcaption>Client one</figcaption></figure><figure class=\"ds-shot\"><div></div><figcaption>Client three</figcaption></figure><figure class=\"ds-shot\"><div></div><figcaption>Client one</figcaption></figure><figure class=\"ds-shot\"><div></div><figcaption>Client three</figcaption></figure></div><div class=\"ds-wall-col ds-wall-col--down\"><figure class=\"ds-shot\"><div></div><figcaption>Client two</figcaption></figure><figure class=\"ds-shot\"><div></div><figcaption>Client four</figcaption></figure><figure class=\"ds-shot\"><div></div><figcaption>Client two</figcaption></figure><figure class=\"ds-shot\"><div></div><figcaption>Client four</figcaption></figure></div></div><button type=\"button\" class=\"ds-wall-toggle\" aria-pressed=\"false\">Pause</button></div>",
       "css": ".ds-wall-wrap { position: relative; max-width: 30rem; padding-bottom: 2rem; } .ds-wall { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; height: 24rem; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); } .ds-wall-col { display: flex; flex-direction: column; gap: 1rem; } .ds-wall-col--down { margin-top: -6rem; } .ds-shot { margin: 0; overflow: hidden; border: 1px solid var(--color-line, #32343b); border-radius: 5px; background: var(--color-surface, #202226); } .ds-shot div { aspect-ratio: 16 / 10; background: linear-gradient(180deg, #2b2e33 0 14%, var(--color-surface, #202226) 14%); } .ds-shot figcaption { padding: 0.55rem 0.75rem; border-top: 1px solid var(--color-line, #32343b); font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #9d9b91); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-wall-toggle { position: absolute; right: 0; bottom: 0; padding: 0.25rem 0; background: none; border: 0; cursor: pointer; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #9d9b91); } .ds-wall-toggle:hover { color: var(--color-gilt, #c6a15b); } .ds-wall-toggle:focus-visible { outline: 2px solid var(--color-accent, #dd4753); outline-offset: 2px; } @media (prefers-reduced-motion: no-preference) { .ds-wall-col { animation: ds-wall-up 40s linear infinite; } .ds-wall-col--down { animation: ds-wall-down 46s linear infinite; } .ds-wall-wrap:hover .ds-wall-col { animation-play-state: paused; } } @keyframes ds-wall-up { to { transform: translateY(-50%); } } @keyframes ds-wall-down { from { transform: translateY(-50%); } to { transform: translateY(0); } }"
     },
@@ -264,15 +319,16 @@
   ],
   "narrative": {
     "northStar": "Graphite & Gilt",
-    "overview": "A dark, precise working surface where the shipped work is the hero. The world is committed dark (color-scheme: dark): a graphite ground, warm off-white ink, gilt for labels and the one primary action, and a single ruby mark as the only bold colour. The interface steps back so real screenshots of live client sites carry the page: they drift in the hero's wall of work, and they sit in hairline frames on every project card. Nothing on the surface is illustration; the imagery is the evidence.\n\nThe register is calm, exact, and workmanlike. Headings are Schibsted Grotesk, tight and confident at 600–700; every piece of data (roles, stacks, context tags, hostnames, form labels, button labels) speaks in uppercase DM Mono. Depth is tonal: one step from ground to surface, drawn with 1px hairlines. The single exception is physical overlap: a phone capture laid over the lower-right corner of a desktop screenshot casts one soft shadow, because it really sits on top.\n\nDensity is generous and editorial: a centered 72rem column, wide vertical rhythm, sections divided by full-width hairlines, lists divided by hairlines instead of boxed into cards. The world refuses the dark-mode-neon-startup look (no glows, no saturated gradients, no candy accents) and the generic Swiss-Helvetica grid it replaced.",
+    "overview": "A dark, precise working surface where the shipped work is the hero. The world is committed dark (`color-scheme: dark`): a graphite ground, warm off-white ink, gilt for labels and the one primary action, and a single ruby mark as the only bold colour. The interface steps back so real screenshots of live client sites carry the page: they are dealt as a 3D deck in the hero, and they sit in hairline frames on every project card. Nothing on the surface is illustration; the imagery is the evidence.\n\nThe register is calm, exact, and workmanlike. Headings are Schibsted Grotesk, tight and confident at 600–700; every piece of data (stacks, context tags, hostnames, form labels, button labels) speaks in uppercase DM Mono. Depth is tonal: one step from ground to surface, drawn with 1px hairlines. The exception is physical layering: a phone capture laid over a desktop screenshot, screenshots stacked in the hero deck, and the portrait badge hanging on its strap each cast a soft shadow, because they really sit on top of something.\n\nDensity is generous and editorial: a centered 72rem column, wide vertical rhythm, sections divided by full-width hairlines, lists divided by hairlines instead of boxed into cards. The surface is alive with light and motion: a field of gilt mono glyphs flowing behind the hero, a name that decodes itself under a ruby caret, screenshots dealt and re-shuffled as a deck, a crosshair that measures the contact page. Each page gets its own effects rather than one global trick. Effects are welcome and meant to show craft, but they are always drawn from the palette (gilt light, ruby as a trace, ink on graphite). The world still refuses rainbow neon, candy accents, and the generic Swiss-Helvetica grid it replaced.",
     "keyCharacteristics": [
       "Graphite dark world, committed (`color-scheme: dark`), warm off-white ink.",
       "Real screenshots of shipped sites are the imagery; no placeholders, no illustration.",
       "One ruby accent, used as a single mark: never a fill, never a wall.",
       "Gilt for mono labels, the one primary action, and the selected/hover state.",
       "Two voices: Schibsted Grotesk (display/body) + DM Mono (all data/labels).",
-      "Depth by tonal step + hairlines; one soft shadow, only for the overlapping phone capture.",
-      "Sharp-by-default corners (2/5/10px); one signature motion (the wall), fully opt-out."
+      "Depth by tonal step + hairlines; soft shadows only where something physically sits on something else.",
+      "Sharp-by-default corners (2/5/10px).",
+      "Expressive light and motion (shaders, glyph fields, type reveals, 3D decks), tinted from the palette, chosen per page, fully opt-out."
     ],
     "rules": [
       {
@@ -287,12 +343,12 @@
       },
       {
         "name": "The Context Mark Rule",
-        "body": "How a project came about is told with a tiny geometric mark, never a colour wash: Freelance is a ruby dot plus the word; macmac and Marvelous Digital appear as their own monochrome wordmarks. All three are 0.4rem and travel together wherever context appears (project cards, /work filter chips, the About page).",
+        "body": "How a project came about is shown by who it was with, never a colour wash: Freelance is a 0.4rem ruby dot plus the word; macmac and Marvelous Digital appear as their own wordmarks, monochrome in `currentColor` (`ContextBadge.astro`, SVGs in `src/components/icons/`), with the name as screen-reader text. Sizes: 0.62rem (macmac) / 0.92rem (Marvelous) in caption lines and chips, ~1.4/1.9rem on the About page. Never recolour or restyle the partner wordmarks.",
         "section": "colors"
       },
       {
         "name": "The Two-Voice Rule",
-        "body": "Prose and headings are Schibsted Grotesk; anything that reads as data (labels, roles, stacks, tags, hostnames, buttons) is DM Mono, uppercase, tracked. A voice never crosses into the other's job.",
+        "body": "Prose and headings are Schibsted Grotesk; anything that reads as data (labels, stacks, tags, hostnames, buttons) is DM Mono, uppercase, tracked. A voice never crosses into the other's job.",
         "section": "typography"
       },
       {
@@ -302,7 +358,7 @@
       },
       {
         "name": "The Hairline Rule",
-        "body": "Surfaces are separated by a 1px `line` border and one tonal step, never by a shadow. The only shadow marks a literal physical overlap of one capture over another.",
+        "body": "Surfaces are separated by a 1px `line` border and one tonal step, never by a shadow. A shadow only ever marks a literal physical overlap: something resting on, or hanging in front of, something else.",
         "section": "elevation"
       }
     ],
@@ -310,22 +366,24 @@
       "Do let real screenshots of shipped sites be the imagery; crop them to 16:10 (desktop) or 390:844 (phone), top-anchored, inside a hairline frame.",
       "Do keep ruby as a single mark: dots, a short rule, links, focus rings.",
       "Do use gilt for mono labels, the one primary action, and hover/selected state.",
-      "Do mark project context with the dot / diamond / ring trio wherever context appears.",
+      "Do show project context with the ContextBadge (freelance dot or partner wordmark) wherever context appears.",
       "Do separate surfaces with the `line` hairline and one tonal step; divide lists with hairlines instead of boxing them into cards.",
-      "Do put all data (roles, stacks, tags, hostnames, labels, buttons) in DM Mono, uppercase, tracked.",
+      "Do put all data (stacks, tags, hostnames, labels, buttons) in DM Mono, uppercase, tracked.",
       "Do draw icons as inline SVG strokes (1.5px, square caps) sized in `em`.",
-      "Do gate every animation behind `prefers-reduced-motion: no-preference`, give continuous motion a pause control, and stop it when off-screen.",
+      "Do gate every animation behind `prefers-reduced-motion: no-preference` with an intentional still alternative, give long-running content motion a pause control, and stop loops and shaders when off-screen or the tab is hidden.",
+      "Do tint every glow, shader, and light effect from the palette: gilt as the light, ruby only as a trace, screen/additive blending over graphite.",
+      "Do keep content in the HTML and visible without JS; effects decorate it (`aria-hidden` layers, a CSS failsafe for anything hidden before it animates).",
       "Do ship every visitor-facing string in both EN and FR (binding product constraint)."
     ],
     "donts": [
       "Don't fill a surface with ruby or build a ruby band; the closing CTA is a graphite panel with a gilt button.",
-      "Don't add drop shadows for elevation; the only shadow is the phone capture's physical overlap.",
-      "Don't use placeholder imagery, stock illustration, or a portrait in place of real work.",
+      "Don't add drop shadows for elevation; shadows only mark physical layering (the phone capture, the hero deck, the hanging badge).",
+      "Don't use placeholder imagery or stock illustration in place of real work. The only portrait is Thomas's real photo (`src/assets/portrait.jpg`, About page).",
       "Don't put a mono eyebrow or kicker above a heading.",
       "Don't use unicode glyph arrows (→ ↗) or emoji as icons.",
-      "Don't introduce neon glows, saturated gradients, or a second bold accent.",
+      "Don't use off-palette glows, rainbow or saturated neon gradients, or a second bold accent.",
       "Don't set body or heading text in gilt, or run prose in the mono voice.",
-      "Don't add a second continuous animation; the wall of work is the one signature motion.",
+      "Don't let an effect cut text contrast below AA, tint the screenshots themselves, or add heavy runtime dependencies when a small hand-written island does the job.",
       "Don't add a second display typeface or a system font; the pairing is fixed."
     ]
   }

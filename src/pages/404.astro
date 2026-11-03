@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NotFound from '../components/NotFound.astro';
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+// Fallback 404: the dev server renders this for any unknown URL, so take the
+// language from the requested path (/fr/… → French). The static build renders
+// it at /404, i.e. English; Netlify routes unknown URLs to the localized
+// /en/404/ and /fr/404/ instead (see netlify.toml).
+const lang: Lang = /^\/fr(\/|$)/.test(Astro.url.pathname) ? 'fr' : 'en';
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={t('notFound.title')} description={t('notFound.description')} lang={lang} noindex>
+  <NotFound lang={lang} />
+</BaseLayout>

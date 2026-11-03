@@ -17,6 +17,12 @@ typography:
     fontWeight: 700
     lineHeight: 0.92
     letterSpacing: '-0.04em'
+  display-xl:
+    fontFamily: 'Schibsted Grotesk Variable, Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
+    fontSize: 'clamp(3rem, 0.6rem + 10.5vw, 9rem)'
+    fontWeight: 700
+    lineHeight: 0.9
+    letterSpacing: '-0.04em'
   headline:
     fontFamily: 'Schibsted Grotesk Variable, Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
     fontSize: 'clamp(2.25rem, 1.3rem + 4.2vw, 4.5rem)'
@@ -117,22 +123,27 @@ A dark, precise working surface where the shipped work is the hero. The world is
 committed dark (`color-scheme: dark`): a graphite ground, warm off-white ink,
 gilt for labels and the one primary action, and a single ruby mark as the only
 bold colour. The interface steps back so real screenshots of live client sites
-carry the page: they drift in the hero's wall of work, and they sit in hairline
-frames on every project card. Nothing on the surface is illustration; the
+carry the page: they are dealt as a 3D deck in the hero, and they sit in
+hairline frames on every project card. Nothing on the surface is illustration; the
 imagery is the evidence.
 
 The register is calm, exact, and workmanlike. Headings are Schibsted Grotesk,
 tight and confident at 600–700; every piece of data (stacks, context
 tags, hostnames, form labels, button labels) speaks in uppercase DM Mono. Depth
-is tonal: one step from ground to surface, drawn with 1px hairlines. The single
-exception is physical overlap: a phone capture laid over the lower-right corner
-of a desktop screenshot casts one soft shadow, because it really sits on top.
+is tonal: one step from ground to surface, drawn with 1px hairlines. The
+exception is physical layering: a phone capture laid over a desktop screenshot,
+screenshots stacked in the hero deck, and the portrait badge hanging on its
+strap each cast a soft shadow, because they really sit on top of something.
 
 Density is generous and editorial: a centered 72rem column, wide vertical
 rhythm, sections divided by full-width hairlines, lists divided by hairlines
-instead of boxed into cards. The world refuses the dark-mode-neon-startup look
-(no glows, no saturated gradients, no candy accents) and the generic
-Swiss-Helvetica grid it replaced.
+instead of boxed into cards. The surface is alive with light and motion: a field of gilt mono glyphs
+flowing behind the hero, a name that decodes itself under a ruby caret,
+screenshots dealt and re-shuffled as a deck, a crosshair that measures the
+contact page. Each page gets its own effects rather than one global trick. Effects are welcome and meant to show craft, but they are always
+drawn from the palette (gilt light, ruby as a trace, ink on graphite). The world
+still refuses rainbow neon, candy accents, and the generic Swiss-Helvetica grid
+it replaced.
 
 **Key Characteristics:**
 
@@ -141,8 +152,9 @@ Swiss-Helvetica grid it replaced.
 - One ruby accent, used as a single mark: never a fill, never a wall.
 - Gilt for mono labels, the one primary action, and the selected/hover state.
 - Two voices: Schibsted Grotesk (display/body) + DM Mono (all data/labels).
-- Depth by tonal step + hairlines; one soft shadow, only for the overlapping phone capture.
-- Sharp-by-default corners (2/5/10px); one signature motion (the wall), fully opt-out.
+- Depth by tonal step + hairlines; soft shadows only where something physically sits on something else.
+- Sharp-by-default corners (2/5/10px).
+- Expressive light and motion (shaders, glyph fields, type reveals, 3D decks), tinted from the palette, chosen per page, fully opt-out.
 
 ## Colors
 
@@ -209,6 +221,8 @@ headings `text-wrap: balance`, paragraphs `text-wrap: pretty`.
 
 ### Hierarchy
 
+- **Display XL** (700, `clamp(3rem → 9rem)`, lh 0.9, -0.04em): The 404 code
+  only (`--text-display`).
 - **Display** (700, `clamp(3.25rem → 6rem)`, lh 0.92, -0.04em): The hero name
   only.
 - **Headline** (700, `clamp(2.25rem → 4.5rem)`, lh 1.02, -0.03em): Page and
@@ -248,6 +262,8 @@ below 1024px with the wall becoming a full-bleed horizontal strip.
 Project lists are equal cards with very open gaps: three columns for the
 homepage selection, two columns on `/work` (2rem columns, 4rem rows).
 Service, approach, and About lists are hairline-divided rows, never boxes.
+The 404 page is a single column filling the viewport under the header,
+vertically centred: the fuzzy code and line, then one primary button.
 Spacing uses the Tailwind 4px scale; no custom spacing tokens. Breakpoints are
 Tailwind defaults (`sm` 640, `md` 768, `lg` 1024).
 
@@ -256,22 +272,27 @@ Tailwind defaults (`sm` 640, `md` 768, `lg` 1024).
 Flat by default, tonal by construction. The graphite ground sits under one
 lifted step (`surface`), and every container is drawn with a 1px `line`
 hairline rather than a cast shadow. State is a border-colour or text-colour
-shift (to gilt), plus a 2px lift on buttons. The system has exactly one shadow:
-the soft drop under the phone capture where it physically overlaps the desktop
-screenshot. Depth elsewhere comes from the wall's masked fade, which dissolves
-screenshots into the ground at the top and bottom (left and right on mobile).
+shift (to gilt), plus a 2px lift on buttons. Shadows exist only where one
+thing physically rests on another: the phone capture over its desktop
+screenshot, each card of the hero deck over the one behind it, the portrait
+badge hanging in front of the page. Depth elsewhere is spatial: the deck's real
+3D perspective, a graphite veil that darkens cards with distance, and the
+mobile strip's masked fade into the ground. Light effects (scan lines, the
+star border's comet) are light, not elevation.
 
 ### Shadow Vocabulary
 
-- **Overlap** (`box-shadow: 0 18px 40px -12px rgb(0 0 0 / 0.7)`): Only on the
-  phone capture laid over a desktop screenshot. It describes a real layer, not
-  elevation for emphasis.
+- **Overlap** (`box-shadow: 0 18px 40px -12px rgb(0 0 0 / 0.7)`): The phone
+  capture laid over a desktop screenshot, and the hanging portrait badge. It
+  describes a real layer, not elevation for emphasis.
+- **Deck** (`box-shadow: 0 24px 50px -24px rgb(0 0 0 / 0.8)`): Each card of the
+  hero deck, falling on the card behind it.
 
 ### Named Rules
 
 **The Hairline Rule.** Surfaces are separated by a 1px `line` border and one
-tonal step, never by a shadow. The only shadow marks a literal physical overlap
-of one capture over another.
+tonal step, never by a shadow. A shadow only ever marks a literal physical
+overlap: something resting on, or hanging in front of, something else.
 
 ## Shapes
 
@@ -294,10 +315,12 @@ Mono, uppercase, sharp, and few: one gilt primary per view.
 - **Shape:** 2px radius; DM Mono 500 at 0.875rem, 0.06em tracking, padding
   `0.875rem 1.75rem`, an SVG arrow trailing with a 0.65rem gap.
 - **Primary:** Gilt fill, graphite text. Hero "start a project", the closing
-  CTA, contact submit.
+  CTA, contact submit, the 404's way home.
 - **Hover / Focus:** Primary lightens to a paler gilt (#d4b273) and lifts 2px
   over 200ms (`cubic-bezier(0.22, 1, 0.36, 1)`); the arrow nudges 2px right.
-  Focus is the global 2px ruby outline, 2px offset.
+  A warm comet of light orbits the button's edge while hovered or focused
+  (the star border, one lap per 3.5s). Focus is the global 2px ruby outline,
+  2px offset.
 - **Secondary:** Transparent with a `line` hairline and ink text; hover shifts
   border and text to gilt. Used for "view work" / "view all".
 - **Disabled:** `opacity: 0.6`, pointer-events off (contact submit while sending).
@@ -329,6 +352,12 @@ frame and text.
 - **Description:** Muted body, max 60ch.
 - **Stack:** One muted caption-mono line, joined with `·` (no role line — the
   site does not split credit between design and development).
+- **Motion:** On the homepage the featured screenshots refine into focus as
+  they scroll in (coarse pixels → finer → soft blur → sharp, swept by a gilt
+  scan line, with a mono "PASS n/N" chip; a row entering together cascades
+  ~150ms apart). On /work frames tilt in 3D toward
+  the pointer with a soft glare, the phone capture lifting off its desktop
+  screenshot.
 - **Link line:** The hostname in gilt caption mono with an up-right SVG arrow
   that shifts 2px diagonally on hover; "coming soon" in gilt; NDA as a small
   ruby dot plus label.
@@ -344,11 +373,15 @@ frame and text.
 ### Navigation
 
 - **Header:** Sticky, 95% graphite with backdrop blur, hairline bottom border.
-  Wordmark in Schibsted Grotesk semibold beside a small 2px-radius ruby square;
-  nav links in body ink, hover to ruby, `aria-current="page"` on the active
+  The Moléson M logo (brand-red rounded square, white peaks) beside the name
+  in Bricolage Grotesque Bold, −0.03em (brand kit; tunable in the dev Brand
+  panel, saved in `src/data/brand.ts`); nav links in body ink, hover to ruby, `aria-current="page"` on the active
   route; the EN/FR switcher in caption mono.
 - **Mobile:** A 2.5rem hairline-bordered toggle with three ink hairlines opens
-  a stacked panel; labelled, Escape closes and returns focus.
+  the menu; labelled, Escape closes and returns focus. Opening sweeps in a
+  surface layer and a gilt-edged paper layer, then the links rise in at display
+  size, staggered, over a full-height paper overlay; the hairlines fold into an
+  X.
 
 ### Service List
 
@@ -356,9 +389,21 @@ Five services as hairline-divided rows (no cards): title in Title weight on the
 left, muted blurb on the right from `sm`; the title turns gilt on row hover.
 Capability chips follow under a gilt caption-mono heading.
 
-### Signature: The Wall of Work (hero)
+### Signature: The Deck of Work (hero)
 
-The one signature motion. Up to ten real desktop screenshots of shipped sites
+On desktop the hero's screenshots are dealt as a 3D deck: every real desktop
+screenshot (NDA work excluded) in a hairline frame with a 10px radius, each
+card 36px right, 30px up and 70px back from the one in front, skewed 1°, and
+darkened by a graphite veil that thickens toward the back. Every 3.25s the
+front card drops below the deck, travels back, and slides into the last slot
+behind the others while the rest step forward (slow, `speed` 0.6, no bounce).
+The deck tilts toward the pointer, pauses on hover, and the front card can be
+flung to the back by dragging. Below 1024px, and as the deck's fallback, the
+original Wall of Work runs instead.
+
+### The Wall of Work (hero, mobile and fallback)
+
+The original signature motion. Up to ten real desktop screenshots of shipped sites
 (NDA work excluded) in two columns that drift vertically in opposite
 directions: up over 70s, down over 80s, linear and seamless (each track is
 rendered twice). The second column is offset 9rem up so rows never align. Each
@@ -372,6 +417,69 @@ off-screen (IntersectionObserver), and via a mono "pause / play" text button
 (`aria-pressed`, hover gilt) that appears only when motion is on. Under reduced
 motion the wall is a static grid. The wall is decorative (`aria-hidden`); the
 same work is reachable through the project list.
+
+### Portrait Badge (About)
+
+Thomas's real photo becomes an ID badge: a graphite plate with a punched slot
+and a gilt clip, the photo inside its hairline frame, and a decorative
+caption-mono strip ("Thomas Miller · Web developer", localized). It hangs from
+a short graphite strap with gilt stitching, swings gently on load, follows a
+drag and settles. The photo keeps its alt text; the strip and strap are
+`aria-hidden`.
+
+### Not Found (404)
+
+The code and line ("Error 404 / Not found", "Erreur 404 / Page introuvable") in
+Display XL and Headline, each line drawn as fuzzy text: pixel rows jitter
+sideways a little at rest and more under the pointer. One primary button with a
+light line home ("Get me out of here" / "Sortez-moi d’ici"). No body copy.
+
+### Effects: Light & Motion
+
+Effects are slots with interchangeable variants, each a small dependency-free
+TS module in `src/components/islands/fx/`. Slots, variants and param ranges are
+declared in `src/data/effects-registry.ts`; the shipped choice is
+`src/data/effects.ts`. Under `pnpm dev` an FX panel (bottom-left, Alt+F)
+switches variants and tunes params live; "Save as default" rewrites
+`effects.ts`. Each variant is decorative, palette-tinted, and opt-out.
+
+Slots (an element can host several: `data-fx-slot="heroName heroNameHover"`;
+every matching element gets its own instance):
+
+| Slot             | Where                        | Variants                                                               |
+| ---------------- | ---------------------------- | ---------------------------------------------------------------------- |
+| `heroBackground` | Home hero                    | Light shafts · ASCII field · Lightfall · Letter glitch · Off           |
+| `heroWall`       | Home hero                    | Drift (the wall) · Card swap (desktop)                                 |
+| `heroName`       | Home hero                    | Scramble · Decode · Plain                                              |
+| `heroNameHover`  | Home hero                    | Off · Tech text (dashed outlines under the cursor)                     |
+| `logo`           | Header                       | Off · Electric                                                         |
+| `cursor`         | Every page                   | Lamp · Glow trail · Crosshair · Off                                    |
+| `contactCursor`  | /contact (adds to `cursor`)  | Same as `cursor`; the crosshair fades while a field is focused         |
+| `primaryButton`  | Hero, CTA, contact form      | Off · Star border                                                      |
+| `featuredMedia`  | Home selected work           | Off · Tilted card · Pixel transition · Refine                          |
+| `workMedia`      | /work                        | Off · Tilted card · Pixel transition · Refine                          |
+| `ctaBackground`  | Home closing CTA             | Off · Laser flow · Magnet lines                                        |
+| `mobileMenu`     | Header < 768px               | Default · Staggered                                                    |
+| `aboutPortrait`  | /about                       | Static · Lanyard                                                       |
+| `contactOrb`     | /contact                     | Off · Crystal ball                                                     |
+| `contactHeading` | /contact h1                  | Off · Tech text                                                        |
+| `contactLead`    | /contact lead paragraph      | Off · Scrambled text (letters near the cursor flicker to gilt `.` `:`) |
+| `notFound`       | 404 pages, each heading line | Plain · Fuzzy text (rows jitter sideways, swelling on hover)           |
+
+Most effects are palette-tinted re-implementations of [React Bits](https://reactbits.dev)
+components, written as vanilla islands: the site does not use React, and an
+effect is ported rather than pulled in as a React island.
+
+Tried and dropped (don't re-add without asking): hero background _Blinds_
+and _Fibers_, the _Split-flap_ hero name, the cursor _Lamp + grid_ and the
+hero dot grid it lit. The shipped choices (which variant runs where) live
+only in `src/data/effects.ts`.
+
+Rules every variant follows: decorative layers are `aria-hidden`; the hero
+name keeps its real text with an `aria-label` and a 2.5s CSS failsafe;
+shaders render below CSS resolution or at capped DPR; loops pause off-screen
+and when the tab is hidden; reduced motion gets a still or static version;
+cursor-driven behaviour is fine-pointer only.
 
 ## Do's and Don'ts
 
@@ -387,8 +495,13 @@ same work is reachable through the project list.
 - **Do** put all data (stacks, tags, hostnames, labels, buttons) in DM
   Mono, uppercase, tracked.
 - **Do** draw icons as inline SVG strokes (1.5px, square caps) sized in `em`.
-- **Do** gate every animation behind `prefers-reduced-motion: no-preference`,
-  give continuous motion a pause control, and stop it when off-screen.
+- **Do** gate every animation behind `prefers-reduced-motion: no-preference`
+  with an intentional still alternative, give long-running content motion a
+  pause control, and stop loops and shaders when off-screen or the tab is hidden.
+- **Do** tint every glow, shader, and light effect from the palette: gilt as the
+  light, ruby only as a trace, screen/additive blending over graphite.
+- **Do** keep content in the HTML and visible without JS; effects decorate it
+  (`aria-hidden` layers, a CSS failsafe for anything hidden before it animates).
 - **Do** ship every visitor-facing string in both EN and FR (binding product
   constraint).
 
@@ -396,14 +509,16 @@ same work is reachable through the project list.
 
 - **Don't** fill a surface with ruby or build a ruby band; the closing CTA is a
   graphite panel with a gilt button.
-- **Don't** add drop shadows for elevation; the only shadow is the phone
-  capture's physical overlap.
+- **Don't** add drop shadows for elevation; shadows only mark physical
+  layering (the phone capture, the hero deck, the hanging badge).
 - **Don't** use placeholder imagery or stock illustration in place of real work.
   The only portrait is Thomas's real photo (`src/assets/portrait.jpg`, About page).
 - **Don't** put a mono eyebrow or kicker above a heading.
 - **Don't** use unicode glyph arrows (→ ↗) or emoji as icons.
-- **Don't** introduce neon glows, saturated gradients, or a second bold accent.
+- **Don't** use off-palette glows, rainbow or saturated neon gradients, or a
+  second bold accent.
 - **Don't** set body or heading text in gilt, or run prose in the mono voice.
-- **Don't** add a second continuous animation; the wall of work is the one
-  signature motion.
+- **Don't** let an effect cut text contrast below AA, tint the screenshots
+  themselves, or add heavy runtime dependencies when a small hand-written
+  island does the job.
 - **Don't** add a second display typeface or a system font; the pairing is fixed.

@@ -1,0 +1,207 @@
+<title>Thomas Miller Business Cards</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a print proof sheet. Each variant is one row: recto (logo) left, verso (contact) right, at true 85:55. */
+:root {
+  --page: #ededea;
+  --text: #121212;
+  --muted: #5f5f5c;
+  --line: #d4d4cf;
+  --guide: #1f7ae0;
+  /* print colours, identical in both themes */
+  --orange: #ff6a13; --black: #121212; --white: #ffffff; --grey: #6b6b67; --grey-d: #a3a39e;
+  --f-name: "Archivo", "Schibsted Grotesk", system-ui, sans-serif;
+  --f-body: "Schibsted Grotesk", system-ui, sans-serif;
+  --f-mono: "DM Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --page: #0d0d0d; --text: #f2f2f0; --muted: #9b9b96; --line: #2a2a28; --guide: #5aa2ff; color-scheme: dark } }
+:root[data-theme="dark"] { --page: #0d0d0d; --text: #f2f2f0; --muted: #9b9b96; --line: #2a2a28; --guide: #5aa2ff; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--page); color: var(--text); font-family: var(--f-body); font-size: 16px; line-height: 1.5 }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 44px 72px; display: grid; gap: 48px }
+header { display: grid; gap: 14px }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted) }
+h1 { margin: 0; font-family: var(--f-name); font-weight: 900; font-stretch: 125%; font-size: clamp(1.8rem, 4.4vw, 3rem); letter-spacing: -0.03em; line-height: 1.02; text-wrap: balance }
+h1 em { font-style: normal; color: var(--orange) }
+.lede { color: var(--muted); max-width: 64ch; margin: 0; font-size: 1.05rem }
+.tools { display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; font-size: 14px; color: var(--muted) }
+.tools label { display: inline-flex; gap: 8px; align-items: center; cursor: pointer; color: var(--text) }
+.tools input { width: 16px; height: 16px; accent-color: var(--orange) }
+.legend { display: inline-flex; gap: 14px; flex-wrap: wrap }
+.legend span { display: inline-flex; gap: 6px; align-items: center }
+.legend i { width: 18px; border-top: 1.5px dashed var(--guide) }
+.legend i.trim { border-top: 1.5px solid var(--orange) }
+
+.variant { display: grid; gap: 16px; border-top: 1px solid var(--line); padding-top: 24px }
+.vhead { display: flex; gap: 10px 14px; align-items: baseline; flex-wrap: wrap }
+.vhead h2 { margin: 0; font-size: 20px; font-weight: 700 }
+.vhead .id { font-family: var(--f-mono); font-size: 12px; color: var(--muted) }
+.vhead p { margin: 0; color: var(--muted); font-size: 15px; flex-basis: 100%; max-width: 72ch }
+.tag { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; background: var(--orange); color: var(--black); padding: 2px 7px; border-radius: 3px }
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 20px }
+figure { margin: 0; display: grid; gap: 8px; min-width: 0 }
+figcaption { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted) }
+
+/* ---------- the card: 1mm = 100cqw / 85 ---------- */
+.card { container-type: inline-size; position: relative; width: 100%; max-width: 100%; aspect-ratio: 85 / 55; border-radius: 2px; overflow: hidden;
+  background: var(--white); color: var(--black); --ring: var(--orange); --pk: var(--black); --soft: var(--grey); --lbl: var(--grey);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 2px 4px rgba(0,0,0,.08), 0 14px 30px -12px rgba(0,0,0,.28) }
+.card.k-black { background: var(--black); color: var(--white); --pk: var(--white); --soft: var(--grey-d); --lbl: var(--orange) }
+.card.k-orange { background: var(--orange); color: var(--black); --ring: var(--white); --pk: var(--black); --soft: #5f2e12; --lbl: #5f2e12 }
+.in { position: absolute; inset: 0; --mm: calc(100cqw / 85); padding: calc(var(--mm) * 5.5); display: flex; flex-direction: column }
+.guides .card::before, .guides .card::after { content: ""; position: absolute; pointer-events: none; z-index: 5 }
+.guides .card::after { inset: calc(100cqw / 85 * 4); border: 1.5px dashed var(--guide) }
+.guides .card::before { inset: 0; border: 1.5px solid var(--orange); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.5) }
+
+.sym { display: block; flex: none; overflow: visible }
+.nm { font-family: var(--f-name); font-weight: 900; font-stretch: 125%; letter-spacing: -0.03em; line-height: 0.92 }
+.mono { font-family: var(--f-mono); font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; line-height: 1.2; color: var(--soft) }
+
+/* the logo lockup, sized by --s (symbol size) */
+.logo { --s: calc(var(--mm) * 18); display: flex; align-items: center; gap: calc(var(--s) * 0.23) }
+.logo .sym { width: var(--s); height: var(--s) }
+.logo .w { display: grid; gap: calc(var(--s) * 0.12) }
+.logo .nm { font-size: calc(var(--s) * 0.39) }
+.logo .mono { font-size: calc(var(--s) * 0.1) }
+
+/* contact side */
+.who { display: grid; gap: calc(var(--mm) * 1.4) }
+.who .nm { font-size: calc(var(--mm) * 4.4) }
+.who .mono { font-size: calc(var(--mm) * 1.9) }
+.ct { display: grid; grid-template-columns: auto 1fr; gap: calc(var(--mm) * 1.05) calc(var(--mm) * 3); margin: 0; font-size: calc(var(--mm) * 2.45); font-variant-numeric: tabular-nums }
+.ct dt { font-family: var(--f-mono); font-size: calc(var(--mm) * 1.75); letter-spacing: 0.1em; text-transform: uppercase; align-self: center; color: var(--lbl) }
+.ct dd { margin: 0; font-weight: 500; white-space: nowrap }
+.top { display: flex; justify-content: space-between; align-items: flex-start; gap: calc(var(--mm) * 3) }
+.between { justify-content: space-between }
+.center { align-items: center; justify-content: center }
+
+/* K3 */
+.k3f .sym { width: calc(var(--mm) * 27); height: calc(var(--mm) * 27) }
+.k3f .url { position: absolute; bottom: calc(var(--mm) * 5.5); left: 0; right: 0; text-align: center; font-family: var(--f-mono); font-size: calc(var(--mm) * 2); letter-spacing: 0.08em; color: var(--black) }
+/* K4 */
+.k4f .giant { position: absolute; width: calc(var(--mm) * 60); height: calc(var(--mm) * 60); right: calc(var(--mm) * -8); bottom: calc(var(--mm) * -22) }
+.k4f .nm { font-size: calc(var(--mm) * 5.6); position: relative }
+.k4f .mono { font-size: calc(var(--mm) * 1.9); position: relative; margin-top: calc(var(--mm) * 2) }
+/* K5 */
+.k5f .huge { font-size: calc(var(--mm) * 10.4); line-height: 0.86; letter-spacing: -0.04em; display: grid }
+
+.notes { display: grid; gap: 12px; border-top: 1px solid var(--line); padding-top: 24px }
+.notes h2 { margin: 0; font-size: 20px }
+.notes ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: var(--muted); max-width: 75ch }
+.notes b { color: var(--text); font-weight: 600 }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="r3" viewBox="0 0 64 64" overflow="visible">
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M43.74 11.93 A25 25 0 1 1 14.89 15.77" style="stroke:var(--ring)" stroke-width="6"/>
+        <path d="M17 45 L25.5 30 L31 38 L38.5 7 L47.5 45" style="stroke:var(--pk)" stroke-width="5"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap" id="sheet">
+  <header>
+    <span class="eyebrow">Carte de visite · 85 × 55 mm · recto / verso</span>
+    <h1>Business cards, <em>sommet</em> edition</h1>
+    <p class="lede">Five cards for the new logo. The logo side is on the left, the contact side on the right, all in French. Pick one, or mix the front of one with the back of another, and I’ll make the print files.</p>
+    <div class="tools">
+      <label for="g"><input type="checkbox" id="g"> Show print guides</label>
+      <span class="legend"><span><i class="trim"></i>cut line (3 mm bleed added outside)</span><span><i></i>safe zone, 4 mm</span></span>
+    </div>
+  </header>
+
+  <!-- K1 -->
+  <section class="variant">
+    <div class="vhead"><h2>Blanc</h2><span class="id">K1</span><p>White on both sides with the full logo in the middle. The calm, classic option and the cheapest to print.</p></div>
+    <div class="pair">
+      <figure><div class="card"><div class="in center">
+        <div class="logo"><svg class="sym"><use href="#r3"/></svg><div class="w"><span class="nm">Thomas<br>Miller</span><span class="mono">Développeur web · Bulle</span></div></div>
+      </div></div><figcaption>Recto</figcaption></figure>
+      <figure><div class="card"><div class="in between">
+        <div class="top"><div class="who"><span class="nm">Thomas Miller</span><span class="mono">Développeur web freelance</span></div><svg class="sym" style="width:calc(var(--mm)*8);height:calc(var(--mm)*8)"><use href="#r3"/></svg></div>
+        <dl class="ct"><dt>Site</dt><dd>thomasmiller.ch</dd><dt>E-mail</dt><dd>contact@thomasmiller.ch</dd><dt>Tél.</dt><dd>+41 79 560 20 71</dd><dt>Lieu</dt><dd>Bulle</dd></dl>
+      </div></div><figcaption>Verso</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- K2 -->
+  <section class="variant">
+    <div class="vhead"><h2>Noir</h2><span class="id">K2</span> <span class="tag">My pick</span><p>Black on both sides. The orange ring glows on black, and it matches the app icon and avatar. Best on thick matte paper.</p></div>
+    <div class="pair">
+      <figure><div class="card k-black"><div class="in center">
+        <div class="logo"><svg class="sym"><use href="#r3"/></svg><div class="w"><span class="nm">Thomas<br>Miller</span><span class="mono">Développeur web · Bulle</span></div></div>
+      </div></div><figcaption>Recto</figcaption></figure>
+      <figure><div class="card k-black"><div class="in between">
+        <div class="top"><div class="who"><span class="nm">Thomas Miller</span><span class="mono">Développeur web freelance</span></div><svg class="sym" style="width:calc(var(--mm)*8);height:calc(var(--mm)*8)"><use href="#r3"/></svg></div>
+        <dl class="ct"><dt>Site</dt><dd>thomasmiller.ch</dd><dt>E-mail</dt><dd>contact@thomasmiller.ch</dd><dt>Tél.</dt><dd>+41 79 560 20 71</dd><dt>Lieu</dt><dd>Bulle</dd></dl>
+      </div></div><figcaption>Verso</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- K3 -->
+  <section class="variant">
+    <div class="vhead"><h2>Orange plein</h2><span class="id">K3</span><p>Full orange front with only the symbol. Impossible to miss on a table. White back, easy to write a note on.</p></div>
+    <div class="pair">
+      <figure><div class="card k-orange"><div class="in center k3f">
+        <svg class="sym"><use href="#r3"/></svg><span class="url">thomasmiller.ch</span>
+      </div></div><figcaption>Recto</figcaption></figure>
+      <figure><div class="card"><div class="in between">
+        <div class="who"><span class="nm">Thomas Miller</span><span class="mono">Développeur web freelance</span></div>
+        <dl class="ct"><dt>Site</dt><dd>thomasmiller.ch</dd><dt>E-mail</dt><dd>contact@thomasmiller.ch</dd><dt>Tél.</dt><dd>+41 79 560 20 71</dd><dt>Lieu</dt><dd>Bulle</dd></dl>
+      </div></div><figcaption>Verso</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- K4 -->
+  <section class="variant">
+    <div class="vhead"><h2>Anneau géant</h2><span class="id">K4</span><p>The symbol blown up and cropped by the card’s edge, with your name in the free corner. The boldest front. Orange back.</p></div>
+    <div class="pair">
+      <figure><div class="card k-black"><div class="in k4f">
+        <svg class="sym giant"><use href="#r3"/></svg>
+        <span class="nm">Thomas<br>Miller</span><span class="mono">Développeur web · Bulle</span>
+      </div></div><figcaption>Recto</figcaption></figure>
+      <figure><div class="card k-orange"><div class="in between">
+        <div class="top"><div class="who"><span class="nm">Thomas Miller</span><span class="mono">Développeur web freelance</span></div><svg class="sym" style="width:calc(var(--mm)*8);height:calc(var(--mm)*8)"><use href="#r3"/></svg></div>
+        <dl class="ct"><dt>Site</dt><dd>thomasmiller.ch</dd><dt>E-mail</dt><dd>contact@thomasmiller.ch</dd><dt>Tél.</dt><dd>+41 79 560 20 71</dd><dt>Lieu</dt><dd>Bulle</dd></dl>
+      </div></div><figcaption>Verso</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- K5 -->
+  <section class="variant">
+    <div class="vhead"><h2>Nom géant</h2><span class="id">K5</span><p>Your name filling the card in Archivo Expanded, symbol in the corner. Big and bold, as you asked. Black back.</p></div>
+    <div class="pair">
+      <figure><div class="card"><div class="in between k5f">
+        <svg class="sym" style="width:calc(var(--mm)*10);height:calc(var(--mm)*10)"><use href="#r3"/></svg>
+        <span class="nm huge"><span>Thomas</span><span>Miller</span></span>
+      </div></div><figcaption>Recto</figcaption></figure>
+      <figure><div class="card k-black"><div class="in between">
+        <div class="who"><span class="nm">Développeur web</span><span class="mono">Freelance · Bulle</span></div>
+        <dl class="ct"><dt>Site</dt><dd>thomasmiller.ch</dd><dt>E-mail</dt><dd>contact@thomasmiller.ch</dd><dt>Tél.</dt><dd>+41 79 560 20 71</dd></dl>
+      </div></div><figcaption>Verso</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="notes">
+    <h2>What the print files will include</h2>
+    <ul>
+      <li><b>Size:</b> 85 × 55 mm, plus 3 mm extra on every side that the printer trims off (91 × 61 mm files). Text stays 4 mm inside the cut.</li>
+      <li><b>Files:</b> one PDF per side, CMYK, text converted to shapes so no fonts are needed.</li>
+      <li><b>Orange:</b> close to Pantone 1585 C. Bright orange shifts a lot in CMYK, so ask for a printed proof, or use Pantone printing if the shop offers it.</li>
+      <li><b>Paper:</b> 350–400 g/m² matte. Black cards (K2, K4) look best with soft-touch lamination.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+  const box = document.getElementById('g');
+  const sheet = document.getElementById('sheet');
+  box.addEventListener('change', () => sheet.classList.toggle('guides', box.checked));
+</script>

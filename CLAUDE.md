@@ -31,6 +31,7 @@ Astro (`output: 'static'`) + Tailwind CSS v4 (via `@tailwindcss/vite`, no JS con
 
 - `astro.config.mjs` sets `i18n` with `prefixDefaultLocale: true`, so **both** `/en/…` and `/fr/…` are explicit; there is no unprefixed route. `src/pages/index.astro` server-redirects `/` → `/en/`, and `netlify.toml` also 301s `/` → `/en/` for the deployed edge.
 - Every page lives under `src/pages/[lang]/` and exports `getStaticPaths()` returning one entry per locale (`en`, `fr`). `lang` comes from `Astro.params.lang`.
+- 404: `src/pages/[lang]/404.astro` builds `/en/404/` and `/fr/404/` (shared `NotFound.astro`, `noindex`, excluded from the sitemap); `netlify.toml` routes unknown `/fr/*` URLs to the French one and everything else to the English one. `src/pages/404.astro` is the fallback the dev server uses.
 - **All UI strings are in `src/i18n/ui.ts`**, keyed by locale then dot-namespaced key (e.g. `nav.work`, `home.title`). Add/edit a string in **both** `en` and `fr`. Pages get a translator via `const t = useTranslations(lang)` (`src/i18n/utils.ts`); `t(key)` falls back to the default locale then the raw key. `switchLocalePath`/`localizedPath` build cross-locale URLs (used by `LanguageSwitcher.astro`).
 
 ### Content (projects)
@@ -51,10 +52,20 @@ Defined in `src/data/services.ts` (not i18n/ui). Edit that file to change servic
   - `reveal.ts` — scroll-reveal for `[data-reveal]` elements. If `prefers-reduced-motion` or no `IntersectionObserver`, everything is revealed immediately; the hidden base state is CSS-guarded so no-JS still shows all content.
   - `work-filter.ts` — context filter chips on `/work`; hidden without JS.
   - `Hero.astro` inline script — pause toggle for the drifting screenshot wall; CSS animation is reduced-motion-gated and pauses off-screen.
+  - `fx/` — the effects system. `runtime.ts` (imported by `BaseLayout`) mounts the variant chosen in `src/data/effects.ts` into every `[data-fx-slot~="<slot>"]` element (one instance per element; an element can host several slots) plus the site-wide cursor on `<body>`; variants are dynamic imports, so pages only download what runs. Slots/variants/param ranges live in `src/data/effects-registry.ts` (tested by `src/data/effects.test.ts`). To add a variant: add it to the registry, write a module exporting `mount: FxMount` (its `destroy()` must fully undo it so the panel can hot-swap; CSS goes in a sibling `.css` imported by the module), register its loader in `runtime.ts`.
+  - `fx/panel.ts` — **dev-only** FX panel (bottom-left, Alt+F) to switch variants and tune params live; "Save as default" POSTs to the `fxSavePlugin` dev middleware in `astro.config.mjs`, which rewrites `src/data/effects.ts`. It is imported behind `import.meta.env.DEV` and never reaches `dist/`.
+  - Effects inspired by React Bits are **ported to vanilla TS** (Canvas2D / WebGL2 via `fx/gl.ts` / DOM+WAAPI), not added as React islands — no React, no animation libraries. New effects go in as additional variants of a slot so they can be compared in the panel before choosing; see DESIGN.md "Effects: Light & Motion" for the slot table and what was tried and dropped.
 
 ### Design tokens
 
 The visual system ("Graphite & Gilt": graphite ground, warm ink, one ruby accent, gilt labels/primary action; see DESIGN.md) is defined as Tailwind v4 `@theme` tokens at the top of `src/styles/global.css` — colors (`bg-paper`, `text-ink`, `text-muted`, `text-accent`, …), font families (`font-display`, `font-sans`, `font-mono`), and a fluid `clamp()` type scale (`text-headline`, `text-lead`, `text-caption`, …). Fonts are self-hosted via Fontsource (bundled, no runtime CDN). Use these token utilities rather than raw hex/px values.
+
+### Brand (logo, palette, fonts)
+
+- The logo kit lives in **`brand/`** (copied from the old `my-logos` repo; edit it here). `brand/README.md` has colours, fonts, usage rules and how to rebuild with `brand/build_kit.py`; Astro ignores the folder. The site still shows the earlier **Moléson M** (now in `brand/archive/v1-moleson-rouge/`), not the kit's current logo. `src/components/Logo.astro` draws it inline (kit geometry; name as live text) in the header and, with tagline, the footer. Favicons, `site.webmanifest` and `og-image.png` in `public/` are copied from that v1 kit.
+- `src/data/brand.ts` is the shipped choice (palette, heading/body font, logo lockup/font/weight/tracking/size); options live in `src/data/brand-registry.ts` (tested by `src/data/brand.test.ts`). `BaseLayout` renders it as inline token overrides + `data-*` attributes on `<html>`, so it costs no JS. The `@theme` defaults in `global.css` must keep matching the `gilt` palette (the test checks).
+- `islands/brand/panel.ts` — **dev-only** Brand panel (bottom-right, Alt+B) to try palettes, fonts and logo settings live; "Save as default" POSTs to `brandSavePlugin` in `astro.config.mjs`, which rewrites `src/data/brand.ts`. To add a palette or font: add it to the registry (fonts also need their Fontsource `@import` in `global.css`).
+- Effects take colours from the tokens (CSS `color-mix(var(--color-…))`, canvas/WebGL via `tokenRgb()` in `fx/types.ts`), never raw hex, so they follow the palette.
 
 ## Deploy
 

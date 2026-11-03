@@ -13,12 +13,14 @@ const t = useTranslations(lang);
 const contactHref = localizedPath(lang, '/contact');
 ---
 
-<section class="cta-band">
-  <div data-reveal class="mx-auto max-w-6xl px-6 py-24 md:px-10 md:py-32">
+<section class="cta-band relative overflow-hidden">
+  {/* Effect slot (islands/fx): the CTA background variant draws in here. */}
+  <div class="fx-layer" data-fx-slot="ctaBackground" aria-hidden="true"></div>
+  <div data-reveal class="relative mx-auto max-w-6xl px-6 py-24 md:px-10 md:py-32">
     <h2 class="max-w-4xl font-display text-headline text-ink">{t('cta.heading')}</h2>
     <p class="mt-6 max-w-xl text-lead text-muted">{t('cta.body')}</p>
 
-    <a href={contactHref} class="btn-primary group mt-10">
+    <a href={contactHref} class="btn-primary group mt-10" data-fx-slot="primaryButton">
       {t('cta.button')}
       <Arrow class="transition-transform duration-200 group-hover:translate-x-0.5" />
     </a>

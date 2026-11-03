@@ -1,0 +1,50 @@
+/* Perspective lives on the stage; the deck rotates inside it for parallax. */
+.fx-swap-stage {
+  position: absolute;
+  inset: 0;
+  perspective: 1200px;
+  perspective-origin: 40% 45%;
+}
+.fx-swap-deck {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+/* Front card sits left and is lowered by half the deck's rise, so the fanned
+   deck stays centred in the wall's box. Its width leaves room for the fan but
+   never drops below 70%: a long deck spills into the page margin instead. */
+.fx-swap-card {
+  position: absolute;
+  left: 0;
+  top: calc(50% + var(--fx-swap-lift, 45px));
+  width: calc(100% - min(var(--fx-swap-inset, 108px), 30%));
+  margin: 0;
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fx-swap-card.wall-shot {
+  border-radius: var(--fx-swap-radius, 10px);
+  box-shadow: 0 24px 50px -24px rgb(0 0 0 / 0.8);
+}
+/* Depth dimming: a graphite veil that thickens toward the back. */
+.fx-swap-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-paper);
+  opacity: var(--fx-swap-dim, 0);
+  pointer-events: none;
+  transition: opacity 0.6s;
+}
+.fx-swap-stage.is-draggable .fx-swap-card.is-front {
+  cursor: grab;
+}
+.fx-swap-stage.is-draggable .fx-swap-card {
+  user-select: none;
+}
+.fx-swap-card.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}

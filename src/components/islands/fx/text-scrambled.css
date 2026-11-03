@@ -1,0 +1,17 @@
+/* Cells can't kern across each other; dropping kerning keeps the locked
+   widths identical to the plain text. */
+.fx-scr {
+  font-kerning: none;
+  font-variant-ligatures: none;
+}
+.fx-scr-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.fx-scr-char {
+  display: inline-block;
+  text-align: center;
+}
+.fx-scr-char.is-scrambled {
+  color: var(--color-gilt);
+}

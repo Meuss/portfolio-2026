@@ -12,3 +12,7 @@ dist/
 # Impeccable: machine-local config + transient review captures
 .impeccable/config.local.json
 .impeccable/review/
+
+# Logo kit build env (brand/build_kit.py)
+brand/.venv/
+__pycache__/

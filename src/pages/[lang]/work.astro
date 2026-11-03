@@ -69,7 +69,7 @@ const counts = Object.fromEntries(
             data-reveal
             data-reveal-delay={String((i % 2) + 1)}
           >
-            <ProjectCard project={project} lang={lang} eager={i < 2} />
+            <ProjectCard project={project} lang={lang} eager={i < 2} fxSlot="workMedia" />
           </li>
         ))}
       </ul>

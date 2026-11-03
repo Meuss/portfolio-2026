@@ -23,20 +23,24 @@ const shots = (await getCollection('projects'))
 const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i % 2 === 1)];
 ---
 
-<section class="hero relative overflow-hidden border-b border-line bg-paper">
+<section class="hero relative overflow-hidden border-b border-line bg-paper" data-hero>
+  {/* Effect slot (islands/fx): the hero background variant draws in here. */}
+  <div class="fx-layer" data-fx-slot="heroBackground" aria-hidden="true"></div>
   <div class="relative mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-14 px-6 pb-16 pt-20 md:px-10 md:pt-28 lg:min-h-[min(52rem,calc(100svh-4.5rem))] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center lg:gap-10 lg:py-24">
     <div class="relative z-10">
-      <h1 class="hero-name font-display text-ink">{t('hero.name')}</h1>
+      <h1 class="hero-name font-display text-ink" data-fx-slot="heroName heroNameHover">
+        {t('hero.name')}
+      </h1>
 
       <div aria-hidden="true" class="mt-7 flex max-w-md items-center gap-4">
-        <span class="h-px w-16 bg-accent"></span>
+        <span class="hero-rule h-px w-16 bg-accent"></span>
         <span class="h-px flex-1 bg-line"></span>
       </div>
 
       <p class="mt-8 max-w-xl text-lead text-ink">{t('hero.tagline')}</p>
 
       <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <a href={contactHref} class="btn-primary group">
+        <a href={contactHref} class="btn-primary group" data-fx-slot="primaryButton">
           {t('hero.cta')}
           <Arrow class="transition-transform duration-200 group-hover:translate-x-0.5" />
         </a>
@@ -55,7 +59,7 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
     </div>
 
     {shots.length > 0 && (
-      <div class="wall-wrap relative min-w-0" data-wall>
+      <div class="wall-wrap relative min-w-0" data-wall data-fx-slot="heroWall">
         <div class="wall" aria-hidden="true">
           {columns.map((col, c) => (
             <div class:list={['wall-col', c === 1 && 'wall-col--down']}>
@@ -120,6 +124,33 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
     font-weight: 700;
     line-height: 0.92;
     letter-spacing: -0.04em;
+    /* Flap cells can't kern across each other; matching that here means the
+       board hands back to plain text without a shift. */
+    font-kerning: none;
+    font-variant-ligatures: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Hidden until the board is built; the failsafe shows plain text if the
+       script never arrives. */
+    :global(html.js) .hero-name:not(:global(.fx-ready--heroName)) {
+      visibility: hidden;
+      animation: fx-failsafe 0s linear 2.5s forwards;
+    }
+    .hero-rule {
+      transform-origin: left center;
+      animation: rule-draw 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.15s both;
+    }
+  }
+  @keyframes fx-failsafe {
+    to {
+      visibility: visible;
+    }
+  }
+  @keyframes rule-draw {
+    from {
+      transform: scaleX(0);
+    }
   }
 
   .status-dot {

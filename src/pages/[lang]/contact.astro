@@ -21,14 +21,18 @@ const { email } = contact;
 ---
 
 <BaseLayout title={t('contactPage.title')} description={t('contactPage.description')} lang={lang}>
-  <section class="border-b border-line bg-paper py-20 md:py-28">
+  <section class="border-b border-line bg-paper py-20 md:py-28" data-fx-slot="contactCursor">
     <div class="mx-auto max-w-6xl px-6 md:px-10">
       <div class="grid gap-12 md:grid-cols-[1fr_1.15fr] md:gap-16">
         <!-- Intro + fallback contact path -->
         <div>
           <header data-reveal>
-            <h1 class="font-display text-headline text-ink">{t('contactPage.heading')}</h1>
-            <p class="mt-6 max-w-md text-lead text-muted">{t('contactPage.intro')}</p>
+            <h1 class="font-display text-headline text-ink" data-fx-slot="contactHeading">
+              {t('contactPage.heading')}
+            </h1>
+            <p class="mt-6 max-w-md text-lead text-muted" data-fx-slot="contactLead">
+              {t('contactPage.intro')}
+            </p>
           </header>
 
           <div data-reveal data-reveal-delay="1" class="mt-12 border-t border-line pt-8">
@@ -42,6 +46,13 @@ const { email } = contact;
               <SocialLinks lang={lang} class="-ml-3" />
             </div>
           </div>
+
+          {/* Effect slot (islands/fx): decorative accent, desktop only. */}
+          <div
+            class="fx-orb mt-12 max-md:hidden"
+            data-fx-slot="contactOrb"
+            aria-hidden="true"
+          ></div>
         </div>
 
         <!-- Form -->
@@ -115,6 +126,7 @@ const { email } = contact;
 
             <button
               type="submit"
+              data-fx-slot="primaryButton"
               class="btn-primary mt-2 disabled:pointer-events-none disabled:opacity-60"
             >
               <span data-submit-label>{t('contactForm.submit')}</span>

@@ -4,14 +4,18 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { languages, type Lang } from '../i18n/ui';
 import { switchLocalePath, useTranslations } from '../i18n/utils';
+import { brand } from '../data/brand';
+import { BRAND_RED, brandAttrs, brandStyle } from '../data/brand-registry';
 
 interface Props {
   title: string;
   description: string;
   lang: Lang;
+  /** Error pages: kept out of search and without canonical/alternate links. */
+  noindex?: boolean;
 }
 
-const { title, description, lang } = Astro.props;
+const { title, description, lang, noindex = false } = Astro.props;
 const t = useTranslations(lang);
 
 // Canonical production origin, sourced from `site` in astro.config.mjs so
@@ -29,9 +33,11 @@ const alternateLinks = locales.map((l) => ({
   href: new URL(switchLocalePath(Astro.url, l), siteUrl).toString(),
 }));
 const xDefaultHref = new URL(switchLocalePath(Astro.url, 'en'), siteUrl).toString();
+const ogImage = new URL('/og-image.png', siteUrl).toString();
 ---
 
-<html lang={lang}>
+{/* The shipped brand (src/data/brand.ts) as token overrides: no JS involved. */}
+<html lang={lang} style={brandStyle(brand)} {...brandAttrs(brand)}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -40,17 +46,38 @@ const xDefaultHref = new URL(switchLocalePath(Astro.url, 'en'), siteUrl).toStrin
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
+    {/* Dev only: re-apply the Brand panel's unsaved choice before paint (the
+        panel stores the resolved vars + attrs), so navigating doesn't flash. */}
+    {import.meta.env.DEV && <script is:inline>
+      try {
+        const s = JSON.parse(localStorage.getItem('brand-applied') || 'null');
+        if (s) {
+          const root = document.documentElement;
+          for (const [k, v] of Object.entries(s.vars)) root.style.setProperty(k, v);
+          for (const [k, v] of Object.entries(s.attrs)) root.setAttribute(k, v);
+        }
+      } catch {}
+    </script>}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content={BRAND_RED} />
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL} />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <>
+        <link rel="canonical" href={canonicalURL} />
 
-    {alternateLinks.map((alt) => (
-      <link rel="alternate" hreflang={alt.lang} href={alt.href} />
-    ))}
-    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+        {alternateLinks.map((alt) => (
+          <link rel="alternate" hreflang={alt.lang} href={alt.href} />
+        ))}
+        <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+      </>
+    )}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Thomas Miller" />
@@ -59,8 +86,12 @@ const xDefaultHref = new URL(switchLocalePath(Astro.url, 'en'), siteUrl).toStrin
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:locale" content={ogLocale} />
     <meta property="og:locale:alternate" content={ogLocaleAlternate} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
   </head>
@@ -76,5 +107,15 @@ const xDefaultHref = new URL(switchLocalePath(Astro.url, 'en'), siteUrl).toStrin
       <slot />
     </main>
     <Footer lang={lang} />
+
+    {/* Effects runtime: mounts the variants chosen in src/data/effects.ts into every
+        [data-fx-slot]. The FX and Brand panels only exist under `pnpm dev`. */}
+    <script>
+      import '../components/islands/fx/runtime.ts';
+      if (import.meta.env.DEV) {
+        import('../components/islands/fx/panel.ts');
+        import('../components/islands/brand/panel.ts');
+      }
+    </script>
   </body>
 </html>

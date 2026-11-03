@@ -15,3 +15,6 @@ package-lock.json
 
 # Binary-ish assets Prettier shouldn't touch
 *.svg
+
+# Logo kit: generated assets and design explorations
+brand/

@@ -11,3 +11,14 @@
   to = "/en/"
   status = 301
   force = true
+
+# Unknown URLs get the localized 404 (non-forced rules only apply when no file matches).
+[[redirects]]
+  from = "/fr/*"
+  to = "/fr/404/"
+  status = 404
+
+[[redirects]]
+  from = "/*"
+  to = "/en/404/"
+  status = 404

@@ -10,9 +10,10 @@ interface Props {
   project: CollectionEntry<'projects'>;
   lang: Lang;
   eager?: boolean;
+  fxSlot?: 'featuredMedia' | 'workMedia';
 }
 
-const { project, lang, eager = false } = Astro.props;
+const { project, lang, eager = false, fxSlot } = Astro.props;
 const t = useTranslations(lang);
 const { title, context, kind, description, tech, image, imageMobile, link, status, nda } =
   project.data;
@@ -26,10 +27,22 @@ const alt = t('project.screenshotAlt').replace('{name}', title);
   <div class="pb-5">
     {hasLink ? (
       <a href={link} target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
-        <ProjectFrame image={image} imageMobile={imageMobile} alt="" eager={eager} />
+        <ProjectFrame
+          image={image}
+          imageMobile={imageMobile}
+          alt=""
+          eager={eager}
+          fxSlot={fxSlot}
+        />
       </a>
     ) : (
-      <ProjectFrame image={image} imageMobile={imageMobile} alt={image ? alt : ''} eager={eager}>
+      <ProjectFrame
+        image={image}
+        imageMobile={imageMobile}
+        alt={image ? alt : ''}
+        eager={eager}
+        fxSlot={fxSlot}
+      >
         {nda && (
           <span slot="blank" class="font-mono text-caption uppercase text-muted">
             {t('project.ndaFrame')}

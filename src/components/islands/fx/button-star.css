@@ -1,0 +1,80 @@
+@property --fx-star-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.fx-star-host {
+  position: relative;
+  isolation: isolate;
+}
+
+/* The comet: a conic gradient masked down to a thin ring just outside the button. */
+.fx-star-ring,
+.fx-star-bloom {
+  position: absolute;
+  pointer-events: none;
+  border-radius: calc(var(--radius-sm) + 2px);
+  background: conic-gradient(
+    from var(--fx-star-angle),
+    transparent 0turn,
+    transparent 0.78turn,
+    color-mix(in srgb, var(--color-gilt) 90%, transparent) 0.92turn,
+    color-mix(in srgb, var(--color-gilt) 15%, white) 0.985turn,
+    transparent 1turn
+  );
+  opacity: var(--fx-star-opacity, 1);
+  animation: fx-star-orbit var(--fx-star-orbit, 5s) linear infinite;
+  transition: opacity 0.3s ease-out;
+}
+.fx-star-ring {
+  inset: -2px;
+  padding: 1.5px;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+}
+.fx-star-bloom {
+  inset: -7px;
+  z-index: -1;
+  filter: blur(7px);
+  opacity: calc(var(--fx-star-opacity, 1) * 0.45);
+}
+
+/* Hover mode: dark and parked until the button is hovered or focused. */
+.fx-star-host--hover .fx-star-ring,
+.fx-star-host--hover .fx-star-bloom {
+  opacity: 0;
+  animation-play-state: paused;
+}
+.fx-star-host--hover:hover .fx-star-ring,
+.fx-star-host--hover:focus-visible .fx-star-ring {
+  opacity: var(--fx-star-opacity, 1);
+  animation-play-state: running;
+}
+.fx-star-host--hover:hover .fx-star-bloom,
+.fx-star-host--hover:focus-visible .fx-star-bloom {
+  opacity: calc(var(--fx-star-opacity, 1) * 0.45);
+  animation-play-state: running;
+}
+
+@keyframes fx-star-orbit {
+  to {
+    --fx-star-angle: 360deg;
+  }
+}
+
+/* Reduced motion: a still, faint gilt ring instead of an orbiting comet. */
+@media (prefers-reduced-motion: reduce) {
+  .fx-star-ring {
+    animation: none;
+    background: color-mix(in srgb, var(--color-gilt) 45%, transparent);
+  }
+  .fx-star-bloom {
+    display: none;
+  }
+}

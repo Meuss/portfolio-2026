@@ -4,10 +4,16 @@
    Self-hosted fonts (Fontsource → bundled at build, no runtime CDN)
    - Display / body : Schibsted Grotesk (variable wght) — precise, modern grotesque
    - Data / labels  : DM Mono — labels, roles, tech, buttons
+   - Brand candidates (src/data/brand-registry.ts): Bricolage Grotesque (the
+     logo kit face, with its optical-size axis), Instrument Sans, Space Grotesk.
+     @font-face only: a browser downloads a face only once something uses it.
 --------------------------------------------------------------------------- */
 @import '@fontsource-variable/schibsted-grotesk/index.css';
 @import '@fontsource/dm-mono/400.css';
 @import '@fontsource/dm-mono/500.css';
+@import '@fontsource-variable/bricolage-grotesque/opsz.css';
+@import '@fontsource-variable/instrument-sans/index.css';
+@import '@fontsource-variable/space-grotesk/index.css';
 
 /* ---------------------------------------------------------------------------
    Design tokens — Tailwind v4 CSS-first theme.
@@ -36,6 +42,11 @@
   --color-accent-ink: #fff5f4; /* foreground on ruby                   */
 
   --color-gilt: #c6a15b; /* gilt — labels, primary action, hover     */
+
+  /* Brand kit red: the logo mark only, identical in every palette. These are
+     the "Graphite & Gilt" defaults; src/data/brand.ts can swap the palette by
+     overriding the tokens inline on <html> (see brand-registry.ts). */
+  --color-brand: #d8232a;
 
   /* -- Fluid type scale (clamp: mobile → desktop) -------------------------- */
   /* Utility voice — mono labels, data, tags */
@@ -79,7 +90,10 @@
 --------------------------------------------------------------------------- */
 @layer base {
   :root {
-    color-scheme: dark; /* committed dark world — themes scrollbars & form UI */
+    color-scheme: dark; /* themes scrollbars & form UI */
+  }
+  :root[data-scheme='light'] {
+    color-scheme: light;
   }
 
   html {
@@ -207,12 +221,12 @@
   background: var(--color-paper);
 }
 ::-webkit-scrollbar-thumb {
-  background: #3a3d44;
+  background: color-mix(in srgb, var(--color-ink) 16%, var(--color-paper));
   border: 3px solid var(--color-paper);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #4a4e56;
+  background: color-mix(in srgb, var(--color-ink) 26%, var(--color-paper));
 }
 
 /* ---------------------------------------------------------------------------
@@ -244,7 +258,7 @@
     color: var(--color-paper);
   }
   .btn-primary:hover {
-    background: #d4b273;
+    background: color-mix(in srgb, var(--color-gilt) 86%, var(--color-ink));
     transform: translateY(-2px);
   }
   .btn-secondary {
@@ -272,6 +286,215 @@
 /* Closing CTA: a graphite band rather than a full ruby wall (ruby stays a
    single mark). */
 .cta-band {
-  background: radial-gradient(130% 150% at 82% -10%, #24262b 0%, #191b1e 62%, #131417 100%);
+  background: radial-gradient(
+    130% 150% at 82% -10%,
+    color-mix(in srgb, var(--color-surface) 80%, var(--color-ink)) 0%,
+    var(--color-paper) 62%,
+    color-mix(in srgb, var(--color-paper) 85%, black) 100%
+  );
   border-top: 1px solid var(--color-line);
+}
+:root[data-scheme='light'] .cta-band {
+  background: radial-gradient(
+    130% 150% at 82% -10%,
+    var(--color-surface) 0%,
+    var(--color-paper) 70%,
+    color-mix(in srgb, var(--color-paper) 96%, var(--color-ink)) 100%
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   Effects (src/components/islands/fx). Pick variants with the dev FX panel;
+   the shipped choice lives in src/data/effects.ts.
+--------------------------------------------------------------------------- */
+
+/* A decorative layer filling its (positioned) section; collapses while empty. */
+.fx-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.fx-layer:empty,
+.fx-orb:empty {
+  display: none;
+}
+
+/* Shader backgrounds fade in once their first frame is drawn. */
+.fx-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+}
+.fx-canvas.is-lit {
+  opacity: 1;
+}
+
+/* Cursor lamp: a soft pool of gilt light trailing a fine pointer. Screen-blended
+   so it only ever lightens; invisible on touch and until the pointer moves. */
+.fx-lamp {
+  --lamp-size: 44rem;
+  --lamp-strength: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: var(--lamp-size);
+  height: var(--lamp-size);
+  margin: calc(var(--lamp-size) / -2) 0 0 calc(var(--lamp-size) / -2);
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-gilt) calc(7.5% * var(--lamp-strength)), transparent),
+    color-mix(in srgb, var(--color-gilt) calc(3% * var(--lamp-strength)), transparent) 45%,
+    transparent
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.fx-lamp.is-on {
+  opacity: 1;
+}
+
+/* Name entrances: text split into cells sized by their final glyph (a hidden
+   ghost), with variant layers stacked on top. Cells can't kern across each
+   other, so the slot drops kerning for good: no shift when plain text returns. */
+[data-fx-slot~='heroName'],
+[data-fx-slot~='contactHeading'] {
+  font-kerning: none;
+  font-variant-ligatures: none;
+}
+.fx-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.fx-cell {
+  position: relative;
+  display: inline-block;
+}
+.fx-ghost {
+  visibility: hidden;
+}
+.fx-glyph,
+.fx-block {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+}
+
+/* Scramble: gilt stand-ins flicker, then lock into ink. */
+.fx-glyph {
+  clip-path: inset(-0.3em -0.03em);
+}
+.fx-glyph--pending {
+  color: var(--color-gilt);
+  opacity: 0;
+}
+.fx-glyph--pending.is-live {
+  opacity: 0.85;
+}
+.fx-glyph--locked {
+  animation: fx-lock 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes fx-lock {
+  from {
+    color: var(--color-gilt);
+    text-shadow: 0 0 0.35em color-mix(in srgb, var(--color-gilt) 55%, transparent);
+  }
+}
+
+/* Decode: a ruby caret block wipes each cell before the glyph glitches in. */
+.fx-glyph--hidden {
+  visibility: hidden;
+}
+.fx-block {
+  inset: 0.06em 0.02em;
+  background: var(--color-accent);
+  transform: scaleX(0);
+}
+
+/* ---------------------------------------------------------------------------
+   Logo — the Moléson M (Logo.astro). Geometry from the brand kit; font,
+   weight, tracking and size come from --logo-* (src/data/brand.ts), the
+   header lockup from <html data-logo-lockup>. `.brand-logo--full` (footer)
+   always shows mark, name and tagline.
+--------------------------------------------------------------------------- */
+.brand-logo {
+  --logo-size-v: var(--logo-size, 36px);
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--logo-size-v) * 0.3);
+}
+.brand-mark {
+  flex: none;
+  width: var(--logo-size-v);
+  height: var(--logo-size-v);
+  overflow: visible;
+}
+.brand-mark-box {
+  fill: var(--color-brand);
+}
+.brand-mark-peaks,
+.brand-mark-free {
+  fill: none;
+  stroke-width: 6.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.brand-mark-peaks {
+  stroke: #fff;
+}
+.brand-mark-free {
+  display: none;
+  stroke: var(--color-brand);
+}
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--logo-size-v) * 0.12);
+}
+.brand-name {
+  font-family: var(--logo-font, var(--font-display));
+  font-size: calc(var(--logo-size-v) * 0.5);
+  font-weight: var(--logo-weight, 700);
+  letter-spacing: var(--logo-tracking, -0.03em);
+  line-height: 1;
+  white-space: nowrap;
+}
+/* The kit draws the name at Bricolage's largest optical size. */
+:root[data-logo-font='bricolage'] .brand-name {
+  font-variation-settings: 'opsz' 96;
+}
+.brand-tagline {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: max(0.625rem, calc(var(--logo-size-v) * 0.2));
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-muted);
+}
+.brand-logo--full .brand-tagline,
+:root[data-logo-lockup='markNameTagline'] .brand-logo .brand-tagline {
+  display: block;
+}
+:root[data-logo-lockup='peaksName'] .brand-logo:not(.brand-logo--full) {
+  & .brand-mark-box,
+  & .brand-mark-peaks {
+    display: none;
+  }
+  & .brand-mark-free {
+    display: inline;
+  }
+}
+:root[data-logo-lockup='mark'] .brand-logo:not(.brand-logo--full) .brand-text,
+:root[data-logo-lockup='name'] .brand-logo:not(.brand-logo--full) .brand-mark {
+  display: none;
 }

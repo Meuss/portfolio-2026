@@ -1,0 +1,75 @@
+.fx-pixel-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+.fx-pixel-reveal {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(
+      120% 90% at 70% 0%,
+      color-mix(in srgb, var(--color-gilt) 8%, transparent),
+      transparent 60%
+    ),
+    var(--color-paper);
+  visibility: hidden;
+}
+.fx-pixel-layer.is-revealed .fx-pixel-reveal {
+  visibility: visible;
+}
+.fx-pixel-phone {
+  height: 86%;
+  width: auto;
+  aspect-ratio: 390 / 844;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+.fx-pixel-caption {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: center;
+  padding: 1.5rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.fx-pixel-caption strong {
+  font-weight: 500;
+  color: var(--color-ink);
+}
+.fx-pixel-caption span {
+  color: var(--color-gilt);
+}
+.fx-pixel-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+}
+.fx-pixel-cell {
+  background: var(--color-surface);
+  box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--color-gilt) 18%, transparent);
+  opacity: 0;
+}
+.fx-pixel-cell.is-on {
+  opacity: 1;
+}
+.fx-pixel-cell.is-gilt {
+  background: color-mix(in srgb, var(--color-gilt) 22%, var(--color-surface));
+}
+.fx-pixel-host .frame-mobile {
+  transition: opacity 0.2s ease;
+}
+.fx-pixel-host.is-revealed .frame-mobile {
+  opacity: 0;
+}

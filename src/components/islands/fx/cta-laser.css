@@ -1,0 +1,4 @@
+/* The laser only adds light: screen-blend it over the CTA band's own gradient. */
+.fx-laser-host > canvas {
+  mix-blend-mode: screen;
+}

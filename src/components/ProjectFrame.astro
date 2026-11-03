@@ -9,6 +9,8 @@ interface Props {
   /** Rendered width hint for responsive srcset (CSS px of the frame). */
   sizes?: string;
   eager?: boolean;
+  /** Effect slot for the screenshot (islands/fx): differs per page. */
+  fxSlot?: 'featuredMedia' | 'workMedia';
 }
 
 const {
@@ -17,12 +19,13 @@ const {
   alt,
   sizes = '(min-width: 1024px) 34rem, 92vw',
   eager = false,
+  fxSlot,
 } = Astro.props;
 ---
 
 {/* A real screenshot of the shipped site on a graphite plate; the phone
     capture overlaps the lower-right corner when there is one. */}
-<div class="frame relative">
+<div class="frame relative" data-fx-slot={fxSlot}>
   <div class="frame-desktop overflow-hidden rounded-md border border-line bg-surface">
     {image ? (
       <Image
