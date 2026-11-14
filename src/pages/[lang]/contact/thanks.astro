@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Arrow from '../../../components/icons/Arrow.astro';
+import { languages, type Lang } from '../../../i18n/ui';
+import { localizedPath, useTranslations } from '../../../i18n/utils';
+
+// Success page of the contact form: the form's action, so Netlify Forms serves
+// it after storing a submission sent without JS. Kept out of search and the
+// sitemap, like the 404 pages.
+//
+// Both locales feed one Netlify form, and Netlify keeps one action per form
+// (whichever page it detected last) and serves that page for every
+// submission, whatever URL was posted to. So an English visitor can get the
+// French page and the other way round: each page says it in both languages,
+// its own first.
+export function getStaticPaths() {
+  return (Object.keys(languages) as Lang[]).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const others = (Object.keys(languages) as Lang[]).filter((l) => l !== lang);
+---
+
+<BaseLayout
+  title={t('contactSent.title')}
+  description={t('contactSent.description')}
+  lang={lang}
+  noindex
+  footer="compact"
+>
+  <section class="border-b border-line bg-paper">
+    <div class="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-28">
+      <h1 class="font-display text-headline text-ink">{t('contactSent.heading')}</h1>
+      <p class="mt-6 max-w-md text-lead text-muted">{t('contactForm.successMessage')}</p>
+      <div class="mt-12">
+        <a href={localizedPath(lang, '/')} class="btn-primary group" data-fx-slot="primaryButton">
+          {t('contactSent.home')}
+          <Arrow class="transition-transform duration-200 group-hover:translate-x-0.5" />
+        </a>
+      </div>
+
+      {others.map((other) => {
+        const tOther = useTranslations(other);
+        return (
+          <div lang={other} class="mt-16 max-w-md border-t border-line pt-8">
+            <h2 class="font-display text-title text-ink">{tOther('contactSent.heading')}</h2>
+            <p class="mt-2 text-body text-muted">{tOther('contactForm.successMessage')}</p>
+            <a
+              href={localizedPath(other, '/')}
+              hreflang={other}
+              class="mt-4 inline-block text-body text-ink underline hover:text-accent"
+            >
+              {tOther('contactSent.home')}
+            </a>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>

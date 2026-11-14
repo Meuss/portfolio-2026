@@ -210,6 +210,12 @@ export const ui: Record<Lang, Record<string, string>> = {
     'contactForm.successMessage':
       'Thanks, your message is on its way. I’ll reply within two business days.',
     'contactForm.errorMessage': 'Something went wrong. Please try again, or email me directly.',
+
+    // --- Contact form: success page (no-JS submissions land here) ---
+    'contactSent.title': 'Message sent — Thomas Miller',
+    'contactSent.description': 'Your message has been sent.',
+    'contactSent.heading': 'Message sent',
+    'contactSent.home': 'Back to the home page',
   },
   fr: {
     'nav.work': 'Projets',
@@ -418,5 +424,11 @@ export const ui: Record<Lang, Record<string, string>> = {
     'contactForm.successMessage':
       'Merci, votre message est en route. Je réponds sous deux jours ouvrés.',
     'contactForm.errorMessage': 'Une erreur s’est produite. Réessayez, ou écrivez-moi directement.',
+
+    // --- Contact form: success page (no-JS submissions land here) ---
+    'contactSent.title': 'Message envoyé — Thomas Miller',
+    'contactSent.description': 'Votre message a bien été envoyé.',
+    'contactSent.heading': 'Message envoyé',
+    'contactSent.home': 'Retour à l’accueil',
   },
 };

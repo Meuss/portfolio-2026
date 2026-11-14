@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SocialLinks from '../../components/SocialLinks.astro';
 import { languages, type Lang } from '../../i18n/ui';
 import { contact } from '../../data/contact';
-import { useTranslations } from '../../i18n/utils';
+import { localizedPath, useTranslations } from '../../i18n/utils';
 
 export function getStaticPaths() {
   return (Object.keys(languages) as Lang[]).map((lang) => ({ params: { lang } }));
@@ -12,10 +12,15 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
 
-// Build-time public env var (see .env.example). Empty/undefined is expected
-// in environments without a real key — the form still renders; submissions
-// just won't deliver until PUBLIC_WEB3FORMS_KEY is set. Never throw here.
-const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+// Netlify Forms (https://docs.netlify.com/manage/forms/setup/). Both locales
+// render the same form name and field names, so they feed one Netlify form;
+// the hidden `language` field says which page a message came from. Without
+// JS, the browser POSTs to the success page, which Netlify serves once it has
+// stored the submission (Netlify keeps one action per form, so either
+// locale's page may be served: both say it in both languages). With JS, the
+// script POSTs to the same path and shows the result inline.
+const formName = 'contact';
+const successPath = localizedPath(lang, '/contact/thanks/');
 
 const { email, phone, phoneHref } = contact;
 
@@ -103,23 +108,28 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
           </button>
           <form
             id="contact-form"
-            action="https://api.web3forms.com/submit"
+            name={formName}
+            action={successPath}
             method="POST"
             enctype="multipart/form-data"
+            data-netlify="true"
+            netlify-honeypot="botcheck"
             class="flex flex-col gap-6 rounded-lg border border-line bg-surface p-6 md:p-8"
           >
-            <input type="hidden" name="access_key" value={web3formsKey} />
+            <input type="hidden" name="form-name" value={formName} />
+            {/* Notification email subject (Netlify reads a field named `subject`). */}
             <input
               type="hidden"
               name="subject"
-              value="New message from the thomasmiller.ch contact form"
+              value={`New message from the thomasmiller.ch contact form (${lang.toUpperCase()})`}
             />
-            <input type="hidden" name="from_name" value="thomasmiller.ch contact form" />
+            <input type="hidden" name="language" value={lang} />
 
             {/* Honeypot: left visible in the DOM for simple bots to fill, but
                 positioned off-screen and removed from the a11y tree / tab
                 order so real (and assistive-tech) visitors never encounter
-                it. Web3Forms rejects submissions where this is filled in. */}
+                it. Netlify quietly drops submissions where this is filled in
+                (netlify-honeypot on the form). */}
             <div class="absolute left-[-9999px] top-auto" aria-hidden="true">
               <label for="botcheck">{t('contactForm.honeypotLabel')}</label>
               <input type="text" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off" />
@@ -313,9 +323,9 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
   </script>
   {/*
     Progressive enhancement only: without this script (no JS, or it fails to
-    run) the form is a plain HTML form that POSTs directly to Web3Forms and
-    Web3Forms's own hosted response page confirms the submission — the site
-    never depends on this script to actually deliver the message.
+    run) the form is a plain HTML form that POSTs to Netlify Forms, which then
+    serves the localized success page named in its action: the site never
+    depends on this script to actually deliver the message.
 
     With JS, submit is intercepted so the same POST happens via fetch and the
     result is reported inline through the aria-live status paragraph above,
@@ -433,19 +443,21 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
         status.textContent = sendingText;
 
         try {
-          const response = await fetch(form.action, {
+          // Multipart FormData (the form can carry a file), so no Content-Type
+          // header: the browser sets it with the boundary. Posted to the
+          // success page's path, like the no-JS submission; Netlify stores the
+          // submission and answers with that page, so any 2xx means it arrived.
+          const response = await fetch(form.getAttribute('action') ?? window.location.pathname, {
             method: 'POST',
             body: new FormData(form),
-            headers: { Accept: 'application/json' },
           });
-          const result = await response.json().catch(() => null);
 
-          if (response.ok && result && result.success) {
+          if (response.ok) {
             status.textContent = successText;
             status.classList.replace('text-ink', 'text-success');
             form.reset();
           } else {
-            throw new Error('web3forms-submit-failed');
+            throw new Error(`contact-form-submit-failed: ${response.status}`);
           }
         } catch {
           status.textContent = errorText;

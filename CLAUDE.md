@@ -15,7 +15,7 @@ This repo uses **pnpm** (pinned via `packageManager` in `package.json`; run `cor
 
 Before pushing or opening a PR, run `pnpm check && pnpm test && pnpm build`.
 
-Node `>=26.0.0` is required (`engines`; `.nvmrc` pins Node 26, `netlify.toml` sets `NODE_VERSION = "26"`). The contact form still has Web3Forms code but no key is set, on purpose: the plan is to move it to **Netlify Forms** once the site is on Netlify (see the TODO in README.md). Don't ask for or add a Web3Forms key.
+Node `>=26.0.0` is required (`engines`; `.nvmrc` pins Node 26, `netlify.toml` sets `NODE_VERSION = "26"`). The contact form uses **Netlify Forms** (see "Contact form" in README.md); it needs no key and only receives submissions on a Netlify deploy.
 
 ### pnpm & supply-chain (impeccable)
 
@@ -69,4 +69,4 @@ The visual system (kit black ground, warm ink, kit orange as the only colour, ac
 
 ## Deploy
 
-Netlify builds via `netlify.toml` (`pnpm build` → publish `dist/`, Node 26). Form delivery is planned on Netlify Forms (README TODO).
+Netlify builds via `netlify.toml` (`pnpm build` → publish `dist/`, Node 26). The contact form posts to Netlify Forms: one form named `contact` fed by both locales (same field names, a hidden `language` field), honeypot via `netlify-honeypot`, no-JS `action` = the success page `src/pages/[lang]/contact/thanks.astro` (`noindex`, out of the sitemap). Netlify keeps one action per form and serves it for every submission, so either locale's success page can be served: both carry both languages. Netlify only detects fields present in the built HTML, so a new field needs a redeploy before it is stored.

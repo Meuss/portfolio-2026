@@ -19,15 +19,9 @@ pnpm dev
 
 ## TODO
 
-- [ ] **Contact form → Netlify Forms.** The form in `src/pages/[lang]/contact.astro` still
-      posts to Web3Forms, but no key is set, so submissions don't go anywhere yet.
-      Once the site is on Netlify, switch it to [Netlify Forms](https://docs.netlify.com/forms/setup/):
-      add `data-netlify="true"` and a `name` to the `<form>`, a hidden `form-name` input,
-      and make the honeypot `netlify-honeypot`. In the progressive-enhancement script,
-      POST url-encoded data to `/`. Then remove the Web3Forms code, `PUBLIC_WEB3FORMS_KEY`
-      and `.env.example`, and set up email notifications to `contact@thomasmiller.ch` in
-      the Netlify dashboard (Forms → Notifications). Until then the page still shows the
-      email, phone, GitHub, LinkedIn and WhatsApp links.
+- [ ] **Contact form notifications.** The form posts to Netlify Forms (see
+      [Contact form](#contact-form)). Set up email notifications to `contact@thomasmiller.ch`
+      in the Netlify dashboard (Forms → Notifications) so messages reach the inbox.
 
 ## Commands
 
@@ -48,9 +42,29 @@ Before pushing or opening a PR, run `pnpm check && pnpm test && pnpm build`.
 
 ## Environment variables
 
-None are needed right now. `.env.example` lists `PUBLIC_WEB3FORMS_KEY`, which is left over
-from the original Web3Forms setup and is deliberately unused (see TODO). The site builds
-and renders fine without it.
+None. The contact form needs no key (Netlify Forms picks it up from the built HTML).
+
+## Contact form
+
+The form in `src/pages/[lang]/contact.astro` uses [Netlify Forms](https://docs.netlify.com/manage/forms/setup/):
+
+- `data-netlify="true"`, `name="contact"` and a hidden `form-name` input. The `/en/` and
+  `/fr/` pages render the same form name and fields, so they feed **one** Netlify form; a
+  hidden `language` field (`en` / `fr`) says which page a message came from, and a hidden
+  `subject` field sets the notification email's subject. The `email` field becomes the
+  notification's Reply-To.
+- Spam: the honeypot field (`netlify-honeypot="botcheck"`), plus Netlify's built-in Akismet
+  filtering (flagged messages go to the form's Spam submissions list).
+- One optional file (`attachment`), checked in the browser for type and size. Netlify caps
+  the whole request at 8 MB.
+- Without JS the browser POSTs to the success page (`/en/contact/thanks/`,
+  `/fr/contact/thanks/`), which Netlify serves after storing the message. Netlify keeps one
+  action per form (the page it detected last) and serves it whatever the posted URL, so an
+  English visitor may get the French page: each success page says it in both languages,
+  its own first. With JS the script POSTs the same multipart `FormData` to that path, treats
+  any 2xx as sent and shows the result inline.
+- Form detection must be on for the site (Netlify UI → Forms); submissions only work on a
+  Netlify deploy, not in `pnpm dev` or `pnpm preview`.
 
 ## Content model
 
@@ -125,7 +139,7 @@ To deploy:
 1. Create a new Netlify site from this Git repository (or connect an existing one).
 2. Netlify picks up `netlify.toml` automatically — build command and publish directory
    need no manual configuration.
-3. Switch the contact form to Netlify Forms (see TODO).
+3. Enable form detection (Forms) and set up the form's email notifications (see TODO).
 4. Point the site's custom domain at `thomasmiller.ch` (or update `site` in
    `astro.config.mjs` and `Sitemap:` in `public/robots.txt` if the final domain differs).
 5. Trigger a deploy — Netlify runs `pnpm build` and publishes `dist/`.
@@ -140,4 +154,4 @@ To deploy:
 - [Vitest](https://vitest.dev) for unit tests
 - Astro's built-in `i18n` routing (`/en/`, `/fr/`, `en` as default locale, explicitly
   prefixed) for bilingual content
-- Contact form: Web3Forms for now, moving to Netlify Forms (see TODO)
+- Contact form: [Netlify Forms](https://docs.netlify.com/manage/forms/setup/)

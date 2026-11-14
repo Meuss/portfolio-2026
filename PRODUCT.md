@@ -58,7 +58,7 @@ and direct, bilingual contact with full responsibility for the result.
   visitor-facing string exists in both locales, kept in sync.
 - Based in **Switzerland**; employer Marvelous Digital is in Vevey. Canonical domain
   `thomasmiller.ch`.
-- Conversion path is a **contact form (Web3Forms)** with direct fallbacks (email, phone, GitHub,
+- Conversion path is a **contact form (Netlify Forms)** with direct fallbacks (email, phone, GitHub,
   LinkedIn, WhatsApp) for visitors who prefer to reach out themselves.
 - Availability is signalled on the site ("open to a few freelance projects"), limited because
   freelance is a side activity; a state that changes over time, not a permanent claim.

@@ -19,7 +19,10 @@ export default defineConfig({
   integrations: [
     sitemap({
       i18n: { defaultLocale: 'en', locales: { en: 'en', fr: 'fr' } },
-      filter: (page) => page !== 'https://thomasmiller.ch/' && !/\/404\/?$/.test(page),
+      // Not in the sitemap: the root redirect, the 404 pages and the contact
+      // form's success pages (all noindex).
+      filter: (page) =>
+        page !== 'https://thomasmiller.ch/' && !/\/(404|contact\/thanks)\/?$/.test(page),
     }),
   ],
 });
