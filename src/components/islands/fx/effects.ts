@@ -1,12 +1,13 @@
 /**
- * Every effect on the site: the module each slot runs and its settings. This
- * table is the only place they are chosen; to change an effect, edit its entry
- * (what each param does is documented at the top of its module).
+ * Every decided effect on the site: the module each slot runs and its
+ * settings. This table is the only place they are chosen; to change an effect,
+ * edit its entry (what each param does is documented at the top of its module).
+ * Experiments still being compared are not here: they are in `lab/`.
  *
  * `runtime.ts` mounts an entry into every `[data-fx-slot~="<slot>"]` element
  * (the cursor on <body>) and imports its module on demand. A slot name in the
- * markup without an entry here does nothing: `effects.test.ts` keeps the two
- * in step.
+ * markup that is neither an entry here nor an experiment slot does nothing:
+ * `effects.test.ts` keeps them in step.
  */
 import type { FxLoader, FxParams } from './types';
 

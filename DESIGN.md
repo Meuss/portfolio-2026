@@ -632,6 +632,16 @@ canvases draw at a capped DPR; loops pause off-screen and when the tab is
 hidden; reduced motion gets a still or static version; cursor-driven behaviour
 is fine-pointer only.
 
+> **Experiments in progress (not part of the design system yet).** Two homepage
+> slots have options that are still being compared in the dev-only FX panel:
+> `approachBackground` (a background for the approach section) and
+> `servicesList` (other presentations of the services section). Both are off
+> unless a choice is saved from the panel, and their options live in
+> `src/components/islands/fx/lab/`, not in the table above. Until one is
+> chosen, the Service List and Approach descriptions in this document stay the
+> reference; a chosen option is described here when it is moved into the table
+> or into the component.
+
 ## Do's and Don'ts
 
 ### Do:
