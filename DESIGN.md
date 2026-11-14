@@ -166,9 +166,10 @@ status colours that only ever report a state.
 
 - **Kit Orange** (`accent`): The only colour, used for its named jobs: the logo
   ring, the main button, link underlines and link text on hover, focus rings,
-  selection and the input caret, the "live" project hostname line, and at most
-  one emphasised word in a headline (allowed; none ships today). The skip link
-  shares the main button's orange fill with black text.
+  selection and the input caret, the "live" project hostname line, the progress
+  fill of the how-it-works timeline, and at most one emphasised word in a
+  headline (allowed; none ships today). The skip link shares the main button's
+  orange fill with black text.
 - **Lit Orange** (`accent-hover`): The hover state of orange fills.
 - **Black on Orange** (`accent-ink`): Text on orange, including `::selection`
   (~6.5:1). Always black, never white.
@@ -190,17 +191,18 @@ status colours that only ever report a state.
   rule, the wall's pause-control hover.
 - **Muted Grey** (`muted`): Secondary text, intros, captions, and all mono labels:
   the capabilities and FAQ headings, "coming soon", NDA, the social icons at
-  rest (~7.4:1). Also the filter chips' hover border.
+  rest (~7.4:1). Also the filter chips' hover border and the timeline's markers
+  before the fill reaches them.
 - **Faint Grey** (`faint`): Placeholders and disabled text only (~4.8:1 on ground).
-- **Hairline** (`line`): Every border, rule, divider, and the `/` separator in
-  card meta lines.
+- **Hairline** (`line`): Every border, rule, divider, the timeline's track, and
+  the `/` separator in card meta lines.
 
 ### Named Rules
 
 **The Orange Job Rule.** Orange appears only for a job: the logo ring, the main
 button (one per screen, black text), link underlines and link text on hover,
 focus rings and selection, one emphasised word in a headline at most, the "live"
-hostname line. It is never a section background, never under white text, never
+hostname line, the timeline's progress fill. It is never a section background, never under white text, never
 body text, never beside error red as a second accent, and never decoration with
 no job. If you cannot name the job, use a neutral.
 
@@ -266,21 +268,25 @@ its `dd`, a context tag above a card title that it describes).
 A single centered column: `max-w-6xl` (72rem) with 1.5rem gutters opening to
 2.5rem at `md`. Sections carry generous vertical rhythm (5rem rising to 7rem,
 the footer's call to action included) and are separated by a full-width hairline bottom border; the
-only background change is the footer, one flat step up. Interior
-sections pair a heading column with content: ratio grids such as
-`minmax(0,20rem) 1fr` (services, how it works) or two equal columns (approach), with the heading
-column `sticky` at `top: 7rem` on wide screens. The hero is a `1.1fr / 1fr` split
+only background change is the footer, one flat step up. Two interior
+sections pair a heading column with content: a `minmax(0,20rem) 1fr` ratio grid
+(services) and two equal columns (approach), with the heading column `sticky` at
+`top: 7rem` on wide screens. How it works breaks that pattern on purpose: its
+heading and intro run full width above a timeline of the four steps, and the FAQ
+sits below in two columns from `lg`. The hero is a `1.1fr / 1fr` split
 at `lg` (intro left, wall right), stacking below 1024px with the wall becoming a
 full-bleed horizontal strip.
 
 Project lists are equal cards with very open gaps: three columns for the
 homepage selection (2rem columns, 4rem rows), two columns on `/work` (2.5rem
-columns, 5rem rows rising to 6rem). Service, approach, how-it-works, FAQ and
-About lists are hairline-divided rows, never boxes.
+columns, 5rem rows rising to 6rem). Service, approach, FAQ and About lists are
+hairline-divided rows, never boxes; the how-it-works steps hang from one
+hairline track instead.
 The 404 page is a single column filling the viewport under the header,
 vertically centred: the fuzzy code and line, then one primary button.
 Spacing uses the Tailwind 4px scale; no custom spacing tokens. Breakpoints are
-Tailwind defaults (`sm` 640, `md` 768, `lg` 1024).
+Tailwind defaults (`sm` 640, `md` 768, `lg` 1024; `xl` 1280 only for the
+timeline's row of four).
 
 ## Elevation & Depth
 
@@ -456,13 +462,28 @@ from `sm`: each an ink Body name over a muted Small blurb.
 
 ### Approach and How It Works
 
-The homepage's other rows follow the same hairline grammar beside a sticky
-Headline column. Approach is three reasons, each a Title claim over a muted Body
-sentence (max 52ch). How it works is four numbered steps (the number in muted
-mono at Small size in a 2rem gutter, then a Title over a muted Body sentence),
-followed by the FAQ under a caption-mono heading: hairline-divided disclosure
-rows whose question is Lead in ink, orange on hover, with a 1.5px plus that turns
-45° into an × when open; the answer is muted Body.
+Approach follows the service list's hairline grammar beside a sticky Headline
+column: three reasons, each a Title claim over a muted Body sentence (max 52ch).
+
+How it works is a sequence, so it is drawn as a timeline. The Headline and Lead
+intro run full width; under them one 1px `line` track joins the four steps, with
+a 7px round marker per step (muted at rest). From `xl` the steps are four equal
+columns read left to right, the track running the full width above them and each
+marker heading its column; below `xl` the track runs down the left with the
+markers on it and the steps stacked beside it in a 2rem gutter. There is no 2×2
+arrangement: four narrower columns break the French titles over three lines, and
+a grid is not a sequence. Each step is its number in muted mono at Small size, a
+Title, and a muted Body sentence. The `howTimeline` effect fills the track in
+orange as the visitor scrolls through the steps, both ways, and turns each marker
+orange as the fill reaches it; the text never changes colour. Without JS, with
+the effect off, or under reduced motion, the plain track and muted markers stay.
+Track, fill and markers are `aria-hidden`; the `<ol>` carries the order.
+
+The FAQ follows under a caption-mono heading: hairline-divided disclosure rows
+whose question is Lead in ink, orange on hover, with a 1.5px square-capped plus
+that turns 45° into an × when open; the answer is muted Body. One column below
+`lg`; from `lg`, two independent stacks read down the first and then the second,
+so an opened answer only moves the rows of its own column.
 
 ### Signature: The Deck of Work (hero)
 
@@ -525,7 +546,8 @@ stated exception to the interface's no-glow rule.
 Tinting follows two tiers. Small interaction moments are orange: the decode caret
 and glitch, the name's scramble stand-ins, the cursor's glow trail, the button
 comet, the refine scan line, the crosshair,
-scrambled text, the staggered menu's edge, the tilt glare. Shader backgrounds use a
+scrambled text, the staggered menu's edge, the tilt glare, the timeline's scroll
+fill (orange as progress). Shader backgrounds use a
 neutral `LIGHT` uniform (`--color-muted`) with an `ACCENT` uniform
 (`--color-accent`) as a trace, controlled by the `accent` param (labelled Orange in
 the FX panel). The lanyard is a steel (`muted`) clip with orange stitching.
@@ -546,6 +568,7 @@ every matching element gets its own instance):
 | `aboutPortrait`  | /about                          | Static · Lanyard                                                         |
 | `contactLead`    | /contact lead paragraph         | Off · Scrambled text (letters near the cursor flicker to orange `.` `:`) |
 | `notFound`       | 404 pages, each heading line    | Plain · Fuzzy text (rows jitter sideways, swelling on hover)             |
+| `howTimeline`    | Home, how it works              | Scroll fill (the track fills in orange with the scroll) · Off            |
 
 Most effects are palette-tinted re-implementations of [React Bits](https://reactbits.dev)
 components, written as vanilla islands: the site does not use React, and an
@@ -568,7 +591,7 @@ cursor-driven behaviour is fine-pointer only.
 
 - **Do** let real screenshots of shipped sites be the imagery; crop them to
   16:10 (desktop) or 390:844 (phone), top-anchored, inside a hairline frame.
-- **Do** give orange a job: the logo ring, the main button (one per screen, black text), link underlines and link text on hover, focus rings and selection, one emphasised word in a headline at most, the "live" hostname line.
+- **Do** give orange a job: the logo ring, the main button (one per screen, black text), link underlines and link text on hover, focus rings and selection, one emphasised word in a headline at most, the "live" hostname line, the timeline's progress fill.
 - **Do** keep mono labels muted, and report state with `success` and `error`, not orange.
 - **Do** show project context with the ContextBadge (freelance dot or partner wordmark) wherever context appears.
 - **Do** step depth one tone at a time (ground, `surface`, `surface-2`), separate surfaces with the `line` hairline, and divide

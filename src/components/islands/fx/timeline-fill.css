@@ -1,0 +1,18 @@
+/* The fill lies on the component's 1px track and is scaled along it from the
+   track's start; the script writes scaleX (row) or scaleY (stack). */
+.fx-timeline-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  transform: scale(0);
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+/* Markers switch to orange as the line reaches them: progress, not decoration. */
+.fx-timeline .timeline-marker {
+  transition: background-color 0.2s ease-out;
+}
+.fx-timeline .timeline-marker.is-reached {
+  background-color: var(--color-accent);
+}

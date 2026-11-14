@@ -262,6 +262,24 @@ export const fxRegistry = {
       },
     },
   },
+  howTimeline: {
+    label: 'Process timeline',
+    where: 'Home, how it works',
+    variants: {
+      fill: {
+        label: 'Scroll fill',
+        // Start / end are fractions of the viewport height, measured from its top:
+        // the fill begins when the timeline's top crosses `start` and is complete
+        // when its bottom crosses `end`.
+        params: {
+          start: { label: 'Start (viewport)', min: 0.4, max: 1, step: 0.05, default: 0.75 },
+          end: { label: 'End (viewport)', min: 0, max: 0.8, step: 0.05, default: 0.5 },
+          smooth: { label: 'Smoothing', min: 0, max: 1, step: 0.05, default: 0.3 },
+        },
+      },
+      off: { label: 'Off', params: {} },
+    },
+  },
 } satisfies Record<string, SlotSpec>;
 
 export type FxSlot = keyof typeof fxRegistry;

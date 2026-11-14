@@ -49,6 +49,7 @@ const loaders: Record<FxSlot, Record<string, Loader | null>> = {
   aboutPortrait: { static: null, lanyard: () => import('./portrait-lanyard') },
   contactLead: { off: null, scrambled: () => import('./text-scrambled') },
   notFound: { plain: null, fuzzy: () => import('./text-fuzzy') },
+  howTimeline: { fill: () => import('./timeline-fill'), off: null },
 };
 
 export const STORAGE_KEY = 'fx-config';

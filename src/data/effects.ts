@@ -36,4 +36,5 @@ export const effects: FxConfig = {
   aboutPortrait: { variant: 'lanyard', params: { swing: 0.4, length: 4 } },
   contactLead: { variant: 'off', params: {} },
   notFound: { variant: 'fuzzy', params: { intensity: 0.18, hover: 0.5, range: 30 } },
+  howTimeline: { variant: 'fill', params: { start: 0.75, end: 0.5, smooth: 0.3 } },
 };
