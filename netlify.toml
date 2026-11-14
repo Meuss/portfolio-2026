@@ -22,3 +22,10 @@
   from = "/*"
   to = "/en/404/"
   status = 404
+
+# TEMPORARY: keep search engines out while the site only lives at
+# thomasmiller2026.netlify.app. Remove this block when thomasmiller.ch is linked (#6).
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
