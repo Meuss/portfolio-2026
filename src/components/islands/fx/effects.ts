@@ -63,7 +63,6 @@ export const effects = {
       drag: 1,
     },
   },
-  mobileMenu: { load: () => import('./menu-staggered'), params: { speed: 1 } },
   howTimeline: {
     load: () => import('./timeline-fill'),
     params: { start: 0.7, end: 0.5, smooth: 0.3 },

@@ -451,11 +451,17 @@ the ring and peaks, and leave clear space of at least half the symbol's height.
   The logo link does not change colour on hover; nav links (About, Work,
   Contact) in body ink, hover to orange, `aria-current="page"` on the active route; the EN/FR switcher in caption
   mono, muted, hover to orange.
-- **Mobile:** A 2.5rem hairline-bordered toggle with three ink hairlines opens
-  the menu; labelled, Escape closes and returns focus. Opening sweeps in a
-  surface layer and an orange-edged paper layer, then the links rise in at display
-  size, staggered, over a full-height paper overlay, the current link in orange; the
-  hairlines fold into an X.
+- **Mobile (below 768px):** A borderless 44px toggle with two strokes, a long
+  ink one over a short orange one set flush right, opens the menu; labelled
+  ("Open menu" / "Close menu"), Escape closes and returns focus, the page behind
+  is inert and does not scroll. The menu is a full-height paper sheet under the
+  bar: the links at display size between hairlines, the current one in orange,
+  and at the bottom a "Language" row of two large choices (English, Français),
+  the current one filled `surface-2` with an ink border and a check. Opening is
+  one motion: the sheet fades in while its content settles 0.75rem down, and the
+  two strokes turn into an X, all over 280ms on `cubic-bezier(0.22, 1, 0.36, 1)`
+  (200ms on close). Under reduced motion it appears and disappears at once.
+  Without JS the toggle is dropped and the menu shows in the page flow.
 
 ### Footer (closing block)
 
@@ -614,7 +620,6 @@ it is the only place they are set.
 | `heroWall`        | Home hero, from 1024px          | Card swap (the wall of screenshots becomes a 3D deck whose front card drops to the back); not shown below 1024px                                                                                                                                                   | card offset 48px right, 19px up, 157px back; radius 10px; a swap every 2750ms at speed 1.05; parallax 0.6; dim 0.7; autoplay, pause on hover, draggable; no skew, bounce, spread |
 | `cursor`          | Every page                      | Glow trail                                                                                                                                                                                                                                                         | intensity 0.25, trail 0.4, orange 0.1                                                                                                                                            |
 | `primaryButton`   | Hero, footer, contact form, 404 | Star border, lit on hover and keyboard focus only                                                                                                                                                                                                                  | orbit 3s, intensity 0.7                                                                                                                                                          |
-| `mobileMenu`      | Header < 768px                  | Staggered (two sheets sweep in from the right, the links rise in one after another)                                                                                                                                                                                | speed 1                                                                                                                                                                          |
 | `approachHeading` | Home, approach                  | Scroll reveal (words go from dim and blurred to full with the scroll, the line straightens)                                                                                                                                                                        | base opacity 0.1, blur 4px, rotation 3°, scrubbed from 0.9 to 0.7 of the viewport height                                                                                         |
 | `servicesTiles`   | Home, services                  | Magic bento light (a soft ink spotlight in the hovered tile, an orange glow on the rims near the pointer, orange particles drifting up near it, a slight press, and a wave of orange light along the rims on click and once when the tiles first scroll into view) | spotlight 300px (rim glow 225px), glow 0.7, 24 particles per tile; no tilt or magnetism                                                                                          |
 | `approachLight`   | Home, approach                  | Top light lean (the static top light drifts toward the pointer)                                                                                                                                                                                                    | up to 2% of the light's box sideways and 1.5% up or down, eased over 1.6s                                                                                                        |
@@ -626,8 +631,7 @@ it is the only place they are set.
 | `notFound`        | 404 pages, each heading line    | Fuzzy text (rows jitter sideways, swelling on hover)                                                                                                                                                                                                               | resting 0.18, hover 0.5, range 30px                                                                                                                                              |
 
 Tinting follows two tiers. Small interaction moments are orange: the name's
-scramble stand-ins, the cursor's glow trail, the button comet, the staggered
-menu's edge, the tilt glare, the timeline's scroll fill (orange as progress),
+scramble stand-ins, the cursor's glow trail, the button comet, the tilt glare, the timeline's scroll fill (orange as progress),
 the service tiles' rim glow, particles and click wave; their spotlight is
 neutral (an `ink` light at 8% at most). The approach light's lean only moves
 the static top light, neutral with a trace of orange.
@@ -662,6 +666,10 @@ any more. The ones marked \* can be recovered from git history (commit
   of dark pixels swapped the screenshot for the phone capture); _Refine_\* (the
   screenshot "developed" from coarse pixels under an orange scan line, with a
   mono "PASS 2/4" chip).
+- Mobile menu: _Staggered_ (a surface sheet and an orange-edged paper sheet
+  swept in from the right, then the links rose in one by one; it read as
+  separate layers). The menu is now plain markup in `Header.astro` with one fade
+  (see Navigation), not an effect; the module is in git history (`aff717d`).
 - Contact lead paragraph: _Scrambled text_\* (letters near the cursor flickered
   to orange `.` and `:`). The paragraph has no effect and is not a slot.
 

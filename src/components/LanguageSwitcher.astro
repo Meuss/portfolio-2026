@@ -4,28 +4,81 @@ import { switchLocalePath, useTranslations } from '../i18n/utils';
 
 interface Props {
   lang: Lang;
+  /** `compact`: the EN/FR codes in the desktop header. `menu`: a labelled row of two large choices in the mobile menu. */
+  variant?: 'compact' | 'menu';
+  class?: string;
 }
 
-const { lang } = Astro.props;
+const { lang, variant = 'compact', class: className } = Astro.props;
 const t = useTranslations(lang);
 const locales = Object.keys(languages) as Lang[];
 ---
 
-<nav
-  aria-label={t('lang.switcher')}
-  class="flex items-center gap-3 font-mono text-caption uppercase"
->
-  {locales.map((code) => {
-    const isCurrent = code === lang;
-    return (
-      <a
-        href={switchLocalePath(Astro.url, code)}
-        aria-current={isCurrent ? 'true' : undefined}
-        class={isCurrent ? 'text-ink' : 'text-muted hover:text-accent'}
-      >
-        {code}
-        <span class="sr-only"> ({languages[code]})</span>
-      </a>
-    );
-  })}
-</nav>
+{variant === 'menu' ? (
+  <nav aria-labelledby="lang-menu-label" class:list={['flex flex-col gap-3', className]}>
+    <p id="lang-menu-label" class="font-mono text-caption text-muted uppercase">
+      {t('lang.switcher')}
+    </p>
+    <ul class="grid grid-cols-2 gap-3">
+      {locales.map((code) => {
+        const isCurrent = code === lang;
+        return (
+          <li>
+            <a
+              href={switchLocalePath(Astro.url, code)}
+              hreflang={code}
+              lang={code}
+              aria-current={isCurrent ? 'true' : undefined}
+              class:list={[
+                'flex min-h-14 items-center justify-between gap-3 rounded-sm border px-4 text-body',
+                isCurrent
+                  ? 'border-ink bg-surface-2 text-ink hover:text-ink'
+                  : 'border-line text-muted hover:border-muted hover:text-ink',
+              ]}
+            >
+              <span>{languages[code]}</span>
+              {isCurrent ? (
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  height="1em"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="square"
+                >
+                  <path d="M3 8.5l3.25 3.25L13 5" />
+                </svg>
+              ) : (
+                <span aria-hidden="true" class="font-mono text-caption uppercase">
+                  {code}
+                </span>
+              )}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </nav>
+) : (
+  <nav
+    aria-label={t('lang.switcher')}
+    class:list={['flex items-center gap-3 font-mono text-caption uppercase', className]}
+  >
+    {locales.map((code) => {
+      const isCurrent = code === lang;
+      return (
+        <a
+          href={switchLocalePath(Astro.url, code)}
+          hreflang={code}
+          aria-current={isCurrent ? 'true' : undefined}
+          class={isCurrent ? 'text-ink' : 'text-muted hover:text-accent'}
+        >
+          {code}
+          <span class="sr-only"> ({languages[code]})</span>
+        </a>
+      );
+    })}
+  </nav>
+)}
