@@ -13,8 +13,7 @@
  *   `rotation` the block's starting angle in degrees.
  * - The words are plain inline spans around the original text (the whitespace
  *   between them stays as text), so the heading wraps exactly as before, reads
- *   as one string to assistive tech and stays selectable. `destroy()` puts the
- *   original text nodes and `style` attribute back.
+ *   as one string to assistive tech and stays selectable.
  * - Per frame: one layout read (the parent's box, which the rotation doesn't
  *   move), then the writes, only for the words whose value changed. The passive
  *   scroll listener is attached only while the heading is near the viewport;
@@ -25,7 +24,7 @@
  * - Reduced motion: no-op; the plain heading stays.
  */
 import './text-scroll-reveal.css';
-import { prefersReducedMotion, type FxMount, type FxParams } from './types';
+import { prefersReducedMotion, type FxMount } from './types';
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 /** React Bits' scrub constants: each word's share of the scrub, and the gap between words. */
@@ -34,14 +33,14 @@ const GAP = 0.05;
 /** Breakable whitespace only: no-break spaces stay inside their word. */
 const SPACES = /([^\S\u00a0\u202f]+)/;
 
-/** Wrap every word of every text node in an inline span; returns how to undo it. */
+/** Wrap every word of every text node in an inline span; returns the spans. */
 function split(host: HTMLElement) {
   const walker = document.createTreeWalker(host, NodeFilter.SHOW_TEXT);
   const texts: Text[] = [];
   while (walker.nextNode())
     if ((walker.currentNode as Text).data) texts.push(walker.currentNode as Text);
   const words: HTMLSpanElement[] = [];
-  const swaps = texts.map((text) => {
+  for (const text of texts) {
     // Splitting on a capturing group alternates words (even) and spaces (odd).
     const nodes = text.data.split(SPACES).flatMap<ChildNode>((part, i) => {
       if (!part) return [];
@@ -53,23 +52,16 @@ function split(host: HTMLElement) {
       return [word];
     });
     text.replaceWith(...nodes);
-    return { text, nodes };
-  });
-  const restore = () =>
-    swaps.forEach(({ text, nodes }) => {
-      nodes[0]?.before(text);
-      nodes.forEach((n) => n.remove());
-    });
-  return { words, restore };
+  }
+  return words;
 }
 
 export const mount: FxMount = (host, params) => {
   const parent = host.parentElement;
-  if (!parent || !host.textContent?.trim() || prefersReducedMotion()) return { destroy() {} };
+  if (!parent || !host.textContent?.trim() || prefersReducedMotion()) return;
 
-  let p: FxParams = { ...params };
-  const style = host.getAttribute('style');
-  const { words, restore } = split(host);
+  const p = params;
+  const words = split(host);
   /** Last written reveal per word (-1 = not written yet) and the last rotation. */
   const last = words.map(() => -1);
   let lastAngle = NaN;
@@ -78,7 +70,6 @@ export const mount: FxMount = (host, params) => {
   let raf = 0;
   let listening = false;
   let painted = false;
-  let intro = 0;
 
   // Geometry that only changes with the layout: read on resize, not per frame.
   const layout = () => {
@@ -100,7 +91,7 @@ export const mount: FxMount = (host, params) => {
       painted = true;
       if (top < vh && top + height > 0 && progress < 1) {
         host.classList.add('fx-scroll-reveal--intro');
-        intro = window.setTimeout(() => host.classList.remove('fx-scroll-reveal--intro'), 450);
+        setTimeout(() => host.classList.remove('fx-scroll-reveal--intro'), 450);
       }
       host.classList.add('fx-scroll-reveal');
     }
@@ -153,24 +144,4 @@ export const mount: FxMount = (host, params) => {
   layout();
   io.observe(host);
   ro.observe(host);
-
-  return {
-    update(next) {
-      p = { ...next };
-      last.fill(-1);
-      lastAngle = NaN;
-      request();
-    },
-    destroy() {
-      cancelAnimationFrame(raf);
-      clearTimeout(intro);
-      io.disconnect();
-      ro.disconnect();
-      listen(false);
-      restore();
-      host.classList.remove('fx-scroll-reveal', 'fx-scroll-reveal--intro');
-      if (style === null) host.removeAttribute('style');
-      else host.setAttribute('style', style);
-    },
-  };
 };

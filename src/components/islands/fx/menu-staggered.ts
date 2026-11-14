@@ -19,11 +19,11 @@ const PARKED = 'inset(0 0 0 100%)';
 export const mount: FxMount = (header, params) => {
   const toggle = header.querySelector<HTMLButtonElement>('#nav-toggle');
   const panel = header.querySelector<HTMLElement>('#primary-nav');
-  if (!toggle || !panel) return { destroy() {} };
+  if (!toggle || !panel) return;
 
   const mobile = window.matchMedia('(max-width: 767px)');
   const reduce = prefersReducedMotion();
-  let speed = params.speed ?? 1;
+  const speed = params.speed ?? 1;
   const ms = (n: number) => (reduce ? 0 : n / speed);
 
   const layers = [1, 2].map((n) => {
@@ -128,20 +128,4 @@ export const mount: FxMount = (header, params) => {
   const onBreakpoint = () => sync(false);
   mobile.addEventListener('change', onBreakpoint);
   sync(false);
-
-  return {
-    update(next) {
-      speed = next.speed ?? 1;
-    },
-    destroy() {
-      observer.disconnect();
-      mobile.removeEventListener('change', onBreakpoint);
-      stopAll();
-      layers.forEach((l) => l.remove());
-      panel.classList.remove('fx-menu-panel');
-      toggle.classList.remove('fx-menu-toggle', 'is-x');
-      document.documentElement.classList.remove('fx-menu-lock');
-      header.style.removeProperty('--fx-menu-top');
-    },
-  };
 };

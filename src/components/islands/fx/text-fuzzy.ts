@@ -7,13 +7,12 @@
  * The real text stays in the host as visually hidden copy; the canvas is
  * aria-hidden. Uses the host's own font, size, weight and colour. Paused
  * off-screen and in hidden tabs. Reduced motion: one still, clean frame.
- * destroy() restores the plain text.
  */
 import './text-fuzzy.css';
-import { prefersReducedMotion, type FxMount, type FxParams } from './types';
+import { prefersReducedMotion, type FxMount } from './types';
 
 export const mount: FxMount = (host, params) => {
-  let p: FxParams = { ...params };
+  const p = params;
   const still = prefersReducedMotion();
   const original = host.textContent?.trim() ?? '';
   const sr = document.createElement('span');
@@ -23,7 +22,7 @@ export const mount: FxMount = (host, params) => {
   canvas.className = 'fx-fuzzy-canvas';
   canvas.setAttribute('aria-hidden', 'true');
   const ctx = canvas.getContext('2d');
-  if (!ctx) return { destroy() {} };
+  if (!ctx) return;
   host.replaceChildren(sr, canvas);
   host.classList.add('fx-fuzzy');
 
@@ -111,21 +110,4 @@ export const mount: FxMount = (host, params) => {
   canvas.addEventListener('pointerleave', onLeave);
   document.addEventListener('visibilitychange', onVisibility);
   start();
-
-  return {
-    update(next) {
-      const resize = next.range !== p.range;
-      p = { ...next };
-      if (resize) prepare();
-      if (!raf) draw();
-    },
-    destroy() {
-      stop();
-      io.disconnect();
-      ro.disconnect();
-      document.removeEventListener('visibilitychange', onVisibility);
-      host.classList.remove('fx-fuzzy');
-      host.replaceChildren(original);
-    },
-  };
 };

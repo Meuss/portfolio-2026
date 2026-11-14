@@ -22,7 +22,7 @@
 /* While the effect runs, a numeral waits as a hairline outline and fills with
    ink once the line reaches it. The stroke is drawn under a ground-coloured
    fill, so only its outer pixel shows and overlapping contours stay hidden.
-   Without the effect (no JS, `off`, reduced motion) numerals are plain ink. */
+   Without the effect (no JS, reduced motion) numerals are plain ink. */
 .fx-timeline .timeline-marker {
   color: var(--color-paper);
   -webkit-text-stroke: 2px var(--color-faint);

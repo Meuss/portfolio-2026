@@ -8,7 +8,7 @@
  * - Reduced motion: no trail at all (the pointer is left alone).
  */
 import './cursor-glow.css';
-import { prefersReducedMotion, tokenRgb, type FxMount, type FxParams } from './types';
+import { prefersReducedMotion, tokenRgb, type FxMount } from './types';
 
 interface Mote {
   x: number;
@@ -35,11 +35,10 @@ function sprite(rgb: number[]) {
   return c;
 }
 
-export const mount: FxMount = (_host, initial) => {
+export const mount: FxMount = (_host, params) => {
   const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (!fine || prefersReducedMotion()) return { destroy() {} };
+  if (!fine || prefersReducedMotion()) return;
 
-  let params: FxParams = { ...initial };
   const canvas = document.createElement('canvas');
   canvas.className = 'fx-glow-canvas';
   canvas.setAttribute('aria-hidden', 'true');
@@ -139,17 +138,4 @@ export const mount: FxMount = (_host, initial) => {
   window.addEventListener('pointermove', onMove, { passive: true });
   window.addEventListener('resize', resize);
   document.documentElement.addEventListener('pointerleave', onLeave);
-
-  return {
-    update(next) {
-      params = { ...next };
-    },
-    destroy() {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('resize', resize);
-      document.documentElement.removeEventListener('pointerleave', onLeave);
-      canvas.remove();
-    },
-  };
 };

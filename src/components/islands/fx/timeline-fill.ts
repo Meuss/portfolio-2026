@@ -19,15 +19,15 @@
  * - Reduced motion: no-op; the plain track and ink numerals stay.
  */
 import './timeline-fill.css';
-import { prefersReducedMotion, type FxMount, type FxParams } from './types';
+import { prefersReducedMotion, type FxMount } from './types';
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 
 export const mount: FxMount = (host, params) => {
   const track = host.querySelector<HTMLElement>('.timeline-track');
-  if (!track || prefersReducedMotion()) return { destroy() {} };
+  if (!track || prefersReducedMotion()) return;
 
-  let p: FxParams = { ...params };
+  const p = params;
   const markers = [...host.querySelectorAll<HTMLElement>('.timeline-marker')];
   const fill = document.createElement('span');
   fill.className = 'fx-timeline-fill';
@@ -138,21 +138,4 @@ export const mount: FxMount = (host, params) => {
   io.observe(host);
   ro.observe(host);
   ro.observe(document.documentElement);
-
-  return {
-    update(next) {
-      p = { ...next };
-      request();
-    },
-    destroy() {
-      cancelAnimationFrame(raf);
-      io.disconnect();
-      ro.disconnect();
-      listen(false);
-      fill.remove();
-      tailFill.remove();
-      markers.forEach((m) => m.classList.remove('is-reached'));
-      host.classList.remove('fx-timeline');
-    },
-  };
 };

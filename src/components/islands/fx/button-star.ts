@@ -28,15 +28,4 @@ export const mount: FxMount = (host, initial) => {
     host.classList.toggle('fx-star-host--hover', p.hover === 1);
   };
   apply(initial);
-
-  return {
-    update: apply,
-    destroy() {
-      ring.remove();
-      bloom.remove();
-      host.classList.remove('fx-star-host', 'fx-star-host--hover');
-      host.style.removeProperty('--fx-star-orbit');
-      host.style.removeProperty('--fx-star-opacity');
-    },
-  };
 };

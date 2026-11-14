@@ -19,7 +19,7 @@
  * - Reduced motion: the badge hangs straight, no physics, no dragging.
  */
 import './portrait-lanyard.css';
-import { prefersReducedMotion, rgbCss, tokenRgb, type FxMount, type FxParams } from './types';
+import { prefersReducedMotion, rgbCss, tokenRgb, type FxMount } from './types';
 
 const SEGMENTS = 8;
 const STEP = 1 / 120;
@@ -58,7 +58,7 @@ const solve = (a: Pt, wa: number, b: Pt, wb: number, len: number, slack: boolean
 
 export const mount: FxMount = (figure, params) => {
   const img = figure.querySelector('img');
-  if (!img) return { destroy() {} };
+  if (!img) return;
   const reduce = prefersReducedMotion();
   const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
   // Strap colours from the palette: a hairline edge around a surface-tone band.
@@ -93,7 +93,7 @@ export const mount: FxMount = (figure, params) => {
   stage.append(canvas, badge);
   const ctx = canvas.getContext('2d')!;
 
-  let p = { ...params };
+  const p = params;
   let pts: Pt[] = []; // the strap, anchor first; its last point is the clip
   const weight: Pt = { x: 0, y: 0, px: 0, py: 0 }; // the badge's centre of mass
   let width = 0;
@@ -399,25 +399,4 @@ export const mount: FxMount = (figure, params) => {
     // A first gentle swing, so it reads as hanging rather than printed.
     nudge(150);
   }
-
-  return {
-    update(next: FxParams) {
-      const relength = next.length !== p.length;
-      p = { ...next };
-      if (relength) {
-        layout();
-        draw();
-        nudge(120);
-      } else {
-        wake();
-      }
-    },
-    destroy() {
-      cancelAnimationFrame(raf);
-      io.disconnect();
-      ro.disconnect();
-      document.removeEventListener('visibilitychange', onVisibility);
-      stage.replaceWith(img);
-    },
-  };
 };

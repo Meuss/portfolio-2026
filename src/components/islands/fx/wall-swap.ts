@@ -14,18 +14,18 @@
  * Desktop (≥1024px) only; below that the drifting strip is untouched. Autoplay
  * pauses on hover (`pause`), off-screen and in hidden tabs. Reduced motion: a
  * still deck, no autoplay, no parallax. The deck is aria-hidden like the wall
- * it replaces; destroy() restores it.
+ * it replaces.
  */
 import './wall-swap.css';
-import { prefersReducedMotion, type FxMount, type FxParams } from './types';
+import { prefersReducedMotion, type FxMount } from './types';
 
 const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
 const DROP = 'cubic-bezier(0.55, 0, 1, 0.45)';
 
 export const mount: FxMount = (host, params) => {
   const wall = host.querySelector<HTMLElement>('.wall');
-  if (!wall) return { destroy() {} };
-  let p: FxParams = { ...params };
+  if (!wall) return;
+  const p = params;
   const reduce = prefersReducedMotion();
   const desktop = window.matchMedia('(min-width: 1024px)');
   const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -89,7 +89,7 @@ export const mount: FxMount = (host, params) => {
     );
   };
 
-  /** Jump every card in the deck to its slot (first build, panel changes). */
+  /** Jump every card in the deck to its slot (when the deck is built). */
   const placeAll = () => {
     markDepths();
     order.forEach((card, i) => {
@@ -327,23 +327,4 @@ export const mount: FxMount = (host, params) => {
   host.addEventListener('pointermove', onMove, { passive: true });
   desktop.addEventListener('change', onMedia);
   onMedia();
-
-  return {
-    update(next) {
-      const replay = next.delay !== p.delay || next.autoplay !== p.autoplay;
-      p = { ...next };
-      applyLook();
-      placeAll();
-      kickTilt();
-      if (replay) schedule();
-    },
-    destroy() {
-      teardown();
-      io.disconnect();
-      host.removeEventListener('pointerenter', onEnter);
-      host.removeEventListener('pointerleave', onLeave);
-      host.removeEventListener('pointermove', onMove);
-      desktop.removeEventListener('change', onMedia);
-    },
-  };
 };

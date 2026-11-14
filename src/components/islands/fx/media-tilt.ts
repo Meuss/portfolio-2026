@@ -6,13 +6,13 @@
  * Fine pointers only; reduced motion: no-op. Transforms only, rAF-eased.
  */
 import './media-tilt.css';
-import { prefersReducedMotion, type FxMount, type FxParams } from './types';
+import { prefersReducedMotion, type FxMount } from './types';
 
 export const mount: FxMount = (host, params) => {
   const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (!fine || prefersReducedMotion()) return { destroy() {} };
+  if (!fine || prefersReducedMotion()) return;
 
-  let p: FxParams = { ...params };
+  const p = params;
   const card = (host.closest('article') as HTMLElement | null) ?? host;
   const desktop = host.querySelector<HTMLElement>('.frame-desktop');
   const mobile = host.querySelector<HTMLElement>('.frame-mobile');
@@ -61,20 +61,4 @@ export const mount: FxMount = (host, params) => {
   };
   card.addEventListener('pointermove', onMove);
   card.addEventListener('pointerleave', onLeave);
-
-  return {
-    update(next) {
-      p = { ...next };
-      paint();
-    },
-    destroy() {
-      cancelAnimationFrame(raf);
-      card.removeEventListener('pointermove', onMove);
-      card.removeEventListener('pointerleave', onLeave);
-      glare.remove();
-      host.classList.remove('fx-tilt-host');
-      host.style.removeProperty('transform');
-      mobile?.style.removeProperty('transform');
-    },
-  };
 };

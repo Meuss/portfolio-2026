@@ -45,7 +45,7 @@ export function layer(className: string, ch = '') {
   return el;
 }
 
-/** The element's original text, remembered across replays. */
+/** The element's original text, remembered while the board stands in for it. */
 export function originalText(el: HTMLElement) {
   el.dataset.fxText ??= el.textContent?.trim() ?? '';
   return el.dataset.fxText;

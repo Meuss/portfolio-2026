@@ -6,7 +6,7 @@ import { buildBoard, layer, restore } from './name-cells';
 import { prefersReducedMotion, type FxMount } from './types';
 
 export const mount: FxMount = (el, params) => {
-  if (prefersReducedMotion()) return { destroy() {} };
+  if (prefersReducedMotion()) return;
   const speed = params.speed ?? 1;
   const glyphs: HTMLElement[] = [];
   const cells = buildBoard(el, (cell) => {
@@ -19,7 +19,6 @@ export const mount: FxMount = (el, params) => {
     return { start, end: start + (380 + Math.random() * 320) / speed, done: false };
   });
 
-  let raf = 0;
   let lastSwap = 0;
   const t0 = performance.now();
   const tick = (now: number) => {
@@ -40,15 +39,8 @@ export const mount: FxMount = (el, params) => {
         glyphs[i].classList.add('is-live');
       }
     });
-    if (pending) raf = requestAnimationFrame(tick);
+    if (pending) requestAnimationFrame(tick);
     else setTimeout(() => restore(el), 450);
   };
-  raf = requestAnimationFrame(tick);
-
-  return {
-    destroy() {
-      cancelAnimationFrame(raf);
-      restore(el);
-    },
-  };
+  requestAnimationFrame(tick);
 };

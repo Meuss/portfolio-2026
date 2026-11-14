@@ -276,9 +276,8 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Effects (src/components/islands/fx). Decided effects are fixed in
-   islands/fx/fixed.ts; the slots still open are picked with the dev FX panel
-   and saved in src/data/effects.ts.
+   Effects (src/components/islands/fx). Which effect runs where, and with what
+   settings, is listed in islands/fx/effects.ts.
 --------------------------------------------------------------------------- */
 
 /* A decorative layer filling its (positioned) section; collapses while empty. */
@@ -291,7 +290,7 @@
   display: none;
 }
 
-/* Shader backgrounds fade in once their first frame is drawn. */
+/* The hero background canvas fades in once it is in place. */
 .fx-canvas {
   position: absolute;
   inset: 0;

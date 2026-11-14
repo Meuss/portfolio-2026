@@ -1,12 +1,7 @@
 export type FxParams = Record<string, number>;
 
-/** A mounted effect. `update` applies new params live; `destroy` must leave the host as it found it. */
-export interface FxInstance {
-  update?(params: FxParams): void;
-  destroy(): void;
-}
-
-export type FxMount = (host: HTMLElement, params: FxParams) => FxInstance;
+/** Mounts an effect into one host element, for as long as the page lives. */
+export type FxMount = (host: HTMLElement, params: FxParams) => void;
 
 /** An effect module, imported on demand. */
 export type FxLoader = () => Promise<{ mount: FxMount }>;

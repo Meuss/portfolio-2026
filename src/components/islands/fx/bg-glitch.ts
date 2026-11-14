@@ -8,7 +8,7 @@
  * are redrawn. Paused off-screen and when the tab is hidden; one static frame
  * under reduced motion.
  */
-import { prefersReducedMotion, tokenRgb, type FxMount, type FxParams } from './types';
+import { prefersReducedMotion, tokenRgb, type FxMount } from './types';
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&*+-/<=>?@[]';
 // Palette tokens, read at mount so the field follows the brand palette.
@@ -32,12 +32,12 @@ interface Cell {
 
 export const mount: FxMount = (host, params) => {
   [PAPER, MUTED, FLASH, ACCENT] = ['paper', 'muted', 'ink', 'accent'].map(tokenRgb);
-  let p: FxParams = { ...params };
+  const p = params;
   const canvas = document.createElement('canvas');
   canvas.className = 'fx-canvas';
   host.append(canvas);
   const ctx = canvas.getContext('2d', { alpha: false });
-  if (!ctx) return { destroy: () => canvas.remove() };
+  if (!ctx) return;
 
   const still = prefersReducedMotion();
   let cells: Cell[] = [];
@@ -153,19 +153,4 @@ export const mount: FxMount = (host, params) => {
   document.addEventListener('visibilitychange', onVisibility);
   requestAnimationFrame(() => canvas.classList.add('is-lit'));
   start();
-
-  return {
-    update(next) {
-      const rebuild = next.cell !== p.cell || next.intensity !== p.intensity;
-      p = { ...next };
-      if (rebuild) build();
-    },
-    destroy() {
-      stop();
-      io.disconnect();
-      ro.disconnect();
-      document.removeEventListener('visibilitychange', onVisibility);
-      canvas.remove();
-    },
-  };
 };

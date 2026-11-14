@@ -546,54 +546,45 @@ instance (an element can host several: `data-fx-slot="a b"`), and the cursor
 mounts on `<body>`. Each effect is decorative, palette-tinted, and opt-out, and
 is the stated exception to the interface's no-glow rule.
 
-Most slots are decided. A decided slot runs one module with constant params,
-set in `src/components/islands/fx/fixed.ts`, and is not in the FX panel:
+Every slot runs one effect with fixed settings. Which module runs where, and
+with what settings, is listed in one table, `src/components/islands/fx/effects.ts`;
+it is the only place they are set.
 
-| Slot            | Where                           | Effect                                                         | Params                                |
-| --------------- | ------------------------------- | -------------------------------------------------------------- | ------------------------------------- |
-| `heroName`      | Home hero                       | Scramble (letters flicker through orange stand-ins, then lock) | speed 1                               |
-| `cursor`        | Every page                      | Glow trail                                                     | intensity 0.25, trail 0.4, orange 0.1 |
-| `primaryButton` | Hero, footer, contact form, 404 | Star border, lit on hover and keyboard focus only              | orbit 3s, intensity 0.7               |
-| `featuredMedia` | Home selected work              | Tilted card                                                    | max angle 8°, glare 0.5               |
-| `workMedia`     | /work                           | Tilted card                                                    | max angle 8°, glare 0.5               |
-| `aboutPortrait` | /about                          | Lanyard                                                        | swing 0.4, strap 4rem                 |
-| `notFound`      | 404 pages, each heading line    | Fuzzy text (rows jitter sideways, swelling on hover)           | resting 0.18, hover 0.5, range 30px   |
-
-The contact page's lead paragraph is decided too: it has no effect and is no
-longer a slot.
-
-Five slots are still open. Their variants and param ranges are declared in
-`src/data/effects-registry.ts`; the current choice is `src/data/effects.ts`.
-Under `pnpm dev` an FX panel (bottom-left, Alt+F) lists these five, switches
-variants and tunes params live; "Save as default" rewrites `effects.ts`.
-
-| Slot              | Where              | Variants                                                                                          |
-| ----------------- | ------------------ | ------------------------------------------------------------------------------------------------- |
-| `heroBackground`  | Home hero          | Light shafts · ASCII field · Lightfall · Letter glitch · Off                                      |
-| `heroWall`        | Home hero          | Drift (the wall) · Card swap (desktop)                                                            |
-| `mobileMenu`      | Header < 768px     | Default · Staggered                                                                               |
-| `howTimeline`     | Home, how it works | Scroll fill (the track fills in orange with the scroll) · Off                                     |
-| `approachHeading` | Home, approach     | Scroll reveal (words go from dim and blurred to full with the scroll, the line straightens) · Off |
+| Slot              | Where                           | Effect                                                                                                                          | Settings                                                                                                                                                                         |
+| ----------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `heroBackground`  | Home hero                       | Letter glitch (a grid of mono characters in dark tones, a few re-rolling with a brief ink flash)                                | intensity 0.5, speed 0.05, cell 31px, orange 0                                                                                                                                   |
+| `heroName`        | Home hero                       | Scramble (letters flicker through orange stand-ins, then lock)                                                                  | speed 1                                                                                                                                                                          |
+| `heroWall`        | Home hero, from 1024px          | Card swap (the wall of screenshots becomes a 3D deck whose front card drops to the back); below 1024px the drifting strip stays | card offset 48px right, 19px up, 157px back; radius 10px; a swap every 2750ms at speed 1.05; parallax 0.6; dim 0.7; autoplay, pause on hover, draggable; no skew, bounce, spread |
+| `cursor`          | Every page                      | Glow trail                                                                                                                      | intensity 0.25, trail 0.4, orange 0.1                                                                                                                                            |
+| `primaryButton`   | Hero, footer, contact form, 404 | Star border, lit on hover and keyboard focus only                                                                               | orbit 3s, intensity 0.7                                                                                                                                                          |
+| `mobileMenu`      | Header < 768px                  | Staggered (two sheets sweep in from the right, the links rise in one after another)                                             | speed 1                                                                                                                                                                          |
+| `approachHeading` | Home, approach                  | Scroll reveal (words go from dim and blurred to full with the scroll, the line straightens)                                     | base opacity 0.1, blur 4px, rotation 3°, scrubbed from 0.9 to 0.7 of the viewport height                                                                                         |
+| `howTimeline`     | Home, how it works              | Scroll fill (the track fills in orange with the scroll)                                                                         | scrubbed from 0.7 to 0.5 of the viewport height, smoothing 0.3                                                                                                                   |
+| `featuredMedia`   | Home selected work              | Tilted card                                                                                                                     | max angle 8°, glare 0.5                                                                                                                                                          |
+| `workMedia`       | /work                           | Tilted card                                                                                                                     | max angle 8°, glare 0.5                                                                                                                                                          |
+| `aboutPortrait`   | /about                          | Lanyard                                                                                                                         | swing 0.4, strap 4rem                                                                                                                                                            |
+| `notFound`        | 404 pages, each heading line    | Fuzzy text (rows jitter sideways, swelling on hover)                                                                            | resting 0.18, hover 0.5, range 30px                                                                                                                                              |
 
 Tinting follows two tiers. Small interaction moments are orange: the name's
 scramble stand-ins, the cursor's glow trail, the button comet, the staggered
 menu's edge, the tilt glare, the timeline's scroll fill (orange as progress).
-Shader backgrounds use a neutral `LIGHT` uniform (`--color-muted`) with an
-`ACCENT` uniform (`--color-accent`) as a trace, controlled by the `accent` param
-(labelled Orange in the FX panel). The lanyard is a steel (`muted`) clip with
-orange stitching. Text effects on reading copy stay neutral: the approach
-heading's scroll reveal only changes the ink's opacity and blur, and ends with
-every word at full.
+The hero background stays neutral: characters in dark tones between the ground
+and `muted`, with ink flashes; its orange setting (the share of flashes that
+turn orange) is 0. The lanyard is a steel (`muted`) clip with orange stitching.
+Text effects on reading copy stay neutral: the approach heading's scroll reveal
+only changes the ink's opacity and blur, and ends with every word at full.
 
 Most effects are palette-tinted re-implementations of [React Bits](https://reactbits.dev)
 components, written as vanilla islands: the site does not use React, and an
 effect is ported rather than pulled in as a React island.
 
 Tried and dropped (don't re-add without asking). None of these is in the code
-any more; the ones marked \* were removed when their slot was decided and can
-be recovered from git history (they are still in commit `3a7bd7f`):
+any more. The ones marked \* can be recovered from git history (commit
+`3a7bd7f` still has them), the ones marked † from commit `ed92b43`:
 
-- Hero background: _Blinds_, _Fibers_.
+- Hero background: _Blinds_, _Fibers_; _Light shafts_†, _ASCII field_† and
+  _Lightfall_† (three WebGL shader grounds tinted from `muted` with a trace of
+  orange, and the small WebGL helper they shared).
 - Hero name: _Split-flap_; _Decode_\* (an orange caret block ran through the
   name and each letter glitched in behind it).
 - Cursor: _Lamp + grid_ and the hero dot grid it lit; _Lamp_\* (a soft pool of
@@ -604,16 +595,13 @@ be recovered from git history (they are still in commit `3a7bd7f`):
   screenshot "developed" from coarse pixels under an orange scan line, with a
   mono "PASS 2/4" chip).
 - Contact lead paragraph: _Scrambled text_\* (letters near the cursor flickered
-  to orange `.` and `:`).
-
-The shipped settings live in two places only: `fx/fixed.ts` for the decided
-effects and `src/data/effects.ts` for the open slots.
+  to orange `.` and `:`). The paragraph has no effect and is not a slot.
 
 Rules every effect follows: decorative layers are `aria-hidden`; the hero
 name keeps its real text with an `aria-label` and a 2.5s CSS failsafe;
-shaders render below CSS resolution or at capped DPR; loops pause off-screen
-and when the tab is hidden; reduced motion gets a still or static version;
-cursor-driven behaviour is fine-pointer only.
+canvases draw at a capped DPR; loops pause off-screen and when the tab is
+hidden; reduced motion gets a still or static version; cursor-driven behaviour
+is fine-pointer only.
 
 ## Do's and Don'ts
 
@@ -631,8 +619,8 @@ cursor-driven behaviour is fine-pointer only.
 - **Do** draw icons as inline SVG strokes (1.5px, square caps) sized in `em`.
 - **Do** gate every animation behind `prefers-reduced-motion: no-preference`
   with an intentional still alternative, give long-running content motion a
-  pause control, and stop loops and shaders when off-screen or the tab is hidden.
-- **Do** tint every effect from the palette through tokens: orange for small interaction moments; neutral `LIGHT` with `ACCENT` as a trace (the `accent` param) for shader backgrounds.
+  pause control, and stop loops when off-screen or the tab is hidden.
+- **Do** tint every effect from the palette through tokens: orange for small interaction moments; neutral tones, with orange as a trace at most, for the hero background.
 - **Do** keep content in the HTML and visible without JS; effects decorate it
   (`aria-hidden` layers, a CSS failsafe for anything hidden before it animates).
 - **Do** ship every visitor-facing string in both EN and FR (binding product
