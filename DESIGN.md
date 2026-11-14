@@ -108,6 +108,10 @@ components:
     backgroundColor: '{colors.surface}'
     rounded: '{rounded.lg}'
     padding: '2rem'
+  service-tile:
+    backgroundColor: '{colors.surface}'
+    rounded: '{rounded.lg}'
+    padding: '1.5rem'
 ---
 
 # Design System: Thomas Miller — Portfolio 2026
@@ -137,7 +141,8 @@ really sit on top of something.
 
 Density is generous and editorial: a centered 72rem column, wide vertical
 rhythm, sections divided by full-width hairlines, lists divided by hairlines
-instead of boxed into cards. Effects stay alive against that restraint as a
+instead of boxed into cards; the services alone are set as tiles on `surface`
+plates. Effects stay alive against that restraint as a
 stated exception: a field of neutral letters glitching behind the hero, a name
 that scrambles into place through orange stand-ins, screenshots dealt and
 re-shuffled as a deck, a badge that swings on its strap, a 404 that fuzzes under
@@ -153,7 +158,7 @@ grid it replaced.
 - One colour, the kit's orange, with a named list of jobs: never a section background, never under white text, never body text.
 - Neutral labels: mono labels are muted, and status has its own green and red.
 - Three voices from two faces: Schibsted Grotesk heavy (headings) and regular (running text), DM Mono (all data/labels).
-- Depth by tonal step + hairlines; no glows or coloured shadows on the interface; soft shadows only where something physically sits on something else.
+- Depth by tonal step + hairlines; no glows or coloured shadows on the interface (the approach section's static top light is the one lit ground); soft shadows only where something physically sits on something else.
 - Sharp-by-default corners (2/4/8px).
 - Expressive light and motion (a glyph field, type reveals, 3D decks, a pixel card) as an opt-out, palette-tinted exception, chosen per page.
 
@@ -168,8 +173,9 @@ status colours that only ever report a state.
   ring, the main button, link underlines and link text on hover, focus rings,
   selection and the input caret, the "live" project hostname line, the progress
   fill of the how-it-works timeline (the line and its tail only, never the
-  numerals), and at most one emphasised word in a
-  headline (allowed; none ships today). The skip link shares the main button's
+  numerals), at most one emphasised word in a
+  headline (allowed; none ships today), and a faint trace (2.1%) in the wash of
+  the approach section's top light. The skip link shares the main button's
   orange fill with black text.
 - **Lit Orange** (`accent-hover`): The hover state of orange fills.
 - **Black on Orange** (`accent-ink`): Text on orange, including `::selection`
@@ -184,9 +190,11 @@ status colours that only ever report a state.
 ### Neutral
 
 - **Kit Black** (`paper`): Page background, input fill, the phone-capture frame.
-- **Surface** (`surface`): One tonal step up: screenshot frames, the contact form
-  panel, the footer (which carries the closing call to action).
-- **Second Surface** (`surface-2`): Two steps up: the selected filter chip.
+- **Surface** (`surface`): One tonal step up: screenshot frames, the service
+  tiles' plates, the contact form panel, the footer (which carries the closing
+  call to action).
+- **Second Surface** (`surface-2`): Two steps up: the selected filter chip, and
+  the pool of the approach section's top light.
 - **Warm Off-White Ink** (`ink`): Headings and body text (~16.7:1 on ground),
   including the how-it-works step numerals;
   hover border of secondary buttons, the selected chip's border, the hero's short
@@ -195,8 +203,8 @@ status colours that only ever report a state.
   the capabilities and FAQ headings, "coming soon", NDA, the social icons at
   rest (~7.4:1). Also the filter chips' hover border.
 - **Faint Grey** (`faint`): Placeholders and disabled text (~4.8:1 on ground),
-  and the 1px outline of a timeline numeral the scroll fill has not reached yet.
-  Nothing else.
+  the 1px outline of a timeline numeral the scroll fill has not reached yet, and
+  the light and grain of the approach section's top light. Nothing else.
 - **Hairline** (`line`): Every border, rule, divider, the timeline's track and
   its dashed tail, and the `/` separator in card meta lines.
 
@@ -205,7 +213,8 @@ status colours that only ever report a state.
 **The Orange Job Rule.** Orange appears only for a job: the logo ring, the main
 button (one per screen, black text), link underlines and link text on hover,
 focus rings and selection, one emphasised word in a headline at most, the "live"
-hostname line, the timeline's progress fill. It is never a section background, never under white text, never
+hostname line, the timeline's progress fill, a faint trace in the approach's
+top light. It is never a section background, never under white text, never
 body text, never beside error red as a second accent, and never decoration with
 no job. If you cannot name the job, use a neutral.
 
@@ -243,7 +252,7 @@ paragraphs `text-wrap: pretty`.
   normal tracking, tabular figures): The how-it-works ordinals "01"–"04", sized
   between Title and Headline. Local to that component, not a scale token.
 - **Title** (700, `clamp(1.35rem → 1.875rem)`, lh 1.15, -0.025em): Project card
-  titles, service rows, Approach claims (each with a muted Body sentence under
+  titles, service tiles, Approach claims (each with a muted Body sentence under
   it), How-it-works steps, About "ways" rows, the contact and footer
   sub-headings.
 - **Lead** (400, `clamp(1.125rem → 1.375rem)`, lh 1.5): Intros under headings,
@@ -256,7 +265,7 @@ paragraphs `text-wrap: pretty`.
 - **Caption** (500 mono, 0.78rem, lh 1.35, +0.12em, UPPERCASE): The data voice:
   context tags and kind lines, stack lines, hostnames, chips, screenshot captions,
   form labels, availability line, language switcher, the capabilities and FAQ
-  headings.
+  headings, the service tiles' indexes.
 
 ### Named Rules
 
@@ -264,7 +273,8 @@ paragraphs `text-wrap: pretty`.
 Schibsted Grotesk at 400; anything that reads as data (labels, stacks, tags,
 hostnames, buttons) is DM Mono,
 uppercase, tracked. A voice never crosses into another's job. Step ordinals
-("01"–"04") are headings in the display face, not data, so they are not mono.
+("01"–"04") are headings in the display face, not data, so they are not mono;
+the service tiles' indexes ("01"–"05") are small decorative labels, so they are.
 
 **The No-Eyebrow Rule.** Headings stand alone. No mono kicker or label sits
 above a section heading; mono labels only name data next to it (a `dt` beside
@@ -275,10 +285,11 @@ its `dd`, a context tag above a card title that it describes).
 A single centered column: `max-w-6xl` (72rem) with 1.5rem gutters opening to
 2.5rem at `md`. Sections carry generous vertical rhythm (5rem rising to 7rem,
 the footer's call to action included) and are separated by a full-width hairline bottom border; the
-only background change is the footer, one flat step up. One interior section
-pairs a heading column with content: services, on a `minmax(0,20rem) 1fr` ratio
-grid from `lg` with the heading column `sticky` at `top: 7rem`. Approach and How
-it works run their heading full width instead: the approach statement (max
+only background changes are the footer, one flat step up, and the approach
+section's static top light. No homepage section pairs a heading column with
+content (the About page keeps a sticky column, for its portrait): services,
+Approach and How it works run their heading full width, the services heading
+and intro (max 48rem) over the five tiles, the approach statement (max
 56rem) over its three reasons, in three columns from `lg`; the how-it-works
 heading and intro above a timeline of the four steps (a row from `xl`, a
 vertical rail below), with the FAQ under it in two columns from `lg`. The hero is a `1.1fr / 1fr` split
@@ -287,8 +298,10 @@ full-bleed horizontal strip.
 
 Project lists are equal cards with very open gaps: three columns for the
 homepage selection (2rem columns, 4rem rows), two columns on `/work` (2.5rem
-columns, 5rem rows rising to 6rem). Service, FAQ and About lists are
-hairline-divided rows, never boxes; the approach's reasons are such rows below
+columns, 5rem rows rising to 6rem). The services are tiles on `surface` plates,
+0.75rem apart: one column, two tracks from `sm` with the first tile across
+both, three from `lg` with the first tile two wide beside the second. FAQ and
+About lists are hairline-divided rows, never boxes; the approach's reasons are such rows below
 `lg` and columns split by vertical hairline rules from `lg`; the how-it-works
 steps hang from one hairline track instead.
 The 404 page is a single column filling the viewport under the header,
@@ -302,7 +315,8 @@ timeline's row of four).
 Flat by default, tonal by construction. The kit black ground sits under `surface`,
 which sits under `surface-2`, one step at a time, and every container is drawn with
 a 1px `line` hairline rather than a cast shadow. The interface itself has no glows
-and no coloured shadows; the footer is flat `surface`. State is a
+and no coloured shadows; the footer is flat `surface`, and the service tiles are
+flat `surface` plates with a hairline rim. State is a
 border-colour or text-colour shift, plus a 2px lift on the primary button. Shadows
 exist only where one thing physically rests on another: the phone capture over its
 desktop screenshot, each card of the hero deck over the one behind it, the portrait
@@ -326,19 +340,21 @@ tonal step, never by a shadow. A shadow only ever marks a literal physical
 overlap: something resting on, or hanging in front of, something else.
 
 **The Screenshots Carry The Colour Rule.** The interface has no glows and no
-coloured shadows. Colour and richness come from the screenshots; if a surface needs
+coloured shadows. The one lit ground is the approach section's top light: a
+static, neutral pool of light with orange only as a faint trace. Colour and richness come from the screenshots; if a surface needs
 more presence, give the work more room rather than the chrome more light.
 
 **The Effects Exception Rule.** Effects keep expressive light and motion, including
 glow, as a stated exception to the no-glow rule, because they are opt-out,
 palette-tinted moments. The exception covers `src/components/islands/fx/` only;
-static interface elements never inherit it.
+static interface elements never inherit it (the approach's static top light is
+named in the rule above, not covered by this one).
 
 ## Shapes
 
 Sharp by default with small, deliberate softening: **2px** (`sm`) on buttons,
 chips, the nav toggle, and focus rings; **4px** (`md`) on screenshot frames,
-inputs and the About portrait; **8px** (`lg`) on the phone capture and the contact form panel. The hero
+inputs and the About portrait; **8px** (`lg`) on the phone capture, the service tiles and the contact form panel. The hero
 deck's cards take their 10px corner from the `heroWall` effect's `radius` param,
 outside this scale.
 Borders are always the single `line` hairline. Screenshots crop to fixed
@@ -466,10 +482,18 @@ picks one of three variants with the `footer` prop on `BaseLayout`.
   Compact): the logo with tagline, the copyright line in Small, and the EN/FR
   switcher.
 
-### Service List
+### Service Tiles
 
-Five services as hairline-divided rows (no cards): title in Title weight on the
-left, muted blurb on the right from `sm`; rows have no hover colour.
+The Headline and its muted Lead intro run full width on top (max 48rem); under
+them the five services are tiles, 0.75rem apart: one column on phones; from
+`sm`, two tracks with the first tile across both; from `lg`, three tracks with
+the first tile two wide beside the second, then the other three in a row. Each
+tile is an `aria-hidden` plate (`surface`, a 1px `line` inset rim, 8px radius)
+padded 1.5rem (1.75rem from `lg`), with its muted caption-mono index ("01"–"05",
+`aria-hidden`) at the top and the Title over a muted Body blurb (max 42ch) at the
+bottom. No shadow and no hover colour: the tiles respond only with the
+`servicesTiles` light (see Effects). They keep the `<ol>` order and scroll-reveal
+with a short stagger; without JS they are the same tiles, unlit.
 Capabilities follow under a muted caption-mono heading as a list, two columns
 from `sm`: each an ink Body name over a muted Small blurb.
 
@@ -486,6 +510,16 @@ from dim and blurred to sharp while a slight tilt straightens (neutral: ink
 opacity and blur, no orange); every word is at full while the heading is still
 well inside the viewport. The heading itself carries no `data-reveal`. Without
 JS or under reduced motion, it is a plain Headline.
+
+Behind the whole section hangs the top light, static markup and CSS in
+`Approach.astro`: over the section's ground and under its content, clipped to
+the section, `aria-hidden`, with no pointer events. A soft pool of `faint`
+light over `surface-2` (intensity 0.7) falls from just above the top centre,
+over a wash with a trace of orange (2.1% `accent`) under the top edge; a
+vignette and a bottom falloff darken toward `paper` before the bottom hairline,
+and a fine film grain (`faint`, 3.5%) covers it, fading at the top and bottom
+edges. Ink text on it keeps at least 13:1 and muted at least 6:1. The
+`approachLight` effect leans the pool slightly toward the pointer.
 
 How it works is a sequence, so it is drawn as a timeline. The Headline and Lead
 intro run full width; under them one 1px `line` track joins the four steps, and
@@ -573,25 +607,30 @@ Every slot runs one effect with fixed settings. Which module runs where, and
 with what settings, is listed in one table, `src/components/islands/fx/effects.ts`;
 it is the only place they are set.
 
-| Slot              | Where                           | Effect                                                                                                                                                                             | Settings                                                                                                                                                                         |
-| ----------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `heroBackground`  | Home hero                       | Letter glitch (a grid of mono characters in dark tones, a few re-rolling with a brief ink flash)                                                                                   | intensity 0.5, speed 0.05, cell 31px, orange 0                                                                                                                                   |
-| `heroName`        | Home hero                       | Scramble (letters flicker through orange stand-ins, then lock)                                                                                                                     | speed 1                                                                                                                                                                          |
-| `heroWall`        | Home hero, from 1024px          | Card swap (the wall of screenshots becomes a 3D deck whose front card drops to the back); below 1024px the drifting strip stays                                                    | card offset 48px right, 19px up, 157px back; radius 10px; a swap every 2750ms at speed 1.05; parallax 0.6; dim 0.7; autoplay, pause on hover, draggable; no skew, bounce, spread |
-| `cursor`          | Every page                      | Glow trail                                                                                                                                                                         | intensity 0.25, trail 0.4, orange 0.1                                                                                                                                            |
-| `primaryButton`   | Hero, footer, contact form, 404 | Star border, lit on hover and keyboard focus only                                                                                                                                  | orbit 3s, intensity 0.7                                                                                                                                                          |
-| `mobileMenu`      | Header < 768px                  | Staggered (two sheets sweep in from the right, the links rise in one after another)                                                                                                | speed 1                                                                                                                                                                          |
-| `approachHeading` | Home, approach                  | Scroll reveal (words go from dim and blurred to full with the scroll, the line straightens)                                                                                        | base opacity 0.1, blur 4px, rotation 3°, scrubbed from 0.9 to 0.7 of the viewport height                                                                                         |
-| `howTimeline`     | Home, how it works              | Scroll fill (the track and its tail fill in orange with the scroll; numerals wait as outlines until reached)                                                                       | scrubbed from 0.7 to 0.5 of the viewport height, smoothing 0.3                                                                                                                   |
-| `featuredMedia`   | Home selected work              | Tilted card                                                                                                                                                                        | max angle 8°, glare 0.5                                                                                                                                                          |
-| `workMedia`       | /work                           | Tilted card                                                                                                                                                                        | max angle 8°, glare 0.5                                                                                                                                                          |
-| `workTeaser`      | /work, "Your project?" teaser   | Pixel card (when the card scrolls into view, the blank frame fills with small pixels rippling out from the centre; they shimmer while it stays in view and swell near the pointer) | gap 5px, speed 35, orange 0.15, spotlight 0.5                                                                                                                                    |
-| `aboutPortrait`   | /about                          | Lanyard                                                                                                                                                                            | swing 0.4, strap 4rem                                                                                                                                                            |
-| `notFound`        | 404 pages, each heading line    | Fuzzy text (rows jitter sideways, swelling on hover)                                                                                                                               | resting 0.18, hover 0.5, range 30px                                                                                                                                              |
+| Slot              | Where                           | Effect                                                                                                                                                                                                                                                             | Settings                                                                                                                                                                         |
+| ----------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `heroBackground`  | Home hero                       | Letter glitch (a grid of mono characters in dark tones, a few re-rolling with a brief ink flash)                                                                                                                                                                   | intensity 0.5, speed 0.05, cell 31px, orange 0                                                                                                                                   |
+| `heroName`        | Home hero                       | Scramble (letters flicker through orange stand-ins, then lock)                                                                                                                                                                                                     | speed 1                                                                                                                                                                          |
+| `heroWall`        | Home hero, from 1024px          | Card swap (the wall of screenshots becomes a 3D deck whose front card drops to the back); below 1024px the drifting strip stays                                                                                                                                    | card offset 48px right, 19px up, 157px back; radius 10px; a swap every 2750ms at speed 1.05; parallax 0.6; dim 0.7; autoplay, pause on hover, draggable; no skew, bounce, spread |
+| `cursor`          | Every page                      | Glow trail                                                                                                                                                                                                                                                         | intensity 0.25, trail 0.4, orange 0.1                                                                                                                                            |
+| `primaryButton`   | Hero, footer, contact form, 404 | Star border, lit on hover and keyboard focus only                                                                                                                                                                                                                  | orbit 3s, intensity 0.7                                                                                                                                                          |
+| `mobileMenu`      | Header < 768px                  | Staggered (two sheets sweep in from the right, the links rise in one after another)                                                                                                                                                                                | speed 1                                                                                                                                                                          |
+| `approachHeading` | Home, approach                  | Scroll reveal (words go from dim and blurred to full with the scroll, the line straightens)                                                                                                                                                                        | base opacity 0.1, blur 4px, rotation 3°, scrubbed from 0.9 to 0.7 of the viewport height                                                                                         |
+| `servicesTiles`   | Home, services                  | Magic bento light (a soft ink spotlight in the hovered tile, an orange glow on the rims near the pointer, orange particles drifting up near it, a slight press, and a wave of orange light along the rims on click and once when the tiles first scroll into view) | spotlight 300px (rim glow 225px), glow 0.7, 24 particles per tile; no tilt or magnetism                                                                                          |
+| `approachLight`   | Home, approach                  | Top light lean (the static top light drifts toward the pointer)                                                                                                                                                                                                    | up to 2% of the light's box sideways and 1.5% up or down, eased over 1.6s                                                                                                        |
+| `howTimeline`     | Home, how it works              | Scroll fill (the track and its tail fill in orange with the scroll; numerals wait as outlines until reached)                                                                                                                                                       | scrubbed from 0.7 to 0.5 of the viewport height, smoothing 0.3                                                                                                                   |
+| `featuredMedia`   | Home selected work              | Tilted card                                                                                                                                                                                                                                                        | max angle 8°, glare 0.5                                                                                                                                                          |
+| `workMedia`       | /work                           | Tilted card                                                                                                                                                                                                                                                        | max angle 8°, glare 0.5                                                                                                                                                          |
+| `workTeaser`      | /work, "Your project?" teaser   | Pixel card (when the card scrolls into view, the blank frame fills with small pixels rippling out from the centre; they shimmer while it stays in view and swell near the pointer)                                                                                 | gap 5px, speed 35, orange 0.15, spotlight 0.5                                                                                                                                    |
+| `aboutPortrait`   | /about                          | Lanyard                                                                                                                                                                                                                                                            | swing 0.4, strap 4rem                                                                                                                                                            |
+| `notFound`        | 404 pages, each heading line    | Fuzzy text (rows jitter sideways, swelling on hover)                                                                                                                                                                                                               | resting 0.18, hover 0.5, range 30px                                                                                                                                              |
 
 Tinting follows two tiers. Small interaction moments are orange: the name's
 scramble stand-ins, the cursor's glow trail, the button comet, the staggered
-menu's edge, the tilt glare, the timeline's scroll fill (orange as progress).
+menu's edge, the tilt glare, the timeline's scroll fill (orange as progress),
+the service tiles' rim glow, particles and click wave; their spotlight is
+neutral (an `ink` light at 8% at most). The approach light's lean only moves
+the static top light, neutral with a trace of orange.
 The hero background stays neutral: characters in dark tones between the ground
 and `muted`, with ink flashes; its orange setting (the share of flashes that
 turn orange) is 0. The lanyard is a steel (`muted`) clip with orange stitching.
@@ -632,27 +671,17 @@ canvases draw at a capped DPR; loops pause off-screen and when the tab is
 hidden; reduced motion gets a still or static version; cursor-driven behaviour
 is fine-pointer only.
 
-> **Experiments in progress (not part of the design system yet).** Two homepage
-> slots have options that are still being compared in the dev-only FX panel:
-> `approachBackground` (a background for the approach section) and
-> `servicesList` (other presentations of the services section). Both are off
-> unless a choice is saved from the panel, and their options live in
-> `src/components/islands/fx/lab/`, not in the table above. Until one is
-> chosen, the Service List and Approach descriptions in this document stay the
-> reference; a chosen option is described here when it is moved into the table
-> or into the component.
-
 ## Do's and Don'ts
 
 ### Do:
 
 - **Do** let real screenshots of shipped sites be the imagery; crop them to
   16:10 (desktop) or 390:844 (phone), top-anchored, inside a hairline frame.
-- **Do** give orange a job: the logo ring, the main button (one per screen, black text), link underlines and link text on hover, focus rings and selection, one emphasised word in a headline at most, the "live" hostname line, the timeline's progress fill.
+- **Do** give orange a job: the logo ring, the main button (one per screen, black text), link underlines and link text on hover, focus rings and selection, one emphasised word in a headline at most, the "live" hostname line, the timeline's progress fill, a faint trace in the approach's top light.
 - **Do** keep mono labels muted, and report state with `success` and `error`, not orange.
 - **Do** show project context with the ContextBadge (freelance dot or partner wordmark) wherever context appears.
 - **Do** step depth one tone at a time (ground, `surface`, `surface-2`), separate surfaces with the `line` hairline, and divide
-  lists with hairlines instead of boxing them into cards.
+  lists with hairlines instead of boxing them into cards; the services are the one exception, tiles on `surface` plates, still without shadows.
 - **Do** put all data (stacks, tags, hostnames, labels, buttons) in DM
   Mono, uppercase, tracked.
 - **Do** draw icons as inline SVG strokes (1.5px, square caps) sized in `em`.
@@ -668,7 +697,7 @@ is fine-pointer only.
 ### Don't:
 
 - **Don't** use orange as a section background, under white text, as body text, beside error red as a second accent, or as decoration with no job; the footer is a flat `surface` band whose call to action has an orange button.
-- **Don't** add glows or coloured shadows to the interface; only opt-out effects may carry light.
+- **Don't** add glows or coloured shadows to the interface; only opt-out effects, and the approach section's static top light, may carry light.
 - **Don't** add drop shadows for elevation; shadows only mark physical
   layering (the phone capture, the hero deck, the hanging badge).
 - **Don't** use placeholder imagery or stock illustration in place of real work.

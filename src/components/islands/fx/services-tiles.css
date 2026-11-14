@@ -1,0 +1,77 @@
+/* The light layers `services-tiles.ts` adds inside each tile's plate
+   (`.service-plate`, in ServiceBlocks.astro). Radii and strength are set on
+   the host (--fx-tiles-spot, --fx-tiles-ring, --fx-tiles-glow), the pointer
+   and wave positions on each plate. */
+
+/* The spotlight: a soft `ink` light under the pointer, in the hovered tile
+   only, peaking at 8% (the original's dark theme: 7%). */
+.fx-tiles-light {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle var(--fx-tiles-spot, 300px) at var(--fx-tiles-x, -999px) var(--fx-tiles-y, -999px),
+    var(--color-ink) 0%,
+    color-mix(in srgb, var(--color-ink) 97.3%, transparent) 15%,
+    color-mix(in srgb, var(--color-ink) 83.7%, transparent) 30%,
+    color-mix(in srgb, var(--color-ink) 59.3%, transparent) 45%,
+    color-mix(in srgb, var(--color-ink) 31.7%, transparent) 60%,
+    color-mix(in srgb, var(--color-ink) 10.4%, transparent) 75%,
+    color-mix(in srgb, var(--color-ink) 0.9%, transparent) 90%,
+    transparent 100%
+  );
+  opacity: calc(0.08 * var(--fx-tiles-hot, 0));
+}
+
+.fx-tiles-stars {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* The rim glow and the click wave: 1px of the plate's edge, lit in `accent`. */
+.fx-tiles-glow,
+.fx-tiles-wave {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  padding: 1px;
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(var(--color-ink) 0 0) content-box,
+    linear-gradient(var(--color-ink) 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(var(--color-ink) 0 0) content-box exclude,
+    linear-gradient(var(--color-ink) 0 0);
+}
+
+.fx-tiles-glow {
+  background: radial-gradient(
+    circle var(--fx-tiles-ring, 225px) at var(--fx-tiles-x, -999px) var(--fx-tiles-y, -999px),
+    var(--color-accent) 0%,
+    color-mix(in srgb, var(--color-accent) 97.3%, transparent) 15%,
+    color-mix(in srgb, var(--color-accent) 83.7%, transparent) 30%,
+    color-mix(in srgb, var(--color-accent) 59.3%, transparent) 45%,
+    color-mix(in srgb, var(--color-accent) 31.7%, transparent) 60%,
+    color-mix(in srgb, var(--color-accent) 10.4%, transparent) 75%,
+    color-mix(in srgb, var(--color-accent) 0.9%, transparent) 90%,
+    transparent 100%
+  );
+  opacity: calc(var(--fx-tiles-glow, 0.7) * var(--fx-tiles-near, 0));
+}
+
+.fx-tiles-wave {
+  background: radial-gradient(
+    circle at var(--fx-tiles-wx, -999px) var(--fx-tiles-wy, -999px),
+    transparent calc(var(--fx-tiles-wr, 0px) - 110px),
+    color-mix(in srgb, var(--color-accent) 10%, transparent) calc(var(--fx-tiles-wr, 0px) - 80px),
+    color-mix(in srgb, var(--color-accent) 32%, transparent) calc(var(--fx-tiles-wr, 0px) - 52px),
+    color-mix(in srgb, var(--color-accent) 68%, transparent) calc(var(--fx-tiles-wr, 0px) - 28px),
+    color-mix(in srgb, var(--color-accent) 94%, transparent) calc(var(--fx-tiles-wr, 0px) - 10px),
+    var(--color-accent) calc(var(--fx-tiles-wr, 0px) - 3px),
+    transparent var(--fx-tiles-wr, 0px)
+  );
+  opacity: calc(var(--fx-tiles-glow, 0.7) * var(--fx-tiles-wa, 0));
+}

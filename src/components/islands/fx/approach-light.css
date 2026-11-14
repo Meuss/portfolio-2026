@@ -1,0 +1,6 @@
+/* The lean of the approach section's top light (see `approach-light.ts`). */
+@media (prefers-reduced-motion: no-preference) {
+  .approach-light-pool {
+    transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}

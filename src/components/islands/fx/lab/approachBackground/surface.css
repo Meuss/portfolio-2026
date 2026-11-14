@@ -1,4 +1,0 @@
-/* Unlayered, so it wins over the section's `bg-paper` utility. */
-.fx-approach-surface {
-  background-color: var(--color-surface);
-}

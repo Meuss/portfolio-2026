@@ -2,12 +2,11 @@
  * Every decided effect on the site: the module each slot runs and its
  * settings. This table is the only place they are chosen; to change an effect,
  * edit its entry (what each param does is documented at the top of its module).
- * Experiments still being compared are not here: they are in `lab/`.
  *
  * `runtime.ts` mounts an entry into every `[data-fx-slot~="<slot>"]` element
  * (the cursor on <body>) and imports its module on demand. A slot name in the
- * markup that is neither an entry here nor an experiment slot does nothing:
- * `effects.test.ts` keeps them in step.
+ * markup without an entry here does nothing: `effects.test.ts` keeps them in
+ * step.
  */
 import type { FxLoader, FxParams } from './types';
 
@@ -73,6 +72,13 @@ export const effects = {
     load: () => import('./text-scroll-reveal'),
     params: { opacity: 0.1, blur: 4, rotation: 3, start: 0.9, end: 0.7 },
   },
+  // The light in the homepage's service tiles (the tiles themselves are markup).
+  servicesTiles: {
+    load: () => import('./services-tiles'),
+    params: { spotlight: 300, glow: 0.7, particles: 24 },
+  },
+  // The approach section's top light (static markup) leaning toward the pointer.
+  approachLight: { load: () => import('./approach-light'), params: {} },
 } satisfies Record<string, Fx>;
 
 export type FxSlot = keyof typeof effects;

@@ -15,8 +15,19 @@ const points = [1, 2, 3].map((n) => ({
 }));
 ---
 
-{/* `approachBackground` experiment slot: a background for the section (islands/fx/lab/). */}
-<section data-fx-slot="approachBackground" class="border-b border-line bg-paper py-20 md:py-28">
+<section class="relative isolate border-b border-line bg-paper py-20 md:py-28">
+  <!-- Top light: a soft pool of light hanging from the top centre, with a
+       trace of orange under the top edge, a vignette and a film grain. Over
+       the section's ground, under its content (the section is its own
+       stacking context), clipped to the section, no pointer events.
+       `approachLight` effect slot: the pool leans toward the pointer
+       (islands/fx/effects.ts). -->
+  <div data-fx-slot="approachLight" class="approach-light" aria-hidden="true">
+    <div class="approach-light-pool"></div>
+    <div class="approach-light-vignette"></div>
+    <div class="approach-light-grain"></div>
+  </div>
+
   <div class="mx-auto max-w-6xl px-6 md:px-10">
     <!-- The statement runs full width on top; the reasons read across under it. -->
     <!-- `approachHeading` effect slot: the words light up with the scroll (islands/fx/effects.ts). -->
@@ -46,3 +57,68 @@ const points = [1, 2, 3].map((n) => ({
     </ul>
   </div>
 </section>
+
+<style>
+  /* Gradient Studio's "Top light" treatment in the palette, at intensity 0.7,
+     orange 0.3 and grain 0.5. Text on it keeps ink ≥ 13:1, muted ≥ 6:1. */
+  .approach-light {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  /* The pool: `faint` light over `surface-2`, hanging from just above the top
+     centre (the box is 124% of the section, so 5% from its top is just above
+     the section's top edge; oversized so its edges never show when it leans),
+     over a trace of `accent` under the top edge, masked out before the bottom. */
+  .approach-light-pool {
+    position: absolute;
+    inset: -12%;
+    background:
+      radial-gradient(
+        ellipse 52% 58% at 50% 5%,
+        color-mix(in srgb, var(--color-faint) 21%, transparent) 0%,
+        color-mix(in srgb, var(--color-surface-2) 70%, transparent) 32%,
+        transparent 100%
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--color-accent) 2.1%, transparent) 8%,
+        transparent 55%
+      );
+    mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 85%);
+  }
+
+  /* The vignette (clear centre, darker rim) and the bottom falloff, toward the
+     ground. It only ever darkens. */
+  .approach-light-vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at center,
+        transparent 25%,
+        color-mix(in srgb, var(--color-paper) 18%, transparent) 58%,
+        color-mix(in srgb, var(--color-paper) 86%, transparent) 100%
+      ),
+      linear-gradient(to bottom, transparent 45%, var(--color-paper) 100%);
+  }
+
+  /* Film grain: fractal noise used as an alpha mask over a `faint` fill,
+     fading out at the top and bottom edges. */
+  .approach-light-grain {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-faint);
+    opacity: 0.035;
+    mask-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 0 0 -1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
+    mask-size:
+      180px 180px,
+      100% 100%;
+    mask-composite: intersect;
+  }
+</style>
