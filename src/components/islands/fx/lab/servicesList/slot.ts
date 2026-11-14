@@ -30,7 +30,15 @@ export default {
     flowing: { load: () => import('./flowing'), params: { speed: 60, duration: 0.5, magnet: 0 } },
     bento: {
       load: () => import('./bento'),
-      params: { spotlight: 300, glow: 0.7, particles: 12, tilt: 1, magnetism: 1, ripple: 1 },
+      params: {
+        spotlight: 300,
+        glow: 0.7,
+        particles: 12,
+        tilt: 1,
+        magnetism: 1,
+        ripple: 1,
+        layout: 3,
+      },
     },
   },
   panel: import.meta.env.DEV && {
@@ -54,6 +62,7 @@ export default {
           tilt: { label: 'Tilt (0/1)', min: 0, max: 1, step: 1 },
           magnetism: { label: 'Magnetism (0/1)', min: 0, max: 1, step: 1 },
           ripple: { label: 'Click ripple (0/1)', min: 0, max: 1, step: 1 },
+          layout: { label: 'Layout', min: 1, max: 3, step: 1 },
         },
       },
     },

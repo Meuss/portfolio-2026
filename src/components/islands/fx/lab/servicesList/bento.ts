@@ -10,7 +10,8 @@
  * of regular tiles; from 640px, two tracks with the first tile across both;
  * below, a single stack. Each tile is a `surface` plate with a 1px `line`
  * rim and the 8px radius, a muted mono index ("01"–"05") at the top, and its
- * title and blurb at the bottom. The "also" list stays under the tiles.
+ * title and blurb at the bottom. In layouts 1 and 2 the "also" list stays
+ * under the tiles; in layout 3 it is the sixth tile.
  *
  * Light and motion, as in the original engine: a spotlight (a soft `ink`
  * light) inside the tile under the pointer; a 1px rim glow in `accent` that
@@ -39,6 +40,15 @@
  *   off by default, with 24 when on).
  * - `tilt`, `magnetism`, `ripple`: 1 on, 0 off (`ripple`: the click wave and
  *   the press).
+ * - `layout`: the arrangement of the tiles, 1–3 (see `bento.css`):
+ *   1, the bento above (a 2×2 first tile, a tall second one, a row of three);
+ *   2, the same without its extra row (first tile two tracks wide and one row
+ *   tall beside the second, then the other three);
+ *   3, six even tiles on three tracks: the five services and, as the sixth,
+ *   the "also" part with its capabilities, which then has a plate of its own.
+ *   In 3 the list's wrapper is what lays the tiles out, with the `<ol>` passing
+ *   its rows through to it; the markup and its order stay as they are.
+ *   Changing it re-mounts the variant, so nothing of the previous one stays.
  */
 import './bento.css';
 import { prefersReducedMotion, tokenRgb, type FxLabMount, type FxParams } from '../../types';
@@ -67,7 +77,8 @@ interface Card {
   item: HTMLElement;
   face: HTMLElement;
   stars: HTMLCanvasElement;
-  index: HTMLElement;
+  /** The mono "01"–"05" added to a service; the "also" tile uses its own heading. */
+  index: HTMLElement | null;
   title: HTMLElement | null;
   blurb: HTMLElement | null;
   hadStyle: boolean;
@@ -96,10 +107,35 @@ const make = (tag: string, className: string) => {
   return node;
 };
 
+/** Every variant's param values, so a change of `layout` can re-mount with them. */
+const layoutOf = (params: FxParams) => clamp(Math.round(params.layout ?? 3), 1, 3);
+
 export const mount: FxLabMount = (host, params) => {
+  let current = { ...params };
+  let instance = mountLayout(host, current);
+  return {
+    update(next) {
+      const relayout = layoutOf(next) !== layoutOf(current);
+      current = { ...next };
+      if (relayout) {
+        instance.destroy();
+        instance = mountLayout(host, current);
+      } else instance.update?.(current);
+    },
+    destroy() {
+      instance.destroy();
+    },
+  };
+};
+
+const mountLayout: FxLabMount = (host, params) => {
   const list = host.querySelector<HTMLElement>('ol');
   const items = list ? [...list.querySelectorAll<HTMLElement>(':scope > li.service')] : [];
-  if (!list || !items.length) return { destroy() {} };
+  // The wrapper of the list and the "also" block: the observed area in every layout.
+  const area = list?.parentElement;
+  if (!list || !area || !items.length) return { destroy() {} };
+  const layout = layoutOf(params);
+  const layoutClass = `${ROOT}--l${layout}`;
 
   const settings = { spotlight: 300, glow: 0.7, particles: 12, tilt: 1, magnetism: 1, ripple: 1 };
   const apply = (next: FxParams) => {
@@ -111,8 +147,7 @@ export const mount: FxLabMount = (host, params) => {
   };
   apply(params);
 
-  // One class toggle lays the section out as tiles; the plates go in with it.
-  const cards: Card[] = items.map((item, i) => {
+  const plate = () => {
     const face = make('div', 'fx-bento-face');
     face.setAttribute('aria-hidden', 'true');
     const stars = make('canvas', 'fx-bento-stars') as HTMLCanvasElement;
@@ -122,17 +157,23 @@ export const mount: FxLabMount = (host, params) => {
       make('span', 'fx-bento-glow'),
       make('span', 'fx-bento-wave'),
     );
-    const index = make('span', 'fx-bento-index');
-    index.setAttribute('aria-hidden', 'true');
-    index.textContent = String(i + 1).padStart(2, '0');
-    item.prepend(face, index);
+    return { face, stars };
+  };
+  const card = (
+    item: HTMLElement,
+    index: HTMLElement | null,
+    title: HTMLElement | null,
+    blurb: HTMLElement | null,
+  ): Card => {
+    const { face, stars } = plate();
+    item.prepend(...(index ? [face, index] : [face]));
     return {
       item,
       face,
       stars,
       index,
-      title: item.querySelector<HTMLElement>(':scope > h3'),
-      blurb: item.querySelector<HTMLElement>(':scope > p'),
+      title,
+      blurb,
       hadStyle: item.hasAttribute('style'),
       rect: null,
       hot: 0,
@@ -152,17 +193,41 @@ export const mount: FxLabMount = (host, params) => {
       active: false,
       written: {},
     };
+  };
+
+  // One class toggle lays the section out as tiles; the plates go in with it.
+  const cards: Card[] = items.map((item, i) => {
+    const index = make('span', 'fx-bento-index');
+    index.setAttribute('aria-hidden', 'true');
+    index.textContent = String(i + 1).padStart(2, '0');
+    return card(
+      item,
+      index,
+      item.querySelector<HTMLElement>(':scope > h3'),
+      item.querySelector<HTMLElement>(':scope > p'),
+    );
   });
-  host.classList.add(ROOT);
+  const also = layout === 3 ? area.querySelector<HTMLElement>(':scope > ol + div') : null;
+  if (also) {
+    cards.push(
+      card(
+        also,
+        null,
+        also.querySelector<HTMLElement>(':scope > h3'),
+        also.querySelector<HTMLElement>(':scope > ul'),
+      ),
+    );
+  }
+  host.classList.add(ROOT, layoutClass);
 
   const removeNodes = () => {
     for (const card of cards) {
       for (const name of ROW_VARS) card.item.style.removeProperty(name);
       if (!card.hadStyle && !card.item.getAttribute('style')) card.item.removeAttribute('style');
       card.face.remove();
-      card.index.remove();
+      card.index?.remove();
     }
-    host.classList.remove(ROOT);
+    host.classList.remove(ROOT, layoutClass);
   };
 
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -203,7 +268,19 @@ export const mount: FxLabMount = (host, params) => {
 
   const measure = () => {
     dirty = false;
-    bounds = list.getBoundingClientRect();
+    // The tiles' extent (in layout 3 the list has no box of its own).
+    let left = Infinity;
+    let top = Infinity;
+    let right = -Infinity;
+    let bottom = -Infinity;
+    for (const card of cards) {
+      const rect = card.item.getBoundingClientRect();
+      left = Math.min(left, rect.left);
+      top = Math.min(top, rect.top);
+      right = Math.max(right, rect.right);
+      bottom = Math.max(bottom, rect.bottom);
+    }
+    bounds = new DOMRect(left, top, right - left, bottom - top);
     const ratio = Math.min(window.devicePixelRatio || 1, 2);
     for (const card of cards) {
       const rect = card.item.getBoundingClientRect();
@@ -437,9 +514,8 @@ export const mount: FxLabMount = (host, params) => {
   };
 
   const cardIndex = (target: EventTarget | null) => {
-    if (!(target instanceof Element)) return -1;
-    const item = target.closest('li.service');
-    return cards.findIndex((card) => card.item === item);
+    if (!(target instanceof Node)) return -1;
+    return cards.findIndex((card) => card.item.contains(target));
   };
 
   const onPointerMove = (event: PointerEvent) => {
@@ -483,9 +559,9 @@ export const mount: FxLabMount = (host, params) => {
     dirty = true;
     wake();
   });
-  resize.observe(list);
+  resize.observe(area);
 
-  // Runs the loop only while the grid is on screen; the first time it shows,
+  // Runs the loop only while the tiles are on screen; the first time they show,
   // the intro wave sweeps the rims from the top left, as in the original.
   const visibility = new IntersectionObserver(
     (entries) => {
@@ -509,7 +585,7 @@ export const mount: FxLabMount = (host, params) => {
     },
     { threshold: [0, 0.15] },
   );
-  visibility.observe(list);
+  visibility.observe(area);
 
   window.addEventListener('pointermove', onPointerMove, { passive: true });
   window.addEventListener('pointerdown', onPointerDown, { passive: true });
@@ -518,7 +594,7 @@ export const mount: FxLabMount = (host, params) => {
   window.addEventListener('scroll', onScroll, { passive: true, capture: true });
   window.addEventListener('resize', onScroll, { passive: true });
   document.addEventListener('pointerout', onPointerOut);
-  list.addEventListener('click', onClick);
+  area.addEventListener('click', onClick);
 
   return {
     update(next) {
@@ -541,7 +617,7 @@ export const mount: FxLabMount = (host, params) => {
       window.removeEventListener('scroll', onScroll, { capture: true });
       window.removeEventListener('resize', onScroll);
       document.removeEventListener('pointerout', onPointerOut);
-      list.removeEventListener('click', onClick);
+      area.removeEventListener('click', onClick);
       removeNodes();
     },
   };
