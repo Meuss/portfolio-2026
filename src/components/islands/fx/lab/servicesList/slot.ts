@@ -26,10 +26,36 @@ import type { FxLabSlot } from '../spec';
 
 export default {
   default: 'off',
-  variants: {},
+  variants: {
+    flowing: { load: () => import('./flowing'), params: { speed: 60, duration: 0.5, magnet: 0 } },
+    bento: {
+      load: () => import('./bento'),
+      params: { spotlight: 300, glow: 0.7, particles: 12, tilt: 1, magnetism: 1, ripple: 1 },
+    },
+  },
   panel: import.meta.env.DEV && {
     label: 'Services',
     where: 'Home, services',
-    variants: {},
+    variants: {
+      flowing: {
+        label: 'Flowing menu',
+        params: {
+          speed: { label: 'Marquee speed (px/s)', min: 0, max: 200, step: 5 },
+          duration: { label: 'Slide duration (s)', min: 0.2, max: 1.5, step: 0.05 },
+          magnet: { label: 'Lean to pointer', min: 0, max: 0.5, step: 0.05 },
+        },
+      },
+      bento: {
+        label: 'Magic bento',
+        params: {
+          spotlight: { label: 'Spotlight radius (px)', min: 100, max: 600, step: 10 },
+          glow: { label: 'Glow strength', min: 0, max: 1, step: 0.05 },
+          particles: { label: 'Particles per tile', min: 0, max: 48, step: 1 },
+          tilt: { label: 'Tilt (0/1)', min: 0, max: 1, step: 1 },
+          magnetism: { label: 'Magnetism (0/1)', min: 0, max: 1, step: 1 },
+          ripple: { label: 'Click ripple (0/1)', min: 0, max: 1, step: 1 },
+        },
+      },
+    },
   },
 } satisfies FxLabSlot;
