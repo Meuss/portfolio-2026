@@ -4,6 +4,8 @@
  * Adds `.is-visible` to every `[data-reveal]` element as it scrolls into view,
  * then stops observing it (a one-shot reveal — never re-hides on scroll up).
  *
+ * Elements already within the viewport on load are revealed immediately.
+ *
  * Accessibility / resilience contract:
  * - `prefers-reduced-motion: reduce` OR no `IntersectionObserver` support →
  *   every element is revealed immediately, so content is never gated on motion.
@@ -31,4 +33,15 @@ if (reduce || !('IntersectionObserver' in window)) {
   );
 
   els.forEach((el) => io.observe(el));
+
+  // The threshold is a share of the element, so a tall block that starts inside the
+  // first screen (a long text column) can stay hidden until the visitor scrolls.
+  // Anything already touching the viewport on load is revealed straight away.
+  els.forEach((el) => {
+    const { top, bottom } = el.getBoundingClientRect();
+    if (top < window.innerHeight && bottom > 0) {
+      el.classList.add('is-visible');
+      io.unobserve(el);
+    }
+  });
 }

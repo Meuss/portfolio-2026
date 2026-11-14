@@ -29,12 +29,16 @@ const ways = (['marvelous', 'macmac', 'independent'] as const).map((context, i) 
       </h1>
 
       <div class="mt-12 grid gap-10 md:mt-16 md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] md:gap-16 lg:gap-20">
-        <figure data-reveal class="md:sticky md:top-28 md:self-start" data-fx-slot="aboutPortrait">
+        <figure
+          data-reveal
+          class="mx-auto w-[68%] max-w-72 pt-16 pb-10 md:sticky md:top-28 md:mx-0 md:w-auto md:max-w-none md:self-start md:px-0 md:pt-12 md:pb-0 lg:pt-0"
+          data-fx-slot="aboutPortrait"
+        >
           <Image
             src={portrait}
             alt={t('aboutPage.portraitAlt')}
             widths={[400, 640, 960]}
-            sizes="(min-width: 768px) 20rem, 92vw"
+            sizes="(min-width: 768px) 20rem, (min-width: 424px) 18rem, 68vw"
             loading="eager"
             class="aspect-[4/5] h-auto w-full rounded-md border border-line object-cover object-[50%_30%]"
           />

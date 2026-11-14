@@ -9,6 +9,8 @@
  * Contract:
  * - The real `<img>` (and its alt) stays in the figure, only wrapped; the plate,
  *   clip and caption are decorative and `aria-hidden`.
+ * - The strap never rises above its anchor (clamped and clipped), so it can't be
+ *   dragged over the content above; the page leaves room for it above the figure.
  * - Nothing reflows: the plate grows outward absolutely, the strap is drawn into
  *   the space above, and the badge only moves by transform (the figure stays sticky).
  * - Touch: dragging starts only on the badge, and vertical swipes there still
@@ -235,6 +237,9 @@ export const mount: FxMount = (figure, params) => {
       }
       solve(c, W_CLIP, weight, W_BADGE, rod, false);
       if (dragging) pull();
+      // The strap hangs from its anchor and never rises above it, so it can't be pulled
+      // up over whatever sits above the badge.
+      for (let i = 1; i < pts.length; i++) if (pts[i].y < anchor.y) pts[i].y = anchor.y;
       // The strap never gives more than its length, however heavy the badge.
       const dx = c.x - anchor.x;
       const dy = c.y - anchor.y;
@@ -260,6 +265,10 @@ export const mount: FxMount = (figure, params) => {
     ctx.clearRect(0, 0, box.size, box.size);
     ctx.save();
     ctx.translate(-box.left, -box.top);
+    // Nothing is drawn above the anchor (bar its round cap), whatever the physics did.
+    ctx.beginPath();
+    ctx.rect(box.left, anchor.y - 0.4 * rem, box.size, box.size);
+    ctx.clip();
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     const path = () => {
