@@ -7,8 +7,8 @@ export const headlineServices: Service[] = [
     id: 'websites',
     title: { en: 'Showcase websites', fr: 'Sites vitrines' },
     blurb: {
-      en: 'A carefully made site that presents your business, on computer and phone.',
-      fr: 'Un site soigné qui présente votre activité, sur ordinateur et sur mobile.',
+      en: 'A carefully made site that presents your business, on computer and phone. Fast, easy to find on Google, and simple to update yourself.',
+      fr: 'Un site soigné qui présente votre activité, sur ordinateur et sur mobile. Rapide, facile à trouver sur Google, et simple à mettre à jour vous-même.',
     },
   },
   {
