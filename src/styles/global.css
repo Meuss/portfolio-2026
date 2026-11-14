@@ -276,8 +276,9 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Effects (src/components/islands/fx). Pick variants with the dev FX panel;
-   the shipped choice lives in src/data/effects.ts.
+   Effects (src/components/islands/fx). Decided effects are fixed in
+   islands/fx/fixed.ts; the slots still open are picked with the dev FX panel
+   and saved in src/data/effects.ts.
 --------------------------------------------------------------------------- */
 
 /* A decorative layer filling its (positioned) section; collapses while empty. */
@@ -303,38 +304,9 @@
   opacity: 1;
 }
 
-/* Cursor lamp: a soft pool of orange light trailing a fine pointer. Screen-blended
-   so it only ever lightens; invisible on touch and until the pointer moves. */
-.fx-lamp {
-  --lamp-size: 44rem;
-  --lamp-strength: 1;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 60;
-  width: var(--lamp-size);
-  height: var(--lamp-size);
-  margin: calc(var(--lamp-size) / -2) 0 0 calc(var(--lamp-size) / -2);
-  border-radius: 50%;
-  background: radial-gradient(
-    closest-side,
-    color-mix(in srgb, var(--color-accent) calc(7.5% * var(--lamp-strength)), transparent),
-    color-mix(in srgb, var(--color-accent) calc(3% * var(--lamp-strength)), transparent) 45%,
-    transparent
-  );
-  mix-blend-mode: screen;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
-}
-.fx-lamp.is-on {
-  opacity: 1;
-}
-
-/* Name entrances: text split into cells sized by their final glyph (a hidden
-   ghost), with variant layers stacked on top. Cells can't kern across each
-   other, so the slot drops kerning for good: no shift when plain text returns. */
+/* Name entrance: text split into cells sized by their final glyph (a hidden
+   ghost), with the scramble's glyph layer stacked on top. Cells can't kern across
+   each other, so the slot drops kerning for good: no shift when plain text returns. */
 [data-fx-slot~='heroName'] {
   font-kerning: none;
   font-variant-ligatures: none;
@@ -350,15 +322,12 @@
 .fx-ghost {
   visibility: hidden;
 }
-.fx-glyph,
-.fx-block {
-  position: absolute;
-  inset: 0;
-  text-align: center;
-}
 
 /* Scramble: orange stand-ins flicker, then lock into ink. */
 .fx-glyph {
+  position: absolute;
+  inset: 0;
+  text-align: center;
   clip-path: inset(-0.3em -0.03em);
 }
 .fx-glyph--pending {
@@ -376,16 +345,6 @@
     color: var(--color-accent);
     text-shadow: 0 0 0.35em color-mix(in srgb, var(--color-accent) 55%, transparent);
   }
-}
-
-/* Decode: an orange caret block wipes each cell before the glyph glitches in. */
-.fx-glyph--hidden {
-  visibility: hidden;
-}
-.fx-block {
-  inset: 0.06em 0.02em;
-  background: var(--color-accent);
-  transform: scaleX(0);
 }
 
 /* ---------------------------------------------------------------------------

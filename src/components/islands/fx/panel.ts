@@ -1,5 +1,7 @@
 /**
  * FX panel: dev-only (`pnpm dev`) controls for picking effect variants live.
+ * It lists the tunable slots of `effects-registry.ts`; decided effects
+ * (`fixed.ts`) are not in it.
  *
  * - Chips switch a slot's variant (re-mounts it); sliders tune its params live.
  * - Choices persist in localStorage and in the `?fx=` URL param, so a combination
@@ -21,15 +23,7 @@ import {
   type FxSlot,
   type SlotSpec,
 } from '../../../data/effects-registry';
-import {
-  applyConfig,
-  encodeConfig,
-  getConfig,
-  hostsFor,
-  replay,
-  STORAGE_KEY,
-  URL_PARAM,
-} from './runtime';
+import { applyConfig, encodeConfig, getConfig, hostsFor, STORAGE_KEY, URL_PARAM } from './runtime';
 
 import { el, PANEL_CSS } from './panel-ui';
 
@@ -111,16 +105,6 @@ function build() {
     const head = el('div', { className: 'fxp-head' }, spec.label);
     // Slots on other pages stay pickable (the choice persists) but show where they live.
     if (!here) head.append(el('span', { className: 'fxp-where', textContent: spec.where }));
-    if (spec.replayable && here) {
-      head.append(
-        el('button', {
-          type: 'button',
-          className: 'fxp-link',
-          textContent: 'Replay',
-          onclick: () => replay(slot),
-        }),
-      );
-    }
     const chips = el('div', { className: 'fxp-chips' });
     for (const [id, v] of Object.entries(spec.variants)) {
       const chip = el('button', {

@@ -1,6 +1,7 @@
-// The effects the site ships with. Pick variants live with the dev-only FX
+// The effect slots still being tuned. Pick variants live with the dev-only FX
 // panel (`pnpm dev`, bottom-left) and press "Save as default": it rewrites
 // this file. Slots, variants and param ranges live in `effects-registry.ts`.
+// Decided effects are not here: see `src/components/islands/fx/fixed.ts`.
 import type { FxConfig } from './effects-registry';
 
 export const effects: FxConfig = {
@@ -27,14 +28,6 @@ export const effects: FxConfig = {
       drag: 1,
     },
   },
-  heroName: { variant: 'scramble', params: { speed: 1 } },
-  cursor: { variant: 'glow', params: { intensity: 0.25, trail: 0.4, accent: 0.1 } },
-  primaryButton: { variant: 'star', params: { orbit: 3, intensity: 0.7, hover: 1 } },
-  featuredMedia: { variant: 'tilt', params: { angle: 8, glare: 0.5 } },
-  workMedia: { variant: 'tilt', params: { angle: 8, glare: 0.5 } },
   mobileMenu: { variant: 'staggered', params: { speed: 1 } },
-  aboutPortrait: { variant: 'lanyard', params: { swing: 0.4, length: 4 } },
-  contactLead: { variant: 'off', params: {} },
-  notFound: { variant: 'fuzzy', params: { intensity: 0.18, hover: 0.5, range: 30 } },
   howTimeline: { variant: 'fill', params: { start: 0.75, end: 0.5, smooth: 0.3 } },
 };

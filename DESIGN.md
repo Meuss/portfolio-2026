@@ -535,51 +535,73 @@ light line home ("Get me out of here" / "Sortez-moi d’ici"). No body copy.
 
 ### Effects: Light & Motion
 
-Effects are slots with interchangeable variants, each a small dependency-free
-TS module in `src/components/islands/fx/`. Slots, variants and param ranges are
-declared in `src/data/effects-registry.ts`; the shipped choice is
-`src/data/effects.ts`. Under `pnpm dev` an FX panel (bottom-left, Alt+F)
-switches variants and tunes params live; "Save as default" rewrites
-`effects.ts`. Each variant is decorative, palette-tinted, and opt-out, and is the
-stated exception to the interface's no-glow rule.
+Effects are small dependency-free TS modules in `src/components/islands/fx/`,
+mounted into slots: every `[data-fx-slot~="<slot>"]` element gets its own
+instance (an element can host several: `data-fx-slot="a b"`), and the cursor
+mounts on `<body>`. Each effect is decorative, palette-tinted, and opt-out, and
+is the stated exception to the interface's no-glow rule.
 
-Tinting follows two tiers. Small interaction moments are orange: the decode caret
-and glitch, the name's scramble stand-ins, the cursor's glow trail, the button
-comet, the refine scan line, the crosshair,
-scrambled text, the staggered menu's edge, the tilt glare, the timeline's scroll
-fill (orange as progress). Shader backgrounds use a
-neutral `LIGHT` uniform (`--color-muted`) with an `ACCENT` uniform
-(`--color-accent`) as a trace, controlled by the `accent` param (labelled Orange in
-the FX panel). The lanyard is a steel (`muted`) clip with orange stitching.
+Most slots are decided. A decided slot runs one module with constant params,
+set in `src/components/islands/fx/fixed.ts`, and is not in the FX panel:
 
-Slots (an element can host several: `data-fx-slot="a b"`;
-every matching element gets its own instance):
+| Slot            | Where                           | Effect                                                         | Params                                |
+| --------------- | ------------------------------- | -------------------------------------------------------------- | ------------------------------------- |
+| `heroName`      | Home hero                       | Scramble (letters flicker through orange stand-ins, then lock) | speed 1                               |
+| `cursor`        | Every page                      | Glow trail                                                     | intensity 0.25, trail 0.4, orange 0.1 |
+| `primaryButton` | Hero, footer, contact form, 404 | Star border, lit on hover and keyboard focus only              | orbit 3s, intensity 0.7               |
+| `featuredMedia` | Home selected work              | Tilted card                                                    | max angle 8°, glare 0.5               |
+| `workMedia`     | /work                           | Tilted card                                                    | max angle 8°, glare 0.5               |
+| `aboutPortrait` | /about                          | Lanyard                                                        | swing 0.4, strap 4rem                 |
+| `notFound`      | 404 pages, each heading line    | Fuzzy text (rows jitter sideways, swelling on hover)           | resting 0.18, hover 0.5, range 30px   |
 
-| Slot             | Where                           | Variants                                                                 |
-| ---------------- | ------------------------------- | ------------------------------------------------------------------------ |
-| `heroBackground` | Home hero                       | Light shafts · ASCII field · Lightfall · Letter glitch · Off             |
-| `heroWall`       | Home hero                       | Drift (the wall) · Card swap (desktop)                                   |
-| `heroName`       | Home hero                       | Scramble · Decode · Plain                                                |
-| `cursor`         | Every page                      | Lamp · Glow trail · Crosshair · Off                                      |
-| `primaryButton`  | Hero, footer, contact form, 404 | Off · Star border                                                        |
-| `featuredMedia`  | Home selected work              | Off · Tilted card · Pixel transition · Refine                            |
-| `workMedia`      | /work                           | Off · Tilted card · Pixel transition · Refine                            |
-| `mobileMenu`     | Header < 768px                  | Default · Staggered                                                      |
-| `aboutPortrait`  | /about                          | Static · Lanyard                                                         |
-| `contactLead`    | /contact lead paragraph         | Off · Scrambled text (letters near the cursor flicker to orange `.` `:`) |
-| `notFound`       | 404 pages, each heading line    | Plain · Fuzzy text (rows jitter sideways, swelling on hover)             |
-| `howTimeline`    | Home, how it works              | Scroll fill (the track fills in orange with the scroll) · Off            |
+The contact page's lead paragraph is decided too: it has no effect and is no
+longer a slot.
+
+Four slots are still open. Their variants and param ranges are declared in
+`src/data/effects-registry.ts`; the current choice is `src/data/effects.ts`.
+Under `pnpm dev` an FX panel (bottom-left, Alt+F) lists these four, switches
+variants and tunes params live; "Save as default" rewrites `effects.ts`.
+
+| Slot             | Where              | Variants                                                      |
+| ---------------- | ------------------ | ------------------------------------------------------------- |
+| `heroBackground` | Home hero          | Light shafts · ASCII field · Lightfall · Letter glitch · Off  |
+| `heroWall`       | Home hero          | Drift (the wall) · Card swap (desktop)                        |
+| `mobileMenu`     | Header < 768px     | Default · Staggered                                           |
+| `howTimeline`    | Home, how it works | Scroll fill (the track fills in orange with the scroll) · Off |
+
+Tinting follows two tiers. Small interaction moments are orange: the name's
+scramble stand-ins, the cursor's glow trail, the button comet, the staggered
+menu's edge, the tilt glare, the timeline's scroll fill (orange as progress).
+Shader backgrounds use a neutral `LIGHT` uniform (`--color-muted`) with an
+`ACCENT` uniform (`--color-accent`) as a trace, controlled by the `accent` param
+(labelled Orange in the FX panel). The lanyard is a steel (`muted`) clip with
+orange stitching.
 
 Most effects are palette-tinted re-implementations of [React Bits](https://reactbits.dev)
 components, written as vanilla islands: the site does not use React, and an
 effect is ported rather than pulled in as a React island.
 
-Tried and dropped (don't re-add without asking): hero background _Blinds_
-and _Fibers_, the _Split-flap_ hero name, the cursor _Lamp + grid_ and the
-hero dot grid it lit. The shipped choices (which variant runs where) live
-only in `src/data/effects.ts`.
+Tried and dropped (don't re-add without asking). None of these is in the code
+any more; the ones marked \* were removed when their slot was decided and can
+be recovered from git history (they are still in commit `3a7bd7f`):
 
-Rules every variant follows: decorative layers are `aria-hidden`; the hero
+- Hero background: _Blinds_, _Fibers_.
+- Hero name: _Split-flap_; _Decode_\* (an orange caret block ran through the
+  name and each letter glitched in behind it).
+- Cursor: _Lamp + grid_ and the hero dot grid it lit; _Lamp_\* (a soft pool of
+  orange light trailing the pointer); _Crosshair_\* (two hairlines with a mono
+  coordinate readout, snapping orange corner ticks around links and buttons).
+- Project screenshots (home and /work): _Pixel transition_\* (on hover a grid
+  of dark pixels swapped the screenshot for the phone capture); _Refine_\* (the
+  screenshot "developed" from coarse pixels under an orange scan line, with a
+  mono "PASS 2/4" chip).
+- Contact lead paragraph: _Scrambled text_\* (letters near the cursor flickered
+  to orange `.` and `:`).
+
+The shipped settings live in two places only: `fx/fixed.ts` for the decided
+effects and `src/data/effects.ts` for the open slots.
+
+Rules every effect follows: decorative layers are `aria-hidden`; the hero
 name keeps its real text with an `aria-label` and a 2.5s CSS failsafe;
 shaders render below CSS resolution or at capped DPR; loops pause off-screen
 and when the tab is hidden; reduced motion gets a still or static version;

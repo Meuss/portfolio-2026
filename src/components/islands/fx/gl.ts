@@ -12,9 +12,8 @@
  * `uPointer` (0..1, eased) and `uIntensity`, plus one uniform per extra param
  * named `u` + Capitalized key (e.g. `accent` → `uAccent`).
  *
- * PAPER / INK / LIGHT / ACCENT are the palette tokens (read at mount, so a brand
- * palette switch re-colours them). On a light ground `finish` darkens towards
- * the light's hue instead of adding light.
+ * PAPER / INK / LIGHT / ACCENT are the palette tokens (read at mount). On a
+ * light ground `finish` darkens towards the light's hue instead of adding light.
  */
 import { prefersReducedMotion, tokenRgb, type FxInstance, type FxParams } from './types';
 

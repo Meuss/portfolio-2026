@@ -1,8 +1,11 @@
 /**
- * Every effect slot on the site, the variants it can run, and each variant's
- * tunable params. Pure data: the runtime (`islands/fx/runtime.ts`) maps the
- * variant ids to modules, the dev panel builds its controls from this, and
- * `src/data/effects.ts` records the chosen configuration.
+ * The effect slots still being tuned in the dev FX panel: the variants each can
+ * run and every variant's tunable params. Pure data: the runtime
+ * (`islands/fx/runtime.ts`) maps the variant ids to modules, the panel builds its
+ * controls from this, and `src/data/effects.ts` records the chosen configuration.
+ *
+ * Decided effects are not here: they run one module with constant params from
+ * `islands/fx/fixed.ts`.
  */
 
 export interface ParamSpec {
@@ -22,8 +25,6 @@ export interface SlotSpec {
   label: string;
   /** Where the slot lives, shown in the dev panel when it isn't on the current page. */
   where: string;
-  /** Whether "replay" makes sense (one-shot entrances). */
-  replayable?: boolean;
   variants: Record<string, VariantSpec>;
 }
 
@@ -45,62 +46,9 @@ const toggle = (label: string, d: 0 | 1): ParamSpec => ({
   default: d,
 });
 
-const cursorVariants = {
-  lamp: {
-    label: 'Lamp',
-    params: {
-      size: { label: 'Size (rem)', min: 16, max: 72, step: 1, default: 44 },
-      strength: { label: 'Strength', min: 0, max: 3, step: 0.05, default: 1 },
-    },
-  },
-  glow: {
-    label: 'Glow trail',
-    params: {
-      intensity,
-      trail: { label: 'Trail', min: 0.2, max: 3, step: 0.05, default: 1 },
-      accent: accent(0.35),
-    },
-  },
-  crosshair: {
-    label: 'Crosshair',
-    params: {
-      snap: toggle('Snap to links', 1),
-      coords: toggle('Coordinates', 1),
-      typing: { label: 'Fade while typing', min: 0, max: 1, step: 0.05, default: 0.8 },
-    },
-  },
-  off: { label: 'Off', params: {} },
-} satisfies Record<string, VariantSpec>;
-
-const mediaVariants = {
-  off: { label: 'Off', params: {} },
-  tilt: {
-    label: 'Tilted card',
-    params: {
-      angle: { label: 'Max angle', min: 2, max: 20, step: 0.5, default: 8 },
-      glare: { label: 'Glare', min: 0, max: 1, step: 0.05, default: 0.5 },
-    },
-  },
-  pixel: {
-    label: 'Pixel transition',
-    params: {
-      grid: { label: 'Grid', min: 6, max: 30, step: 1, default: 14 },
-      duration: { label: 'Duration (s)', min: 0.2, max: 1.5, step: 0.05, default: 0.5 },
-    },
-  },
-  refine: {
-    label: 'Refine',
-    params: {
-      stages: { label: 'Stages', min: 2, max: 6, step: 1, default: 4 },
-      speed: entrance,
-      stagger: { label: 'Stagger (ms)', min: 0, max: 600, step: 10, default: 150 },
-    },
-  },
-} satisfies Record<string, VariantSpec>;
-
 /**
  * Variants whose id maps to no module in `islands/fx/runtime.ts` keep the
- * component's own markup and behaviour (`off`, `plain`, `drift`, `default`, `static`).
+ * component's own markup and behaviour (`off`, `drift`, `default`).
  */
 export const fxRegistry = {
   heroBackground: {
@@ -173,93 +121,12 @@ export const fxRegistry = {
       },
     },
   },
-  heroName: {
-    label: 'Hero name',
-    where: 'Home hero',
-    replayable: true,
-    variants: {
-      scramble: { label: 'Scramble', params: { speed: entrance } },
-      decode: { label: 'Decode', params: { speed: entrance } },
-      plain: { label: 'Plain', params: {} },
-    },
-  },
-  cursor: { label: 'Cursor', where: 'Every page', variants: cursorVariants },
-  primaryButton: {
-    label: 'Primary buttons',
-    where: 'Hero, footer CTA, contact form',
-    variants: {
-      off: { label: 'Off', params: {} },
-      star: {
-        label: 'Star border',
-        params: {
-          orbit: { label: 'Orbit (s)', min: 1.5, max: 10, step: 0.5, default: 5 },
-          intensity,
-          hover: toggle('Hover only', 0),
-        },
-      },
-    },
-  },
-  featuredMedia: {
-    label: 'Featured screenshots',
-    where: 'Home selected work',
-    variants: mediaVariants,
-  },
-  workMedia: {
-    label: 'Work screenshots',
-    where: '/work',
-    variants: mediaVariants,
-  },
   mobileMenu: {
     label: 'Mobile menu',
     where: 'Header below 768px',
     variants: {
       default: { label: 'Default', params: {} },
       staggered: { label: 'Staggered', params: { speed: entrance } },
-    },
-  },
-  aboutPortrait: {
-    label: 'Portrait',
-    where: '/about',
-    variants: {
-      static: { label: 'Static', params: {} },
-      lanyard: {
-        label: 'Lanyard',
-        params: {
-          swing: { label: 'Swing', min: 0.2, max: 2, step: 0.05, default: 1 },
-          // The gap above the portrait is ~4rem; longer straps cross the heading.
-          length: { label: 'Strap (rem)', min: 1.5, max: 12, step: 0.5, default: 3.5 },
-        },
-      },
-    },
-  },
-  contactLead: {
-    label: 'Contact lead text',
-    where: '/contact',
-    variants: {
-      off: { label: 'Off', params: {} },
-      scrambled: {
-        label: 'Scrambled text',
-        params: {
-          radius: { label: 'Radius (px)', min: 30, max: 260, step: 5, default: 100 },
-          duration: { label: 'Duration (s)', min: 0.2, max: 3, step: 0.1, default: 1.2 },
-          speed: { label: 'Speed', min: 0.1, max: 2, step: 0.05, default: 0.5 },
-        },
-      },
-    },
-  },
-  notFound: {
-    label: '404 heading',
-    where: '404 page (any unknown URL)',
-    variants: {
-      plain: { label: 'Plain', params: {} },
-      fuzzy: {
-        label: 'Fuzzy text',
-        params: {
-          intensity: { label: 'Resting fuzz', min: 0, max: 1, step: 0.01, default: 0.18 },
-          hover: { label: 'Hover fuzz', min: 0, max: 1, step: 0.01, default: 0.5 },
-          range: { label: 'Range (px)', min: 4, max: 60, step: 1, default: 30 },
-        },
-      },
     },
   },
   howTimeline: {

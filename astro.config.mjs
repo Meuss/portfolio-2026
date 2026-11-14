@@ -6,30 +6,20 @@ import sitemap from '@astrojs/sitemap';
 import { writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
+const effectsFile = fileURLToPath(new URL('./src/data/effects.ts', import.meta.url));
+
 /**
- * Dev-only endpoint behind a panel's "Save as default": validates the posted
- * config with the registry's resolver and rewrites the data file.
- *
- * @param {{
- *   name: string,
- *   route: string,
- *   file: string,
- *   registry: string,
- *   resolve: string,
- *   exportName: string,
- *   type: string,
- *   header: string[],
- * }} o
+ * Dev-only endpoint behind the FX panel's "Save as default": validates the
+ * posted config with the registry's resolver and rewrites `src/data/effects.ts`.
  */
-function configSavePlugin(o) {
-  const file = fileURLToPath(new URL(`./src/data/${o.file}`, import.meta.url));
+function fxSavePlugin() {
   return {
-    name: o.name,
+    name: 'fx-save',
     apply: 'serve',
     /** @param {{ middlewares: { use: Function }, ssrLoadModule: (id: string) => Promise<any> }} server */
     configureServer(server) {
       server.middlewares.use(
-        o.route,
+        '/__fx/save',
         /**
          * @param {import('node:http').IncomingMessage} req
          * @param {import('node:http').ServerResponse} res
@@ -42,18 +32,24 @@ function configSavePlugin(o) {
           try {
             let body = '';
             for await (const chunk of req) body += chunk;
-            const registry = await server.ssrLoadModule(`/src/data/${o.registry}`);
-            const current = await server.ssrLoadModule(`/src/data/${o.file}`);
-            const config = registry[o.resolve](JSON.parse(body), current[o.exportName]);
+            const { resolveConfig } = await server.ssrLoadModule('/src/data/effects-registry.ts');
+            const { effects } = await server.ssrLoadModule('/src/data/effects.ts');
+            const config = resolveConfig(JSON.parse(body), effects);
             const prettier = await import('prettier');
             const source = [
-              ...o.header.map((line) => `// ${line}`),
-              `import type { ${o.type} } from './${o.registry.replace(/\.ts$/, '')}';`,
+              '// The effect slots still being tuned. Pick variants live with the dev-only FX',
+              '// panel (`pnpm dev`, bottom-left) and press "Save as default": it rewrites',
+              '// this file. Slots, variants and param ranges live in `effects-registry.ts`.',
+              '// Decided effects are not here: see `src/components/islands/fx/fixed.ts`.',
+              "import type { FxConfig } from './effects-registry';",
               '',
-              `export const ${o.exportName}: ${o.type} = ${JSON.stringify(config)};`,
+              `export const effects: FxConfig = ${JSON.stringify(config)};`,
             ].join('\n');
-            const options = (await prettier.resolveConfig(file)) ?? {};
-            await writeFile(file, await prettier.format(source, { ...options, filepath: file }));
+            const options = (await prettier.resolveConfig(effectsFile)) ?? {};
+            await writeFile(
+              effectsFile,
+              await prettier.format(source, { ...options, filepath: effectsFile }),
+            );
             res.end('ok');
           } catch (err) {
             res.statusCode = 400;
@@ -64,22 +60,6 @@ function configSavePlugin(o) {
     },
   };
 }
-
-const fxSavePlugin = () =>
-  configSavePlugin({
-    name: 'fx-save',
-    route: '/__fx/save',
-    file: 'effects.ts',
-    registry: 'effects-registry.ts',
-    resolve: 'resolveConfig',
-    exportName: 'effects',
-    type: 'FxConfig',
-    header: [
-      'The effects the site ships with. Pick variants live with the dev-only FX',
-      'panel (`pnpm dev`, bottom-left) and press "Save as default": it rewrites',
-      'this file. Slots, variants and param ranges live in `effects-registry.ts`.',
-    ],
-  });
 
 // https://astro.build/config
 export default defineConfig({

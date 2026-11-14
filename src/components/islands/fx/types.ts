@@ -6,7 +6,10 @@ export interface FxInstance {
   destroy(): void;
 }
 
-export type FxMount = (host: HTMLElement, params: FxParams, variant: string) => FxInstance;
+export type FxMount = (host: HTMLElement, params: FxParams) => FxInstance;
+
+/** An effect module, imported on demand. */
+export type FxLoader = () => Promise<{ mount: FxMount }>;
 
 export const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;

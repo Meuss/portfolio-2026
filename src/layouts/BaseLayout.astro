@@ -97,8 +97,9 @@ const ogImage = new URL('/og-image.png', siteUrl).toString();
     </main>
     <Footer lang={lang} variant={footer} />
 
-    {/* Effects runtime: mounts the variants chosen in src/data/effects.ts into every
-        [data-fx-slot]. The FX panel only exists under `pnpm dev`. */}
+    {/* Effects runtime: mounts the decided effects (islands/fx/fixed.ts) and the
+        variants chosen in src/data/effects.ts into every [data-fx-slot]. The FX
+        panel only exists under `pnpm dev`. */}
     <script>
       import '../components/islands/fx/runtime.ts';
       if (import.meta.env.DEV) import('../components/islands/fx/panel.ts');

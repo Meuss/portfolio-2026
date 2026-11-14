@@ -1,6 +1,6 @@
 /**
- * Shared look for the dev-only panels (FX, Brand): one stylesheet and a tiny
- * element helper. Never shipped: only the panels import it.
+ * The dev-only FX panel's look: its stylesheet and a tiny element helper.
+ * Never shipped: only the panel imports it.
  */
 export const PANEL_CSS = `
 .fxp { position: fixed; left: 1rem; bottom: 1rem; z-index: 80; font-family: var(--font-mono);
@@ -19,8 +19,6 @@ export const PANEL_CSS = `
 .fxp-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; color: var(--color-accent); }
 .fxp-slot.is-absent .fxp-head { color: var(--color-muted); }
 .fxp-where { color: var(--color-muted); text-transform: none; letter-spacing: 0.02em; }
-.fxp-link { background: none; border: 0; padding: 0; color: var(--color-muted); }
-.fxp-link:hover { color: var(--color-accent); }
 .fxp-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
 .fxp-chip { padding: 0.3rem 0.55rem; background: none; color: var(--color-muted);
   border: 1px solid var(--color-line); border-radius: var(--radius-sm); }
@@ -36,11 +34,6 @@ export const PANEL_CSS = `
 .fxp-action--primary { background: var(--color-accent); color: var(--color-paper); border-color: var(--color-accent); }
 .fxp-action--primary:hover { color: var(--color-paper); filter: brightness(1.08); }
 .fxp-action:disabled { opacity: 0.4; cursor: default; }
-.fxp--right { left: auto; right: 1rem; }
-.fxp--right .fxp-toggle { margin-left: auto; width: fit-content; }
-.fxp-sub { margin: 0.7rem 0 0.4rem; }
-.fxp-swatch { display: inline-block; width: 0.6rem; height: 0.6rem; margin-right: 0.35rem; border-radius: 50%;
-  vertical-align: -0.05em; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-ink) 30%, transparent); }
 `;
 
 export function el<K extends keyof HTMLElementTagNameMap>(

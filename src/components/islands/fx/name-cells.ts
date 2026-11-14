@@ -1,5 +1,5 @@
 /**
- * Shared scaffolding for hero-name entrances.
+ * Scaffolding for the hero-name entrance (`name-scramble.ts`).
  *
  * Splits an element's text into fixed-width cells (each sized by its final
  * glyph via an invisible ghost), keeps words unbreakable so the board wraps
@@ -93,5 +93,3 @@ export function buildBoard(el: HTMLElement, decorate: (cell: HTMLElement, final:
   el.replaceChildren(board);
   return cells;
 }
-
-export const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
