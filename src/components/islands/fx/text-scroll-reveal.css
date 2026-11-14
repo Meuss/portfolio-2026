@@ -1,0 +1,14 @@
+/* Words stay inline, so the heading wraps (and balances) exactly as it does
+   without the effect; the script writes each word's opacity and blur. The
+   block turns about its left edge, like React Bits' Scroll Reveal. */
+.fx-scroll-reveal {
+  transform-origin: 0 50%;
+}
+
+/* Only when the heading is already on screen as the effect mounts: the words
+   ease into their scroll position instead of dimming in one frame. */
+.fx-scroll-reveal--intro .fx-scroll-reveal-word {
+  transition:
+    opacity 0.4s ease-out,
+    filter 0.4s ease-out;
+}

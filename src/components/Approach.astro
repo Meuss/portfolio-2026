@@ -18,7 +18,10 @@ const points = [1, 2, 3].map((n) => ({
 <section class="border-b border-line bg-paper py-20 md:py-28">
   <div class="mx-auto max-w-6xl px-6 md:px-10">
     <!-- The statement runs full width on top; the reasons read across under it. -->
-    <h2 class="max-w-4xl font-display text-headline text-ink">{t('approach.heading')}</h2>
+    <!-- `approachHeading` FX slot: the words light up with the scroll (src/data/effects.ts). -->
+    <h2 data-fx-slot="approachHeading" class="max-w-4xl font-display text-headline text-ink">
+      {t('approach.heading')}
+    </h2>
 
     <!-- Three reasons: a claim, then the sentence that backs it. Stacked rows
          divided by hairlines below `lg`; from `lg`, three columns separated by

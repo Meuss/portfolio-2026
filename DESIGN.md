@@ -464,6 +464,11 @@ from `sm`: each an ink Body name over a muted Small blurb.
 
 Approach follows the service list's hairline grammar beside a sticky Headline
 column: three reasons, each a Title claim over a muted Body sentence (max 52ch).
+The `approachHeading` effect lights the Headline's words up with the scroll
+(neutral: ink opacity and blur, no orange); every word is at full while the
+heading is still well inside the viewport. The heading itself carries no
+`data-reveal`. Without JS, with the effect off, or under reduced motion, it is a
+plain Headline.
 
 How it works is a sequence, so it is drawn as a timeline. The Headline and Lead
 intro run full width; under them one 1px `line` track joins the four steps, with
@@ -557,17 +562,18 @@ set in `src/components/islands/fx/fixed.ts`, and is not in the FX panel:
 The contact page's lead paragraph is decided too: it has no effect and is no
 longer a slot.
 
-Four slots are still open. Their variants and param ranges are declared in
+Five slots are still open. Their variants and param ranges are declared in
 `src/data/effects-registry.ts`; the current choice is `src/data/effects.ts`.
-Under `pnpm dev` an FX panel (bottom-left, Alt+F) lists these four, switches
+Under `pnpm dev` an FX panel (bottom-left, Alt+F) lists these five, switches
 variants and tunes params live; "Save as default" rewrites `effects.ts`.
 
-| Slot             | Where              | Variants                                                      |
-| ---------------- | ------------------ | ------------------------------------------------------------- |
-| `heroBackground` | Home hero          | Light shafts · ASCII field · Lightfall · Letter glitch · Off  |
-| `heroWall`       | Home hero          | Drift (the wall) · Card swap (desktop)                        |
-| `mobileMenu`     | Header < 768px     | Default · Staggered                                           |
-| `howTimeline`    | Home, how it works | Scroll fill (the track fills in orange with the scroll) · Off |
+| Slot              | Where              | Variants                                                                                          |
+| ----------------- | ------------------ | ------------------------------------------------------------------------------------------------- |
+| `heroBackground`  | Home hero          | Light shafts · ASCII field · Lightfall · Letter glitch · Off                                      |
+| `heroWall`        | Home hero          | Drift (the wall) · Card swap (desktop)                                                            |
+| `mobileMenu`      | Header < 768px     | Default · Staggered                                                                               |
+| `howTimeline`     | Home, how it works | Scroll fill (the track fills in orange with the scroll) · Off                                     |
+| `approachHeading` | Home, approach     | Scroll reveal (words go from dim and blurred to full with the scroll, the line straightens) · Off |
 
 Tinting follows two tiers. Small interaction moments are orange: the name's
 scramble stand-ins, the cursor's glow trail, the button comet, the staggered
@@ -575,7 +581,9 @@ menu's edge, the tilt glare, the timeline's scroll fill (orange as progress).
 Shader backgrounds use a neutral `LIGHT` uniform (`--color-muted`) with an
 `ACCENT` uniform (`--color-accent`) as a trace, controlled by the `accent` param
 (labelled Orange in the FX panel). The lanyard is a steel (`muted`) clip with
-orange stitching.
+orange stitching. Text effects on reading copy stay neutral: the approach
+heading's scroll reveal only changes the ink's opacity and blur, and ends with
+every word at full.
 
 Most effects are palette-tinted re-implementations of [React Bits](https://reactbits.dev)
 components, written as vanilla islands: the site does not use React, and an

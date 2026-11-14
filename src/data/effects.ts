@@ -7,7 +7,7 @@ import type { FxConfig } from './effects-registry';
 export const effects: FxConfig = {
   heroBackground: {
     variant: 'glitch',
-    params: { intensity: 0.7, speed: 0.05, cell: 31, accent: 0 },
+    params: { intensity: 0.5, speed: 0.05, cell: 31, accent: 0 },
   },
   heroWall: {
     variant: 'swap',
@@ -29,5 +29,9 @@ export const effects: FxConfig = {
     },
   },
   mobileMenu: { variant: 'staggered', params: { speed: 1 } },
-  howTimeline: { variant: 'fill', params: { start: 0.75, end: 0.5, smooth: 0.3 } },
+  howTimeline: { variant: 'fill', params: { start: 0.7, end: 0.5, smooth: 0.3 } },
+  approachHeading: {
+    variant: 'reveal',
+    params: { opacity: 0.1, blur: 4, rotation: 3, start: 0.9, end: 0.7 },
+  },
 };

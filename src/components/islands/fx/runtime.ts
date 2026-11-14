@@ -34,6 +34,7 @@ const loaders: { [S in FxSlot]: Record<FxVariant<S>, FxLoader | null> } = {
   heroWall: { drift: null, swap: () => import('./wall-swap') },
   mobileMenu: { default: null, staggered: () => import('./menu-staggered') },
   howTimeline: { fill: () => import('./timeline-fill'), off: null },
+  approachHeading: { reveal: () => import('./text-scroll-reveal'), off: null },
 };
 
 type Slot = FxSlot | FixedFxSlot;

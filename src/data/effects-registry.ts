@@ -147,6 +147,27 @@ export const fxRegistry = {
       off: { label: 'Off', params: {} },
     },
   },
+  approachHeading: {
+    label: 'Approach heading',
+    where: 'Home, approach',
+    variants: {
+      reveal: {
+        label: 'Scroll reveal',
+        // Opacity, blur and rotation follow React Bits' Scroll Reveal controls
+        // (blur 0 = blur off). Start / end are fractions of the viewport height,
+        // measured from its top: the words start lighting up when the heading's
+        // top crosses `start` and are all at full when its bottom crosses `end`.
+        params: {
+          opacity: { label: 'Base opacity', min: 0, max: 1, step: 0.05, default: 0.1 },
+          blur: { label: 'Blur (px)', min: 0, max: 12, step: 0.5, default: 4 },
+          rotation: { label: 'Rotation (°)', min: 0, max: 10, step: 0.25, default: 3 },
+          start: { label: 'Start (viewport)', min: 0.5, max: 1, step: 0.05, default: 0.9 },
+          end: { label: 'End (viewport)', min: 0.2, max: 1, step: 0.05, default: 0.55 },
+        },
+      },
+      off: { label: 'Off', params: {} },
+    },
+  },
 } satisfies Record<string, SlotSpec>;
 
 export type FxSlot = keyof typeof fxRegistry;
