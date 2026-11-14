@@ -30,6 +30,7 @@ export const effects = {
   },
   featuredMedia: tilt,
   workMedia: tilt,
+  // Pixels ripple in when the teaser scrolls into view; the pointer only swells them.
   workTeaser: {
     load: () => import('./card-pixel'),
     params: { gap: 5, speed: 35, accent: 0.15, spotlight: 0.5 },
