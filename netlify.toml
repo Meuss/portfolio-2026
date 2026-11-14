@@ -6,10 +6,24 @@
   NODE_VERSION = "26"
   # Netlify detects pnpm from pnpm-lock.yaml + the "packageManager" field in package.json.
 
+# The root picks a language: English browsers go to /en/, everyone else
+# (French, other languages, crawlers, no Accept-Language) to /fr/. Netlify
+# matches `Language` against the FIRST language of Accept-Language only, and
+# `en` also matches en-GB, en-US... First matching rule wins. 302, not 301:
+# the answer depends on the visitor, so browsers must not cache it as
+# permanent. `force` because dist/index.html (the dev/preview fallback, which
+# always goes to /fr/) exists at `/`. Only `/` is language-detected.
 [[redirects]]
   from = "/"
   to = "/en/"
-  status = 301
+  status = 302
+  force = true
+  conditions = {Language = ["en"]}
+
+[[redirects]]
+  from = "/"
+  to = "/fr/"
+  status = 302
   force = true
 
 # Unknown URLs get the localized 404 (non-forced rules only apply when no file matches).

@@ -8,6 +8,10 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   output: 'static',
   site: 'https://thomasmiller.ch',
+  // Every page URL ends with `/` (/fr/work/): the form Netlify serves without
+  // a redirect, and the one canonicals, hreflang and the sitemap use.
+  // localizedPath() builds links in that form; check-links.mjs enforces it.
+  trailingSlash: 'always',
 
   i18n: {
     defaultLocale: 'en',

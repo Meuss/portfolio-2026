@@ -34,7 +34,7 @@ pnpm dev
 | `pnpm test`         | Run the unit test suite (Vitest).                                                                            |
 | `pnpm format`       | Format the codebase with Prettier (writes changes).                                                          |
 | `pnpm format:check` | Check formatting without writing (CI-friendly).                                                              |
-| `pnpm check:links`  | After `pnpm build`: check that every internal link in `dist/` resolves to a file.                            |
+| `pnpm check:links`  | After `pnpm build`: every internal link in `dist/` resolves to a file; page links end with `/`.              |
 
 Before pushing or opening a PR, run `pnpm check && pnpm test && pnpm build`.
 CI (`.github/workflows/ci.yml`) runs the same checks plus the format check and `pnpm check:links` on pull requests and pushes to `master`.
@@ -162,6 +162,7 @@ To deploy:
 - [Prettier](https://prettier.io) (with `prettier-plugin-astro`) for formatting
 - [Vitest](https://vitest.dev) for unit tests
 - Astro's built-in `i18n` routing (`/en/`, `/fr/`, `en` as default locale, explicitly
-  prefixed) for bilingual content
+  prefixed) for bilingual content; on Netlify, `/` goes to `/en/` for English browsers and
+  to `/fr/` for everyone else (`netlify.toml`)
 - Contact form: [Netlify Forms](https://docs.netlify.com/manage/forms/setup/)
 - Visitor counts: [GoatCounter](https://www.goatcounter.com) (no cookies)

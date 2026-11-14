@@ -9,13 +9,18 @@ export function useTranslations(lang: Lang) {
   return (key: string): string => ui[lang][key] ?? ui[defaultLang][key] ?? key;
 }
 
+/** The path of a page in `lang`, always with a trailing slash (`/fr/work/`),
+    the form Netlify serves without a redirect and the one canonicals, hreflang
+    and the sitemap use (`trailingSlash: 'always'` in astro.config.mjs). A
+    `?query` or `#hash` is kept after the slash. */
 export function localizedPath(lang: Lang, path: string): string {
-  const clean = path === '/' ? '' : path.replace(/^\//, '/');
-  return `/${lang}${clean === '' ? '/' : clean}`;
+  const [, pathname = '', suffix = ''] = path.match(/^([^?#]*)(.*)$/) ?? [];
+  const trimmed = pathname.replace(/^\/+|\/+$/g, '');
+  return `/${lang}/${trimmed === '' ? '' : `${trimmed}/`}${suffix}`;
 }
 
 export function switchLocalePath(currentUrl: URL, target: Lang): string {
-  const rest = currentUrl.pathname.replace(/^\/(en|fr)/, '') || '/';
+  const rest = currentUrl.pathname.replace(/^\/(en|fr)(?=\/|$)/, '') || '/';
   return localizedPath(target, rest);
 }
 

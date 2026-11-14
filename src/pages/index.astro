@@ -1,3 +1,6 @@
 ---
-return Astro.redirect('/en/');
+// Fallback for `pnpm dev` / `pnpm preview`, which cannot read request headers
+// in a static build: `/` goes to the French site. On Netlify, netlify.toml
+// answers `/` first (English browsers → /en/, everyone else → /fr/).
+return Astro.redirect('/fr/');
 ---

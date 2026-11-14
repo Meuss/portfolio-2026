@@ -1,6 +1,9 @@
-// Internal link check for the built site: every href/src/srcset (and the
-// absolute canonical/hreflang/og:image/sitemap URLs on our own domain) must
-// resolve to a file in dist/. External URLs are never fetched.
+// Internal link check for the built site: every href/src/srcset/action (and
+// the absolute canonical/hreflang/og:image/sitemap URLs on our own domain) must
+// resolve to a file in dist/, and a link to a page must end with `/`
+// (/fr/work/, not /fr/work, which Netlify answers with a 301 to the slash
+// form). Files with an extension and fragment-only links are exempt. External
+// URLs are never fetched.
 // Usage: node scripts/check-links.mjs [distDir]   (run `pnpm build` first)
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -36,6 +39,7 @@ const hasId = (file, id) => {
 };
 
 const broken = [];
+const noSlash = [];
 let checked = 0;
 
 for (const file of files) {
@@ -45,7 +49,7 @@ for (const file of files) {
   if (file.endsWith('.xml')) {
     for (const m of text.matchAll(/<loc>([^<]+)<\/loc>/g)) refs.add(m[1]);
   } else if (file.endsWith('.html')) {
-    for (const m of text.matchAll(/\s(?:href|src)=(?:"([^"]*)"|'([^']*)')/g))
+    for (const m of text.matchAll(/\s(?:href|src|action)=(?:"([^"]*)"|'([^']*)')/g))
       refs.add(m[1] ?? m[2]);
     // og:image, og:url, ...: `content` is only a link when it is our own absolute URL.
     for (const m of text.matchAll(/\scontent=["'](https?:\/\/[^"']+)["']/g)) refs.add(m[1]);
@@ -61,6 +65,13 @@ for (const file of files) {
     }
     if (url.origin !== origin) continue; // external, mailto:, tel:, ...
     checked++;
+    // A page link without its trailing slash: the last segment has no file
+    // extension (fragment-only refs resolve to the page's own index.html).
+    const last = url.pathname.split('/').pop();
+    if (last !== '' && !last.includes('.')) {
+      noSlash.push(`${page}: ${ref} (use ${url.pathname}/${url.search}${url.hash})`);
+      continue;
+    }
     const target = resolveFile(url.pathname);
     if (!target) broken.push(`${page}: ${ref} (no file for ${url.pathname})`);
     else if (url.hash.length > 1 && target.endsWith('.html') && !hasId(target, url.hash.slice(1)))
@@ -69,8 +80,12 @@ for (const file of files) {
 }
 
 console.log(`Checked ${checked} internal links in ${files.length} files.`);
-if (broken.length) {
+if (noSlash.length)
+  console.error(
+    `\n${noSlash.length} link(s) to a page without the trailing slash (Netlify would 301 them; build them with localizedPath()):\n` +
+      noSlash.map((b) => `  - ${b}`).join('\n'),
+  );
+if (broken.length)
   console.error(`\n${broken.length} broken link(s):\n` + broken.map((b) => `  - ${b}`).join('\n'));
-  process.exit(1);
-}
-console.log('No broken links.');
+if (noSlash.length || broken.length) process.exit(1);
+console.log('No broken links, every page link ends with a slash.');

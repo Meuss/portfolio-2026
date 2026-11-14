@@ -14,13 +14,26 @@ describe('i18n utils', () => {
     expect(getLangFromUrl(new URL('https://x.co/en/'))).toBe('en');
     expect(getLangFromUrl(new URL('https://x.co/'))).toBe('en');
   });
-  it('builds localized paths with leading slash', () => {
-    expect(localizedPath('fr', '/work')).toBe('/fr/work');
+  it('builds localized paths with leading and trailing slash', () => {
+    expect(localizedPath('fr', '/work')).toBe('/fr/work/');
+    expect(localizedPath('fr', '/work/')).toBe('/fr/work/');
+    expect(localizedPath('en', '/contact/thanks/')).toBe('/en/contact/thanks/');
+    expect(localizedPath('en', 'privacy')).toBe('/en/privacy/');
     expect(localizedPath('en', '/')).toBe('/en/');
+    expect(localizedPath('en', '')).toBe('/en/');
+  });
+  it('keeps a hash or query after the trailing slash', () => {
+    expect(localizedPath('fr', '/work#top')).toBe('/fr/work/#top');
+    expect(localizedPath('en', '/?a=1')).toBe('/en/?a=1');
   });
   it('switches locale for the same page', () => {
-    expect(switchLocalePath(new URL('https://x.co/en/work'), 'fr')).toBe('/fr/work');
+    expect(switchLocalePath(new URL('https://x.co/en/work/'), 'fr')).toBe('/fr/work/');
+    expect(switchLocalePath(new URL('https://x.co/en/work'), 'fr')).toBe('/fr/work/');
+    expect(switchLocalePath(new URL('https://x.co/en/contact/thanks/'), 'fr')).toBe(
+      '/fr/contact/thanks/',
+    );
     expect(switchLocalePath(new URL('https://x.co/fr/'), 'en')).toBe('/en/');
+    expect(switchLocalePath(new URL('https://x.co/fr'), 'en')).toBe('/en/');
   });
   it('translates keys and falls back to the key', () => {
     const t = useTranslations('en');
