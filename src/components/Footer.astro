@@ -11,7 +11,7 @@ import Arrow from './icons/Arrow.astro';
       contact page) beside the direct contact details, then the fine print.
     - 'compact': the direct contact details in one row, then the fine print. For
       the error pages, whose one job is the way home.
-    - 'fine-print': only the logo, copyright and language switcher. For the
+    - 'fine-print': only the logo, copyright, privacy link and language switcher. For the
       contact page, whose body already shows the same contact details and where
       the button would link to the page itself. */
 export type FooterVariant = 'full' | 'compact' | 'fine-print';
@@ -26,6 +26,7 @@ const t = useTranslations(lang);
 
 const year = new Date().getFullYear();
 const contactHref = localizedPath(lang, '/contact');
+const privacyHref = localizedPath(lang, '/privacy');
 ---
 
 {/* The page's closing block, one flat step up from the ground: the call to
@@ -75,7 +76,10 @@ const contactHref = localizedPath(lang, '/contact');
       <div class="flex flex-col gap-4">
         <Logo lang={lang} class="text-ink [--logo-size:2.5rem]" />
         <p>
-          © {year} Thomas Miller. {t('footer.rights')}
+          © {year} Thomas Miller ·{' '}
+          <a href={privacyHref} class="underline hover:text-accent">
+            {t('footer.privacy')}
+          </a>
         </p>
       </div>
       <LanguageSwitcher lang={lang} label={t('lang.switcherFooter')} />

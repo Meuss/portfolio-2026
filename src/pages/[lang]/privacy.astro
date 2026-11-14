@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { contact } from '../../data/contact';
+import { languages, type Lang } from '../../i18n/ui';
+import { splitSlots, useTranslations } from '../../i18n/utils';
+
+// Privacy and legal notice in one page (issues 7 and 9): who runs the site,
+// then what each part of it does with personal data. Keep the text in step
+// with the code: the contact form (contact.astro), the host (netlify.toml)
+// and the visitor counting (src/data/analytics.ts).
+export function getStaticPaths() {
+  return (Object.keys(languages) as Lang[]).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const { email } = contact;
+
+// Links that stand in for the {email} and {fdpic} placeholders in the strings.
+const links: Record<string, { href: string; label: string }> = {
+  email: { href: `mailto:${email}`, label: email },
+  fdpic: { href: `https://www.edoeb.admin.ch/${lang}`, label: t('privacyPage.rights.fdpic') },
+};
+
+const sections = [
+  { id: 'form', paragraphs: ['text1', 'text2', 'text3'] },
+  { id: 'hosting', paragraphs: ['text'] },
+  { id: 'stats', paragraphs: ['text1', 'text2', 'text3'] },
+  { id: 'cookies', paragraphs: ['text1', 'text2'] },
+  { id: 'rights', paragraphs: ['text1', 'text2', 'law'] },
+].map(({ id, paragraphs }) => ({
+  id,
+  heading: t(`privacyPage.${id}.heading`),
+  paragraphs: paragraphs.map((p) => splitSlots(t(`privacyPage.${id}.${p}`))),
+}));
+---
+
+<BaseLayout
+  title={t('privacyPage.title')}
+  description={t('privacyPage.description')}
+  lang={lang}
+  footer="compact"
+>
+  <section class="border-b border-line bg-paper py-20 md:py-28">
+    <div class="mx-auto max-w-6xl px-6 md:px-10">
+      <header class="max-w-3xl">
+        <h1 class="font-display text-headline text-ink">{t('privacyPage.heading')}</h1>
+        <p class="mt-6 font-mono text-caption uppercase text-muted">{t('privacyPage.updated')}</p>
+        <p class="mt-6 max-w-[62ch] text-lead text-muted">{t('privacyPage.intro')}</p>
+      </header>
+
+      <div class="mt-12 border-b border-line md:mt-16">
+        <section
+          aria-labelledby="privacy-who"
+          class="grid gap-4 border-t border-line py-8 md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] md:gap-12 md:py-10"
+        >
+          <h2 id="privacy-who" class="font-display text-title text-ink">
+            {t('privacyPage.who.heading')}
+          </h2>
+          <div class="flex max-w-[62ch] flex-col gap-4">
+            <p class="text-body text-muted">{t('privacyPage.who.text')}</p>
+            <address class="flex flex-col gap-1 text-body not-italic text-ink">
+              <span>Thomas Miller</span>
+              <span>{t('privacyPage.who.location')}</span>
+              <a href={links.email.href} class="self-start underline hover:text-accent">
+                {email}
+              </a>
+            </address>
+            <p class="text-body text-muted">{t('privacyPage.who.controller')}</p>
+          </div>
+        </section>
+
+        {sections.map((section) => (
+          <section
+            aria-labelledby={`privacy-${section.id}`}
+            class="grid gap-4 border-t border-line py-8 md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] md:gap-12 md:py-10"
+          >
+            <h2 id={`privacy-${section.id}`} class="font-display text-title text-ink">
+              {section.heading}
+            </h2>
+            <div class="flex max-w-[62ch] flex-col gap-4">
+              {section.paragraphs.map((parts) => (
+                <p class="text-body text-muted">
+                  {parts.map((part) => {
+                    if (typeof part === 'string') return part;
+                    const link = links[part.slot];
+                    return link ? (
+                      <a href={link.href} class="text-ink underline hover:text-accent">
+                        {link.label}
+                      </a>
+                    ) : (
+                      `{${part.slot}}`
+                    );
+                  })}
+                </p>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

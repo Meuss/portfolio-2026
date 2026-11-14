@@ -18,3 +18,16 @@ export function switchLocalePath(currentUrl: URL, target: Lang): string {
   const rest = currentUrl.pathname.replace(/^\/(en|fr)/, '') || '/';
   return localizedPath(target, rest);
 }
+
+/** Splits a translated string around `{name}` placeholders, so a page can put
+    an element (usually a link) where each one stands. Text parts come back as
+    strings, placeholders as `{ slot: name }`. */
+export function splitSlots(text: string): Array<string | { slot: string }> {
+  return text
+    .split(/(\{\w+\})/)
+    .filter((part) => part !== '')
+    .map((part) => {
+      const name = part.match(/^\{(\w+)\}$/)?.[1];
+      return name ? { slot: name } : part;
+    });
+}

@@ -21,7 +21,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     'footer.github': 'GitHub',
     'footer.linkedin': 'LinkedIn',
     'footer.whatsapp': 'WhatsApp',
-    'footer.rights': 'All rights reserved.',
+    'footer.privacy': 'Privacy & legal notice',
 
     // --- Homepage: page meta ---
     'home.title': 'Thomas Miller — Web developer in Bulle, Switzerland',
@@ -207,6 +207,8 @@ export const ui: Record<Lang, Record<string, string>> = {
     'contactForm.collapse': 'Close the larger view',
     'contactForm.submit': 'Send message',
     'contactForm.sending': 'Sending…',
+    'contactForm.privacyNote': 'Your message is handled as described in the {link}.',
+    'contactForm.privacyLink': 'privacy notice',
     'contactForm.successMessage':
       'Thanks, your message is on its way. I’ll reply within two business days.',
     'contactForm.errorMessage': 'Something went wrong. Please try again, or email me directly.',
@@ -216,6 +218,51 @@ export const ui: Record<Lang, Record<string, string>> = {
     'contactSent.description': 'Your message has been sent.',
     'contactSent.heading': 'Message sent',
     'contactSent.home': 'Back to the home page',
+
+    // --- Privacy & legal notice ---
+    // {email} and {fdpic} are replaced with links by the page.
+    'privacyPage.title': 'Privacy & legal notice — Thomas Miller',
+    'privacyPage.description':
+      'Who runs thomasmiller.ch, what personal data the site handles and why: the contact form, hosting by Netlify and cookie-free visitor counts with GoatCounter.',
+    'privacyPage.heading': 'Privacy & legal notice',
+    'privacyPage.updated': 'Last updated: November 2026',
+    'privacyPage.intro':
+      'Who is behind this site, what data it handles and why. In short: no cookies, no tracking of individuals, and your messages are only used to reply to you.',
+    'privacyPage.who.heading': 'Who is responsible',
+    'privacyPage.who.text': 'This site presents my work as an independent web developer.',
+    'privacyPage.who.location': 'Bulle, Switzerland',
+    'privacyPage.who.controller':
+      'I am the person responsible for the personal data described on this page.',
+    'privacyPage.form.heading': 'The contact form',
+    'privacyPage.form.text1':
+      'When you write to me through the contact form, I receive your name, your email address, your message, the file you attach if you add one, and the language of the page you sent it from. I use them only to reply to your request and, if we work together, to follow it up.',
+    'privacyPage.form.text2':
+      'The form is handled by Netlify, Inc. (USA), which hosts this site: Netlify stores your message and forwards it to me by email. Netlify checks submissions for spam with Akismet, a service of Automattic (USA).',
+    'privacyPage.form.text3':
+      'I delete messages once they are no longer needed for our exchange, and you can ask me to delete yours sooner at any time. The same applies if you write to me directly by email.',
+    'privacyPage.hosting.heading': 'Hosting',
+    'privacyPage.hosting.text':
+      'This site is hosted by Netlify, Inc., in the United States. Like any host, Netlify processes the technical data needed to deliver the pages, such as your IP address, your browser and the page requested, and may keep it in its server logs. Your data may therefore be processed outside Switzerland, in particular in the United States. Netlify is certified under the Swiss-U.S. Data Privacy Framework.',
+    'privacyPage.stats.heading': 'Visitor statistics',
+    'privacyPage.stats.text1':
+      'To know how many people visit the site, I use GoatCounter, a privacy-friendly statistics service. It counts page views without cookies and stores nothing on your device.',
+    'privacyPage.stats.text2':
+      'GoatCounter does not store IP addresses. To tell a new visit from a reload, it keeps your IP address and browser details in memory for at most eight hours, without writing them to disk. It only records totals: pages viewed, the site you came from, browser, operating system, screen size, language and country. No profile is built and you are not followed from one site to another.',
+    'privacyPage.stats.text3':
+      'GoatCounter is run from Ireland and stores its data on servers in Finland and Germany.',
+    'privacyPage.cookies.heading': 'Cookies and other services',
+    'privacyPage.cookies.text1':
+      'This site uses no cookies and stores nothing in your browser. That is why there is no cookie banner.',
+    'privacyPage.cookies.text2':
+      'The fonts are served by this site itself, so loading a page sends no request to Google or any other font service. Links to other sites, such as GitHub, LinkedIn, WhatsApp or the projects shown, take you to services whose own privacy policies apply once you follow them.',
+    'privacyPage.rights.heading': 'Your rights',
+    'privacyPage.rights.text1':
+      'You can ask me at any time what data I hold about you, and have it corrected or deleted. Just write to me at {email}.',
+    'privacyPage.rights.text2':
+      'If you think your data is being mishandled, you can contact the Federal Data Protection and Information Commissioner ({fdpic}).',
+    'privacyPage.rights.fdpic': 'FDPIC',
+    'privacyPage.rights.law':
+      'This site is subject to Swiss law, in particular the Federal Act on Data Protection (FADP).',
   },
   fr: {
     'nav.work': 'Projets',
@@ -235,7 +282,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     'footer.github': 'GitHub',
     'footer.linkedin': 'LinkedIn',
     'footer.whatsapp': 'WhatsApp',
-    'footer.rights': 'Tous droits réservés.',
+    'footer.privacy': 'Confidentialité et mentions légales',
 
     // --- Homepage: page meta ---
     'home.title': 'Thomas Miller — Développeur web à Bulle, Suisse romande',
@@ -421,6 +468,8 @@ export const ui: Record<Lang, Record<string, string>> = {
     'contactForm.collapse': 'Fermer la vue agrandie',
     'contactForm.submit': 'Envoyer le message',
     'contactForm.sending': 'Envoi en cours…',
+    'contactForm.privacyNote': 'Votre message est traité comme indiqué dans la {link}.',
+    'contactForm.privacyLink': 'déclaration de protection des données',
     'contactForm.successMessage':
       'Merci, votre message est en route. Je réponds sous deux jours ouvrés.',
     'contactForm.errorMessage': 'Une erreur s’est produite. Réessayez, ou écrivez-moi directement.',
@@ -430,5 +479,50 @@ export const ui: Record<Lang, Record<string, string>> = {
     'contactSent.description': 'Votre message a bien été envoyé.',
     'contactSent.heading': 'Message envoyé',
     'contactSent.home': 'Retour à l’accueil',
+
+    // --- Confidentialité et mentions légales ---
+    // {email} et {fdpic} sont remplacés par des liens dans la page.
+    'privacyPage.title': 'Confidentialité et mentions légales — Thomas Miller',
+    'privacyPage.description':
+      'Qui exploite thomasmiller.ch, quelles données personnelles le site traite et pourquoi : formulaire de contact, hébergement chez Netlify et statistiques sans cookies avec GoatCounter.',
+    'privacyPage.heading': 'Confidentialité et mentions légales',
+    'privacyPage.updated': 'Dernière mise à jour : novembre 2026',
+    'privacyPage.intro':
+      'Qui se trouve derrière ce site, quelles données il traite et pourquoi. En bref : pas de cookies, aucun suivi individuel, et vos messages servent uniquement à vous répondre.',
+    'privacyPage.who.heading': 'Responsable du site',
+    'privacyPage.who.text': 'Ce site présente mon travail de développeur web indépendant.',
+    'privacyPage.who.location': 'Bulle, Suisse',
+    'privacyPage.who.controller':
+      'Je suis le responsable du traitement des données personnelles décrites sur cette page.',
+    'privacyPage.form.heading': 'Formulaire de contact',
+    'privacyPage.form.text1':
+      'Lorsque vous m’écrivez au moyen du formulaire de contact, je reçois votre nom, votre adresse e-mail, votre message, le fichier joint si vous en ajoutez un, ainsi que la langue de la page depuis laquelle vous l’avez envoyé. Ces données me servent uniquement à répondre à votre demande et, si nous travaillons ensemble, à en assurer le suivi.',
+    'privacyPage.form.text2':
+      'Le formulaire est géré par Netlify, Inc. (États-Unis), qui héberge ce site : Netlify enregistre votre message et me le transmet par e-mail. Les envois passent par Akismet, le filtre anti-spam d’Automattic (États-Unis).',
+    'privacyPage.form.text3':
+      'Je supprime les messages dès qu’ils ne sont plus utiles à notre échange, et vous pouvez me demander à tout moment de supprimer le vôtre plus tôt. Il en va de même si vous m’écrivez directement par e-mail.',
+    'privacyPage.hosting.heading': 'Hébergement',
+    'privacyPage.hosting.text':
+      'Ce site est hébergé par Netlify, Inc., aux États-Unis. Comme tout hébergeur, Netlify traite les données techniques nécessaires à l’affichage des pages, par exemple votre adresse IP, votre navigateur et la page demandée, et peut les conserver dans ses journaux de serveur. Vos données peuvent donc être traitées hors de Suisse, notamment aux États-Unis. Netlify est certifié selon le Swiss-U.S. Data Privacy Framework.',
+    'privacyPage.stats.heading': 'Statistiques de visite',
+    'privacyPage.stats.text1':
+      'Pour savoir combien de personnes visitent le site, j’utilise GoatCounter, un service de statistiques respectueux de la vie privée. Il compte les pages vues sans cookies et n’enregistre rien sur votre appareil.',
+    'privacyPage.stats.text2':
+      'GoatCounter ne conserve pas les adresses IP. Pour distinguer une nouvelle visite d’un simple rechargement, il garde votre adresse IP et les informations de votre navigateur en mémoire pendant huit heures au plus, sans les écrire sur disque. Il n’enregistre que des totaux : pages vues, site de provenance, navigateur, système d’exploitation, taille d’écran, langue et pays. Aucun profil n’est établi et vous n’êtes pas suivi d’un site à l’autre.',
+    'privacyPage.stats.text3':
+      'GoatCounter est exploité depuis l’Irlande et stocke ses données sur des serveurs situés en Finlande et en Allemagne.',
+    'privacyPage.cookies.heading': 'Cookies et services tiers',
+    'privacyPage.cookies.text1':
+      'Ce site n’utilise aucun cookie et n’enregistre rien dans votre navigateur. C’est pourquoi il n’affiche pas de bannière de cookies.',
+    'privacyPage.cookies.text2':
+      'Les polices de caractères sont servies par ce site lui-même : l’affichage d’une page n’envoie aucune requête à Google ni à un autre service de polices. Les liens vers d’autres sites, comme GitHub, LinkedIn, WhatsApp ou les projets présentés, mènent à des services dont les propres politiques de confidentialité s’appliquent dès que vous les suivez.',
+    'privacyPage.rights.heading': 'Vos droits',
+    'privacyPage.rights.text1':
+      'Vous pouvez à tout moment me demander quelles données je détiens à votre sujet, et les faire rectifier ou supprimer. Il suffit de m’écrire à {email}.',
+    'privacyPage.rights.text2':
+      'Si vous estimez que vos données sont mal traitées, vous pouvez vous adresser au Préposé fédéral à la protection des données et à la transparence ({fdpic}).',
+    'privacyPage.rights.fdpic': 'PFPDT',
+    'privacyPage.rights.law':
+      'Ce site est soumis au droit suisse, en particulier à la loi fédérale sur la protection des données (LPD).',
   },
 };

@@ -121,6 +121,13 @@ that assert on structural invariants (e.g. locale keys present, service ordering
 - `public/robots.txt` allows all crawlers and points to the sitemap.
 - `src/layouts/BaseLayout.astro` derives canonical, Open Graph, and `hreflang` URLs from
   `Astro.site`, so changing `site` in `astro.config.mjs` is the single source of truth.
+- Privacy & legal notice: `/en/privacy/` and `/fr/privacy/` (`src/pages/[lang]/privacy.astro`,
+  strings in `src/i18n/ui.ts`), linked from every footer and from the contact form.
+- Visitor counts: [GoatCounter](https://www.goatcounter.com), code set in
+  `src/data/analytics.ts` (empty = off), script added to production builds only.
+  To stop counting your own visits, open `https://thomasmiller.ch/#toggle-goatcounter` once
+  per browser (it stores one flag in that browser's localStorage), or add your IP in
+  GoatCounter's settings.
 - Favicon: `public/favicon.svg` (with `public/favicon.ico` as a legacy fallback),
   referenced via `<link rel="icon">` in `BaseLayout.astro`.
 
@@ -157,3 +164,4 @@ To deploy:
 - Astro's built-in `i18n` routing (`/en/`, `/fr/`, `en` as default locale, explicitly
   prefixed) for bilingual content
 - Contact form: [Netlify Forms](https://docs.netlify.com/manage/forms/setup/)
+- Visitor counts: [GoatCounter](https://www.goatcounter.com) (no cookies)

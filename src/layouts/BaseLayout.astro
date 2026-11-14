@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer, { type FooterVariant } from '../components/Footer.astro';
 import { languages, type Lang } from '../i18n/ui';
 import { switchLocalePath, useTranslations } from '../i18n/utils';
+import { goatcounterCode, goatcounterEndpoint } from '../data/analytics';
 
 interface Props {
   title: string;
@@ -35,6 +36,14 @@ const alternateLinks = locales.map((l) => ({
 }));
 const xDefaultHref = new URL(switchLocalePath(Astro.url, 'en'), siteUrl).toString();
 const ogImage = new URL('/og-image.png', siteUrl).toString();
+
+// Visitor counting (src/data/analytics.ts): production builds only, and only
+// with a code set. GoatCounter reports the canonical URL's path, so /en/… and
+// /fr/… count separately. noindex pages (404, form success) have no canonical:
+// they report their own built path instead, so every unknown URL counts as
+// /en/404/ or /fr/404/ rather than as a page of its own.
+const goatcounterUrl = import.meta.env.PROD ? goatcounterEndpoint(goatcounterCode) : null;
+const goatcounterSettings = noindex ? JSON.stringify({ path: Astro.url.pathname }) : undefined;
 ---
 
 <html lang={lang}>
@@ -83,6 +92,16 @@ const ogImage = new URL('/og-image.png', siteUrl).toString();
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+
+    {goatcounterUrl && (
+      <script
+        is:inline
+        data-goatcounter={goatcounterUrl}
+        data-goatcounter-settings={goatcounterSettings}
+        async
+        src="https://gc.zgo.at/count.js"
+      ></script>
+    )}
   </head>
   <body class="min-h-screen bg-paper text-ink">
     <a
