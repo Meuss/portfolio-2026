@@ -18,6 +18,28 @@ const t = useTranslations(lang);
 const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
 
 const { email, phone, phoneHref } = contact;
+
+// Attachment (issue 18). Netlify Forms caps the whole form request at 8 MB
+// (https://docs.netlify.com/manage/forms/setup/, "File uploads > Limitations"),
+// so the file itself is held a little under that to leave room for the text
+// fields. The help text shows the round figure.
+const attachmentMaxMb = 8;
+const attachmentMaxBytes = attachmentMaxMb * 1000 * 1000 - 100 * 1000;
+const attachmentExtensions = ['pdf', 'doc', 'docx', 'pages', 'jpg', 'jpeg', 'png', 'webp'];
+const attachmentMimeTypes = [
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/vnd.apple.pages',
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+];
+const attachmentAccept = [
+  ...attachmentExtensions.map((ext) => `.${ext}`),
+  ...attachmentMimeTypes,
+].join(',');
+const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb));
 ---
 
 <BaseLayout
@@ -53,12 +75,37 @@ const { email, phone, phoneHref } = contact;
           </div>
         </div>
 
-        <!-- Form -->
-        <div data-reveal data-reveal-delay="1">
+        <!-- Form. On desktop with JS, the expand button moves this same form
+             into the dialog below and back, so there is only ever one set of fields. -->
+        <div data-reveal data-reveal-delay="1" class="relative" data-form-home>
+          {/* Shown by the script from 1024px up; absent without JS. */}
+          <button
+            type="button"
+            hidden
+            aria-label={t('contactForm.expand')}
+            aria-haspopup="dialog"
+            title={t('contactForm.expand')}
+            class="absolute right-3 top-3 z-10 hidden items-center justify-center rounded-sm border border-line p-2 text-muted transition-colors hover:border-ink hover:text-ink lg:inline-flex"
+            data-form-expand
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-5"
+              aria-hidden="true"
+            >
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path>
+            </svg>
+          </button>
           <form
             id="contact-form"
             action="https://api.web3forms.com/submit"
             method="POST"
+            enctype="multipart/form-data"
             class="flex flex-col gap-6 rounded-lg border border-line bg-surface p-6 md:p-8"
           >
             <input type="hidden" name="access_key" value={web3formsKey} />
@@ -122,6 +169,81 @@ const { email, phone, phoneHref } = contact;
               ></textarea>
             </div>
 
+            {/* Optional attachment. Without JS this is a plain file input that
+                posts with the form. The script below adds the type/size check,
+                the chosen-file row and the remove button. */}
+            <button
+              type="button"
+              hidden
+              aria-expanded="false"
+              aria-controls="attachment-field"
+              class="inline-flex items-center gap-2 self-start text-small text-muted underline hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              data-attachment-toggle
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="1em"
+                height="1em"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57a4 4 0 1 1 5.66 5.66l-8.58 8.57a2 2 0 1 1-2.83-2.83l8.49-8.48"></path>
+              </svg>
+              <span>{t('contactForm.attachmentToggle')}</span>
+            </button>
+            <div class="flex flex-col gap-2" id="attachment-field" data-attachment>
+              <label for="attachment" class="font-mono text-caption uppercase text-muted">
+                {t('contactForm.attachmentLabel')}
+              </label>
+              <input
+                type="file"
+                id="attachment"
+                name="attachment"
+                accept={attachmentAccept}
+                aria-describedby="attachment-error"
+                data-max-bytes={attachmentMaxBytes}
+                data-extensions={attachmentExtensions.join(',')}
+                data-mime-types={attachmentMimeTypes.join(',')}
+                class="rounded-md border border-line bg-paper px-4 py-3 text-small text-muted file:mr-4 file:cursor-pointer file:rounded-sm file:border file:border-line file:bg-surface file:px-3 file:py-2 file:font-mono file:text-caption file:uppercase file:text-ink hover:file:border-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent aria-invalid:border-error"
+              />
+              <div class="hidden items-center justify-between gap-4" data-attachment-selected>
+                <span class="min-w-0 truncate text-small text-ink" data-attachment-name></span>
+                <button
+                  type="button"
+                  aria-label={t('contactForm.attachmentRemoveLabel')}
+                  class="shrink-0 font-mono text-caption uppercase text-muted underline hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  data-attachment-remove
+                >
+                  {t('contactForm.attachmentRemove')}
+                </button>
+              </div>
+              {/* Live region: stays in the DOM (empty) so the message is announced
+                  when the script fills it. */}
+              <p
+                id="attachment-error"
+                aria-live="polite"
+                class="text-small text-error empty:hidden"
+                data-type-error={t('contactForm.attachmentTypeError')}
+                data-size-error={withMax(t('contactForm.attachmentSizeError'))}
+              ></p>
+            </div>
+            {/* Runs as soon as the markup above is parsed, so the field never
+                flashes before the toggle takes its place. No JS: both stay as
+                rendered (toggle hidden, field visible). */}
+            <script is:inline>
+              (function () {
+                var field = document.getElementById('attachment-field');
+                var toggle = field && field.previousElementSibling;
+                if (!field || !toggle) return;
+                field.hidden = true;
+                toggle.hidden = false;
+              })();
+            </script>
             <button
               type="submit"
               data-fx-slot="primaryButton"
@@ -147,6 +269,41 @@ const { email, phone, phoneHref } = contact;
     </div>
   </section>
 
+  {/* Larger view of the form (desktop, JS only). Empty until the script moves
+      the form in; closing moves it back. */}
+  <dialog
+    aria-labelledby="contact-dialog-title"
+    class="contact-dialog m-auto max-h-[calc(100dvh-4rem)] w-[calc(100vw-4rem)] max-w-5xl overflow-y-auto rounded-lg border border-line bg-surface p-0 text-ink"
+    data-form-dialog
+  >
+    <div class="sticky top-0 z-10 flex items-center justify-between gap-6 border-b border-line bg-surface px-8 py-4">
+      <h2 id="contact-dialog-title" class="font-display text-title text-ink">
+        {t('contactPage.heading')}
+      </h2>
+      <button
+        type="button"
+        aria-label={t('contactForm.collapse')}
+        title={t('contactForm.collapse')}
+        class="inline-flex shrink-0 items-center justify-center rounded-sm border border-line p-2 text-muted transition-colors hover:border-ink hover:text-ink"
+        data-form-collapse
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="size-5"
+          aria-hidden="true"
+        >
+          <path d="M18 6 6 18M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div data-form-dialog-body></div>
+  </dialog>
+
   {/* Scroll-reveal island (Vite-bundled; runs client-side, progressive enhancement). */}
   <script>
     import '../../components/islands/reveal.ts';
@@ -168,8 +325,92 @@ const { email, phone, phoneHref } = contact;
     if (form instanceof HTMLFormElement && status) {
       const submitButton = form.querySelector('button[type="submit"]');
 
+      // Attachment: everything is queried inside the form, so the form can move
+      // (e.g. into a dialog) without breaking this.
+      const fileInput = form.querySelector('[data-attachment] input[type="file"]');
+      const selectedRow = form.querySelector('[data-attachment-selected]');
+      const selectedName = form.querySelector('[data-attachment-name]');
+      const removeButton = form.querySelector('[data-attachment-remove]');
+      const fileError = form.querySelector('[data-attachment] [aria-live]');
+      const attachmentField = form.querySelector('[data-attachment]');
+      const attachmentToggle = form.querySelector('[data-attachment-toggle]');
+
+      // The toggle and the field swap places; the state lives in the DOM
+      // (hidden attributes), so it survives the form moving into the dialog.
+      const setAttachmentOpen = (open: boolean) => {
+        if (!(attachmentField instanceof HTMLElement)) return;
+        if (!(attachmentToggle instanceof HTMLElement)) return;
+        attachmentField.hidden = !open;
+        attachmentToggle.hidden = open;
+        attachmentToggle.setAttribute('aria-expanded', String(open));
+      };
+
+      /** Returns an error message for the chosen file, or '' when it is fine (or absent). */
+      const checkAttachment = (): string => {
+        if (!(fileInput instanceof HTMLInputElement) || !(fileError instanceof HTMLElement)) {
+          return '';
+        }
+        const file = fileInput.files?.[0];
+        if (!file) return '';
+        const extensions = (fileInput.dataset.extensions ?? '').split(',');
+        const mimeTypes = (fileInput.dataset.mimeTypes ?? '').split(',');
+        const maxBytes = Number(fileInput.dataset.maxBytes);
+        // Extension OR MIME type: .pages and some Word files report an empty
+        // or unusual MIME type, and some phone files have no extension.
+        const extension = file.name.includes('.')
+          ? (file.name.split('.').pop() ?? '').toLowerCase()
+          : '';
+        if (!extensions.includes(extension) && !mimeTypes.includes(file.type)) {
+          return fileError.dataset.typeError ?? '';
+        }
+        if (maxBytes && file.size > maxBytes) return fileError.dataset.sizeError ?? '';
+        return '';
+      };
+
+      const showAttachment = () => {
+        if (!(fileInput instanceof HTMLInputElement) || !(fileError instanceof HTMLElement)) {
+          return '';
+        }
+        const file = fileInput.files?.[0];
+        if (selectedRow instanceof HTMLElement && selectedName) {
+          selectedName.textContent = file ? file.name : '';
+          selectedRow.classList.toggle('hidden', !file);
+          selectedRow.classList.toggle('flex', Boolean(file));
+        }
+        const message = checkAttachment();
+        fileError.textContent = message;
+        if (message) fileInput.setAttribute('aria-invalid', 'true');
+        else fileInput.removeAttribute('aria-invalid');
+        return message;
+      };
+
+      fileInput?.addEventListener('change', showAttachment);
+      removeButton?.addEventListener('click', () => {
+        if (!(fileInput instanceof HTMLInputElement)) return;
+        fileInput.value = '';
+        showAttachment();
+        fileInput.focus();
+      });
+      attachmentToggle?.addEventListener('click', () => {
+        setAttachmentOpen(true);
+        if (fileInput instanceof HTMLInputElement) fileInput.focus();
+      });
+      // reset fires before the fields are cleared, so update on the next tick.
+      // A reset (after a successful send) also folds the field back.
+      form.addEventListener('reset', () =>
+        setTimeout(() => {
+          showAttachment();
+          setAttachmentOpen(false);
+        }),
+      );
+
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
+
+        if (showAttachment()) {
+          if (fileInput instanceof HTMLInputElement) fileInput.focus();
+          return;
+        }
 
         const sendingText = status.dataset.sendingText ?? '';
         const successText = status.dataset.successText ?? '';
@@ -177,7 +418,9 @@ const { email, phone, phoneHref } = contact;
 
         if (submitButton instanceof HTMLButtonElement) submitButton.disabled = true;
         status.classList.remove('hidden');
+        // One colour class at a time: text-ink would otherwise outrank text-error.
         status.classList.remove('text-success', 'text-error');
+        status.classList.add('text-ink');
         status.textContent = sendingText;
 
         try {
@@ -190,18 +433,117 @@ const { email, phone, phoneHref } = contact;
 
           if (response.ok && result && result.success) {
             status.textContent = successText;
-            status.classList.add('text-success');
+            status.classList.replace('text-ink', 'text-success');
             form.reset();
           } else {
             throw new Error('web3forms-submit-failed');
           }
         } catch {
           status.textContent = errorText;
-          status.classList.add('text-error');
+          status.classList.replace('text-ink', 'text-error');
         } finally {
           if (submitButton instanceof HTMLButtonElement) submitButton.disabled = false;
         }
       });
     }
   </script>
+  {/*
+    Larger view (desktop only): moves the one form into the dialog and back, so
+    what was typed, the chosen file, errors and status messages stay put and
+    nothing can be sent twice. Without JS, or below 1024px, the button stays
+    hidden and the form is used in place.
+  */}
+  <script>
+    const home = document.querySelector<HTMLElement>('[data-form-home]');
+    const expand = home?.querySelector<HTMLButtonElement>('[data-form-expand]');
+    const form = home?.querySelector('form');
+    const dialog = document.querySelector<HTMLDialogElement>('[data-form-dialog]');
+    const body = dialog?.querySelector<HTMLElement>('[data-form-dialog-body]');
+    const collapse = dialog?.querySelector<HTMLButtonElement>('[data-form-collapse]');
+    const desktop = window.matchMedia('(min-width: 1024px)');
+
+    if (home && expand && form && dialog && body && collapse && 'showModal' in dialog) {
+      expand.hidden = false;
+
+      expand.addEventListener('click', () => {
+        // Hold the form's place so the page behind doesn't jump.
+        home.style.minHeight = `${home.offsetHeight}px`;
+        body.append(form);
+        dialog.showModal();
+        const message = form.querySelector('textarea');
+        if (message) {
+          message.focus();
+          message.setSelectionRange(message.value.length, message.value.length);
+        }
+      });
+
+      // Every way out (close button, Escape, backdrop, narrow viewport) ends here.
+      dialog.addEventListener('close', () => {
+        home.append(form);
+        home.style.minHeight = '';
+        expand.focus();
+      });
+
+      collapse.addEventListener('click', () => dialog.close());
+
+      // Backdrop click: the panel fills the dialog box, so a click whose target
+      // is the dialog itself landed outside it. Checking where the press began
+      // keeps a text selection dragged out of the textarea from closing it.
+      let pressedOnBackdrop = false;
+      dialog.addEventListener('pointerdown', (event) => {
+        pressedOnBackdrop = event.target === dialog;
+      });
+      dialog.addEventListener('click', (event) => {
+        if (pressedOnBackdrop && event.target === dialog) dialog.close();
+        pressedOnBackdrop = false;
+      });
+
+      desktop.addEventListener('change', () => {
+        if (!desktop.matches && dialog.open) dialog.close();
+      });
+    }
+  </script>
+  <style>
+    /* In the larger view the form loses its own box (the dialog is the box),
+       puts name and email side by side and gives the message the room. */
+    .contact-dialog form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 0;
+      background: transparent;
+      padding-top: 1.5rem;
+    }
+    .contact-dialog form > * {
+      grid-column: 1 / -1;
+    }
+    .contact-dialog form > :has(> #name),
+    .contact-dialog form > :has(> #email) {
+      grid-column: auto;
+    }
+    .contact-dialog textarea {
+      min-height: max(14rem, calc(100dvh - 38rem));
+    }
+    .contact-dialog::backdrop {
+      background: color-mix(in srgb, var(--color-paper) 80%, transparent);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .contact-dialog[open] {
+        transition:
+          opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .contact-dialog[open]::backdrop {
+        transition: opacity 0.25s ease-out;
+      }
+      @starting-style {
+        .contact-dialog[open] {
+          opacity: 0;
+          transform: translateY(0.75rem) scale(0.99);
+        }
+        .contact-dialog[open]::backdrop {
+          opacity: 0;
+        }
+      }
+    }
+  </style>
 </BaseLayout>

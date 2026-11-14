@@ -193,6 +193,16 @@ export const ui: Record<Lang, Record<string, string>> = {
     'contactForm.messageLabel': 'Message',
     'contactForm.messagePlaceholder': 'Tell me about your project…',
     'contactForm.honeypotLabel': 'Leave this field empty',
+    'contactForm.attachmentToggle': 'Add an attachment?',
+    'contactForm.attachmentLabel': 'Attachment (optional)',
+    'contactForm.attachmentRemove': 'Remove',
+    'contactForm.attachmentRemoveLabel': 'Remove the attached file',
+    'contactForm.attachmentTypeError':
+      'This file type isn’t accepted. Please choose a PDF, Word, Pages, JPG, PNG or WebP file.',
+    'contactForm.attachmentSizeError':
+      'This file is too large. Please choose a file of {max} MB or less.',
+    'contactForm.expand': 'Open the form in a larger view',
+    'contactForm.collapse': 'Close the larger view',
     'contactForm.submit': 'Send message',
     'contactForm.sending': 'Sending…',
     'contactForm.successMessage':
@@ -389,6 +399,16 @@ export const ui: Record<Lang, Record<string, string>> = {
     'contactForm.messageLabel': 'Message',
     'contactForm.messagePlaceholder': 'Parlez-moi de votre projet…',
     'contactForm.honeypotLabel': 'Laissez ce champ vide',
+    'contactForm.attachmentToggle': 'Ajouter une pièce jointe ?',
+    'contactForm.attachmentLabel': 'Pièce jointe (facultative)',
+    'contactForm.attachmentRemove': 'Retirer',
+    'contactForm.attachmentRemoveLabel': 'Retirer le fichier joint',
+    'contactForm.attachmentTypeError':
+      'Ce type de fichier n’est pas accepté. Choisissez un fichier PDF, Word, Pages, JPG, PNG ou WebP.',
+    'contactForm.attachmentSizeError':
+      'Ce fichier est trop lourd. Choisissez un fichier de {max} Mo au maximum.',
+    'contactForm.expand': 'Ouvrir le formulaire en grand',
+    'contactForm.collapse': 'Fermer la vue agrandie',
     'contactForm.submit': 'Envoyer le message',
     'contactForm.sending': 'Envoi en cours…',
     'contactForm.successMessage':
