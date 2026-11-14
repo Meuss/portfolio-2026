@@ -20,6 +20,15 @@ const contexts = ['independent', 'macmac', 'marvelous'] as const;
 const counts = Object.fromEntries(
   contexts.map((c) => [c, projects.filter((p) => p.data.context === c).length]),
 );
+
+// The "Your project?" teaser sits after this many projects (fewer projects: it comes last).
+const TEASER_AFTER = 4;
+const at = Math.min(TEASER_AFTER, projects.length);
+const entries = [
+  ...projects.slice(0, at).map((project, i) => ({ kind: 'project' as const, project, i })),
+  { kind: 'teaser' as const, at },
+  ...projects.slice(at).map((project, j) => ({ kind: 'project' as const, project, i: at + j })),
+];
 ---
 
 <BaseLayout title={t('workPage.title')} description={t('workPage.description')} lang={lang}>
@@ -63,19 +72,27 @@ const counts = Object.fromEntries(
       ></p>
 
       <ul class="mt-16 grid gap-x-10 gap-y-20 md:mt-24 md:grid-cols-2 md:gap-y-24" role="list">
-        {projects.map((project, i) => (
-          <li
-            data-context={project.data.context}
-            data-reveal
-            data-reveal-delay={String((i % 2) + 1)}
-          >
-            <ProjectCard project={project} lang={lang} eager={i < 2} fxSlot="workMedia" />
-          </li>
-        ))}
-        {/* No data-context, so the filter leaves it visible under every chip. */}
-        <li data-reveal data-reveal-delay={String((projects.length % 2) + 1)}>
-          <ProjectTeaser lang={lang} />
-        </li>
+        {entries.map((entry) =>
+          entry.kind === 'teaser' ? (
+            /* No data-context, so the filter leaves it visible under every chip. */
+            <li data-reveal data-reveal-delay={String((entry.at % 2) + 1)}>
+              <ProjectTeaser lang={lang} />
+            </li>
+          ) : (
+            <li
+              data-context={entry.project.data.context}
+              data-reveal
+              data-reveal-delay={String((entry.i % 2) + 1)}
+            >
+              <ProjectCard
+                project={entry.project}
+                lang={lang}
+                eager={entry.i < 2}
+                fxSlot="workMedia"
+              />
+            </li>
+          ),
+        )}
       </ul>
     </div>
   </section>

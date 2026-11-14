@@ -108,7 +108,7 @@ Durable constraints:
 Real project entries live in `src/content/projects/`, each tagged with a `context`:
 `independent` (direct freelance), `macmac` (built for the macmac studio) or `marvelous`
 (team work at Marvelous Digital). Imagery is **real screenshots of the live sites**, captured
-2026-10. The `/work` grid closes with a "Your project?" teaser card linking to contact.
+2026-10. The `/work` grid has a "Your project?" teaser card linking to contact, fifth in the grid after the first four projects.
 
 - `/work` is a **selection**, and says so: by Thomas's own estimate (2026-11-14) he has worked on
   probably hundreds of websites since 2014; the page shows the latest and a few representative ones.
