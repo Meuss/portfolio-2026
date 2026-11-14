@@ -34,8 +34,10 @@ pnpm dev
 | `pnpm test`         | Run the unit test suite (Vitest).                                                                            |
 | `pnpm format`       | Format the codebase with Prettier (writes changes).                                                          |
 | `pnpm format:check` | Check formatting without writing (CI-friendly).                                                              |
+| `pnpm check:links`  | After `pnpm build`: check that every internal link in `dist/` resolves to a file.                            |
 
 Before pushing or opening a PR, run `pnpm check && pnpm test && pnpm build`.
+CI (`.github/workflows/ci.yml`) runs the same checks plus the format check and `pnpm check:links` on pull requests and pushes to `master`.
 
 > pnpm settings (e.g. `onlyBuiltDependencies`) live in `pnpm-workspace.yaml`, not
 > `package.json` — pnpm v11 moved them there.

@@ -12,8 +12,9 @@ This repo uses **pnpm** (pinned via `packageManager` in `package.json`; run `cor
 - `pnpm check` — `astro check` (TypeScript + template diagnostics). The `build` script does **not** type-check, so `check` is the type gate.
 - `pnpm test` — Vitest unit suite. Run a single test with `pnpm vitest run src/i18n/utils.test.ts` (or `pnpm vitest -t "name"`).
 - `pnpm format` / `pnpm format:check` — Prettier write / check (config in `.prettierrc.json`, uses `prettier-plugin-astro`).
+- `pnpm check:links` — after `pnpm build`, checks that every internal link in `dist/` (`href`/`src`/`srcset`, plus our own absolute canonical/hreflang/OG/sitemap URLs) resolves to a file. External URLs are never fetched. Script: `scripts/check-links.mjs`.
 
-Before pushing or opening a PR, run `pnpm check && pnpm test && pnpm build`.
+Before pushing or opening a PR, run `pnpm check && pnpm test && pnpm build`. CI (`.github/workflows/ci.yml`) runs the format check, type check, tests, build and `pnpm check:links` on pull requests and pushes to `master`, on Node 26 with pnpm via corepack; Dependabot opens grouped monthly PRs (`.github/dependabot.yml`, TypeScript majors ignored until `astro check` supports 7).
 
 Node `>=26.0.0` is required (`engines`; `.nvmrc` pins Node 26, `netlify.toml` sets `NODE_VERSION = "26"`). The contact form uses **Netlify Forms** (see "Contact form" in README.md); it needs no key and only receives submissions on a Netlify deploy.
 
