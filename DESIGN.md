@@ -293,8 +293,8 @@ and intro (max 48rem) over the five tiles, the approach statement (max
 56rem) over its three reasons, in three columns from `lg`; the how-it-works
 heading and intro above a timeline of the four steps (a row from `xl`, a
 vertical rail below), with the FAQ under it in two columns from `lg`. The hero is a `1.1fr / 1fr` split
-at `lg` (intro left, wall right), stacking below 1024px with the wall becoming a
-full-bleed horizontal strip.
+at `lg` (intro left, wall right); below 1024px the wall is not rendered and the hero is the
+intro alone.
 
 Project lists are equal cards with very open gaps: three columns for the
 homepage selection (2rem columns, 4rem rows), two columns on `/work` (2.5rem
@@ -557,10 +557,10 @@ front card drops below the deck, travels back, and slides into the last slot
 behind the others while the rest step forward (`speed` 1.05, no bounce).
 The deck tilts toward the pointer, pauses on hover, and the front card can be
 flung to the back by dragging. Nothing locks while it moves: the front card can be
-grabbed mid-step, and a card still dropping away can be caught back to the front. Below 1024px, and as the deck's fallback, the
+grabbed mid-step, and a card still dropping away can be caught back to the front. Below 1024px the wall is not shown at all; as the deck's fallback the
 original Wall of Work runs instead.
 
-### The Wall of Work (hero, mobile and fallback)
+### The Wall of Work (hero, fallback)
 
 The original signature motion. Up to ten real desktop screenshots of shipped sites
 (NDA work excluded) in two columns that drift vertically in opposite
@@ -569,8 +569,8 @@ rendered twice). The second column is offset 9rem up so rows never align. Each
 shot is a 4px hairline `surface` frame with a caption-mono title bar. A mask
 fades the column ends into the ground (transparent → solid at 14% / 86%).
 
-Below 1024px it becomes one full-bleed horizontal strip drifting left over 60s,
-masked at 8% / 92%. Animation runs only under
+Below 1024px it is `display: none` (no strip, no toggle; its images are lazy, so
+phones don't fetch them). Animation runs only under
 `prefers-reduced-motion: no-preference`; it pauses on hover, when the wall is
 off-screen (IntersectionObserver), and via a mono "pause / play" text button
 (`aria-pressed`, hover ink) that appears only when motion is on. Under reduced
@@ -611,7 +611,7 @@ it is the only place they are set.
 | ----------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `heroBackground`  | Home hero                       | Letter glitch (a grid of mono characters in dark tones, a few re-rolling with a brief ink flash)                                                                                                                                                                   | intensity 0.5, speed 0.05, cell 31px, orange 0                                                                                                                                   |
 | `heroName`        | Home hero                       | Scramble (letters flicker through orange stand-ins, then lock)                                                                                                                                                                                                     | speed 1                                                                                                                                                                          |
-| `heroWall`        | Home hero, from 1024px          | Card swap (the wall of screenshots becomes a 3D deck whose front card drops to the back); below 1024px the drifting strip stays                                                                                                                                    | card offset 48px right, 19px up, 157px back; radius 10px; a swap every 2750ms at speed 1.05; parallax 0.6; dim 0.7; autoplay, pause on hover, draggable; no skew, bounce, spread |
+| `heroWall`        | Home hero, from 1024px          | Card swap (the wall of screenshots becomes a 3D deck whose front card drops to the back); not shown below 1024px                                                                                                                                                   | card offset 48px right, 19px up, 157px back; radius 10px; a swap every 2750ms at speed 1.05; parallax 0.6; dim 0.7; autoplay, pause on hover, draggable; no skew, bounce, spread |
 | `cursor`          | Every page                      | Glow trail                                                                                                                                                                                                                                                         | intensity 0.25, trail 0.4, orange 0.1                                                                                                                                            |
 | `primaryButton`   | Hero, footer, contact form, 404 | Star border, lit on hover and keyboard focus only                                                                                                                                                                                                                  | orbit 3s, intensity 0.7                                                                                                                                                          |
 | `mobileMenu`      | Header < 768px                  | Staggered (two sheets sweep in from the right, the links rise in one after another)                                                                                                                                                                                | speed 1                                                                                                                                                                          |

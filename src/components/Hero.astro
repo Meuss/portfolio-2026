@@ -15,7 +15,9 @@ const t = useTranslations(lang);
 const contactHref = localizedPath(lang, '/contact');
 const workHref = localizedPath(lang, '/work');
 
-// The wall: real desktop screenshots of shipped sites, split into two columns.
+// The wall (desktop only, from lg): real desktop screenshots of shipped sites, split
+// into two columns. Below lg it is display:none, and the images are lazy so a hidden
+// wall never downloads them.
 const shots = (await getVisibleProjects()).filter((p) => p.data.image && !p.data.nda).slice(0, 10);
 const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i % 2 === 1)];
 ---
@@ -56,7 +58,7 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
     </div>
 
     {shots.length > 0 && (
-      <div class="wall-wrap relative min-w-0" data-wall data-fx-slot="heroWall">
+      <div class="wall-wrap relative hidden min-w-0 lg:block" data-wall data-fx-slot="heroWall">
         <div class="wall" aria-hidden="true">
           {columns.map((col, c) => (
             <div class:list={['wall-col', c === 1 && 'wall-col--down']}>
@@ -69,8 +71,8 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
                         src={p.data.image!}
                         alt=""
                         widths={[360, 560, 720]}
-                        sizes="(min-width: 1024px) 15rem, 60vw"
-                        loading={copy === 0 && i < 2 ? 'eager' : 'lazy'}
+                        sizes="15rem"
+                        loading="lazy"
                         class="block aspect-[16/10] h-auto w-full object-cover object-top"
                       />
                       <figcaption>{p.data.title}</figcaption>
@@ -222,37 +224,6 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
     color: var(--color-ink);
   }
 
-  /* Mobile: one horizontal strip under the intro. */
-  @media (max-width: 1023px) {
-    .wall-wrap {
-      margin-inline: -1.5rem;
-      --wall-h: auto;
-    }
-    .wall {
-      display: block;
-      height: auto;
-      -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-    }
-    .wall-col {
-      flex-direction: row;
-      width: max-content;
-    }
-    .wall-col--down {
-      display: none;
-    }
-    .wall-track {
-      flex-direction: row;
-      padding: 0 1rem 0 0;
-    }
-    .wall-shot {
-      width: min(16rem, 62vw);
-    }
-    .wall-toggle {
-      right: 1.5rem;
-    }
-  }
-
   @media (prefers-reduced-motion: no-preference) {
     .wall-col {
       animation: wall-up 70s linear infinite;
@@ -264,11 +235,6 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
     .wall-wrap.is-paused .wall-col,
     .wall-wrap.is-offscreen .wall-col {
       animation-play-state: paused;
-    }
-    @media (max-width: 1023px) {
-      .wall-col {
-        animation: wall-left 60s linear infinite;
-      }
     }
   }
   @keyframes wall-up {
@@ -282,11 +248,6 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
     }
     to {
       transform: translateY(0);
-    }
-  }
-  @keyframes wall-left {
-    to {
-      transform: translateX(-50%);
     }
   }
 </style>

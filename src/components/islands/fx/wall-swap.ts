@@ -11,7 +11,7 @@
  * card can be grabbed mid-step, and a card still dropping away can be caught,
  * which puts it back in front.
  *
- * Desktop (≥1024px) only; below that the drifting strip is untouched. Autoplay
+ * Desktop (≥1024px) only; below that the wall is not shown at all. Autoplay
  * pauses on hover (`pause`), off-screen and in hidden tabs. Reduced motion: a
  * still deck, no autoplay, no parallax. The deck is aria-hidden like the wall
  * it replaces.
