@@ -18,7 +18,14 @@ describe('services data', () => {
   it('lists the secondary capabilities', () => {
     const ids = capabilities.map((c) => c.id);
     expect(ids).toEqual(
-      expect.arrayContaining(['multilingual', 'api-integrations', 'automation', 'ai', 'audits']),
+      expect.arrayContaining([
+        'multilingual',
+        'api-integrations',
+        'analytics',
+        'automation',
+        'ai',
+        'audits',
+      ]),
     );
   });
 });

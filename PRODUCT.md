@@ -69,11 +69,12 @@ Services presented to clients, in plain language and by outcome:
 
 - Showcase websites
 - Online shops and bookings (connected to business tools such as a CRM)
-- Custom applications (internal tools, dashboards)
+- Custom applications (internal tools, CRMs, dashboards)
 - Search visibility and speed (SEO & performance)
 - Maintenance and support (hosting, security updates, backups, changes)
-- Secondary capabilities: multilingual sites, connecting tools (Stripe, shipping, third-party
-  services), automation, AI features, site reviews (technical audits).
+- Secondary capabilities: multilingual sites, connecting tools (CRM, payment, shipping,
+  newsletter, any other API), visitor statistics, automation, AI features, site reviews
+  (technical audits).
 
 How Thomas works with clients (his own words, 2026-11; keep the public wording deliberately vague
 and adapted to each client's needs):

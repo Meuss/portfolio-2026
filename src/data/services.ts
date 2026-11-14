@@ -23,8 +23,8 @@ export const headlineServices: Service[] = [
     id: 'web-apps',
     title: { en: 'Custom applications', fr: 'Applications sur mesure' },
     blurb: {
-      en: 'Internal tools and dashboards built around how you work.',
-      fr: 'Des outils internes et des tableaux de bord adaptés à votre façon de travailler.',
+      en: 'Internal tools, CRMs and dashboards built around how you work.',
+      fr: 'Outils internes, CRM et tableaux de bord adaptés à votre façon de travailler.',
     },
   },
   {
@@ -56,10 +56,18 @@ export const capabilities: Service[] = [
   },
   {
     id: 'api-integrations',
-    title: { en: 'Connecting your tools', fr: 'Liaison avec vos outils' },
+    title: { en: 'Connecting your tools', fr: 'Connexion à vos outils' },
     blurb: {
-      en: 'Payment, shipping and other outside services.',
-      fr: 'Paiement, livraison et autres services externes.',
+      en: 'CRM, payment, shipping, newsletter or any other API.',
+      fr: 'CRM, paiement, livraison, newsletter ou toute autre API.',
+    },
+  },
+  {
+    id: 'analytics',
+    title: { en: 'Visitor statistics', fr: 'Statistiques de visite' },
+    blurb: {
+      en: 'See how many visitors come, and from where.',
+      fr: 'Savoir combien de visiteurs viennent, et d’où.',
     },
   },
   {
