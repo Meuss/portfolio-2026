@@ -12,6 +12,12 @@ const lang: Lang = /^\/fr(\/|$)/.test(Astro.url.pathname) ? 'fr' : 'en';
 const t = useTranslations(lang);
 ---
 
-<BaseLayout title={t('notFound.title')} description={t('notFound.description')} lang={lang} noindex>
+<BaseLayout
+  title={t('notFound.title')}
+  description={t('notFound.description')}
+  lang={lang}
+  noindex
+  footer="compact"
+>
   <NotFound lang={lang} />
 </BaseLayout>

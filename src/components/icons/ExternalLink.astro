@@ -1,0 +1,22 @@
+---
+// "Opens in a new tab" mark: a box with an arrow leaving its corner.
+// Same drawing rules as Arrow.astro (1.5px stroke, square caps, sized in em).
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg
+  aria-hidden="true"
+  viewBox="0 0 16 16"
+  width="1em"
+  height="1em"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.5"
+  stroke-linecap="square"
+  class:list={['inline-block shrink-0', className]}
+>
+  <path d="M6.5 4H3v9h9V9.5M9.5 3H13v3.5M13 3 7.5 8.5"></path>
+</svg>

@@ -1,8 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import portrait from '../../assets/portrait.jpg';
-import CTA from '../../components/CTA.astro';
+import portrait from '../../assets/profile.jpeg';
 import ContextBadge from '../../components/ContextBadge.astro';
 import { languages, type Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
@@ -85,8 +84,6 @@ const ways = (['marvelous', 'macmac', 'independent'] as const).map((context, i) 
       </ol>
     </div>
   </section>
-
-  <CTA lang={lang} />
 
   <script>
     import '../../components/islands/reveal.ts';

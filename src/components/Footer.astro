@@ -1,37 +1,77 @@
 ---
 import type { Lang } from '../i18n/ui';
-import { contact } from '../data/contact';
-import { useTranslations } from '../i18n/utils';
+import { localizedPath, useTranslations } from '../i18n/utils';
+import ContactDetails from './ContactDetails.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-import SocialLinks from './SocialLinks.astro';
 import Logo from './Logo.astro';
+import Arrow from './icons/Arrow.astro';
+
+/** Which footer closes the page:
+    - 'full': the closing call to action (heading, reply promise, button to the
+      contact page) beside the direct contact details, then the fine print.
+    - 'compact': the direct contact details in one row, then the fine print. For
+      the error pages, whose one job is the way home.
+    - 'fine-print': only the logo, copyright and language switcher. For the
+      contact page, whose body already shows the same contact details and where
+      the button would link to the page itself. */
+export type FooterVariant = 'full' | 'compact' | 'fine-print';
 
 interface Props {
   lang: Lang;
+  variant?: FooterVariant;
 }
 
-const { lang } = Astro.props;
+const { lang, variant = 'full' } = Astro.props;
 const t = useTranslations(lang);
 
 const year = new Date().getFullYear();
-const { email } = contact;
+const contactHref = localizedPath(lang, '/contact');
 ---
 
+{/* The page's closing block, one flat step up from the ground: the call to
+    action and/or the direct contact details (by variant), then the fine print. */}
 <footer class="border-t border-line bg-surface">
-  <div class="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-14 md:px-10">
-    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-      <p class="max-w-md font-display text-title text-ink">{t('footer.tagline')}</p>
+  <div
+    class:list={[
+      'mx-auto flex max-w-6xl flex-col px-6 pb-10 md:px-10',
+      variant === 'full' && 'gap-12 pt-20 md:gap-20 md:pt-28',
+      variant === 'compact' && 'gap-10 pt-14',
+      variant === 'fine-print' && 'pt-10',
+    ]}
+  >
+    {variant === 'full' && (
+      <div class="grid gap-12 md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:gap-16">
+        <div data-reveal>
+          <h2 class="max-w-3xl font-display text-headline text-ink">{t('cta.heading')}</h2>
+          <p class="mt-6 max-w-xl text-lead text-muted">{t('cta.body')}</p>
 
-      <div class="flex flex-wrap items-center gap-x-8 gap-y-3 text-body">
-        <a href={`mailto:${email}`} class="text-ink underline hover:text-accent">
-          <span class="sr-only">{t('footer.email')}: </span>
-          {email}
-        </a>
-        <SocialLinks lang={lang} class="max-md:-ml-3 md:-mr-3" />
+          <a href={contactHref} class="btn-primary group mt-10" data-fx-slot="primaryButton">
+            {t('cta.button')}
+            <Arrow class="transition-transform duration-200 group-hover:translate-x-0.5" />
+          </a>
+        </div>
+
+        <div class="flex flex-col gap-5 border-t border-line pt-10 md:border-t-0 md:pt-0">
+          <h3 class="font-display text-title text-ink">{t('footer.tagline')}</h3>
+          <ContactDetails lang={lang} stacked />
+        </div>
       </div>
-    </div>
+    )}
 
-    <div class="flex flex-col-reverse items-start gap-4 border-t border-line pt-6 text-small text-muted md:flex-row md:items-center md:justify-between">
+    {variant === 'compact' && (
+      <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <h2 class="max-w-md font-display text-title text-ink">{t('footer.tagline')}</h2>
+        <ContactDetails lang={lang} />
+      </div>
+    )}
+
+    <div
+      class:list={[
+        'flex flex-col-reverse items-start gap-4 text-small text-muted md:flex-row md:items-center md:justify-between',
+        // Alone, it sits straight under the footer's own hairline.
+        variant !== 'fine-print' && 'border-t border-line pt-6',
+      ]}
+    >
       <div class="flex flex-col gap-4">
         <Logo lang={lang} full class="text-ink [--logo-size:2.5rem]" />
         <p>
@@ -42,3 +82,9 @@ const { email } = contact;
     </div>
   </div>
 </footer>
+
+{/* The call to action fades in on scroll. Imported here as well as by the
+    pages, so it can never stay hidden on a page that forgets the import. */}
+<script>
+  import './islands/reveal.ts';
+</script>

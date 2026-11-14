@@ -1,0 +1,35 @@
+---
+import type { Lang } from '../i18n/ui';
+import { contact } from '../data/contact';
+import { useTranslations } from '../i18n/utils';
+import SocialLinks from './SocialLinks.astro';
+
+interface Props {
+  lang: Lang;
+  /** Stack the details in a column; otherwise they sit in one wrapping row. */
+  stacked?: boolean;
+}
+
+const { lang, stacked = false } = Astro.props;
+const t = useTranslations(lang);
+
+const { email, phone, phoneHref } = contact;
+---
+
+{/* The direct ways to reach Thomas: email, phone, then the icon links. */}
+<div
+  class:list={[
+    'text-body',
+    stacked ? 'flex flex-col items-start gap-3' : 'flex flex-wrap items-center gap-x-8 gap-y-3',
+  ]}
+>
+  <a href={`mailto:${email}`} class="text-ink underline hover:text-accent">
+    <span class="sr-only">{t('footer.email')}: </span>
+    {email}
+  </a>
+  <a href={phoneHref} class="whitespace-nowrap text-ink underline hover:text-accent">
+    <span class="sr-only">{t('footer.phone')}: </span>
+    {phone}
+  </a>
+  <SocialLinks lang={lang} class={stacked ? '-ml-3' : 'max-md:-ml-3 md:-mr-3'} />
+</div>

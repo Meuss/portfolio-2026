@@ -17,10 +17,15 @@ const t = useTranslations(lang);
 // just won't deliver until PUBLIC_WEB3FORMS_KEY is set. Never throw here.
 const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
 
-const { email } = contact;
+const { email, phone, phoneHref } = contact;
 ---
 
-<BaseLayout title={t('contactPage.title')} description={t('contactPage.description')} lang={lang}>
+<BaseLayout
+  title={t('contactPage.title')}
+  description={t('contactPage.description')}
+  lang={lang}
+  footer="fine-print"
+>
   <section class="border-b border-line bg-paper py-20 md:py-28">
     <div class="mx-auto max-w-6xl px-6 md:px-10">
       <div class="grid gap-12 md:grid-cols-[1fr_1.15fr] md:gap-16">
@@ -40,6 +45,10 @@ const { email } = contact;
               <a href={`mailto:${email}`} class="text-ink underline hover:text-accent">
                 <span class="sr-only">{t('footer.email')}: </span>
                 {email}
+              </a>
+              <a href={phoneHref} class="whitespace-nowrap text-ink underline hover:text-accent">
+                <span class="sr-only">{t('footer.phone')}: </span>
+                {phone}
               </a>
               <SocialLinks lang={lang} class="-ml-3" />
             </div>

@@ -13,6 +13,8 @@ const { lang, class: className } = Astro.props;
 const t = useTranslations(lang);
 
 const links = [
+  // Order is deliberate: WhatsApp first, then GitHub, then LinkedIn.
+  { name: 'whatsapp', href: contact.whatsappUrl, label: t('footer.whatsapp') },
   { name: 'github', href: contact.githubUrl, label: t('footer.github') },
   { name: 'linkedin', href: contact.linkedinUrl, label: t('footer.linkedin') },
 ] as const;

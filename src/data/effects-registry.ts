@@ -186,7 +186,7 @@ export const fxRegistry = {
   cursor: { label: 'Cursor', where: 'Every page', variants: cursorVariants },
   primaryButton: {
     label: 'Primary buttons',
-    where: 'Hero, CTA, contact form',
+    where: 'Hero, footer CTA, contact form',
     variants: {
       off: { label: 'Off', params: {} },
       star: {

@@ -91,12 +91,6 @@ components:
   chip-filter-selected:
     backgroundColor: '{colors.surface-2}'
     textColor: '{colors.ink}'
-  chip-capability:
-    backgroundColor: 'transparent'
-    textColor: '{colors.ink}'
-    typography: '{typography.caption}'
-    rounded: '{rounded.sm}'
-    padding: '0.375rem 0.75rem'
   project-frame:
     backgroundColor: '{colors.surface}'
     rounded: '{rounded.md}'
@@ -188,13 +182,13 @@ status colours that only ever report a state.
 
 - **Kit Black** (`paper`): Page background, input fill, the phone-capture frame.
 - **Surface** (`surface`): One tonal step up: screenshot frames, the contact form
-  panel, the closing CTA band, the footer.
+  panel, the footer (which carries the closing call to action).
 - **Second Surface** (`surface-2`): Two steps up: the selected filter chip.
 - **Warm Off-White Ink** (`ink`): Headings and body text (~16.7:1 on ground);
   hover border of secondary buttons, the selected chip's border, the hero's short
   rule, the wall's pause-control hover.
 - **Muted Grey** (`muted`): Secondary text, intros, captions, and all mono labels:
-  Approach terms, the capabilities heading, "coming soon", NDA (~7.4:1). Also the
+  the capabilities heading, "coming soon", NDA (~7.4:1). Also the
   filter chips' hover border.
 - **Faint Grey** (`faint`): Placeholders and disabled text only (~4.8:1 on ground).
 - **Hairline** (`line`): Every border, rule, divider, and the `/` separator in
@@ -238,11 +232,12 @@ paragraphs `text-wrap: pretty`.
 - **Display** (800, `clamp(2.75rem → 6rem)`, lh 0.92, -0.04em): The hero name and
   the 404's first line.
 - **Headline** (800, `clamp(2rem → 3.75rem)`, lh 1, -0.035em): Page and section
-  H1/H2, the CTA heading, the 404's second line.
+  H1/H2, the footer's call-to-action heading, the 404's second line.
 - **Title** (700, `clamp(1.35rem → 1.875rem)`, lh 1.15, -0.025em): Project card
-  titles, service rows, About "ways" rows, contact sub-heading.
+  titles, service rows, Approach claims (each with a muted Body sentence under
+  it), About "ways" rows, contact sub-heading.
 - **Lead** (400, `clamp(1.125rem → 1.375rem)`, lh 1.5): Intros under headings,
-  hero tagline, Approach statements.
+  hero tagline.
 - **Body** (400, `clamp(1rem → 1.0625rem)`, lh 1.6): Running text, card
   descriptions (`max-w-[60ch]`), nav links.
 - **Small** (400, 0.875rem, lh 1.5): The footer's fine print.
@@ -265,8 +260,8 @@ its `dd`, a context tag above a card title that it describes).
 
 A single centered column: `max-w-6xl` (72rem) with 1.5rem gutters opening to
 2.5rem at `md`. Sections carry generous vertical rhythm (5rem rising to 7rem;
-the CTA to 8rem) and are separated by a full-width hairline bottom border; the
-only background change is the closing CTA band, one flat step up. Interior
+the footer's call to action to 8rem) and are separated by a full-width hairline bottom border; the
+only background change is the footer, one flat step up. Interior
 sections pair a heading column with content: ratio grids such as
 `minmax(0,20rem) 1fr` (services) or two equal columns (approach), with the heading
 column `sticky` at `top: 7rem` on wide screens. The hero is a `1.1fr / 1fr` split
@@ -286,7 +281,7 @@ Tailwind defaults (`sm` 640, `md` 768, `lg` 1024).
 Flat by default, tonal by construction. The kit black ground sits under `surface`,
 which sits under `surface-2`, one step at a time, and every container is drawn with
 a 1px `line` hairline rather than a cast shadow. The interface itself has no glows
-and no coloured shadows; the closing CTA band is flat `surface`. State is a
+and no coloured shadows; the footer is flat `surface`. State is a
 border-colour or text-colour shift, plus a 2px lift on the primary button. Shadows
 exist only where one thing physically rests on another: the phone capture over its
 desktop screenshot, each card of the hero deck over the one behind it, the portrait
@@ -340,8 +335,8 @@ Mono, uppercase, sharp, and few: one orange primary per screen, always black tex
 
 - **Shape:** 2px radius; DM Mono 500 at 0.8rem, +0.12em tracking, padding
   `0.9375rem 1.375rem`, an SVG arrow trailing with a 0.65rem gap.
-- **Primary:** Orange fill, black text. Hero "start a project", the closing
-  CTA, contact submit, the 404's way home.
+- **Primary:** Orange fill, black text. Hero "start a project", the footer's
+  call to action, contact submit, the 404's way home.
 - **Hover / Focus:** Primary lightens to `accent-hover` and lifts 2px
   over 200ms (`cubic-bezier(0.22, 1, 0.36, 1)`); the arrow nudges 2px right.
   A comet of orange light orbits the button's edge while hovered or focused
@@ -370,7 +365,8 @@ frame and text.
   frame (16:10); on hover the image scales to 1.02 over 700ms. When a phone
   capture exists it overlaps the lower-right corner (22% wide, 8px radius,
   `paper` backing, 1.25rem below the frame) with the Overlap shadow. NDA work
-  shows a blank frame with a faint diagonal hatch and a mono caption.
+  and the `/work` closing teaser ("Your project?", linking to contact) show a
+  blank frame with a faint diagonal hatch and a mono caption.
 - **Meta line:** Context badge (`currentColor` dot + "Freelance", or the macmac /
   Marvelous wordmark) in ink, a `line`-coloured `/`,
   then the kind in muted caption mono.
@@ -420,6 +416,31 @@ peaks, and leave clear space of at least half the symbol's height.
   surface layer and an orange-edged paper layer, then the links rise in at display
   size, staggered, over a full-height paper overlay, the current link in orange; the
   hairlines fold into an X.
+
+### Footer (closing block)
+
+One block closes every page (`Footer.astro`, mounted by `BaseLayout`): a flat
+`surface` band under a hairline. There is no separate call-to-action band. A page
+picks one of three variants with the `footer` prop on `BaseLayout`.
+
+- **Full** (default, `footer="full"`: home, About, Work): the Headline
+  "Let's talk about your project", a muted Lead line with the reply promise and
+  the primary button to the contact page on the left; on the right, bottom-aligned
+  with the button, the Title "Me joindre directement" / "Reach me directly" over the
+  stacked email, phone and icon links (WhatsApp, GitHub, LinkedIn; 44px targets).
+  Below `md` the two stack, divided by a hairline.
+- **Compact** (`footer="compact"`: the error pages, whose one job is the way
+  home): no call to action. The Title sits left and the contact details run in
+  one row on the right.
+- **Fine print only** (`footer="fine-print"`: the contact page): no call to
+  action, since the button would link to the page itself and the page already
+  opens with the same heading, and no contact details, since the page body shows
+  the same email, phone and icon links just above. Only the fine print remains,
+  directly under the footer's own hairline (no second rule), with equal top and
+  bottom padding.
+- **Fine print**, closing every variant (under its own hairline in Full and
+  Compact): the logo with tagline, the copyright line in Small, and the EN/FR
+  switcher.
 
 ### Service List
 
@@ -495,19 +516,19 @@ the FX panel). The lanyard is a steel (`muted`) clip with orange stitching.
 Slots (an element can host several: `data-fx-slot="a b"`;
 every matching element gets its own instance):
 
-| Slot             | Where                        | Variants                                                                 |
-| ---------------- | ---------------------------- | ------------------------------------------------------------------------ |
-| `heroBackground` | Home hero                    | Light shafts · ASCII field · Lightfall · Letter glitch · Off             |
-| `heroWall`       | Home hero                    | Drift (the wall) · Card swap (desktop)                                   |
-| `heroName`       | Home hero                    | Scramble · Decode · Plain                                                |
-| `cursor`         | Every page                   | Lamp · Glow trail · Crosshair · Off                                      |
-| `primaryButton`  | Hero, CTA, contact form, 404 | Off · Star border                                                        |
-| `featuredMedia`  | Home selected work           | Off · Tilted card · Pixel transition · Refine                            |
-| `workMedia`      | /work                        | Off · Tilted card · Pixel transition · Refine                            |
-| `mobileMenu`     | Header < 768px               | Default · Staggered                                                      |
-| `aboutPortrait`  | /about                       | Static · Lanyard                                                         |
-| `contactLead`    | /contact lead paragraph      | Off · Scrambled text (letters near the cursor flicker to orange `.` `:`) |
-| `notFound`       | 404 pages, each heading line | Plain · Fuzzy text (rows jitter sideways, swelling on hover)             |
+| Slot             | Where                           | Variants                                                                 |
+| ---------------- | ------------------------------- | ------------------------------------------------------------------------ |
+| `heroBackground` | Home hero                       | Light shafts · ASCII field · Lightfall · Letter glitch · Off             |
+| `heroWall`       | Home hero                       | Drift (the wall) · Card swap (desktop)                                   |
+| `heroName`       | Home hero                       | Scramble · Decode · Plain                                                |
+| `cursor`         | Every page                      | Lamp · Glow trail · Crosshair · Off                                      |
+| `primaryButton`  | Hero, footer, contact form, 404 | Off · Star border                                                        |
+| `featuredMedia`  | Home selected work              | Off · Tilted card · Pixel transition · Refine                            |
+| `workMedia`      | /work                           | Off · Tilted card · Pixel transition · Refine                            |
+| `mobileMenu`     | Header < 768px                  | Default · Staggered                                                      |
+| `aboutPortrait`  | /about                          | Static · Lanyard                                                         |
+| `contactLead`    | /contact lead paragraph         | Off · Scrambled text (letters near the cursor flicker to orange `.` `:`) |
+| `notFound`       | 404 pages, each heading line    | Plain · Fuzzy text (rows jitter sideways, swelling on hover)             |
 
 Most effects are palette-tinted re-implementations of [React Bits](https://reactbits.dev)
 components, written as vanilla islands: the site does not use React, and an
@@ -549,12 +570,12 @@ cursor-driven behaviour is fine-pointer only.
 
 ### Don't:
 
-- **Don't** use orange as a section background, under white text, as body text, beside error red as a second accent, or as decoration with no job; the closing CTA is a flat `surface` band with an orange button.
+- **Don't** use orange as a section background, under white text, as body text, beside error red as a second accent, or as decoration with no job; the footer is a flat `surface` band whose call to action has an orange button.
 - **Don't** add glows or coloured shadows to the interface; only opt-out effects may carry light.
 - **Don't** add drop shadows for elevation; shadows only mark physical
   layering (the phone capture, the hero deck, the hanging badge).
 - **Don't** use placeholder imagery or stock illustration in place of real work.
-  The only portrait is Thomas's real photo (`src/assets/portrait.jpg`, About page).
+  The only portrait is Thomas's real photo (`src/assets/profile.jpeg`, About page).
 - **Don't** put a mono eyebrow or kicker above a heading.
 - **Don't** use unicode glyph arrows (→ ↗) or emoji as icons.
 - **Don't** use off-palette glows, rainbow or saturated neon gradients, or a

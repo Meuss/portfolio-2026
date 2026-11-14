@@ -14,35 +14,37 @@ export const ui: Record<Lang, Record<string, string>> = {
     'nav.menuClose': 'Close menu',
     'nav.skipToContent': 'Skip to content',
     'lang.switcher': 'Language',
-    'footer.tagline': "Let's build something worth shipping.",
+    'footer.tagline': 'Reach me directly',
     'footer.email': 'Email',
+    'footer.phone': 'Phone',
     'footer.github': 'GitHub',
     'footer.linkedin': 'LinkedIn',
+    'footer.whatsapp': 'WhatsApp',
     'footer.rights': 'All rights reserved.',
 
     // --- Homepage: page meta ---
-    'home.title': 'Thomas Miller — Web developer in Switzerland',
+    'home.title': 'Thomas Miller — Web developer in Bulle, Switzerland',
     'home.description':
-      'Web developer at Marvelous Digital in Vevey, and freelance on the side. Fast, multilingual websites for Swiss businesses and institutions.',
+      'Websites and apps for small businesses and independents in French-speaking Switzerland, built and looked after by Thomas Miller, a web developer in Bulle.',
 
     // --- Homepage: hero ---
     'hero.name': 'Thomas Miller',
     'hero.tagline':
-      'Web developer at Marvelous Digital in Vevey, and freelance on the side. I build fast, multilingual websites and see them through to launch.',
-    'hero.cta': 'Start a project',
+      'I build and look after websites and apps for small businesses and independents in French-speaking Switzerland. I’m also a developer at the Marvelous Digital agency.',
+    'hero.cta': 'Talk about your project',
     'hero.ctaSecondary': 'See the work',
-    'hero.availability': 'Open to a few freelance projects',
-    'hero.based': 'Switzerland · FR / EN',
+    'hero.availability': 'Available for a few projects',
+    'hero.based': 'Bulle, Switzerland · FR / EN',
     'hero.wallPause': 'Pause',
     'hero.wallPlay': 'Play',
 
     // --- Homepage: services ---
-    'services.heading': 'What I build',
-    'services.intro': 'From a small showcase site to a custom web app, frontend through backend.',
-    'capabilities.heading': 'Around the build',
+    'services.heading': 'What I can do for you',
+    'services.intro': 'From a small showcase site to a custom application.',
+    'capabilities.heading': 'Also',
 
     // --- Homepage: selected work ---
-    'work.heading': 'Selected work',
+    'work.heading': 'Latest projects',
     'work.intro':
       'Built directly for clients, with the macmac studio, and with the team at Marvelous Digital.',
     'work.viewAll': 'All projects',
@@ -56,6 +58,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     'project.soon': 'Launching soon',
     'project.newTab': 'opens in a new tab',
     'project.stackLabel': 'Stack',
+    'project.tagMultilingual': 'Multilingual',
     'project.screenshotAlt': 'Homepage of {name}',
 
     // --- Work page: page meta ---
@@ -66,36 +69,41 @@ export const ui: Record<Lang, Record<string, string>> = {
     // --- Work page: intro ---
     'workPage.heading': 'Work',
     'workPage.intro':
-      'Everything I can show. Each project says how it came about: freelance, with the macmac studio, or with the team at Marvelous Digital.',
+      'I’ve worked on hundreds of websites since 2014. These are the most recent, and a few others that are representative. Each project says how it came about: freelance, with the macmac studio, or with the team at Marvelous Digital.',
     'workPage.filterLabel': 'Filter projects',
     'workPage.filterAll': 'All',
     'workPage.filterStatus': '{n} projects shown',
+    'work.teaser.frame': 'Your site here',
+    'work.teaser.kind': 'Next project',
+    'work.teaser.title': 'Your project?',
+    'work.teaser.body':
+      'This spot is open. Tell me what you need, and it could be the next one on this page.',
 
     // --- About page: page meta ---
     'aboutPage.title': 'About — Thomas Miller',
     'aboutPage.description':
-      'Web developer at Marvelous Digital in Vevey, taking on freelance projects alongside: directly for clients, and for the macmac studio.',
+      'Web developer since 2014. At Marvelous Digital in Vevey, taking on freelance projects alongside: directly for clients, and for the macmac studio.',
 
     // --- About page: intro & bio ---
-    'aboutPage.heading': 'Developer at an agency, freelance on the side',
+    'aboutPage.heading': 'One person to talk to, from idea to launch',
     'aboutPage.bioIntro':
-      'I’m Thomas Miller, a web developer. I work at Marvelous Digital, an agency in Vevey, and take on freelance projects alongside it.',
+      'I’m Thomas Miller, a web developer. I’ve been building for the web since 2014, from showcase sites to custom applications. I work at Marvelous Digital, an agency in Vevey, and take on freelance projects alongside it.',
     'aboutPage.bioParagraph1':
-      'At Marvelous I work with the team on sites for Swiss institutions and brands, and on projects for large international clients I can’t name.',
+      'At Marvelous I work with the team on sites for Swiss institutions and brands, and on projects for large international clients.',
     'aboutPage.bioParagraph2':
-      'On my own time I build for clients directly, from a nightclub to a public-sector platform, and I develop sites for macmac, a branding and interiors studio in Marly.',
+      'On my own time I build directly for individuals, small businesses and public institutions, and I develop sites for macmac, a branding and interiors studio in Marly.',
     'aboutPage.bioParagraph3':
-      'I care about the details most visitors never notice. Load times, accessible markup, sensible defaults. They’re what separates a site that works from one that’s genuinely good to use.',
+      'AI has changed how I work. I can take on more myself and deliver faster, so a freelance project now costs less than it used to. That’s why I’m gradually giving more of my time to freelance work.',
     'aboutPage.portraitAlt': 'Portrait of Thomas Miller',
-    'aboutPage.waysHeading': 'Where the work comes from',
+    'aboutPage.waysHeading': 'Who I work with',
     'aboutPage.way1.name': 'Marvelous Digital',
     'aboutPage.way1.meta': 'Employer · Vevey',
     'aboutPage.way1.text':
-      'Team projects for research, tourism and industry, among them CSEM, SPIE and Les Bains de Lavey.',
+      'A web agency that develops tailor-made digital solutions. I work there with a very talented team of project managers, designers and developers. For a larger project, I can put you in touch with them.',
     'aboutPage.way2.name': 'macmac',
     'aboutPage.way2.meta': 'Studio partner · Marly',
     'aboutPage.way2.text':
-      'Hotels, restaurants, architects and foundations, many of them around Murten.',
+      'I worked there for four years, until 2019, and we have stayed on very good terms: I still build some of their new projects and maintain the older ones. Hotels, restaurants, architects and foundations, many of them around Murten or Fribourg.',
     'aboutPage.way3.name': 'Freelance',
     'aboutPage.way3.meta': 'Directly with you',
     'aboutPage.way3.text':
@@ -103,27 +111,59 @@ export const ui: Record<Lang, Record<string, string>> = {
 
     // --- Homepage: approach ---
     'approach.heading': 'Agency standards, one person to talk to',
-    'approach.point1.label': 'Craft',
+    'approach.point1.title': 'Building for the web since 2014',
     'approach.point1.text':
-      'Every detail considered. Typography, motion, edge cases, the parts users feel but can’t point to.',
-    'approach.point2.label': 'Languages',
+      'Showcase sites, online shops, custom applications. I take care over every detail: layout, animation, how it feels on a phone, how fast it loads.',
+    'approach.point2.title': 'AI has changed the game',
     'approach.point2.text':
-      'Most of these sites ship in two to four languages. We can work together in French or English.',
-    'approach.point3.label': 'Performance',
-    'approach.point3.text': 'Fast by default. Accessible by default. Measured, not assumed.',
-    'approach.point4.label': 'Direct',
-    'approach.point4.text':
-      'On a freelance project there’s no one in between. You talk to the person building your site.',
+      'I use AI tools such as Claude Code every day. They let me work faster and better than before, for a budget that is often well below an agency’s.',
+    'approach.point3.title': 'The result is my responsibility',
+    'approach.point3.text':
+      'You deal directly with the person building your site, in French or English. I take full responsibility for delivering quality work.',
+
+    // --- Homepage: how it works ---
+    'how.heading': 'How it works',
+    'how.intro': 'Every project is different, so I adapt to what you need.',
+    'how.step1.title': 'You tell me what you need',
+    'how.step1.text':
+      'An email or a call is enough, no technical terms required. This first conversation is free.',
+    'how.step2.title': 'I suggest how to do it',
+    'how.step2.text':
+      'I tell you what I’d recommend, what it would cost and when I could work on it.',
+    'how.step3.title': 'We sign, then I build it',
+    'how.step3.text': 'Billing only starts once the project is signed and under way.',
+    'how.step4.title': 'I stay on after launch',
+    'how.step4.text':
+      'If you’d like, I handle changes, security updates and backups, so you don’t have to think about them.',
+    'how.faqHeading': 'Common questions',
+    'how.faq1.q': 'How much does it cost?',
+    'how.faq1.a':
+      'It depends on what you need, and I adapt to your project. So far, my projects have ranged from around CHF 1’000 for the smallest to around CHF 30’000 for the largest.',
+    'how.faq2.q': 'When can you start?',
+    'how.faq2.a':
+      'It depends on the project. I also have a job at an agency, so if your deadline is tight, tell me early so I can plan for it. I’ll give you an estimate when we talk.',
+    'how.faq3.q': 'Can I edit the site myself?',
+    'how.faq3.a':
+      'Yes. Most of my projects use a CMS, a tool that lets you manage your own content. If you’d rather not, I can make the changes for you.',
+    'how.faq4.q': 'Who takes care of the domain and hosting?',
+    'how.faq4.a': 'I can manage them for you, or help you manage them yourself.',
+    'how.faq5.q': 'What if I don’t have a design yet?',
+    'how.faq5.a': 'If you need one, I bring in colleagues and contacts who can help.',
+    'how.faq6.q': 'What if someone else needs to take over the site one day?',
+    'how.faq6.a': 'If you need it, we can organise handover documents.',
+    'how.faq7.q': 'What if my project is too big for one person?',
+    'how.faq7.a':
+      'Then I can take it through Marvelous Digital, the agency where I work. You get a full team: project management, design and testing. We work out which setup fits when we talk.',
 
     // --- Homepage: closing CTA ---
     'cta.heading': 'Let’s talk about your project',
-    'cta.body': 'Tell me what you’re building. I’ll reply within two business days.',
+    'cta.body': 'Tell me what you need. I’ll reply within two business days.',
     'cta.button': 'Get in touch',
 
     // --- Contact page: page meta ---
     'contactPage.title': 'Contact — Thomas Miller',
     'contactPage.description':
-      'Get in touch about your next web project. Send a message, or reach me by email, GitHub, or LinkedIn.',
+      'Get in touch about your next web project. Send a message, call me, or reach me by email, WhatsApp, or LinkedIn.',
 
     // --- 404 ---
     'notFound.title': 'Page not found — Thomas Miller',
@@ -135,9 +175,9 @@ export const ui: Record<Lang, Record<string, string>> = {
     // --- Contact page: intro & fallback ---
     'contactPage.heading': 'Let’s talk about your project',
     'contactPage.intro':
-      'Tell me a bit about what you’re building. I read every message and reply within two business days.',
+      'Tell me briefly what you need. I read every message and reply within two business days.',
     'contactPage.fallbackHeading': 'Prefer to reach out directly?',
-    'contactPage.fallbackIntro': 'Email, GitHub, or LinkedIn, whichever you prefer.',
+    'contactPage.fallbackIntro': 'Email, phone, WhatsApp, or LinkedIn, whichever you prefer.',
 
     // --- Contact page: form ---
     'contactForm.nameLabel': 'Name',
@@ -164,36 +204,37 @@ export const ui: Record<Lang, Record<string, string>> = {
     'nav.menuClose': 'Fermer le menu',
     'nav.skipToContent': 'Aller au contenu',
     'lang.switcher': 'Langue',
-    'footer.tagline': 'Construisons quelque chose qui compte.',
+    'footer.tagline': 'Me joindre directement',
     'footer.email': 'E-mail',
+    'footer.phone': 'Téléphone',
     'footer.github': 'GitHub',
     'footer.linkedin': 'LinkedIn',
+    'footer.whatsapp': 'WhatsApp',
     'footer.rights': 'Tous droits réservés.',
 
     // --- Homepage: page meta ---
-    'home.title': 'Thomas Miller — Développeur web en Suisse',
+    'home.title': 'Thomas Miller — Développeur web à Bulle, Suisse romande',
     'home.description':
-      'Développeur web chez Marvelous Digital à Vevey, et freelance en parallèle. Des sites rapides et multilingues pour les entreprises et institutions suisses.',
+      'Sites web et applications pour les petites entreprises et les indépendants de Suisse romande, créés et suivis par Thomas Miller, développeur web à Bulle.',
 
     // --- Homepage: hero ---
     'hero.name': 'Thomas Miller',
     'hero.tagline':
-      'Développeur web chez Marvelous Digital à Vevey, et freelance en parallèle. Je crée des sites rapides et multilingues, et je les mène jusqu’à la mise en ligne.',
-    'hero.cta': 'Démarrer un projet',
+      "Je crée et je maintiens des sites web et des applications pour les petites entreprises et les indépendants de Suisse romande. Je suis aussi développeur à l'agence Marvelous Digital.",
+    'hero.cta': 'Parlons de votre projet',
     'hero.ctaSecondary': 'Voir les projets',
-    'hero.availability': 'Ouvert à quelques projets freelance',
-    'hero.based': 'Suisse · FR / EN',
+    'hero.availability': 'Disponible pour des projets',
+    'hero.based': 'Bulle, Suisse romande · FR / EN',
     'hero.wallPause': 'Pause',
     'hero.wallPlay': 'Lecture',
 
     // --- Homepage: services ---
-    'services.heading': 'Ce que je construis',
-    'services.intro':
-      'Du petit site vitrine à l’application web sur mesure, du frontend au backend.',
-    'capabilities.heading': 'Autour du projet',
+    'services.heading': 'Ce que je peux faire pour vous',
+    'services.intro': 'Du petit site vitrine à l’application sur mesure.',
+    'capabilities.heading': 'Et aussi',
 
     // --- Homepage: selected work ---
-    'work.heading': 'Projets choisis',
+    'work.heading': 'Derniers projets',
     'work.intro':
       'Réalisés en direct pour des clients, avec le studio macmac, et avec l’équipe de Marvelous Digital.',
     'work.viewAll': 'Tous les projets',
@@ -207,6 +248,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     'project.soon': 'Bientôt en ligne',
     'project.newTab': 'ouvre un nouvel onglet',
     'project.stackLabel': 'Stack',
+    'project.tagMultilingual': 'Multilingue',
     'project.screenshotAlt': 'Page d’accueil de {name}',
 
     // --- Work page: page meta ---
@@ -217,36 +259,41 @@ export const ui: Record<Lang, Record<string, string>> = {
     // --- Work page: intro ---
     'workPage.heading': 'Projets',
     'workPage.intro':
-      'Tout ce que je peux montrer. Chaque projet indique son contexte : en freelance, avec le studio macmac, ou avec l’équipe de Marvelous Digital.',
+      'J’ai travaillé sur des centaines de sites depuis 2014. Voici les plus récents, et quelques autres représentatifs. Chaque projet indique son contexte : en freelance, avec le studio macmac, ou avec l’équipe de Marvelous Digital.',
     'workPage.filterLabel': 'Filtrer les projets',
     'workPage.filterAll': 'Tous',
     'workPage.filterStatus': '{n} projets affichés',
+    'work.teaser.frame': 'Votre site ici',
+    'work.teaser.kind': 'Prochain projet',
+    'work.teaser.title': 'Votre projet ?',
+    'work.teaser.body':
+      'Cette place est libre. Dites-moi ce dont vous avez besoin, et ce pourrait être le prochain projet de cette page.',
 
     // --- About page: page meta ---
     'aboutPage.title': 'À propos — Thomas Miller',
     'aboutPage.description':
-      'Développeur web chez Marvelous Digital à Vevey, avec des projets freelance en parallèle : en direct pour des clients, et pour le studio macmac.',
+      'Développeur web depuis 2014. Chez Marvelous Digital à Vevey, avec des projets freelance en parallèle : en direct pour des clients, et pour le studio macmac.',
 
     // --- About page: intro & bio ---
-    'aboutPage.heading': 'Développeur en agence, freelance en parallèle',
+    'aboutPage.heading': 'Un seul interlocuteur, de l’idée à la mise en ligne',
     'aboutPage.bioIntro':
-      'Je m’appelle Thomas Miller, développeur web. Je travaille chez Marvelous Digital, une agence à Vevey, et je mène des projets freelance en parallèle.',
+      'Je m’appelle Thomas Miller, développeur web. Je développe pour le web depuis 2014, du site vitrine à l’application sur mesure. Je travaille chez Marvelous Digital, une agence à Vevey, et je mène des projets freelance en parallèle.',
     'aboutPage.bioParagraph1':
-      'Chez Marvelous, je travaille en équipe sur des sites pour des institutions et des marques suisses, ainsi que sur des projets pour de grands clients internationaux que je ne peux pas citer.',
+      'Chez Marvelous, je travaille en équipe sur des sites pour des institutions et des marques suisses, ainsi que sur des projets pour de grands clients internationaux.',
     'aboutPage.bioParagraph2':
-      'À côté, je développe en direct pour des clients, d’un club à une plateforme du secteur public, et je réalise des sites pour macmac, un studio de branding et d’architecture d’intérieur à Marly.',
+      'À côté, je développe en direct pour des particuliers, des PME et des institutions publiques, et je réalise des sites pour macmac, un studio de branding et d’architecture d’intérieur à Marly.',
     'aboutPage.bioParagraph3':
-      'Je porte attention aux détails que la plupart des visiteurs ne remarquent jamais. Temps de chargement, balisage accessible, réglages par défaut sensés. C’est ce qui distingue un site qui fonctionne d’un site vraiment agréable à utiliser.',
+      'L’IA a changé ma façon de travailler. Je peux prendre en charge davantage de choses moi-même et livrer plus vite\u00a0: un projet freelance coûte donc moins cher qu’avant. C’est pourquoi je consacre peu à peu plus de temps au freelance.',
     'aboutPage.portraitAlt': 'Portrait de Thomas Miller',
-    'aboutPage.waysHeading': 'D’où viennent les projets',
+    'aboutPage.waysHeading': 'Avec qui je travaille',
     'aboutPage.way1.name': 'Marvelous Digital',
     'aboutPage.way1.meta': 'Employeur · Vevey',
     'aboutPage.way1.text':
-      'Des projets d’équipe pour la recherche, le tourisme et l’industrie, dont le CSEM, SPIE et les Bains de Lavey.',
+      'Une agence web qui développe des solutions digitales sur mesure. J’y travaille avec une équipe très douée, qui réunit chefs de projet, designers et développeurs. Pour un projet plus important, je peux vous mettre en relation avec elle.',
     'aboutPage.way2.name': 'macmac',
     'aboutPage.way2.meta': 'Studio partenaire · Marly',
     'aboutPage.way2.text':
-      'Hôtels, restaurants, architectes et fondations, souvent dans la région de Morat.',
+      'J’y ai travaillé quatre ans, jusqu’en 2019, et nous sommes restés en très bons termes : je développe encore certains de leurs nouveaux projets et je maintiens les anciens. Hôtels, restaurants, architectes et fondations, souvent dans la région de Morat ou de Fribourg.',
     'aboutPage.way3.name': 'Freelance',
     'aboutPage.way3.meta': 'En direct avec vous',
     'aboutPage.way3.text':
@@ -254,27 +301,60 @@ export const ui: Record<Lang, Record<string, string>> = {
 
     // --- Homepage: approach ---
     'approach.heading': 'La rigueur d’une agence, un seul interlocuteur',
-    'approach.point1.label': 'Exigence',
+    'approach.point1.title': 'Développeur web depuis 2014',
     'approach.point1.text':
-      'Chaque détail compte. Typographie, animation, cas limites, ce que l’on ressent sans pouvoir le nommer.',
-    'approach.point2.label': 'Langues',
+      'Sites vitrines, boutiques en ligne, applications sur mesure. Je soigne chaque détail : la mise en page, les animations, le confort sur mobile, la vitesse d’affichage.',
+    'approach.point2.title': 'L’IA a changé la donne',
     'approach.point2.text':
-      'La plupart de ces sites existent en deux à quatre langues. Nous pouvons travailler en français ou en anglais.',
-    'approach.point3.label': 'Performance',
-    'approach.point3.text': 'Rapide par défaut. Accessible par défaut. Mesuré, jamais supposé.',
-    'approach.point4.label': 'Direct',
-    'approach.point4.text':
-      'En freelance, il n’y a pas d’intermédiaire. Vous parlez à la personne qui construit votre site.',
+      'J’utilise tous les jours des outils d’IA comme Claude Code. Ils me permettent de travailler plus vite et mieux qu’avant, pour un budget souvent bien inférieur à celui d’une agence.',
+    'approach.point3.title': 'Je réponds du résultat',
+    'approach.point3.text':
+      'Vous parlez directement à la personne qui construit votre site, en français ou en anglais. Je prends l’entière responsabilité de livrer un travail de qualité.',
+
+    // --- Homepage: how it works ---
+    'how.heading': 'Comment ça se passe',
+    'how.intro': 'Chaque projet est différent, alors je m’adapte à vos besoins.',
+    'how.step1.title': 'Vous m’expliquez votre besoin',
+    'how.step1.text':
+      'Un e-mail ou un appel suffit, sans termes techniques. Ce premier échange est gratuit.',
+    'how.step2.title': 'Je vous propose une solution',
+    'how.step2.text':
+      'Je vous dis ce que je vous conseille, ce que cela coûterait et quand je pourrais m’y mettre.',
+    'how.step3.title': 'On signe, puis je réalise',
+    'how.step3.text': 'La facturation ne commence qu’une fois le projet signé et démarré.',
+    'how.step4.title': 'Je reste là après la mise en ligne',
+    'how.step4.text':
+      'Si vous le souhaitez, je m’occupe des modifications, des mises à jour de sécurité et des sauvegardes, pour que vous n’ayez pas à y penser.',
+    'how.faqHeading': 'Questions fréquentes',
+    'how.faq1.q': 'Combien ça coûte ?',
+    'how.faq1.a':
+      'Cela dépend de vos besoins, et je m’adapte à votre projet. Jusqu’ici, mes projets sont allés d’environ CHF 1’000 pour les plus petits à environ CHF 30’000 pour les plus gros.',
+    'how.faq2.q': 'Quand pouvez-vous commencer ?',
+    'how.faq2.a':
+      'Cela dépend du projet. Je travaille aussi dans une agence : si votre délai est serré, prévenez-moi tôt pour que je puisse m’organiser. Je vous donne une estimation quand on en parle.',
+    'how.faq3.q': 'Puis-je modifier le site moi-même ?',
+    'how.faq3.a':
+      'Oui. La plupart de mes projets utilisent un CMS, un outil qui vous permet de gérer vos contenus vous-même. Si vous préférez, je fais les modifications pour vous.',
+    'how.faq4.q': 'Qui s’occupe du nom de domaine et de l’hébergement ?',
+    'how.faq4.a': 'Je peux les gérer pour vous, ou vous aider à les gérer vous-même.',
+    'how.faq5.q': 'Et si je n’ai pas encore de design ?',
+    'how.faq5.a':
+      'Si vous en avez besoin, je fais appel à des collègues et à des contacts qui peuvent aider.',
+    'how.faq6.q': 'Et si quelqu’un d’autre doit reprendre le site un jour ?',
+    'how.faq6.a': 'Si vous en avez besoin, nous pouvons organiser des documents de passation.',
+    'how.faq7.q': 'Et si mon projet est trop grand pour une seule personne ?',
+    'how.faq7.a':
+      'Dans ce cas, je peux le faire passer par Marvelous Digital, l’agence où je travaille. Vous y gagnez une équipe complète : gestion de projet, design, tests. On voit ensemble quelle formule convient quand on en parle.',
 
     // --- Homepage: closing CTA ---
     'cta.heading': 'Parlons de votre projet',
-    'cta.body': 'Dites-moi ce que vous construisez. Je réponds sous deux jours ouvrés.',
+    'cta.body': 'Dites-moi ce dont vous avez besoin. Je réponds sous deux jours ouvrés.',
     'cta.button': 'Me contacter',
 
     // --- Contact page: page meta ---
     'contactPage.title': 'Contact — Thomas Miller',
     'contactPage.description':
-      'Contactez-moi pour votre prochain projet web. Envoyez un message ou écrivez-moi par e-mail, GitHub ou LinkedIn.',
+      'Contactez-moi pour votre prochain projet web. Envoyez un message, appelez-moi ou écrivez-moi par e-mail, WhatsApp ou LinkedIn.',
 
     // --- 404 ---
     'notFound.title': 'Page introuvable — Thomas Miller',
@@ -286,9 +366,9 @@ export const ui: Record<Lang, Record<string, string>> = {
     // --- Contact page: intro & fallback ---
     'contactPage.heading': 'Parlons de votre projet',
     'contactPage.intro':
-      'Dites-moi en quelques mots ce que vous construisez. Je lis chaque message et je réponds sous deux jours ouvrés.',
+      'Dites-moi en quelques mots ce dont vous avez besoin. Je lis chaque message et je réponds sous deux jours ouvrés.',
     'contactPage.fallbackHeading': 'Vous préférez me contacter directement ?',
-    'contactPage.fallbackIntro': 'E-mail, GitHub ou LinkedIn, comme vous préférez.',
+    'contactPage.fallbackIntro': 'E-mail, téléphone, WhatsApp ou LinkedIn, comme vous préférez.',
 
     // --- Contact page: form ---
     'contactForm.nameLabel': 'Nom',

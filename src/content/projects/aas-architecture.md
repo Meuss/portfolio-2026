@@ -7,7 +7,7 @@ kind:
 description:
   en: 'Atelier d’Architecture Seydoux, renovation and new builds in Gumefens and Moudon. A bilingual, photo-first portfolio.'
   fr: 'Atelier d’Architecture Seydoux, rénovation et constructions neuves à Gumefens et Moudon. Un portfolio bilingue, centré sur la photo.'
-tech: ['Vue', 'FR · DE']
+tech: ['Vue', 'Headless WordPress', 'Multilingual']
 image: '../../assets/projects/aas-architecture.jpg'
 imageMobile: '../../assets/projects/aas-architecture-mobile.jpg'
 link: 'https://aas-architecture.ch/'

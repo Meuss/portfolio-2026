@@ -276,12 +276,6 @@
   background: currentColor;
 }
 
-/* Closing CTA: one tonal step up from the ground. */
-.cta-band {
-  background: var(--color-surface);
-  border-top: 1px solid var(--color-line);
-}
-
 /* ---------------------------------------------------------------------------
    Effects (src/components/islands/fx). Pick variants with the dev FX panel;
    the shipped choice lives in src/data/effects.ts.

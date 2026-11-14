@@ -36,18 +36,19 @@ Astro (`output: 'static'`) + Tailwind CSS v4 (via `@tailwindcss/vite`, no JS con
 
 ### Content (projects)
 
-- Projects are one Markdown file each in `src/content/projects/`, loaded as an Astro content collection defined in `src/content.config.ts`. The schema: `title` (string), `context`, localized `kind`/`description`, `tech[]`, optional `image`/`imageMobile`, optional `link`, `status` (`live`/`soon`), `featured`, `nda`, `order`.
+- Projects are one Markdown file each in `src/content/projects/`, loaded as an Astro content collection defined in `src/content.config.ts`. The schema: `title` (string), `context`, localized `kind`/`description`, `tech[]`, optional `image`/`imageMobile`, optional `link`, `status` (`live`/`soon`), `featured`, `hidden`, `nda`, `order`. `hidden: true` keeps an entry in the repo but off the site entirely; load projects with `getVisibleProjects()` (`src/data/projects.ts`), not `getCollection('projects')`, so hidden ones never show.
 - `/work` lists **all** projects sorted by `order` (ascending), filterable by `context` (`independent` / `macmac` / `marvelous`); the homepage `SelectedWork` shows `featured: true` projects as equal cards in three columns. Images are real screenshots in `src/assets/projects/` (`<slug>.jpg` 2000×1250 + optional `<slug>-mobile.jpg`). There are **no per-project detail pages by design** — don't add routes for them.
 - `nda: true` renders NDA framing instead of client specifics.
 
 ### The five homepage services
 
-Defined in `src/data/services.ts` (not i18n/ui). Edit that file to change service names, copy, or order. It has a structural test (`src/data/services.test.ts`) asserting ordering/invariants; `src/i18n/utils.test.ts` asserts locale-key parity. Run `pnpm test` after editing either. Contact handles (email, GitHub, LinkedIn) live in `src/data/contact.ts`; GitHub/LinkedIn render as icon links via `SocialLinks.astro`. Partner logos (macmac, Marvelous) render via `ContextBadge.astro`.
+Defined in `src/data/services.ts` (not i18n/ui). Edit that file to change service names, copy, or order. It has a structural test (`src/data/services.test.ts`) asserting ordering/invariants; `src/i18n/utils.test.ts` asserts locale-key parity. Run `pnpm test` after editing either. Contact handles (email, phone, GitHub, LinkedIn, WhatsApp) live in `src/data/contact.ts`; GitHub/LinkedIn/WhatsApp render as icon links via `SocialLinks.astro` (footer and contact page). The WhatsApp link is `wa.me/<phone digits>`: keep it in step with `phone`. Partner logos (macmac, Marvelous) render via `ContextBadge.astro`.
 
 ### Page composition & client JS
 
 - `src/layouts/BaseLayout.astro` is the single `<head>` authority: it derives canonical, Open Graph, and `hreflang` URLs from `Astro.site` (`site` in `astro.config.mjs` is the one place to change the production domain — mirror it in `public/robots.txt`).
 - Pages compose Astro components from `src/components/`; every component takes `lang` as a prop and translates internally.
+- The closing call to action ("Let's talk about your project" + button to the contact page) is part of `Footer.astro`, not a per-page component. A page picks the footer with the `footer` prop on `BaseLayout`: `'full'` (default: pitch + contact details + fine print), `'compact'` (404 pages: contact details + fine print) or `'fine-print'` (contact page, whose body already shows the contact details and which the button would link to: fine print only). `ContactDetails.astro` renders the email, phone and icon links for the footer.
 - Client JS is minimal and progressive-enhancement only, living in `src/components/islands/` and imported via inline `<script>` (Vite-bundled, not raw):
   - `reveal.ts` — scroll-reveal for `[data-reveal]` elements. If `prefers-reduced-motion` or no `IntersectionObserver`, everything is revealed immediately; the hidden base state is CSS-guarded so no-JS still shows all content.
   - `work-filter.ts` — context filter chips on `/work`; hidden without JS.

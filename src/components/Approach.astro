@@ -9,8 +9,8 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const points = [1, 2, 3, 4].map((n) => ({
-  label: t(`approach.point${n}.label`),
+const points = [1, 2, 3].map((n) => ({
+  title: t(`approach.point${n}.title`),
   text: t(`approach.point${n}.text`),
 }));
 ---
@@ -23,21 +23,19 @@ const points = [1, 2, 3, 4].map((n) => ({
         <h2 class="max-w-md font-display text-headline text-ink">{t('approach.heading')}</h2>
       </header>
 
-      <!-- Hairline-divided principles -->
-      <dl class="flex flex-col">
+      <!-- Hairline-divided reasons: a claim, then the sentence that backs it -->
+      <ul class="flex flex-col" role="list">
         {points.map((point, i) => (
-          <div
+          <li
             data-reveal
-            data-reveal-delay={String((i % 3) + 1)}
-            class="flex flex-col gap-2 border-t border-line py-6 first:border-t-0 first:pt-0 sm:flex-row sm:gap-8"
+            data-reveal-delay={String(i + 1)}
+            class="flex flex-col gap-3 border-t border-line py-8 first:border-t-0 first:pt-0 last:pb-0"
           >
-            <dt class="font-mono text-caption uppercase text-muted sm:w-32 sm:shrink-0 sm:pt-1">
-              {point.label}
-            </dt>
-            <dd class="text-lead text-ink">{point.text}</dd>
-          </div>
+            <h3 class="font-display text-title text-ink">{point.title}</h3>
+            <p class="max-w-[52ch] text-body text-muted">{point.text}</p>
+          </li>
         ))}
-      </dl>
+      </ul>
     </div>
   </div>
 </section>

@@ -7,7 +7,7 @@ kind:
 description:
   en: 'A family butcher in Ried bei Kerzers since 1937: meat, sausages, catering and news.'
   fr: 'Une boucherie familiale à Ried bei Kerzers depuis 1937 : viandes, charcuterie, traiteur et actualités.'
-tech: ['Vite']
+tech: ['Vite', 'Kirby CMS']
 image: '../../assets/projects/metzgerei-aeberhard.jpg'
 imageMobile: '../../assets/projects/metzgerei-aeberhard-mobile.jpg'
 link: 'https://metzgerei-aeberhard.ch/'

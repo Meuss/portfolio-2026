@@ -5,8 +5,8 @@ kind:
   en: 'Sports club website'
   fr: 'Site de club sportif'
 description:
-  en: 'A padel club with two courts in Bulle. News, membership, lessons, interclub teams and contact.'
-  fr: 'Un club de padel avec deux terrains à Bulle. Actualités, adhésion, cours, équipes interclubs et contact.'
+  en: 'I sit on the committee of the Gruyère Padel Club and love padel, so I built this site for free. Everything about the club: news, membership, lessons and interclub teams.'
+  fr: 'Membre du comité du Gruyère Padel Club et passionné de padel, j’ai réalisé ce site bénévolement. Toutes les informations du club : actualités, adhésion, cours et équipes interclubs.'
 tech: ['WordPress']
 image: '../../assets/projects/gruyere-padel.jpg'
 imageMobile: '../../assets/projects/gruyere-padel-mobile.jpg'

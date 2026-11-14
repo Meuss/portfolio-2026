@@ -1,11 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import CTA from '../../components/CTA.astro';
+import ProjectTeaser from '../../components/ProjectTeaser.astro';
 import ContextBadge from '../../components/ContextBadge.astro';
 import { languages, type Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
+import { getVisibleProjects } from '../../data/projects';
 
 export function getStaticPaths() {
   return (Object.keys(languages) as Lang[]).map((lang) => ({ params: { lang } }));
@@ -14,7 +14,7 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
 
-const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const projects = await getVisibleProjects();
 
 const contexts = ['independent', 'macmac', 'marvelous'] as const;
 const counts = Object.fromEntries(
@@ -72,11 +72,13 @@ const counts = Object.fromEntries(
             <ProjectCard project={project} lang={lang} eager={i < 2} fxSlot="workMedia" />
           </li>
         ))}
+        {/* No data-context, so the filter leaves it visible under every chip. */}
+        <li data-reveal data-reveal-delay={String((projects.length % 2) + 1)}>
+          <ProjectTeaser lang={lang} />
+        </li>
       </ul>
     </div>
   </section>
-
-  <CTA lang={lang} />
 
   <script>
     import '../../components/islands/reveal.ts';

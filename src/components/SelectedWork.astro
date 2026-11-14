@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getVisibleProjects } from '../data/projects';
 import type { Lang } from '../i18n/ui';
 import { localizedPath, useTranslations } from '../i18n/utils';
 import ProjectCard from './ProjectCard.astro';
@@ -12,10 +12,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const all = await getCollection('projects');
-const featured = all
-  .filter((project) => project.data.featured)
-  .sort((a, b) => a.data.order - b.data.order);
+const featured = (await getVisibleProjects()).filter((project) => project.data.featured);
 
 const workHref = localizedPath(lang, '/work');
 ---

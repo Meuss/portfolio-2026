@@ -23,6 +23,9 @@ const projects = defineCollection({
       link: z.url().optional(),
       status: z.enum(['live', 'soon']).default('live'),
       featured: z.boolean().default(false),
+      // Keeps the entry in the repo but off the site entirely (e.g. a project
+      // that isn't online yet). See `getVisibleProjects()` in src/data/projects.ts.
+      hidden: z.boolean().default(false),
       nda: z.boolean().default(false),
       order: z.number().default(0),
     }),

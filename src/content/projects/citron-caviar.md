@@ -11,6 +11,8 @@ tech: ['Nuxt', 'Netlify']
 image: '../../assets/projects/citron-caviar.jpg'
 imageMobile: '../../assets/projects/citron-caviar-mobile.jpg'
 status: soon
+# Not online yet: hidden from the whole site until it launches. Remove this line to show it.
+hidden: true
 featured: true
 order: 4
 ---

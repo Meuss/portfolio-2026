@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Footer, { type FooterVariant } from '../components/Footer.astro';
 import { languages, type Lang } from '../i18n/ui';
 import { switchLocalePath, useTranslations } from '../i18n/utils';
 import { brand } from '../data/brand';
@@ -13,9 +13,12 @@ interface Props {
   lang: Lang;
   /** Error pages: kept out of search and without canonical/alternate links. */
   noindex?: boolean;
+  /** Which footer closes the page (see Footer.astro): 'full' by default,
+      'compact' on the error pages, 'fine-print' on the contact page. */
+  footer?: FooterVariant;
 }
 
-const { title, description, lang, noindex = false } = Astro.props;
+const { title, description, lang, noindex = false, footer = 'full' } = Astro.props;
 const t = useTranslations(lang);
 
 // Canonical production origin, sourced from `site` in astro.config.mjs so
@@ -106,7 +109,7 @@ const ogImage = new URL('/og-image.png', siteUrl).toString();
     <main id="main-content">
       <slot />
     </main>
-    <Footer lang={lang} />
+    <Footer lang={lang} variant={footer} />
 
     {/* Effects runtime: mounts the variants chosen in src/data/effects.ts into every
         [data-fx-slot]. The FX and Brand panels only exist under `pnpm dev`. */}

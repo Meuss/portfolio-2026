@@ -2,9 +2,10 @@ import { describe, it, expect } from 'vitest';
 import { headlineServices, capabilities } from './services';
 
 describe('services data', () => {
-  it('has exactly 5 headline services, frontend craft second', () => {
+  it('has exactly 5 headline services, websites first and maintenance last', () => {
     expect(headlineServices).toHaveLength(5);
-    expect(headlineServices[1].id).toBe('frontend-craft');
+    expect(headlineServices[0].id).toBe('websites');
+    expect(headlineServices[4].id).toBe('maintenance');
   });
   it('every service has en + fr title and blurb', () => {
     for (const s of [...headlineServices, ...capabilities]) {
@@ -17,13 +18,7 @@ describe('services data', () => {
   it('lists the secondary capabilities', () => {
     const ids = capabilities.map((c) => c.id);
     expect(ids).toEqual(
-      expect.arrayContaining([
-        'api-integrations',
-        'web-apps',
-        'automation',
-        'maintenance',
-        'audits',
-      ]),
+      expect.arrayContaining(['multilingual', 'api-integrations', 'automation', 'ai', 'audits']),
     );
   });
 });

@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
+import { getVisibleProjects } from '../data/projects';
 import type { Lang } from '../i18n/ui';
 import { localizedPath, useTranslations } from '../i18n/utils';
 import Arrow from './icons/Arrow.astro';
@@ -16,10 +16,7 @@ const contactHref = localizedPath(lang, '/contact');
 const workHref = localizedPath(lang, '/work');
 
 // The wall: real desktop screenshots of shipped sites, split into two columns.
-const shots = (await getCollection('projects'))
-  .filter((p) => p.data.image && !p.data.nda)
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 10);
+const shots = (await getVisibleProjects()).filter((p) => p.data.image && !p.data.nda).slice(0, 10);
 const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i % 2 === 1)];
 ---
 

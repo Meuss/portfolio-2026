@@ -35,13 +35,11 @@ const t = useTranslations(lang);
 
         <div class="mt-12" data-reveal>
           <h3 class="font-mono text-caption uppercase text-muted">{t('capabilities.heading')}</h3>
-          <ul class="mt-5 flex flex-wrap gap-2" role="list">
+          <ul class="mt-5 grid gap-x-10 gap-y-5 sm:grid-cols-2" role="list">
             {capabilities.map((cap) => (
-              <li
-                class="rounded-sm border border-line px-3 py-1.5 font-mono text-caption uppercase text-ink"
-                title={cap.blurb[lang]}
-              >
-                {cap.title[lang]}
+              <li>
+                <p class="text-body text-ink">{cap.title[lang]}</p>
+                <p class="mt-1 text-small text-muted">{cap.blurb[lang]}</p>
               </li>
             ))}
           </ul>

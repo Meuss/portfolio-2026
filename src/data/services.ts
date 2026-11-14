@@ -4,71 +4,86 @@ export type Service = { id: string; title: Record<Lang, string>; blurb: Record<L
 
 export const headlineServices: Service[] = [
   {
-    id: 'fullstack',
-    title: { en: 'Full-stack web development', fr: 'Développement web full-stack' },
-    blurb: { en: 'Frontend and backend, end to end.', fr: 'Frontend et backend, de bout en bout.' },
-  },
-  {
-    id: 'frontend-craft',
-    title: { en: 'Frontend craft & polish', fr: 'Excellence frontend' },
+    id: 'websites',
+    title: { en: 'Showcase websites', fr: 'Sites vitrines' },
     blurb: {
-      en: 'Pixel-perfect UI, motion, performance.',
-      fr: 'Interfaces soignées, animation, performance.',
+      en: 'A carefully made site that presents your business, on computer and phone.',
+      fr: 'Un site soigné qui présente votre activité, sur ordinateur et sur mobile.',
     },
   },
   {
-    id: 'ecommerce-crm',
-    title: { en: 'E-commerce & CRM', fr: 'E-commerce & CRM' },
+    id: 'ecommerce',
+    title: { en: 'Online shops and bookings', fr: 'Boutiques en ligne et réservations' },
     blurb: {
-      en: 'Stores, integrations, business systems.',
-      fr: 'Boutiques, intégrations, systèmes métier.',
+      en: 'Sell and take bookings online, connected to the tools you manage your business with.',
+      fr: 'Vendre et prendre des réservations en ligne, en lien avec vos outils de gestion.',
     },
   },
   {
-    id: 'ai',
-    title: { en: 'AI integration', fr: 'Intégration IA' },
+    id: 'web-apps',
+    title: { en: 'Custom applications', fr: 'Applications sur mesure' },
     blurb: {
-      en: 'Chat, automation, smart features.',
-      fr: 'Chat, automatisation, fonctions intelligentes.',
+      en: 'Internal tools and dashboards built around how you work.',
+      fr: 'Des outils internes et des tableaux de bord adaptés à votre façon de travailler.',
     },
   },
   {
     id: 'seo-perf',
-    title: { en: 'SEO & performance', fr: 'SEO & performance' },
-    blurb: { en: 'Get found, load fast.', fr: 'Soyez trouvé, chargez vite.' },
+    title: { en: 'Search visibility and speed', fr: 'Référencement et rapidité' },
+    blurb: {
+      en: 'Help people find you on Google, with a site that loads quickly.',
+      fr: 'Qu’on vous trouve sur Google, avec un site qui s’affiche vite.',
+    },
+  },
+  {
+    id: 'maintenance',
+    title: { en: 'Maintenance and support', fr: 'Maintenance et suivi' },
+    blurb: {
+      en: 'Hosting, security updates, backups and changes, so your site stays in good shape.',
+      fr: 'Hébergement, mises à jour de sécurité, sauvegardes et modifications, pour que votre site reste en forme.',
+    },
   },
 ];
 
 export const capabilities: Service[] = [
   {
-    id: 'api-integrations',
-    title: { en: 'API & integrations', fr: 'API & intégrations' },
+    id: 'multilingual',
+    title: { en: 'Multilingual sites', fr: 'Sites multilingues' },
     blurb: {
-      en: 'Stripe, shipping, third-party services.',
-      fr: 'Stripe, livraison, services tiers.',
+      en: 'In French, German, English or Italian.',
+      fr: 'En français, en allemand, en anglais ou en italien.',
     },
   },
   {
-    id: 'web-apps',
-    title: { en: 'Web apps & dashboards', fr: 'Apps web & tableaux de bord' },
-    blurb: { en: 'Internal tools and SaaS-style apps.', fr: 'Outils internes et apps SaaS.' },
+    id: 'api-integrations',
+    title: { en: 'Connecting your tools', fr: 'Liaison avec vos outils' },
+    blurb: {
+      en: 'Payment, shipping and other outside services.',
+      fr: 'Paiement, livraison et autres services externes.',
+    },
   },
   {
     id: 'automation',
     title: { en: 'Automation', fr: 'Automatisation' },
     blurb: {
-      en: 'Workflows that save manual work.',
-      fr: 'Workflows qui éliminent le travail manuel.',
+      en: 'Less repetitive manual work.',
+      fr: 'Moins de tâches manuelles répétitives.',
     },
   },
   {
-    id: 'maintenance',
-    title: { en: 'Maintenance & support', fr: 'Maintenance & support' },
-    blurb: { en: 'Ongoing care and retainers.', fr: 'Suivi continu et forfaits.' },
+    id: 'ai',
+    title: { en: 'AI features', fr: 'Fonctions d’IA' },
+    blurb: {
+      en: 'A chat or smart features on your site.',
+      fr: 'Un chat ou des fonctions intelligentes sur votre site.',
+    },
   },
   {
     id: 'audits',
-    title: { en: 'Technical audits', fr: 'Audits techniques' },
-    blurb: { en: 'Code, performance, SEO reviews.', fr: 'Revues code, performance, SEO.' },
+    title: { en: 'Site reviews', fr: 'Audit de votre site' },
+    blurb: {
+      en: 'A close look at your code, speed and search visibility.',
+      fr: 'Un examen du code, de la rapidité et du référencement.',
+    },
   },
 ];

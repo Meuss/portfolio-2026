@@ -4,6 +4,7 @@ import type { Lang } from '../i18n/ui';
 import { useTranslations } from '../i18n/utils';
 import ProjectFrame from './ProjectFrame.astro';
 import Arrow from './icons/Arrow.astro';
+import ExternalLink from './icons/ExternalLink.astro';
 import ContextBadge from './ContextBadge.astro';
 
 interface Props {
@@ -71,7 +72,11 @@ const alt = t('project.screenshotAlt').replace('{name}', title);
           rel="noopener noreferrer"
           class="project-link text-ink no-underline"
         >
-          {title}
+          <span class="project-link-text">{title}</span>
+          <span class="new-tab-mark text-muted">
+            &#8288;
+            <ExternalLink />
+          </span>
           <span class="sr-only"> ({t('project.newTab')})</span>
         </a>
       ) : (
@@ -84,16 +89,25 @@ const alt = t('project.screenshotAlt').replace('{name}', title);
     {tech.length > 0 && (
       <p class="font-mono text-caption uppercase text-muted">
         <span class="sr-only">{t('project.stackLabel')}: </span>
-        {tech.join(' · ')}
+        {tech
+          .map((tag) => (tag === 'Multilingual' ? t('project.tagMultilingual') : tag))
+          .join(' · ')}
       </p>
     )}
 
     <div class="pt-1 font-mono text-caption uppercase">
       {hasLink ? (
-        <span class="inline-flex items-center gap-2 text-accent" aria-hidden="true">
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          tabindex="-1"
+          aria-hidden="true"
+          class="-my-2 inline-flex items-center gap-2 py-2 text-accent no-underline"
+        >
           {displayLink}
           <Arrow dir="out" class="arrow" />
-        </span>
+        </a>
       ) : status === 'soon' ? (
         <span class="text-muted">{t('project.soon')}</span>
       ) : nda ? (
@@ -107,18 +121,48 @@ const alt = t('project.screenshotAlt').replace('{name}', title);
 </article>
 
 <style>
-  /* The whole article is the hit target for the title link, without nesting
-     interactive elements: the frame link is aria-hidden and out of tab order. */
-  .project-link {
+  /* One real link per card (the title). The screenshot and the hostname line
+     are clickable too, but aria-hidden and out of the tab order, so keyboard
+     and screen-reader users don't meet the same link three times. */
+  .project-link-text {
     background-image: linear-gradient(currentColor, currentColor);
     background-size: 0% 1px;
     background-position: 0 100%;
     background-repeat: no-repeat;
     transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .project:hover .project-link,
-  .project-link:focus-visible {
+  .project:hover .project-link-text,
+  .project-link:focus-visible .project-link-text {
     background-size: 100% 1px;
+  }
+  /* New-tab mark beside the title: hidden until the card is hovered or the
+     link has keyboard focus. It always keeps its space, so nothing shifts.
+     The wrapper stays inline and starts with a word joiner, which glues the
+     mark to the last word of the title so it never wraps onto its own line. */
+  .new-tab-mark {
+    margin-left: 0.3em;
+    font-size: 0.55em;
+    white-space: nowrap;
+  }
+  .new-tab-mark :global(svg) {
+    vertical-align: 0.12em;
+    opacity: 0;
+  }
+  .project:hover .new-tab-mark :global(svg),
+  .project-link:focus-visible .new-tab-mark :global(svg) {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .new-tab-mark :global(svg) {
+      transform: translate(-2px, 2px);
+      transition:
+        opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .project:hover .new-tab-mark :global(svg),
+    .project-link:focus-visible .new-tab-mark :global(svg) {
+      transform: none;
+    }
   }
   .project :global(.arrow) {
     transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);

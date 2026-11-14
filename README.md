@@ -27,7 +27,7 @@ pnpm dev
       POST url-encoded data to `/`. Then remove the Web3Forms code, `PUBLIC_WEB3FORMS_KEY`
       and `.env.example`, and set up email notifications to `contact@thomasmiller.ch` in
       the Netlify dashboard (Forms → Notifications). Until then the page still shows the
-      email, GitHub and LinkedIn links.
+      email, phone, GitHub, LinkedIn and WhatsApp links.
 
 ## Commands
 

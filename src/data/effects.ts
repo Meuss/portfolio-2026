@@ -30,10 +30,10 @@ export const effects: FxConfig = {
   heroName: { variant: 'scramble', params: { speed: 1 } },
   cursor: { variant: 'glow', params: { intensity: 0.25, trail: 0.4, accent: 0.1 } },
   primaryButton: { variant: 'star', params: { orbit: 3, intensity: 0.7, hover: 1 } },
-  featuredMedia: { variant: 'refine', params: { stages: 4, speed: 1.6, stagger: 130 } },
+  featuredMedia: { variant: 'tilt', params: { angle: 8, glare: 0.5 } },
   workMedia: { variant: 'tilt', params: { angle: 8, glare: 0.5 } },
   mobileMenu: { variant: 'staggered', params: { speed: 1 } },
   aboutPortrait: { variant: 'lanyard', params: { swing: 0.4, length: 4 } },
-  contactLead: { variant: 'scrambled', params: { radius: 100, duration: 1.2, speed: 0.5 } },
+  contactLead: { variant: 'off', params: {} },
   notFound: { variant: 'fuzzy', params: { intensity: 0.18, hover: 0.5, range: 30 } },
 };
