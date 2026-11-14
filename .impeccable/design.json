@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-14T15:44:46.885Z",
+  "generatedAt": "2026-11-14T17:17:21.970847Z",
   "title": "Design System: Thomas Miller — Portfolio 2026",
   "extensions": {
     "colorMeta": {
@@ -196,7 +196,7 @@
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Project card titles, service rows, Approach claims, How-it-works steps, About rows, the contact and footer sub-headings (weight 700)."
+        "purpose": "Project card titles, service rows, Approach claims, How-it-works step titles, About rows, the contact and footer sub-headings (weight 700)."
       },
       "lead": {
         "displayName": "Lead",
@@ -291,20 +291,43 @@
         "name": "faq-toggle",
         "value": "plus rotates 45deg over 200ms",
         "purpose": "FAQ disclosure open state."
+      },
+      {
+        "name": "timeline-fill",
+        "value": "2px orange line scrubbed with the scroll (start 0.7 → end 0.5 of the viewport height), eased with smoothing 0.3; numerals turn from a faint outline to ink over 0.3s ease-out when reached",
+        "purpose": "How-it-works timeline: progress on the track and its open-ended tail; no-op under reduced motion (track, tail and ink numerals stay)."
+      },
+      {
+        "name": "scroll-reveal-words",
+        "value": "words from opacity 0.1 and 4px blur to full, each over half the scrub, 0.05 apart; block rotation 3deg → 0; scrubbed 0.9 → 0.7 of the viewport height",
+        "purpose": "Approach heading; neutral (ink opacity and blur only); a plain Headline under reduced motion or without JS."
+      },
+      {
+        "name": "pixel-card",
+        "value": "Canvas2D pixels on a 5px grid: ripple in from the centre over 0.6s (each 0.26s, overshoot), shimmer at speed 35, swell near the pointer (spotlight 0.5), close back in on leave (each 0.22s)",
+        "purpose": "The /work \"Your project?\" teaser frame on hover or keyboard focus (touch: once half in view); neutral pixels with a 15% orange minority, kept off the caption."
       }
     ],
     "breakpoints": [
       {
         "name": "sm",
-        "value": "640px"
+        "value": "640px",
+        "purpose": "Service rows split title / blurb; capabilities in two columns."
       },
       {
         "name": "md",
-        "value": "768px"
+        "value": "768px",
+        "purpose": "Gutters open to 2.5rem; project grids go multi-column; desktop nav replaces the mobile menu."
       },
       {
         "name": "lg",
-        "value": "1024px"
+        "value": "1024px",
+        "purpose": "Hero split and the Deck of Work; services' sticky heading column; approach in three columns; FAQ in two."
+      },
+      {
+        "name": "xl",
+        "value": "1280px",
+        "purpose": "Only the how-it-works timeline's row of four."
       }
     ]
   },
@@ -337,7 +360,7 @@
       "name": "Project Card",
       "kind": "card",
       "refersTo": "project-frame",
-      "description": "No card box: the screenshot in a 4px hairline surface frame (phone capture overlapping with the Overlap shadow), context meta line, Title with drawn underline and a new-tab mark on hover/focus, muted description and stack, orange hostname line.",
+      "description": "No card box: the screenshot in a 4px hairline surface frame (phone capture overlapping with the Overlap shadow), context meta line, Title with drawn underline and a new-tab mark on hover/focus, muted description and stack, orange hostname line. The /work \"Your project?\" teaser (fifth in the grid) uses the same layout with a hatched blank frame that fills with the pixel card on hover or focus.",
       "html": "<article class=\"ds-project\"><div class=\"ds-frame\"><div class=\"ds-frame-desktop\"></div><div class=\"ds-frame-phone\"></div></div><div class=\"ds-project-body\"><p class=\"ds-project-meta\"><span class=\"ds-project-ctx\"><span class=\"ds-mark\" aria-hidden=\"true\"></span>Freelance</span><span class=\"ds-sep\" aria-hidden=\"true\">/</span><span>Marketing site</span></p><h3 class=\"ds-project-title\"><a href=\"#\" target=\"_blank\" rel=\"noopener noreferrer\"><span class=\"ds-project-link\">Client site</span><span class=\"ds-newtab\">&#8288;<svg aria-hidden=\"true\" viewBox=\"0 0 16 16\" width=\"1em\" height=\"1em\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"square\"><path d=\"M6.5 4H3v9h9V9.5M9.5 3H13v3.5M13 3 7.5 8.5\"/></svg></span></a></h3><p class=\"ds-project-desc\">A one-line summary of what was shipped and why it mattered.</p><p class=\"ds-project-stack\">Astro · TypeScript · Multilingual</p><a class=\"ds-project-host\" href=\"#\" tabindex=\"-1\" aria-hidden=\"true\">client.com <svg aria-hidden=\"true\" viewBox=\"0 0 16 16\" width=\"0.95em\" height=\"0.95em\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"square\"><path d=\"M5 11 11 5M6 5h5v5\"/></svg></a></div></article>",
       "css": ".ds-project { display: grid; gap: 2rem; max-width: 30rem; } .ds-frame { position: relative; margin-bottom: 1.25rem; } .ds-frame-desktop { aspect-ratio: 16 / 10; border: 1px solid var(--color-line); border-radius: 4px; background: repeating-linear-gradient(135deg, rgb(255 255 255 / 0.025) 0 1px, transparent 1px 14px), var(--color-surface); overflow: hidden; transition: transform 0.7s ease-out; } .ds-project:hover .ds-frame-desktop { transform: scale(1.02); } .ds-frame-phone { position: absolute; right: 1.5rem; bottom: -1.25rem; width: 22%; min-width: 4.5rem; aspect-ratio: 390 / 844; border: 1px solid var(--color-line); border-radius: 8px; background: var(--color-paper); box-shadow: 0 18px 40px -12px rgb(0 0 0 / 0.7); } .ds-project-body { display: flex; flex-direction: column; gap: 1rem; } .ds-project-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem; margin: 0; font-family: 'DM Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.78rem; font-weight: 500; line-height: 1.35; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted); } .ds-project-ctx { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-ink); } .ds-mark { display: inline-block; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: currentColor; } .ds-sep { color: var(--color-line); } .ds-project-title { margin: 0; font-family: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: clamp(1.35rem, 1.1rem + 1vw, 1.875rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; } .ds-project-title a { color: var(--color-ink); text-decoration: none; } .ds-project-link { background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1); } .ds-project:hover .ds-project-link, .ds-project-title a:focus-visible .ds-project-link { background-size: 100% 1px; } .ds-project-title a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 2px; } .ds-newtab { margin-left: 0.3em; font-size: 0.55em; white-space: nowrap; color: var(--color-muted); } .ds-newtab svg { vertical-align: 0.12em; opacity: 0; transform: translate(-2px, 2px); transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1), transform 0.25s cubic-bezier(0.22, 1, 0.36, 1); } .ds-project:hover .ds-newtab svg, .ds-project-title a:focus-visible .ds-newtab svg { opacity: 1; transform: none; } .ds-project-desc { margin: 0; max-width: 60ch; font-family: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem); line-height: 1.6; color: var(--color-muted); } .ds-project-stack { margin: 0; font-family: 'DM Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.78rem; font-weight: 500; line-height: 1.35; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted); } .ds-project-host { display: inline-flex; align-items: center; gap: 0.5rem; padding-top: 0.25rem; font-family: 'DM Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.78rem; font-weight: 500; line-height: 1.35; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); text-decoration: none; } .ds-project-host svg { transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1); } .ds-project:hover .ds-project-host svg { transform: translate(2px, -2px); }"
     },
@@ -358,11 +381,11 @@
       "css": ".ds-header { position: sticky; top: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 1.5rem; padding: 1rem 2.5rem; border-bottom: 1px solid var(--color-line); background: color-mix(in srgb, var(--color-paper) 95%, transparent); backdrop-filter: blur(8px); } .ds-logo { display: inline-flex; align-items: center; gap: 10.8px; text-decoration: none; } .ds-logo-mark { width: 36px; height: 36px; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; } .ds-logo-ring { stroke: var(--color-accent); stroke-width: 6; } .ds-logo-peaks { stroke: var(--color-ink); stroke-width: 5; } .ds-logo-text { display: flex; flex-direction: column; gap: 4.32px; } .ds-logo-name { font-family: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: 18px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; white-space: nowrap; color: var(--color-ink); } .ds-logo-tag { font-family: 'DM Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.625rem; font-weight: 500; letter-spacing: 0.12em; line-height: 1; text-transform: uppercase; white-space: nowrap; color: var(--color-muted); } .ds-logo:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 2px; } .ds-header-right { display: flex; align-items: center; gap: 2rem; } .ds-nav { display: flex; align-items: center; gap: 2rem; } .ds-nav a { font-family: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem); line-height: 1.6; color: var(--color-ink); text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 4px; } .ds-nav a:hover { color: var(--color-accent); } .ds-nav a:focus-visible, .ds-lang a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 2px; } .ds-lang { display: flex; align-items: center; gap: 0.75rem; font-family: 'DM Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.78rem; font-weight: 500; line-height: 1.35; letter-spacing: 0.12em; text-transform: uppercase; } .ds-lang a { color: var(--color-muted); text-decoration: none; } .ds-lang a[aria-current='true'] { color: var(--color-ink); } .ds-lang a:not([aria-current]):hover { color: var(--color-accent); }"
     },
     {
-      "name": "Hairline Rows (Services / Approach)",
+      "name": "Approach Columns",
       "kind": "custom",
-      "description": "Lists divided by 1px hairlines instead of boxed into cards: a Title claim with a muted Body sentence beside or under it; no hover colour.",
-      "html": "<ol class=\"ds-rows\" role=\"list\"><li class=\"ds-row\"><h3>Websites that sell</h3><p>Marketing sites built to load fast, read well and convert.</p></li><li class=\"ds-row\"><h3>Web applications</h3><p>Dashboards and tools with the same care for the details.</p></li><li class=\"ds-row\"><h3>Maintenance</h3><p>Updates, fixes and improvements once the site is live.</p></li></ol>",
-      "css": ".ds-rows { margin: 0; padding: 0; list-style: none; max-width: 44rem; border-bottom: 1px solid var(--color-line); } .ds-row { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 0.5rem 2.5rem; padding: 2rem 0; border-top: 1px solid var(--color-line); } .ds-row h3 { margin: 0; font-family: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: clamp(1.35rem, 1.1rem + 1vw, 1.875rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; color: var(--color-ink); text-wrap: balance; } .ds-row p { margin: 0; padding-top: 0.375rem; font-family: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem); line-height: 1.6; color: var(--color-muted); text-wrap: pretty; } @media (max-width: 639px) { .ds-row { grid-template-columns: 1fr; } .ds-row p { padding-top: 0; } }"
+      "description": "Three reasons under a full-width statement: each a Title claim (capped at 10em) over a muted Body sentence (max 52ch); three columns split by vertical 1px hairline rules on a shared subgrid from lg, hairline-divided rows below. No boxes, no hover colour.",
+      "html": "<ul class=\"ds-reasons\" role=\"list\"><li class=\"ds-reason\"><h3>Building for the web since 2014</h3><p>Showcase sites, online shops, custom applications. I take care over every detail: layout, animation, how it feels on a phone, how fast it loads.</p></li><li class=\"ds-reason\"><h3>AI has changed the game</h3><p>I use AI tools such as Claude Code every day. They let me work faster and better than before, for a budget that is often well below an agency’s.</p></li><li class=\"ds-reason\"><h3>The result is my responsibility</h3><p>You deal directly with the person building your site, in French or English. I take full responsibility for delivering quality work.</p></li></ul>",
+      "css": ".ds-reasons { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; max-width: 72rem; } .ds-reason { display: flex; flex-direction: column; gap: 0.75rem; padding: 2rem 0; border-top: 1px solid var(--color-line); } .ds-reason:first-child { border-top: 0; padding-top: 0; } .ds-reason:last-child { padding-bottom: 0; } .ds-reason h3 { margin: 0; font-family: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: clamp(1.35rem, 1.1rem + 1vw, 1.875rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; color: var(--color-ink); text-wrap: balance; } .ds-reason p { margin: 0; max-width: 52ch; font-family: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem); line-height: 1.6; color: var(--color-muted); text-wrap: pretty; } @media (min-width: 1024px) { .ds-reasons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto auto; row-gap: 0.75rem; } .ds-reason { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0.75rem; padding: 0 2.5rem; border-top: 0; border-left: 1px solid var(--color-line); } .ds-reason:first-child { border-left: 0; padding-left: 0; } .ds-reason:last-child { padding-right: 0; } .ds-reason h3 { max-width: 10em; } }"
     },
     {
       "name": "FAQ Disclosure",
@@ -370,6 +393,13 @@
       "description": "How-it-works FAQ: caption-mono heading, hairline-divided details rows, the question in Lead ink turning orange on hover, a 1.5px plus that turns 45° when open, the answer in muted Body.",
       "html": "<div class=\"ds-faq\"><h3 class=\"ds-faq-heading\">Common questions</h3><div class=\"ds-faq-list\"><details class=\"ds-faq-item\" open><summary><span>How long does a site take?</span><svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M8 2v12M2 8h12\"/></svg></summary><p>Usually four to eight weeks, depending on content and scope.</p></details><details class=\"ds-faq-item\"><summary><span>Do you work with agencies?</span><svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M8 2v12M2 8h12\"/></svg></summary><p>Yes, as a freelance developer inside an agency team.</p></details></div></div>",
       "css": ".ds-faq { max-width: 44rem; } .ds-faq-heading { margin: 0; font-family: 'DM Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.78rem; font-weight: 500; line-height: 1.35; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted); } .ds-faq-list { margin-top: 1.25rem; border-bottom: 1px solid var(--color-line); } .ds-faq-item { border-top: 1px solid var(--color-line); } .ds-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.25rem 0; list-style: none; cursor: pointer; border-radius: 2px; font-family: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: clamp(1.125rem, 1.02rem + 0.5vw, 1.375rem); line-height: 1.5; color: var(--color-ink); transition: color 0.15s; } .ds-faq-item summary::-webkit-details-marker { display: none; } .ds-faq-item summary:hover { color: var(--color-accent); } .ds-faq-item summary:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 2px; } .ds-faq-item svg { width: 1rem; height: 1rem; flex: none; transition: transform 0.2s; } .ds-faq-item[open] svg { transform: rotate(45deg); } .ds-faq-item p { margin: 0; max-width: 42rem; padding-bottom: 1.5rem; font-family: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem); line-height: 1.6; color: var(--color-muted); }"
+    },
+    {
+      "name": "Timeline Steps (How it works)",
+      "kind": "custom",
+      "description": "Signature: four steps on one 1px hairline track that the Schibsted 800 tabular numerals interrupt like stations; a 2px orange scroll fill runs on the line only, numerals wait as a 1px faint outline until reached, then turn solid ink; after 04 the line ends open (solid half, then fading 8px dashes). A vertical rail here, a row of four from xl.",
+      "html": "<div class=\"ds-timeline\"><span class=\"ds-track\" aria-hidden=\"true\"><span class=\"ds-fill\"></span></span><ol class=\"ds-steps\" role=\"list\"><li class=\"ds-step is-reached\"><span class=\"ds-step-num\" aria-hidden=\"true\">01</span><h3>You tell me what you need</h3><p>An email or a call is enough, no technical terms required. This first conversation is free.</p></li><li class=\"ds-step is-reached\"><span class=\"ds-step-num\" aria-hidden=\"true\">02</span><h3>I suggest how to do it</h3><p>I tell you what I’d recommend, what it would cost and when I could work on it.</p></li><li class=\"ds-step\"><span class=\"ds-step-num\" aria-hidden=\"true\">03</span><h3>We sign, then I build it</h3><p>Billing only starts once the project is signed and under way.</p></li><li class=\"ds-step ds-step-last\"><span class=\"ds-step-num\" aria-hidden=\"true\">04</span><span class=\"ds-tail\" aria-hidden=\"true\"></span><h3>I stay on after launch</h3><p>If needed, I take care of maintenance, changes, updates and future developments.</p></li></ol></div>",
+      "css": ".ds-timeline { --num: clamp(1.75rem, 1.2rem + 2.4vw, 3.125rem); position: relative; max-width: 40rem; } .ds-track { position: absolute; top: 0; bottom: 2.5rem; left: calc(var(--num) * 0.635); width: 1px; background: var(--color-line); } .ds-fill { position: absolute; top: -1px; left: -1px; width: 2px; height: 42%; background: var(--color-accent); } .ds-steps { display: grid; row-gap: 2.5rem; margin: 0; padding: 0; list-style: none; } .ds-step { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; column-gap: 1.5rem; } .ds-step-num { position: relative; margin: -0.5rem 0; padding: 0.5rem 0; background: var(--color-paper); font-family: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: var(--num); font-weight: 800; line-height: 1; letter-spacing: normal; font-variant-numeric: tabular-nums; color: var(--color-paper); -webkit-text-stroke: 2px var(--color-faint); paint-order: stroke fill; transition: color 0.3s ease-out, -webkit-text-stroke-color 0.3s ease-out; } .ds-step.is-reached .ds-step-num, .ds-step:hover .ds-step-num { color: var(--color-ink); -webkit-text-stroke-color: transparent; } .ds-step h3 { margin: 0; font-family: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: clamp(1.35rem, 1.1rem + 1vw, 1.875rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; color: var(--color-ink); } .ds-step p { grid-column: 2; margin: 0.5rem 0 0; font-family: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem); line-height: 1.6; color: var(--color-muted); } .ds-tail { position: absolute; left: calc(var(--num) * 0.635 - 2px); top: calc(var(--num) + 0.5rem); bottom: -2.5rem; width: 5px; background: var(--color-paper) linear-gradient(var(--color-line), var(--color-line)) 2px 0 / 1px 100% no-repeat; -webkit-mask-image: linear-gradient(#000, #000), repeating-linear-gradient(to bottom, transparent 0 6px, #000 6px 14px); -webkit-mask-size: 100% 50%, 100% 50%; -webkit-mask-position: 0 0, 0 100%; -webkit-mask-repeat: no-repeat; mask-image: linear-gradient(#000, #000), repeating-linear-gradient(to bottom, transparent 0 6px, #000 6px 14px); mask-size: 100% 50%, 100% 50%; mask-position: 0 0, 0 100%; mask-repeat: no-repeat; opacity: 0.9; }"
     },
     {
       "name": "Footer Contact Details",
@@ -390,12 +420,12 @@
       "Three voices from two faces: Schibsted Grotesk heavy (headings) and regular (running text), DM Mono (all data/labels).",
       "Depth by tonal step + hairlines; no glows or coloured shadows on the interface; soft shadows only where something physically sits on something else.",
       "Sharp-by-default corners (2/4/8px).",
-      "Expressive light and motion (shaders, glyph fields, type reveals, 3D decks) as an opt-out, palette-tinted exception, chosen per page."
+      "Expressive light and motion (a glyph field, type reveals, 3D decks, a pixel card) as an opt-out, palette-tinted exception, chosen per page."
     ],
     "rules": [
       {
         "name": "The Orange Job Rule",
-        "body": "Orange appears only for a job: the logo ring, the main button (one per screen, black text), link underlines and link text on hover, focus rings and selection, one emphasised word in a headline at most, the \"live\" hostname line. It is never a section background, never under white text, never body text, never beside error red as a second accent, and never decoration with no job. If you cannot name the job, use a neutral.",
+        "body": "Orange appears only for a job: the logo ring, the main button (one per screen, black text), link underlines and link text on hover, focus rings and selection, one emphasised word in a headline at most, the \"live\" hostname line, the timeline's progress fill. It is never a section background, never under white text, never body text, never beside error red as a second accent, and never decoration with no job. If you cannot name the job, use a neutral.",
         "section": "colors"
       },
       {
@@ -410,7 +440,7 @@
       },
       {
         "name": "The Three-Voice Rule",
-        "body": "Headings are Schibsted Grotesk at 700–800; prose is Schibsted Grotesk at 400; anything that reads as data (labels, stacks, tags, hostnames, buttons) is DM Mono, uppercase, tracked. A voice never crosses into another's job.",
+        "body": "Headings are Schibsted Grotesk at 700–800; prose is Schibsted Grotesk at 400; anything that reads as data (labels, stacks, tags, hostnames, buttons) is DM Mono, uppercase, tracked. A voice never crosses into another's job. Step ordinals (\"01\"–\"04\") are headings in the display face, not data, so they are not mono.",
         "section": "typography"
       },
       {
@@ -436,14 +466,14 @@
     ],
     "dos": [
       "Do let real screenshots of shipped sites be the imagery; crop them to 16:10 (desktop) or 390:844 (phone), top-anchored, inside a hairline frame.",
-      "Do give orange a job: the logo ring, the main button (one per screen, black text), link underlines and link text on hover, focus rings and selection, one emphasised word in a headline at most, the \"live\" hostname line.",
+      "Do give orange a job: the logo ring, the main button (one per screen, black text), link underlines and link text on hover, focus rings and selection, one emphasised word in a headline at most, the \"live\" hostname line, the timeline's progress fill.",
       "Do keep mono labels muted, and report state with `success` and `error`, not orange.",
       "Do show project context with the ContextBadge (freelance dot or partner wordmark) wherever context appears.",
       "Do step depth one tone at a time (ground, `surface`, `surface-2`), separate surfaces with the `line` hairline, and divide lists with hairlines instead of boxing them into cards.",
       "Do put all data (stacks, tags, hostnames, labels, buttons) in DM Mono, uppercase, tracked.",
       "Do draw icons as inline SVG strokes (1.5px, square caps) sized in `em`.",
-      "Do gate every animation behind `prefers-reduced-motion: no-preference` with an intentional still alternative, give long-running content motion a pause control, and stop loops and shaders when off-screen or the tab is hidden.",
-      "Do tint every effect from the palette through tokens: orange for small interaction moments; neutral `LIGHT` with `ACCENT` as a trace (the `accent` param) for shader backgrounds.",
+      "Do gate every animation behind `prefers-reduced-motion: no-preference` with an intentional still alternative, give long-running content motion a pause control, and stop loops when off-screen or the tab is hidden.",
+      "Do tint every effect from the palette through tokens: orange for small interaction moments; neutral tones, with orange as a trace or a small minority at most, for the hero background and the teaser's pixel card.",
       "Do keep content in the HTML and visible without JS; effects decorate it (`aria-hidden` layers, a CSS failsafe for anything hidden before it animates).",
       "Do ship every visitor-facing string in both EN and FR (binding product constraint)."
     ],

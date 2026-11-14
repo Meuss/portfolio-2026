@@ -155,7 +155,7 @@ grid it replaced.
 - Three voices from two faces: Schibsted Grotesk heavy (headings) and regular (running text), DM Mono (all data/labels).
 - Depth by tonal step + hairlines; no glows or coloured shadows on the interface; soft shadows only where something physically sits on something else.
 - Sharp-by-default corners (2/4/8px).
-- Expressive light and motion (shaders, glyph fields, type reveals, 3D decks) as an opt-out, palette-tinted exception, chosen per page.
+- Expressive light and motion (a glyph field, type reveals, 3D decks, a pixel card) as an opt-out, palette-tinted exception, chosen per page.
 
 ## Colors
 
@@ -167,7 +167,8 @@ status colours that only ever report a state.
 - **Kit Orange** (`accent`): The only colour, used for its named jobs: the logo
   ring, the main button, link underlines and link text on hover, focus rings,
   selection and the input caret, the "live" project hostname line, the progress
-  fill of the how-it-works timeline, and at most one emphasised word in a
+  fill of the how-it-works timeline (the line and its tail only, never the
+  numerals), and at most one emphasised word in a
   headline (allowed; none ships today). The skip link shares the main button's
   orange fill with black text.
 - **Lit Orange** (`accent-hover`): The hover state of orange fills.
@@ -186,16 +187,18 @@ status colours that only ever report a state.
 - **Surface** (`surface`): One tonal step up: screenshot frames, the contact form
   panel, the footer (which carries the closing call to action).
 - **Second Surface** (`surface-2`): Two steps up: the selected filter chip.
-- **Warm Off-White Ink** (`ink`): Headings and body text (~16.7:1 on ground);
+- **Warm Off-White Ink** (`ink`): Headings and body text (~16.7:1 on ground),
+  including the how-it-works step numerals;
   hover border of secondary buttons, the selected chip's border, the hero's short
   rule, the wall's pause-control hover.
 - **Muted Grey** (`muted`): Secondary text, intros, captions, and all mono labels:
   the capabilities and FAQ headings, "coming soon", NDA, the social icons at
-  rest (~7.4:1). Also the filter chips' hover border and the timeline's markers
-  before the fill reaches them.
-- **Faint Grey** (`faint`): Placeholders and disabled text only (~4.8:1 on ground).
-- **Hairline** (`line`): Every border, rule, divider, the timeline's track, and
-  the `/` separator in card meta lines.
+  rest (~7.4:1). Also the filter chips' hover border.
+- **Faint Grey** (`faint`): Placeholders and disabled text (~4.8:1 on ground),
+  and the 1px outline of a timeline numeral the scroll fill has not reached yet.
+  Nothing else.
+- **Hairline** (`line`): Every border, rule, divider, the timeline's track and
+  its dashed tail, and the `/` separator in card meta lines.
 
 ### Named Rules
 
@@ -236,6 +239,9 @@ paragraphs `text-wrap: pretty`.
   the 404's first line.
 - **Headline** (800, `clamp(2rem → 3.75rem)`, lh 1, -0.035em): Page and section
   H1/H2, the footer's call-to-action heading, the 404's second line.
+- **Step numeral** (800, `clamp(1.75rem, 1.2rem + 2.4vw, 3.125rem)`, lh 1,
+  normal tracking, tabular figures): The how-it-works ordinals "01"–"04", sized
+  between Title and Headline. Local to that component, not a scale token.
 - **Title** (700, `clamp(1.35rem → 1.875rem)`, lh 1.15, -0.025em): Project card
   titles, service rows, Approach claims (each with a muted Body sentence under
   it), How-it-works steps, About "ways" rows, the contact and footer
@@ -257,7 +263,8 @@ paragraphs `text-wrap: pretty`.
 **The Three-Voice Rule.** Headings are Schibsted Grotesk at 700–800; prose is
 Schibsted Grotesk at 400; anything that reads as data (labels, stacks, tags,
 hostnames, buttons) is DM Mono,
-uppercase, tracked. A voice never crosses into another's job.
+uppercase, tracked. A voice never crosses into another's job. Step ordinals
+("01"–"04") are headings in the display face, not data, so they are not mono.
 
 **The No-Eyebrow Rule.** Headings stand alone. No mono kicker or label sits
 above a section heading; mono labels only name data next to it (a `dt` beside
@@ -268,20 +275,22 @@ its `dd`, a context tag above a card title that it describes).
 A single centered column: `max-w-6xl` (72rem) with 1.5rem gutters opening to
 2.5rem at `md`. Sections carry generous vertical rhythm (5rem rising to 7rem,
 the footer's call to action included) and are separated by a full-width hairline bottom border; the
-only background change is the footer, one flat step up. Two interior
-sections pair a heading column with content: a `minmax(0,20rem) 1fr` ratio grid
-(services) and two equal columns (approach), with the heading column `sticky` at
-`top: 7rem` on wide screens. How it works breaks that pattern on purpose: its
-heading and intro run full width above a timeline of the four steps, and the FAQ
-sits below in two columns from `lg`. The hero is a `1.1fr / 1fr` split
+only background change is the footer, one flat step up. One interior section
+pairs a heading column with content: services, on a `minmax(0,20rem) 1fr` ratio
+grid from `lg` with the heading column `sticky` at `top: 7rem`. Approach and How
+it works run their heading full width instead: the approach statement (max
+56rem) over its three reasons, in three columns from `lg`; the how-it-works
+heading and intro above a timeline of the four steps (a row from `xl`, a
+vertical rail below), with the FAQ under it in two columns from `lg`. The hero is a `1.1fr / 1fr` split
 at `lg` (intro left, wall right), stacking below 1024px with the wall becoming a
 full-bleed horizontal strip.
 
 Project lists are equal cards with very open gaps: three columns for the
 homepage selection (2rem columns, 4rem rows), two columns on `/work` (2.5rem
-columns, 5rem rows rising to 6rem). Service, approach, FAQ and About lists are
-hairline-divided rows, never boxes; the how-it-works steps hang from one
-hairline track instead.
+columns, 5rem rows rising to 6rem). Service, FAQ and About lists are
+hairline-divided rows, never boxes; the approach's reasons are such rows below
+`lg` and columns split by vertical hairline rules from `lg`; the how-it-works
+steps hang from one hairline track instead.
 The 404 page is a single column filling the viewport under the header,
 vertically centred: the fuzzy code and line, then one primary button.
 Spacing uses the Tailwind 4px scale; no custom spacing tokens. Breakpoints are
@@ -299,8 +308,8 @@ exist only where one thing physically rests on another: the phone capture over i
 desktop screenshot, each card of the hero deck over the one behind it, the portrait
 badge hanging in front of the page. Depth elsewhere is spatial: the deck's real
 3D perspective, a ground-coloured veil that darkens cards with distance, and the
-mobile strip's masked fade into the ground. Effects' light (scan lines, the star
-border's comet) is light, not elevation.
+mobile strip's masked fade into the ground. Effects' light (the cursor's glow trail, the
+star border's comet) is light, not elevation.
 
 ### Shadow Vocabulary
 
@@ -337,8 +346,8 @@ aspect ratios (16:10 desktop, 390:844 phone), anchored to the top of the page.
 The recurring small geometry is the 0.4rem freelance dot and the 0.5rem green
 availability dot; partner context uses the partners' wordmarks. Icons are inline SVG, 1.5px square-capped
 strokes sized to the text (`0.95em`): a right arrow for internal actions, an
-up-right arrow for external links, and a box with an arrow leaving its corner
-for "opens in a new tab".
+up-right arrow for external links, a box with an arrow leaving its corner
+for "opens in a new tab", and the FAQ's plus (1rem) that turns into an ×.
 
 ## Components
 
@@ -377,8 +386,10 @@ frame and text.
   frame (16:10); on hover the image scales to 1.02 over 700ms. When a phone
   capture exists it overlaps the lower-right corner (22% wide, 8px radius,
   `paper` backing, 1.25rem below the frame) with the Overlap shadow. NDA work
-  and the `/work` closing teaser ("Your project?", linking to contact) show a
-  blank frame with a faint diagonal hatch and a mono caption.
+  and the `/work` teaser ("Your project?", linking to contact, fifth in the
+  grid after the first four projects) show a blank frame with a faint diagonal
+  hatch and a mono caption; the teaser's frame fills with the pixel card on
+  hover or keyboard focus (see Effects).
 - **Meta line:** Context badge (`currentColor` dot + "Freelance", or the macmac /
   Marvelous wordmark) in ink, a `line`-coloured `/`,
   then the kind in muted caption mono.
@@ -400,7 +411,8 @@ frame and text.
 
 - **Style:** Kit black fill (`paper`), 1px `line` border, 4px radius, body text,
   faint placeholders; uppercase caption-mono label above in muted. Fields sit
-  on an 8px `surface` panel with hairline border.
+  on an 8px `surface` panel with hairline border, padded 1.5rem on small
+  screens and at the `form-panel` padding from `md`.
 - **Focus:** 2px orange outline, 2px offset. No glow. Caret is orange.
 - **Status:** Inline `aria-live` status paragraph below the submit, in `success`
   or `error`.
@@ -462,27 +474,37 @@ from `sm`: each an ink Body name over a muted Small blurb.
 
 ### Approach and How It Works
 
-Approach follows the service list's hairline grammar beside a sticky Headline
-column: three reasons, each a Title claim over a muted Body sentence (max 52ch).
-The `approachHeading` effect lights the Headline's words up with the scroll
-(neutral: ink opacity and blur, no orange); every word is at full while the
-heading is still well inside the viewport. The heading itself carries no
-`data-reveal`. Without JS, with the effect off, or under reduced motion, it is a
-plain Headline.
+Approach is a statement over its reasons. The Headline runs full width (max
+56rem); under it, three reasons, each a Title claim over a muted Body sentence
+(max 52ch). From `lg` they are three columns separated by vertical 1px `line`
+rules, on a shared subgrid so the claims and the sentences start on common
+lines, with claims capped at 10em so all three break alike; below `lg` they
+stack as hairline-divided rows. The reasons scroll-reveal with a short stagger.
+The `approachHeading` effect lights the Headline's words up with the scroll,
+from dim and blurred to sharp while a slight tilt straightens (neutral: ink
+opacity and blur, no orange); every word is at full while the heading is still
+well inside the viewport. The heading itself carries no `data-reveal`. Without
+JS or under reduced motion, it is a plain Headline.
 
 How it works is a sequence, so it is drawn as a timeline. The Headline and Lead
-intro run full width; under them one 1px `line` track joins the four steps, with
-a 7px round marker per step (muted at rest). From `xl` the steps are four equal
-columns read left to right, the track running the full width above them and each
-marker heading its column; below `xl` the track runs down the left with the
-markers on it and the steps stacked beside it in a 2rem gutter. There is no 2×2
-arrangement: four narrower columns break the French titles over three lines, and
-a grid is not a sequence. Each step is its number in muted mono at Small size, a
-Title, and a muted Body sentence. The `howTimeline` effect fills the track in
-orange as the visitor scrolls through the steps, both ways, and turns each marker
-orange as the fill reaches it; the text never changes colour. Without JS, with
-the effect off, or under reduced motion, the plain track and muted markers stay.
-Track, fill and markers are `aria-hidden`; the `<ol>` carries the order.
+intro run full width; under them one 1px `line` track joins the four steps, and
+the step numerals "01"–"04" interrupt it like stations on a route (each sits on
+a `paper` ground that hides the track behind it). From `xl` the steps are four
+equal columns read left to right, the track running through the middle of the
+numerals and each step's Title and muted Body sentence under its numeral; below
+`xl` the rail runs down the left through the numerals and the steps stack
+beside it, each Title on its numeral's baseline. There is no 2×2 arrangement:
+four narrower columns break the French titles over three lines, and a grid is
+not a sequence. After 04 the line is open-ended: solid for half its length,
+then 8px dashes with 6px gaps that fade out; in the stack it runs 2.5rem past
+the last step's text. The `howTimeline` effect lays a 2px orange fill over the
+track as the visitor scrolls through the steps, both ways, and the fill takes
+the tail's shape. While it runs, each numeral waits as a 1px `faint` outline
+and turns solid ink when the fill reaches it. Orange stays on the line and its
+tail: no orange markers, and the numerals and text never turn orange. Without
+JS or under reduced motion, the plain track and tail stay and every numeral is
+solid ink. Track, tail, fill and numerals are `aria-hidden`; the `<ol>` carries
+the order.
 
 The FAQ follows under a caption-mono heading: hairline-divided disclosure rows
 whose question is Lead in ink, orange on hover, with a 1.5px square-capped plus
@@ -559,9 +581,10 @@ it is the only place they are set.
 | `primaryButton`   | Hero, footer, contact form, 404 | Star border, lit on hover and keyboard focus only                                                                               | orbit 3s, intensity 0.7                                                                                                                                                          |
 | `mobileMenu`      | Header < 768px                  | Staggered (two sheets sweep in from the right, the links rise in one after another)                                             | speed 1                                                                                                                                                                          |
 | `approachHeading` | Home, approach                  | Scroll reveal (words go from dim and blurred to full with the scroll, the line straightens)                                     | base opacity 0.1, blur 4px, rotation 3°, scrubbed from 0.9 to 0.7 of the viewport height                                                                                         |
-| `howTimeline`     | Home, how it works              | Scroll fill (the track fills in orange with the scroll)                                                                         | scrubbed from 0.7 to 0.5 of the viewport height, smoothing 0.3                                                                                                                   |
+| `howTimeline`     | Home, how it works              | Scroll fill (the track and its tail fill in orange with the scroll; numerals wait as outlines until reached)                    | scrubbed from 0.7 to 0.5 of the viewport height, smoothing 0.3                                                                                                                   |
 | `featuredMedia`   | Home selected work              | Tilted card                                                                                                                     | max angle 8°, glare 0.5                                                                                                                                                          |
 | `workMedia`       | /work                           | Tilted card                                                                                                                     | max angle 8°, glare 0.5                                                                                                                                                          |
+| `workTeaser`      | /work, "Your project?" teaser   | Pixel card (the blank frame fills with small pixels rippling out from the centre, shimmering, swelling near the pointer)        | gap 5px, speed 35, orange 0.15, spotlight 0.5                                                                                                                                    |
 | `aboutPortrait`   | /about                          | Lanyard                                                                                                                         | swing 0.4, strap 4rem                                                                                                                                                            |
 | `notFound`        | 404 pages, each heading line    | Fuzzy text (rows jitter sideways, swelling on hover)                                                                            | resting 0.18, hover 0.5, range 30px                                                                                                                                              |
 
@@ -571,6 +594,10 @@ menu's edge, the tilt glare, the timeline's scroll fill (orange as progress).
 The hero background stays neutral: characters in dark tones between the ground
 and `muted`, with ink flashes; its orange setting (the share of flashes that
 turn orange) is 0. The lanyard is a steel (`muted`) clip with orange stitching.
+The teaser's pixel card is neutral too (`line`, `faint` and `muted` pixels) with
+orange as a 15% minority; it ripples out from the centre on hover or keyboard
+focus and closes back in on leave (on touch screens it appears once the card
+is half in view), and a calm zone keeps every pixel off the caption.
 Text effects on reading copy stay neutral: the approach heading's scroll reveal
 only changes the ink's opacity and blur, and ends with every word at full.
 
@@ -620,7 +647,7 @@ is fine-pointer only.
 - **Do** gate every animation behind `prefers-reduced-motion: no-preference`
   with an intentional still alternative, give long-running content motion a
   pause control, and stop loops when off-screen or the tab is hidden.
-- **Do** tint every effect from the palette through tokens: orange for small interaction moments; neutral tones, with orange as a trace at most, for the hero background.
+- **Do** tint every effect from the palette through tokens: orange for small interaction moments; neutral tones, with orange as a trace or a small minority at most, for the hero background and the teaser's pixel card.
 - **Do** keep content in the HTML and visible without JS; effects decorate it
   (`aria-hidden` layers, a CSS failsafe for anything hidden before it animates).
 - **Do** ship every visitor-facing string in both EN and FR (binding product
