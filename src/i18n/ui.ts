@@ -134,7 +134,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     'how.step3.text': 'Billing only starts once the project is signed and under way.',
     'how.step4.title': 'I stay on after launch',
     'how.step4.text':
-      'If you’d like, I handle changes, security updates and backups, so you don’t have to think about them.',
+      'If needed, I take care of maintenance, changes, updates and future developments.',
     'how.faqHeading': 'Common questions',
     'how.faq1.q': 'How much does it cost?',
     'how.faq1.a':
@@ -330,7 +330,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     'how.step3.text': 'La facturation ne commence qu’une fois le projet signé et démarré.',
     'how.step4.title': 'Je reste là après la mise en ligne',
     'how.step4.text':
-      'Si vous le souhaitez, je m’occupe des modifications, des mises à jour de sécurité et des sauvegardes, pour que vous n’ayez pas à y penser.',
+      'Si besoin, je m’occupe de la maintenance, des modifications, des mises à jour ou des évolutions futures.',
     'how.faqHeading': 'Questions fréquentes',
     'how.faq1.q': 'Combien ça coûte ?',
     'how.faq1.a':

@@ -1,18 +1,37 @@
-/* The fill lies on the component's 1px track and is scaled along it from the
-   track's start; the script writes scaleX (row) or scaleY (stack). */
+/* The fill lies on the component's 1px track, one pixel heavier, and is scaled
+   along it from the track's start; the script writes scaleX (row) or scaleY
+   (stack). The -1px on both leading sides thickens it in either direction. */
 .fx-timeline-fill {
   position: absolute;
-  inset: 0;
+  inset: -1px 0 0 -1px;
   background: var(--color-accent);
   transform: scale(0);
   transform-origin: 0 0;
   will-change: transform;
 }
 
-/* Markers switch to orange as the line reaches them: progress, not decoration. */
+/* The tail's own fill: it sits inside the component's masked tail (solid, then
+   fading dashes), so it takes the same shape; the script reveals it by clip. */
+.fx-timeline-tail-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  clip-path: inset(0 100% 100% 0);
+}
+
+/* While the effect runs, a numeral waits as a hairline outline and fills with
+   ink once the line reaches it. The stroke is drawn under a ground-coloured
+   fill, so only its outer pixel shows and overlapping contours stay hidden.
+   Without the effect (no JS, `off`, reduced motion) numerals are plain ink. */
 .fx-timeline .timeline-marker {
-  transition: background-color 0.2s ease-out;
+  color: var(--color-paper);
+  -webkit-text-stroke: 2px var(--color-faint);
+  paint-order: stroke fill;
+  transition:
+    color 0.3s ease-out,
+    -webkit-text-stroke-color 0.3s ease-out;
 }
 .fx-timeline .timeline-marker.is-reached {
-  background-color: var(--color-accent);
+  color: var(--color-ink);
+  -webkit-text-stroke-color: transparent;
 }
