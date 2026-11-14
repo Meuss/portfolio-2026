@@ -30,6 +30,10 @@ export const effects = {
   },
   featuredMedia: tilt,
   workMedia: tilt,
+  workTeaser: {
+    load: () => import('./card-pixel'),
+    params: { gap: 5, speed: 35, accent: 0.15, spotlight: 0.5 },
+  },
   aboutPortrait: { load: () => import('./portrait-lanyard'), params: { swing: 0.4, length: 4 } },
   notFound: {
     load: () => import('./text-fuzzy'),
