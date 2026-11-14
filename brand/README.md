@@ -42,7 +42,7 @@ The full website styleguide (dark colour tokens, type scale): https://claude.ai/
 | App icon / tile                  | `svg/icon-black.svg`, `icon-orange.svg`, `icon-white.svg` |
 | LinkedIn, GitHub, Google         | `avatar/avatar-black-square.png` (the site crops it round) |
 | Already-round avatar             | `avatar/avatar-*-circle.png`                            |
-| Link previews (1200×630)         | `social/og-image-light.png`, `-dark`, `-orange`         |
+| Link previews (1200×630)         | `social/og-image-light.png`, `-dark`, `-orange` (generic); the website's own, per page, are in `../public/og/` (`build_og.py`) |
 | LinkedIn banner (1584×396)       | `social/linkedin-banner-dark.png`                       |
 
 Colour suffixes: `color` = on white, `dark` = on black, `orange` = on orange,
@@ -58,7 +58,6 @@ Copy everything in `favicon/` to your site root, then in `<head>`:
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#121212">
-<meta property="og:image" content="https://thomasmiller.ch/og-image-light.png">
 ```
 
 `favicon.svg` switches its peaks from black to white when the browser is in dark mode.
@@ -86,6 +85,36 @@ python3 -m venv .venv && .venv/bin/pip install fonttools uharfbuzz resvg-py
 .venv/bin/python build_kit.py .
 magick favicon/favicon-16.png favicon/favicon-32.png favicon/favicon-48.png favicon/favicon.ico   # ImageMagick
 ```
+
+## Link previews for the website (`build_og.py`)
+
+The website's Open Graph images, one per page and language (`../public/og/<lang>-<page>.png`,
+1200×630 PNG), are drawn by `build_og.py`. Each page has a layout (`LAYOUTS` in the script): most
+show the logo, the page's headline and the domain; home shows only the logo, large and stacked
+(symbol, name, tagline); about shows the logo over the portrait (`src/assets/profile.jpeg`, cropped
+by `PORTRAIT_CROP`). It reads everything from the site: the pages are `sharePages` in
+`src/data/share.ts`, each headline is `og.<page>.headline` in `src/i18n/ui.ts` (both locales), the
+label is `brand.tagline`, the colours are the `--color-*` tokens in `src/styles/global.css`, and the
+work card's screenshots are the first four projects on `/work` (`src/assets/projects/<slug>.jpg`).
+Type is outlined from `fonts/`, like the logo files. Everything essential sits in the centre 630×630
+square, because some apps crop previews to a square, and the text stays readable at 300 px wide.
+
+The PNGs are committed; the site build never runs the script. Re-run it after changing a headline,
+the tagline, the palette, the portrait or the project order (same venv as above, plus `pngquant`, which shrinks
+the work and about cards: `brew install pngquant` on macOS):
+
+```sh
+cd brand
+.venv/bin/python build_og.py                        # writes ../public/og/*.png
+.venv/bin/python build_og.py --preview /tmp/og      # also 300 px wide and centre-square previews
+```
+
+To add a page: add its `og.<page>.headline` in both locales of `ui.ts`, add it to `sharePages` in
+`src/data/share.ts`, pass `shareImage="<page>"` to `BaseLayout`, and run the script. A page with a
+headline-less layout (`LAYOUTS`) has an `og.<page>.imageAlt` instead of a headline (the script
+refuses a mismatch), used as its `og:image:alt`. `src/data/share.test.ts` fails if an image is
+missing or shows an old headline (or, on the headline-less ones, an old tagline: a new portrait is
+not detected).
 
 ## Business cards
 

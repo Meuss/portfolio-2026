@@ -5,6 +5,7 @@ import Footer, { type FooterVariant } from '../components/Footer.astro';
 import { languages, type Lang } from '../i18n/ui';
 import { switchLocalePath, useTranslations } from '../i18n/utils';
 import { goatcounterCode, goatcounterEndpoint } from '../data/analytics';
+import { ogLocale, shareImage, shareImageAlt, shareImagePath, type SharePage } from '../data/share';
 
 interface Props {
   title: string;
@@ -15,9 +16,24 @@ interface Props {
   /** Which footer closes the page (see Footer.astro): 'full' by default,
       'compact' on the error pages, 'fine-print' on the contact page. */
   footer?: FooterVariant;
+  /** Link preview (Open Graph): the page's share image (src/data/share.ts),
+      the home one by default, and a share title/description when they should
+      differ from the page's title and meta description. */
+  shareImage?: SharePage;
+  shareTitle?: string;
+  shareDescription?: string;
 }
 
-const { title, description, lang, noindex = false, footer = 'full' } = Astro.props;
+const {
+  title,
+  description,
+  lang,
+  noindex = false,
+  footer = 'full',
+  shareImage: sharePage = 'home',
+  shareTitle = title,
+  shareDescription = description,
+} = Astro.props;
 const t = useTranslations(lang);
 
 // Canonical production origin, sourced from `site` in astro.config.mjs so
@@ -26,8 +42,6 @@ const t = useTranslations(lang);
 const siteUrl = Astro.site?.toString() ?? 'https://thomasmiller.ch';
 
 const canonicalURL = new URL(Astro.url.pathname, siteUrl).toString();
-const ogLocale = lang === 'en' ? 'en_US' : 'fr_FR';
-const ogLocaleAlternate = lang === 'en' ? 'fr_FR' : 'en_US';
 
 const locales = Object.keys(languages) as Lang[];
 const alternateLinks = locales.map((l) => ({
@@ -35,7 +49,8 @@ const alternateLinks = locales.map((l) => ({
   href: new URL(switchLocalePath(Astro.url, l), siteUrl).toString(),
 }));
 const xDefaultHref = new URL(switchLocalePath(Astro.url, 'en'), siteUrl).toString();
-const ogImage = new URL('/og-image.png', siteUrl).toString();
+const ogImage = new URL(shareImagePath(lang, sharePage), siteUrl).toString();
+const ogImageAlt = shareImageAlt(lang, sharePage);
 
 // Visitor counting (src/data/analytics.ts): production builds only, and only
 // with a code set. GoatCounter reports the canonical URL's path, so /en/… and
@@ -77,21 +92,26 @@ const goatcounterSettings = noindex ? JSON.stringify({ path: Astro.url.pathname 
       </>
     )}
 
+    {/* Link previews. X reads og:title, og:description and og:image too, so
+        only the card type and the image's alt text get twitter: tags. */}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Thomas Miller" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={shareTitle} />
+    <meta property="og:description" content={shareDescription} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:locale" content={ogLocale} />
-    <meta property="og:locale:alternate" content={ogLocaleAlternate} />
+    <meta property="og:locale" content={ogLocale[lang]} />
+    {locales
+      .filter((l) => l !== lang)
+      .map((l) => (
+        <meta property="og:locale:alternate" content={ogLocale[l]} />
+      ))}
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-
+    <meta property="og:image:type" content={shareImage.type} />
+    <meta property="og:image:width" content={String(shareImage.width)} />
+    <meta property="og:image:height" content={String(shareImage.height)} />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     {goatcounterUrl && (
       <script

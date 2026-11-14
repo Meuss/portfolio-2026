@@ -24,9 +24,19 @@ export const ui: Record<Lang, Record<string, string>> = {
     'footer.privacy': 'Privacy & legal notice',
 
     // --- Homepage: page meta ---
-    'home.title': 'Thomas Miller — Web developer in Bulle, Switzerland',
+    'home.title': 'Web developer in Bulle, Switzerland — Thomas Miller',
     'home.description':
-      'Websites and apps for small businesses and independents in French-speaking Switzerland, built and looked after by Thomas Miller, a web developer in Bulle.',
+      'Showcase sites, online shops and custom apps for small businesses and independents in French-speaking Switzerland, built and looked after from Bulle.',
+
+    // --- Share images (public/og/<lang>-<page>.png, drawn by brand/build_og.py) ---
+    // A short promise per page, not its title. {headline} in og.imageAlt is the page's headline.
+    // Home and about show no headline (the logo, and the logo with the portrait): their alt is their own.
+    'og.home.imageAlt': 'Logo of Thomas Miller, web developer in Bulle',
+    'og.about.imageAlt': 'Logo and portrait of Thomas Miller, web developer in Bulle',
+    'og.work.headline': 'Latest projects',
+    'og.contact.headline': 'Let’s talk about your project',
+    'og.privacy.headline': 'Privacy & legal notice',
+    'og.imageAlt': 'Thomas Miller, web developer in Bulle: “{headline}”',
 
     // --- Homepage: hero ---
     'hero.name': 'Thomas Miller',
@@ -63,9 +73,9 @@ export const ui: Record<Lang, Record<string, string>> = {
     'project.screenshotAlt': 'Homepage of {name}',
 
     // --- Work page: page meta ---
-    'workPage.title': 'Work — Thomas Miller',
+    'workPage.title': 'Work: websites and apps for Swiss businesses — Thomas Miller',
     'workPage.description':
-      'Websites and web apps for Swiss businesses and institutions: freelance projects, work with the macmac studio, and projects at Marvelous Digital.',
+      'Recent websites and web apps for Swiss businesses and institutions, built freelance, with the macmac studio or at the Marvelous Digital agency.',
 
     // --- Work page: intro ---
     'workPage.heading': 'Work',
@@ -82,9 +92,9 @@ export const ui: Record<Lang, Record<string, string>> = {
       'This spot is open. Tell me what you need, and it could be the next one on this page.',
 
     // --- About page: page meta ---
-    'aboutPage.title': 'About — Thomas Miller',
+    'aboutPage.title': 'About: web developer since 2014 — Thomas Miller',
     'aboutPage.description':
-      'Web developer since 2014. At Marvelous Digital in Vevey, taking on freelance projects alongside: directly for clients, and for the macmac studio.',
+      'Web developer since 2014, at the Marvelous Digital agency in Vevey and freelance alongside it: one person to talk to, from the first idea to launch.',
 
     // --- About page: intro & bio ---
     'aboutPage.heading': 'One person to talk to, from idea to launch',
@@ -169,9 +179,9 @@ export const ui: Record<Lang, Record<string, string>> = {
     'cta.button': 'Get in touch',
 
     // --- Contact page: page meta ---
-    'contactPage.title': 'Contact — Thomas Miller',
+    'contactPage.title': 'Contact a web developer in Bulle — Thomas Miller',
     'contactPage.description':
-      'Get in touch about your next web project. Send a message, call me, or reach me by email, WhatsApp, or LinkedIn.',
+      'Tell me about your website or app project. Send a message, or reach me by email, phone, WhatsApp or LinkedIn. I reply within two business days.',
 
     // --- 404 ---
     'notFound.title': 'Page not found — Thomas Miller',
@@ -221,9 +231,9 @@ export const ui: Record<Lang, Record<string, string>> = {
 
     // --- Privacy & legal notice ---
     // {email} and {fdpic} are replaced with links by the page.
-    'privacyPage.title': 'Privacy & legal notice — Thomas Miller',
+    'privacyPage.title': 'Privacy policy & legal notice — Thomas Miller',
     'privacyPage.description':
-      'Who runs thomasmiller.ch, what personal data the site handles and why: the contact form, hosting by Netlify and cookie-free visitor counts with GoatCounter.',
+      'Who runs thomasmiller.ch and what personal data it handles: the contact form, hosting by Netlify, and cookie-free visitor counts with GoatCounter.',
     'privacyPage.heading': 'Privacy & legal notice',
     'privacyPage.updated': 'Last updated: November 2026',
     'privacyPage.intro':
@@ -285,9 +295,19 @@ export const ui: Record<Lang, Record<string, string>> = {
     'footer.privacy': 'Confidentialité et mentions légales',
 
     // --- Homepage: page meta ---
-    'home.title': 'Thomas Miller — Développeur web à Bulle, Suisse romande',
+    'home.title': 'Développeur web à Bulle, Suisse romande — Thomas Miller',
     'home.description':
-      'Sites web et applications pour les petites entreprises et les indépendants de Suisse romande, créés et suivis par Thomas Miller, développeur web à Bulle.',
+      'Sites vitrines, boutiques en ligne et applications sur mesure pour les petites entreprises et indépendants de Suisse romande, créés et suivis depuis Bulle.',
+
+    // --- Share images (public/og/<lang>-<page>.png, drawn by brand/build_og.py) ---
+    // A short promise per page, not its title. {headline} in og.imageAlt is the page's headline.
+    // Home and about show no headline (the logo, and the logo with the portrait): their alt is their own.
+    'og.home.imageAlt': 'Logo de Thomas Miller, développeur web à Bulle',
+    'og.about.imageAlt': 'Logo et portrait de Thomas Miller, développeur web à Bulle',
+    'og.work.headline': 'Derniers projets',
+    'og.contact.headline': 'Parlons de votre projet',
+    'og.privacy.headline': 'Confidentialité et mentions légales',
+    'og.imageAlt': 'Thomas Miller, développeur web à Bulle : « {headline} »',
 
     // --- Homepage: hero ---
     'hero.name': 'Thomas Miller',
@@ -324,9 +344,9 @@ export const ui: Record<Lang, Record<string, string>> = {
     'project.screenshotAlt': 'Page d’accueil de {name}',
 
     // --- Work page: page meta ---
-    'workPage.title': 'Projets — Thomas Miller',
+    'workPage.title': 'Projets : sites et applications web — Thomas Miller',
     'workPage.description':
-      'Sites et applications web pour des entreprises et institutions suisses : projets freelance, collaborations avec le studio macmac et projets chez Marvelous Digital.',
+      'Sites et applications web récents pour des entreprises et institutions suisses, réalisés en freelance, avec le studio macmac ou chez Marvelous Digital.',
 
     // --- Work page: intro ---
     'workPage.heading': 'Projets',
@@ -343,9 +363,9 @@ export const ui: Record<Lang, Record<string, string>> = {
       'Cette place est libre. Dites-moi ce dont vous avez besoin, et ce pourrait être le prochain projet de cette page.',
 
     // --- About page: page meta ---
-    'aboutPage.title': 'À propos — Thomas Miller',
+    'aboutPage.title': 'À propos : développeur web depuis 2014 — Thomas Miller',
     'aboutPage.description':
-      'Développeur web depuis 2014. Chez Marvelous Digital à Vevey, avec des projets freelance en parallèle : en direct pour des clients, et pour le studio macmac.',
+      'Développeur web depuis 2014, chez Marvelous Digital à Vevey et en freelance en parallèle : un seul interlocuteur, de l’idée à la mise en ligne.',
 
     // --- About page: intro & bio ---
     'aboutPage.heading': 'Un seul interlocuteur, de l’idée à la mise en ligne',
@@ -430,9 +450,9 @@ export const ui: Record<Lang, Record<string, string>> = {
     'cta.button': 'Me contacter',
 
     // --- Contact page: page meta ---
-    'contactPage.title': 'Contact — Thomas Miller',
+    'contactPage.title': 'Contacter un développeur web à Bulle — Thomas Miller',
     'contactPage.description':
-      'Contactez-moi pour votre prochain projet web. Envoyez un message, appelez-moi ou écrivez-moi par e-mail, WhatsApp ou LinkedIn.',
+      'Parlez-moi de votre projet. Via le formulaire, e-mail, téléphone, WhatsApp ou LinkedIn. Réponse sous deux jours ouvrés.',
 
     // --- 404 ---
     'notFound.title': 'Page introuvable — Thomas Miller',
@@ -484,7 +504,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     // {email} et {fdpic} sont remplacés par des liens dans la page.
     'privacyPage.title': 'Confidentialité et mentions légales — Thomas Miller',
     'privacyPage.description':
-      'Qui exploite thomasmiller.ch, quelles données personnelles le site traite et pourquoi : formulaire de contact, hébergement chez Netlify et statistiques sans cookies avec GoatCounter.',
+      'Qui exploite thomasmiller.ch et quelles données personnelles le site traite : formulaire de contact, hébergement Netlify, statistiques sans cookies.',
     'privacyPage.heading': 'Confidentialité et mentions légales',
     'privacyPage.updated': 'Dernière mise à jour : novembre 2026',
     'privacyPage.intro':
