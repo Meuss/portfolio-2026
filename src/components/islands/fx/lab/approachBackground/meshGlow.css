@@ -1,0 +1,27 @@
+/* Gradient Studio's "Mesh glow" treatment (its "Editorial" direction): a
+   blurred conic wedge of light falling from a point high on the right toward
+   the lower left, over a soft pool left of centre. The wedge is `faint`, the
+   pool is `line` with a trace of `accent` (the palette's second accent in the
+   original). Masked in from the top and out before the bottom. */
+.fx-approach-meshglow .fx-approach-studio-light {
+  background:
+    conic-gradient(
+      from 98deg at 70% 26%,
+      transparent 0 25%,
+      color-mix(in srgb, var(--color-faint) calc(var(--fx-i) * 16%), transparent) 34%,
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse at 45% 32%,
+      color-mix(
+          in srgb,
+          color-mix(in srgb, var(--color-accent) calc(var(--fx-a) * 30%), var(--color-line))
+            calc(var(--fx-i) * 56%),
+          transparent
+        )
+        0%,
+      transparent 40%
+    );
+  filter: blur(30px);
+  mask-image: linear-gradient(to bottom, transparent 6%, black 24%, black 70%, transparent 92%);
+}

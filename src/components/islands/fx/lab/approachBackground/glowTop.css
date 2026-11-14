@@ -1,0 +1,20 @@
+/* Gradient Studio's "Top light" treatment: a soft pool of light hanging from
+   the top centre over a wash that falls off downward, masked out before the
+   bottom. White light becomes `faint` over `surface-2`, the palette's tint
+   becomes a trace of `accent` in the wash. The light box is 124% of the
+   section, so 5% from its top is just above the section's top edge. */
+.fx-approach-glowtop .fx-approach-studio-light {
+  background:
+    radial-gradient(
+      ellipse 52% 58% at 50% 5%,
+      color-mix(in srgb, var(--color-faint) calc(var(--fx-i) * 30%), transparent) 0%,
+      color-mix(in srgb, var(--color-surface-2) calc(var(--fx-i) * 100%), transparent) 32%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-accent) calc(var(--fx-a) * 7%), transparent) 8%,
+      transparent 55%
+    );
+  mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 85%);
+}

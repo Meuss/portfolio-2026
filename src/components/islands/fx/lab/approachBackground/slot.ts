@@ -25,12 +25,75 @@ export default {
   default: 'off',
   variants: {
     surface: { load: () => import('./surface'), params: {} },
+    dots: {
+      load: () => import('./dots'),
+      params: { gap: 26, proximity: 150, intensity: 0.5, accent: 0.35 },
+    },
+    squares: {
+      load: () => import('./squares'),
+      params: { size: 52, speed: 0.2, intensity: 0.5, accent: 0.35 },
+    },
+    waves: {
+      load: () => import('./waves'),
+      params: { spacing: 16, speed: 0.6, intensity: 0.5, accent: 0.35 },
+    },
+    glowTop: {
+      load: () => import('./glowTop'),
+      params: { intensity: 0.7, accent: 0.3, grain: 0.5 },
+    },
+    meshGlow: {
+      load: () => import('./meshGlow'),
+      params: { intensity: 0.85, accent: 0.3, grain: 0.5 },
+    },
   },
   panel: import.meta.env.DEV && {
     label: 'Approach background',
     where: 'Home, approach',
     variants: {
       surface: { label: 'Flat tone', params: {} },
+      dots: {
+        label: 'Dot grid',
+        params: {
+          gap: { label: 'Spacing', min: 14, max: 56, step: 1 },
+          proximity: { label: 'Reach', min: 60, max: 320, step: 10 },
+          intensity: { label: 'Intensity', min: 0, max: 1, step: 0.05 },
+          accent: { label: 'Orange', min: 0, max: 1, step: 0.05 },
+        },
+      },
+      squares: {
+        label: 'Squares',
+        params: {
+          size: { label: 'Size', min: 20, max: 120, step: 1 },
+          speed: { label: 'Speed', min: 0, max: 1.5, step: 0.05 },
+          intensity: { label: 'Intensity', min: 0, max: 1, step: 0.05 },
+          accent: { label: 'Orange', min: 0, max: 1, step: 0.05 },
+        },
+      },
+      waves: {
+        label: 'Waves',
+        params: {
+          spacing: { label: 'Spacing', min: 8, max: 48, step: 1 },
+          speed: { label: 'Speed', min: 0, max: 3, step: 0.05 },
+          intensity: { label: 'Intensity', min: 0, max: 1, step: 0.05 },
+          accent: { label: 'Orange', min: 0, max: 1, step: 0.05 },
+        },
+      },
+      glowTop: {
+        label: 'Top light',
+        params: {
+          intensity: { label: 'Intensity', min: 0, max: 1, step: 0.05 },
+          accent: { label: 'Orange', min: 0, max: 1, step: 0.05 },
+          grain: { label: 'Grain', min: 0, max: 1, step: 0.05 },
+        },
+      },
+      meshGlow: {
+        label: 'Mesh glow',
+        params: {
+          intensity: { label: 'Intensity', min: 0, max: 1, step: 0.05 },
+          accent: { label: 'Orange', min: 0, max: 1, step: 0.05 },
+          grain: { label: 'Grain', min: 0, max: 1, step: 0.05 },
+        },
+      },
     },
   },
 } satisfies FxLabSlot;
