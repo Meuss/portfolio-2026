@@ -17,25 +17,28 @@ const points = [1, 2, 3].map((n) => ({
 
 <section class="border-b border-line bg-paper py-20 md:py-28">
   <div class="mx-auto max-w-6xl px-6 md:px-10">
-    <div class="grid gap-12 md:grid-cols-2 md:gap-20">
-      <!-- Opinionated positioning statement -->
-      <header class="md:sticky md:top-28 md:self-start">
-        <h2 class="max-w-md font-display text-headline text-ink">{t('approach.heading')}</h2>
-      </header>
+    <!-- The statement runs full width on top; the reasons read across under it. -->
+    <h2 class="max-w-4xl font-display text-headline text-ink">{t('approach.heading')}</h2>
 
-      <!-- Hairline-divided reasons: a claim, then the sentence that backs it -->
-      <ul class="flex flex-col" role="list">
-        {points.map((point, i) => (
-          <li
-            data-reveal
-            data-reveal-delay={String(i + 1)}
-            class="flex flex-col gap-3 border-t border-line py-8 first:border-t-0 first:pt-0 last:pb-0"
-          >
-            <h3 class="font-display text-title text-ink">{point.title}</h3>
-            <p class="max-w-[52ch] text-body text-muted">{point.text}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <!-- Three reasons: a claim, then the sentence that backs it. Stacked rows
+         divided by hairlines below `lg`; from `lg`, three columns separated by
+         vertical hairline rules, on a shared subgrid so the three sentences
+         start on one line. Claims are capped at 10em from `lg` so all three
+         break over two lines instead of one sitting short above a gap. -->
+    <ul
+      class="mt-12 flex flex-col md:mt-16 lg:grid lg:grid-cols-3 lg:grid-rows-[auto_auto] lg:gap-y-3"
+      role="list"
+    >
+      {points.map((point, i) => (
+        <li
+          data-reveal
+          data-reveal-delay={String(i + 1)}
+          class="flex flex-col gap-3 border-t border-line py-8 first:border-t-0 first:pt-0 last:pb-0 lg:row-span-2 lg:grid lg:grid-rows-subgrid lg:gap-y-3 lg:border-l lg:border-t-0 lg:px-10 lg:py-0 lg:first:border-l-0 lg:first:pl-0 lg:last:pr-0"
+        >
+          <h3 class="font-display text-title text-ink lg:max-w-[10em]">{point.title}</h3>
+          <p class="max-w-[52ch] text-body text-muted">{point.text}</p>
+        </li>
+      ))}
+    </ul>
   </div>
 </section>
