@@ -2,12 +2,10 @@
 
 /* ---------------------------------------------------------------------------
    Self-hosted fonts (Fontsource: bundled at build, no runtime CDN)
-   - Headings and the logo name: Schibsted Grotesk (variable wght)
-   - Body                      : Instrument Sans (variable wght)
-   - Labels, tags, buttons     : DM Mono
+   - Headings, body and the logo name: Schibsted Grotesk (variable wght)
+   - Labels, tags, buttons           : DM Mono
 --------------------------------------------------------------------------- */
 @import '@fontsource-variable/schibsted-grotesk/index.css';
-@import '@fontsource-variable/instrument-sans/index.css';
 @import '@fontsource/dm-mono/400.css';
 @import '@fontsource/dm-mono/500.css';
 
@@ -18,13 +16,14 @@
    text-ink, font-display, font-mono, ...).
 --------------------------------------------------------------------------- */
 @theme {
-  /* -- Type families ------------------------------------------------------- */
+  /* -- Type families: headings and body share one face ---------------------- */
   --font-display:
     'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'Instrument Sans Variable', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-sans:
+    'Schibsted Grotesk Variable', 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
-  /* -- Colour. src/data/brand-registry.ts must mirror these values. --------- */
+  /* -- Colour --------------------------------------------------------------- */
   --color-paper: #121212; /* page ground, the kit black */
   --color-surface: #1b1b1a; /* cards, panels, the form */
   --color-surface-2: #242423; /* hover on surface, selected chip */
@@ -45,7 +44,7 @@
   --text-caption--letter-spacing: 0.12em;
   --text-caption--font-weight: 500;
 
-  /* Body: Instrument Sans */
+  /* Body: Schibsted Grotesk, regular */
   --text-small: 0.875rem;
   --text-small--line-height: 1.5;
 
@@ -391,9 +390,9 @@
 
 /* ---------------------------------------------------------------------------
    Logo: the kit symbol, "Sommet qui perce" (Logo.astro; geometry in
-   brand/README.md). The name is live text; font, weight, tracking and size come
-   from --logo-* (src/data/brand.ts), the header lockup from <html data-logo-lockup>.
-   `.brand-logo--full` (footer) always shows symbol, name and tagline.
+   brand/README.md), beside the name and tagline as live text. Everything scales
+   from the symbol's size: 36px, or the caller's --logo-size (the footer's is
+   larger).
 --------------------------------------------------------------------------- */
 .brand-logo {
   --logo-size-v: var(--logo-size, 36px);
@@ -424,16 +423,15 @@
   gap: calc(var(--logo-size-v) * 0.12);
 }
 .brand-name {
-  font-family: var(--logo-font, var(--font-display));
+  font-family: var(--font-display);
   font-size: calc(var(--logo-size-v) * 0.5);
-  font-weight: var(--logo-weight, 800);
-  letter-spacing: var(--logo-tracking, -0.04em);
+  font-weight: 800;
+  letter-spacing: -0.04em;
   line-height: 1;
   white-space: nowrap;
   color: var(--color-ink);
 }
 .brand-tagline {
-  display: none;
   font-family: var(--font-mono);
   font-size: max(0.625rem, calc(var(--logo-size-v) * 0.2));
   font-weight: 500;
@@ -442,12 +440,4 @@
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--color-muted);
-}
-.brand-logo--full .brand-tagline,
-:root[data-logo-lockup='markNameTagline'] .brand-logo .brand-tagline {
-  display: block;
-}
-:root[data-logo-lockup='mark'] .brand-logo:not(.brand-logo--full) .brand-text,
-:root[data-logo-lockup='name'] .brand-logo:not(.brand-logo--full) .brand-mark {
-  display: none;
 }

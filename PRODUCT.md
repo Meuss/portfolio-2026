@@ -85,6 +85,7 @@ and adapted to each client's needs):
 - He can manage hosting, domains, security updates, backups and later changes. Most projects use a
   CMS so clients edit their own content. Handover documents can be organised on request.
 - He outsources design to colleagues and contacts when needed.
+- He can also work from a client's existing designs and alongside their own designers or developers.
 
 Durable constraints:
 

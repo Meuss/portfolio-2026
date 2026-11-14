@@ -81,22 +81,6 @@ const fxSavePlugin = () =>
     ],
   });
 
-const brandSavePlugin = () =>
-  configSavePlugin({
-    name: 'brand-save',
-    route: '/__brand/save',
-    file: 'brand.ts',
-    registry: 'brand-registry.ts',
-    resolve: 'resolveBrand',
-    exportName: 'brand',
-    type: 'BrandConfig',
-    header: [
-      'The brand the site ships with. Try others live with the dev-only Brand panel',
-      '(`pnpm dev`, bottom-right, Alt+B) and press "Save as default": it rewrites',
-      'this file. Palettes, fonts and logo options live in `brand-registry.ts`.',
-    ],
-  });
-
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
@@ -108,7 +92,7 @@ export default defineConfig({
     routing: { prefixDefaultLocale: true }, // both /en and /fr are explicit
   },
 
-  vite: { plugins: [tailwindcss(), fxSavePlugin(), brandSavePlugin()] },
+  vite: { plugins: [tailwindcss(), fxSavePlugin()] },
   integrations: [
     sitemap({
       i18n: { defaultLocale: 'en', locales: { en: 'en', fr: 'fr' } },

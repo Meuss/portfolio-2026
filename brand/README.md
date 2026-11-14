@@ -20,11 +20,11 @@ Orange is for shapes and large accents. Don't use it for small text on white: it
 ## Fonts (for the website, not needed for the logo files)
 
 - Name in the logo, and website headings: **Schibsted Grotesk** ExtraBold (800), tracking −0.04em (titles use Bold 700)
-- Website body text: **Instrument Sans** Regular (400)
+- Website body text: **Schibsted Grotesk** Regular (400)
 - Tagline, labels: **DM Mono** Medium, uppercase, tracking +0.12em
 
-All three are free on Google Fonts and on Fontsource (`@fontsource-variable/schibsted-grotesk`,
-`@fontsource-variable/instrument-sans`, `@fontsource/dm-mono`).
+Both are free on Google Fonts and on Fontsource (`@fontsource-variable/schibsted-grotesk`,
+`@fontsource/dm-mono`).
 The name in the logo files is outlined from `fonts/SchibstedGrotesk.ttf` (variable, used at weight 800)
 and the tagline from `fonts/DMMono-Medium.ttf`. These are the only two fonts the build needs.
 

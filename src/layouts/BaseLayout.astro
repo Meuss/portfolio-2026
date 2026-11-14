@@ -4,8 +4,6 @@ import Header from '../components/Header.astro';
 import Footer, { type FooterVariant } from '../components/Footer.astro';
 import { languages, type Lang } from '../i18n/ui';
 import { switchLocalePath, useTranslations } from '../i18n/utils';
-import { brand } from '../data/brand';
-import { brandAttrs, brandStyle, palettes } from '../data/brand-registry';
 
 interface Props {
   title: string;
@@ -39,8 +37,7 @@ const xDefaultHref = new URL(switchLocalePath(Astro.url, 'en'), siteUrl).toStrin
 const ogImage = new URL('/og-image.png', siteUrl).toString();
 ---
 
-{/* The shipped brand (src/data/brand.ts) as token overrides: no JS involved. */}
-<html lang={lang} style={brandStyle(brand)} {...brandAttrs(brand)}>
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -49,23 +46,12 @@ const ogImage = new URL('/og-image.png', siteUrl).toString();
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
-    {/* Dev only: re-apply the Brand panel's unsaved choice before paint (the
-        panel stores the resolved vars + attrs), so navigating doesn't flash. */}
-    {import.meta.env.DEV && <script is:inline>
-      try {
-        const s = JSON.parse(localStorage.getItem('brand-applied') || 'null');
-        if (s) {
-          const root = document.documentElement;
-          for (const [k, v] of Object.entries(s.vars)) root.style.setProperty(k, v);
-          for (const [k, v] of Object.entries(s.attrs)) root.setAttribute(k, v);
-        }
-      } catch {}
-    </script>}
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content={palettes[brand.palette].colors.paper} />
+    {/* The page ground: --color-paper in global.css (also in site.webmanifest). */}
+    <meta name="theme-color" content="#121212" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -112,13 +98,10 @@ const ogImage = new URL('/og-image.png', siteUrl).toString();
     <Footer lang={lang} variant={footer} />
 
     {/* Effects runtime: mounts the variants chosen in src/data/effects.ts into every
-        [data-fx-slot]. The FX and Brand panels only exist under `pnpm dev`. */}
+        [data-fx-slot]. The FX panel only exists under `pnpm dev`. */}
     <script>
       import '../components/islands/fx/runtime.ts';
-      if (import.meta.env.DEV) {
-        import('../components/islands/fx/panel.ts');
-        import('../components/islands/brand/panel.ts');
-      }
+      if (import.meta.env.DEV) import('../components/islands/fx/panel.ts');
     </script>
   </body>
 </html>

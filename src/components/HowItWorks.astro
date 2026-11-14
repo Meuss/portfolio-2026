@@ -14,7 +14,8 @@ const steps = [1, 2, 3, 4].map((n) => ({
   text: t(`how.step${n}.text`),
 }));
 
-const questions = [1, 2, 3, 4, 5, 6, 7].map((n) => ({
+// The array is the display order of the FAQ questions.
+const questions = [1, 2, 6, 4, 3, 5, 8, 7].map((n) => ({
   question: t(`how.faq${n}.q`),
   answer: t(`how.faq${n}.a`),
 }));

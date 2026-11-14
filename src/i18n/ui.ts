@@ -138,22 +138,28 @@ export const ui: Record<Lang, Record<string, string>> = {
     'how.faqHeading': 'Common questions',
     'how.faq1.q': 'How much does it cost?',
     'how.faq1.a':
-      'It depends on what you need, and I adapt to your project. So far, my projects have ranged from around CHF 1’000 for the smallest to around CHF 30’000 for the largest.',
+      'It depends on what you need, and I adapt to your project. So far, my projects have ranged from around CHF 1’000 for the smallest to around CHF 30’000 for the largest. With AI, a site goes live faster than it did a year ago, so it costs less.',
     'how.faq2.q': 'When can you start?',
     'how.faq2.a':
       'It depends on the project. I also have a job at an agency, so if your deadline is tight, tell me early so I can plan for it. I’ll give you an estimate when we talk.',
     'how.faq3.q': 'Can I edit the site myself?',
     'how.faq3.a':
       'Yes. Most of my projects use a CMS, a tool that lets you manage your own content. If you’d rather not, I can make the changes for you.',
-    'how.faq4.q': 'Who takes care of the domain and hosting?',
-    'how.faq4.a': 'I can manage them for you, or help you manage them yourself.',
+    'how.faq4.q': 'What if I don’t know much about any of this?',
+    'how.faq4.a':
+      'That’s fine, it’s my job. I explain the choices without jargon and tell you what I’d recommend. I can manage the domain name and hosting for you, or help you manage them yourself. And if you want, we can set up a maintenance contract for the long run.',
     'how.faq5.q': 'What if I don’t have a design yet?',
-    'how.faq5.a': 'If you need one, I bring in colleagues and contacts who can help.',
-    'how.faq6.q': 'What if someone else needs to take over the site one day?',
-    'how.faq6.a': 'If you need it, we can organise handover documents.',
+    'how.faq5.a':
+      'If you need one, I bring in colleagues and contacts who can help. I can also generate several design variants with AI and let you choose the one you like best.',
+    'how.faq6.q': 'What should I prepare?',
+    'how.faq6.a':
+      'Not much. An idea of what the site should do, two or three sites you like and, if possible, a budget and a deadline in mind. We work out the rest together.',
     'how.faq7.q': 'What if my project is too big for one person?',
     'how.faq7.a':
-      'Then I can take it through Marvelous Digital, the agency where I work. You get a full team: project management, design and testing. We work out which setup fits when we talk.',
+      'Then I can take it through Marvelous Digital, the agency where I work. You get a full team: project management, designers, a QA team, planning, maintenance and more. We work out which setup fits when we talk.',
+    'how.faq8.q': 'What if I already have a designer or developers?',
+    'how.faq8.a':
+      'That works. I can build from your existing designs, work alongside your designers, or support your developers on a project. I adapt to your tools and your way of working.',
 
     // --- Homepage: closing CTA ---
     'cta.heading': 'Let’s talk about your project',
@@ -328,23 +334,28 @@ export const ui: Record<Lang, Record<string, string>> = {
     'how.faqHeading': 'Questions fréquentes',
     'how.faq1.q': 'Combien ça coûte ?',
     'how.faq1.a':
-      'Cela dépend de vos besoins, et je m’adapte à votre projet. Jusqu’ici, mes projets sont allés d’environ CHF 1’000 pour les plus petits à environ CHF 30’000 pour les plus gros.',
+      'Cela dépend de vos besoins, et je m’adapte à votre projet. Jusqu’ici, mes projets sont allés d’environ CHF 1’000 pour les plus petits à environ CHF 30’000 pour les plus gros. Avec l’IA, un site se met en ligne plus vite qu’il y a un an, et coûte donc moins cher.',
     'how.faq2.q': 'Quand pouvez-vous commencer ?',
     'how.faq2.a':
       'Cela dépend du projet. Je travaille aussi dans une agence : si votre délai est serré, prévenez-moi tôt pour que je puisse m’organiser. Je vous donne une estimation quand on en parle.',
     'how.faq3.q': 'Puis-je modifier le site moi-même ?',
     'how.faq3.a':
       'Oui. La plupart de mes projets utilisent un CMS, un outil qui vous permet de gérer vos contenus vous-même. Si vous préférez, je fais les modifications pour vous.',
-    'how.faq4.q': 'Qui s’occupe du nom de domaine et de l’hébergement ?',
-    'how.faq4.a': 'Je peux les gérer pour vous, ou vous aider à les gérer vous-même.',
+    'how.faq4.q': 'Et si je n’y connais pas grand-chose ?',
+    'how.faq4.a':
+      'Ce n’est pas un problème, c’est mon travail. Je vous explique les choix sans jargon et je vous fais des recommandations. Je peux gérer le nom de domaine et l’hébergement pour vous, ou vous aider à les gérer vous-même. Et si vous le souhaitez, on met en place un contrat de maintenance pour la suite.',
     'how.faq5.q': 'Et si je n’ai pas encore de design ?',
     'how.faq5.a':
-      'Si vous en avez besoin, je fais appel à des collègues et à des contacts qui peuvent aider.',
-    'how.faq6.q': 'Et si quelqu’un d’autre doit reprendre le site un jour ?',
-    'how.faq6.a': 'Si vous en avez besoin, nous pouvons organiser des documents de passation.',
+      'Si vous en avez besoin, je fais appel à des collègues et à des contacts qui peuvent aider. Je peux aussi générer plusieurs variantes de design avec l’IA et vous laisser choisir celle qui vous plaît le plus.',
+    'how.faq6.q': 'Qu’est-ce que je dois préparer ?',
+    'how.faq6.a':
+      'Pas grand-chose. Une idée de ce que le site doit faire, deux ou trois sites que vous aimez et, si possible, un budget et une échéance en tête. Le reste, on le voit ensemble.',
     'how.faq7.q': 'Et si mon projet est trop grand pour une seule personne ?',
     'how.faq7.a':
-      'Dans ce cas, je peux le faire passer par Marvelous Digital, l’agence où je travaille. Vous y gagnez une équipe complète : gestion de projet, design, tests. On voit ensemble quelle formule convient quand on en parle.',
+      'Dans ce cas, je peux le faire passer par Marvelous Digital, l’agence où je travaille. Vous y gagnez une équipe complète : gestion de projet, designers, équipe de QA, planification, maintenance, etc. On voit ensemble quelle formule convient quand on en parle.',
+    'how.faq8.q': 'Et si j’ai déjà un designer ou des développeurs ?',
+    'how.faq8.a':
+      'Aucun problème. Je peux partir de vos maquettes existantes, travailler avec vos designers ou renforcer votre équipe de développement sur un projet. Je m’adapte à vos outils et à votre façon de travailler.',
 
     // --- Homepage: closing CTA ---
     'cta.heading': 'Parlons de votre projet',
