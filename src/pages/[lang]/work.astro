@@ -42,12 +42,9 @@ const entries = [
 
         {/* Legend doubles as a filter once JS is available. */}
         <div class="work-filter" data-filter hidden>
-          <p class="sr-only" id="filter-label">
-            {t('workPage.filterLabel')}
-          </p>
           <div
             role="group"
-            aria-labelledby="filter-label"
+            aria-label={t('workPage.filterLabel')}
             class="flex flex-wrap gap-2 font-mono text-caption uppercase"
           >
             <button type="button" class="chip" data-filter-value="all" aria-pressed="true">
@@ -71,6 +68,7 @@ const entries = [
         data-template={t('workPage.filterStatus')}
       ></p>
 
+      <h2 class="sr-only">{t('workPage.listHeading')}</h2>
       <ul class="mt-16 grid gap-x-10 gap-y-20 md:mt-24 md:grid-cols-2 md:gap-y-24" role="list">
         {entries.map((entry) =>
           entry.kind === 'teaser' ? (

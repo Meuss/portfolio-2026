@@ -18,6 +18,8 @@
  * - Physics runs at a fixed step and draws interpolated, so it looks the same at
  *   any refresh rate. The loop stops once the badge is still, off-screen, or the
  *   tab is hidden.
+ * - The entrance swing is damped harder than a swing the visitor starts, so it
+ *   settles (and the loop stops) within about 4 seconds of load.
  * - Reduced motion: the badge hangs straight, no physics, no dragging.
  */
 import './portrait-lanyard.css';
@@ -37,6 +39,9 @@ const MAX_TILT = 0.95;
 const W_STRAP = 1;
 const W_CLIP = 0.06;
 const W_BADGE = 0.03;
+/** Entrance swing: its push (px/s) and the extra velocity it loses per second. */
+const ENTRANCE_PUSH = 130;
+const ENTRANCE_DAMP = 1.6;
 
 interface Pt {
   x: number;
@@ -116,11 +121,13 @@ export const mount: FxMount = (figure, params) => {
   let acc = 0;
   let still = 0;
   let visible = true;
+  let entrance = true; // until the badge first comes to rest or is grabbed
 
   const swing = () => p.swing ?? 1;
   const gravity = () => 2400 * (0.7 + 0.75 * swing());
   /** Velocity lost per second: the badge barely, the strap a lot, wobble in between. */
-  const badgeDamp = () => Math.exp(-(0.95 - 0.35 * Math.min(2, swing())) * STEP);
+  const badgeDamp = () =>
+    Math.exp(-(0.95 - 0.35 * Math.min(2, swing()) + (entrance ? ENTRANCE_DAMP : 0)) * STEP);
   const wobbleDamp = Math.exp(-0.7 * STEP);
   const strapDamp = Math.exp(-7 * STEP);
 
@@ -329,6 +336,7 @@ export const mount: FxMount = (figure, params) => {
     }
     draw(acc / STEP, dt);
     still = !dragging && energy() < 0.012 && Math.abs(spin) < 0.05 ? still + 1 : 0;
+    if (still > 45) entrance = false;
     raf = still > 45 || !visible || document.hidden ? 0 : requestAnimationFrame(frame);
   };
   const wake = () => {
@@ -370,6 +378,7 @@ export const mount: FxMount = (figure, params) => {
     grab.s = (-vx * ay + vy * ax) / len;
     aim(ev);
     dragging = true;
+    entrance = false;
     badge.classList.add('is-dragging');
     badge.setPointerCapture(ev.pointerId);
     ev.preventDefault();
@@ -406,6 +415,6 @@ export const mount: FxMount = (figure, params) => {
     io.observe(stage);
     document.addEventListener('visibilitychange', onVisibility);
     // A first gentle swing, so it reads as hanging rather than printed.
-    nudge(150);
+    nudge(ENTRANCE_PUSH);
   }
 };

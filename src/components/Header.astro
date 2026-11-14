@@ -110,6 +110,12 @@ const isActive = (href: string) => href.replace(/\/$/, '') === currentPath;
     transform: translate(0, 0) rotate(-45deg) scaleX(1);
   }
 
+  /* The current page: the site's orange link underline, not colour alone
+     (sized up for the mobile menu's display type below). */
+  .nav-links a[aria-current='page'] {
+    text-decoration-line: underline;
+  }
+
   @media (width < 48rem) {
     .nav-panel {
       position: absolute;
@@ -162,6 +168,8 @@ const isActive = (href: string) => href.replace(/\/$/, '') === currentPath;
     }
     .nav-links a[aria-current='page'] {
       color: var(--color-accent);
+      text-decoration-thickness: 0.06em;
+      text-underline-offset: 0.12em;
     }
 
     /* Without JS the toggle can't do anything: drop it and show the menu in

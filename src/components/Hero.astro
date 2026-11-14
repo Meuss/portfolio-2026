@@ -104,7 +104,23 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
   const toggle = wall?.querySelector<HTMLButtonElement>('[data-wall-toggle]');
   const moving = window.matchMedia('(prefers-reduced-motion: no-preference)');
   if (wall && toggle && moving.matches) {
-    toggle.hidden = false;
+    // On desktop the deck effect replaces the wall (and hides this button) once
+    // the fonts are in: hold the button back until the effects runtime is done
+    // with the wall, so it can't take focus and then vanish. Shown as before
+    // wherever the CSS wall stays.
+    const deckable =
+      window.matchMedia('(min-width: 1024px)').matches &&
+      wall.matches('[data-fx-slot~="heroWall"]');
+    const showToggle = () => (toggle.hidden = wall.classList.contains('has-deck'));
+    if (!deckable) showToggle();
+    else {
+      const watch = new MutationObserver(() => {
+        if (!wall.classList.contains('fx-ready--heroWall')) return;
+        watch.disconnect();
+        showToggle();
+      });
+      watch.observe(wall, { attributes: true, attributeFilter: ['class'] });
+    }
     toggle.addEventListener('click', () => {
       const paused = wall.classList.toggle('is-paused');
       toggle.setAttribute('aria-pressed', String(paused));
@@ -233,7 +249,8 @@ const columns = [shots.filter((_, i) => i % 2 === 0), shots.filter((_, i) => i %
     }
     .wall-wrap:hover .wall-col,
     .wall-wrap.is-paused .wall-col,
-    .wall-wrap.is-offscreen .wall-col {
+    .wall-wrap.is-offscreen .wall-col,
+    .wall-wrap.has-deck .wall-col {
       animation-play-state: paused;
     }
   }

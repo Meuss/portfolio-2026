@@ -89,6 +89,9 @@
     text-size-adjust: 100%;
     tab-size: 4;
     scroll-behavior: smooth;
+    /* Clear the sticky header (69px desktop, 77px phone) when focus or an
+       anchor scrolls something into view. */
+    scroll-padding-top: 5rem;
   }
 
   body {
@@ -180,6 +183,14 @@
     }
     html.js [data-reveal][data-reveal-delay='3'] {
       transition-delay: 0.24s;
+    }
+
+    /* Keyboard focus never waits for the reveal: a block holding focus shows
+       at once (after the delay rules, which it overrides). */
+    html.js [data-reveal]:focus-within {
+      opacity: 1;
+      transform: none;
+      transition: none;
     }
   }
 

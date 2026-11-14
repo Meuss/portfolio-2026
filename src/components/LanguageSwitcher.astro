@@ -6,17 +6,20 @@ interface Props {
   lang: Lang;
   /** `compact`: the EN/FR codes in the desktop header. `menu`: a labelled row of two large choices in the mobile menu. */
   variant?: 'compact' | 'menu';
+  /** The nav's accessible name; defaults to "Language". The footer passes its own so the two landmarks differ. */
+  label?: string;
   class?: string;
 }
 
-const { lang, variant = 'compact', class: className } = Astro.props;
+const { lang, variant = 'compact', label, class: className } = Astro.props;
 const t = useTranslations(lang);
 const locales = Object.keys(languages) as Lang[];
 ---
 
 {variant === 'menu' ? (
-  <nav aria-labelledby="lang-menu-label" class:list={['flex flex-col gap-3', className]}>
-    <p id="lang-menu-label" class="font-mono text-caption text-muted uppercase">
+  <nav aria-label={label ?? t('lang.switcher')} class:list={['flex flex-col gap-3', className]}>
+    {/* Visible label only: the nav carries the same name, so it isn't read twice. */}
+    <p aria-hidden="true" class="font-mono text-caption text-muted uppercase">
       {t('lang.switcher')}
     </p>
     <ul class="grid grid-cols-2 gap-3">
@@ -63,7 +66,7 @@ const locales = Object.keys(languages) as Lang[];
   </nav>
 ) : (
   <nav
-    aria-label={t('lang.switcher')}
+    aria-label={label ?? t('lang.switcher')}
     class:list={['flex items-center gap-3 font-mono text-caption uppercase', className]}
   >
     {locales.map((code) => {
@@ -72,8 +75,13 @@ const locales = Object.keys(languages) as Lang[];
         <a
           href={switchLocalePath(Astro.url, code)}
           hreflang={code}
+          lang={code}
           aria-current={isCurrent ? 'true' : undefined}
-          class={isCurrent ? 'text-ink' : 'text-muted hover:text-accent'}
+          class:list={[
+            // Padding for a 24px target, cancelled by the negative margin so nothing moves.
+            '-m-1 min-w-6 p-1 text-center',
+            isCurrent ? 'text-ink underline' : 'text-muted hover:text-accent',
+          ]}
         >
           {code}
           <span class="sr-only"> ({languages[code]})</span>

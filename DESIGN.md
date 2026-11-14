@@ -449,13 +449,13 @@ the ring and peaks, and leave clear space of at least half the symbol's height.
 
 - **Header:** Sticky, 95% kit black with backdrop blur, hairline bottom border.
   The logo link does not change colour on hover; nav links (About, Work,
-  Contact) in body ink, hover to orange, `aria-current="page"` on the active route; the EN/FR switcher in caption
-  mono, muted, hover to orange.
+  Contact) in body ink, hover to orange, `aria-current="page"` on the active route, which carries the orange link underline; the EN/FR switcher in caption
+  mono, muted, hover to orange, the current language in ink with the same underline.
 - **Mobile (below 768px):** A borderless 44px toggle with two strokes, a long
   ink one over a short orange one set flush right, opens the menu; labelled
   ("Open menu" / "Close menu"), Escape closes and returns focus, the page behind
   is inert and does not scroll. The menu is a full-height paper sheet under the
-  bar: the links at display size between hairlines, the current one in orange,
+  bar: the links at display size between hairlines, the current one in orange and underlined,
   and at the bottom a "Language" row of two large choices (English, Français),
   the current one filled `surface-2` with an ink border and a check. Opening is
   one motion: the sheet fades in while its content settles 0.75rem down, and the
@@ -598,7 +598,8 @@ and strap are `aria-hidden`.
 
 The code and line ("Error 404 / Not found", "Erreur 404 / Page introuvable") in
 Display and Headline, each line drawn as fuzzy text: pixel rows jitter
-sideways a little at rest and more under the pointer. One primary button with a
+sideways for about three seconds after load, then settle into clean type; under the
+pointer they jitter again, harder, and settle shortly after it leaves. One primary button with a
 light line home ("Get me out of here" / "Sortez-moi d’ici"). No body copy.
 
 ### Effects: Light & Motion
@@ -615,7 +616,7 @@ it is the only place they are set.
 
 | Slot              | Where                           | Effect                                                                                                                                                                                                                                                             | Settings                                                                                                                                                                         |
 | ----------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `heroBackground`  | Home hero                       | Letter glitch (a grid of mono characters in dark tones, a few re-rolling with a brief ink flash)                                                                                                                                                                   | intensity 0.5, speed 0.05, cell 31px, orange 0                                                                                                                                   |
+| `heroBackground`  | Home hero                       | Letter glitch (a grid of mono characters in dark tones, a few re-rolling with a brief ink flash, dimmed behind the copy)                                                                                                                                           | intensity 0.5, speed 0.05, cell 31px, orange 0                                                                                                                                   |
 | `heroName`        | Home hero                       | Scramble (letters flicker through orange stand-ins, then lock)                                                                                                                                                                                                     | speed 1                                                                                                                                                                          |
 | `heroWall`        | Home hero, from 1024px          | Card swap (the wall of screenshots becomes a 3D deck whose front card drops to the back); not shown below 1024px                                                                                                                                                   | card offset 48px right, 19px up, 157px back; radius 10px; a swap every 2750ms at speed 1.05; parallax 0.6; dim 0.7; autoplay, pause on hover, draggable; no skew, bounce, spread |
 | `cursor`          | Every page                      | Glow trail                                                                                                                                                                                                                                                         | intensity 0.25, trail 0.4, orange 0.1                                                                                                                                            |
@@ -628,7 +629,7 @@ it is the only place they are set.
 | `workMedia`       | /work                           | Tilted card                                                                                                                                                                                                                                                        | max angle 8°, glare 0.5                                                                                                                                                          |
 | `workTeaser`      | /work, "Your project?" teaser   | Pixel card (when the card scrolls into view, the blank frame fills with small pixels rippling out from the centre; they shimmer while it stays in view and swell near the pointer)                                                                                 | gap 5px, speed 35, orange 0.15, spotlight 0.5                                                                                                                                    |
 | `aboutPortrait`   | /about                          | Lanyard                                                                                                                                                                                                                                                            | swing 0.4, strap 4rem                                                                                                                                                            |
-| `notFound`        | 404 pages, each heading line    | Fuzzy text (rows jitter sideways, swelling on hover)                                                                                                                                                                                                               | resting 0.18, hover 0.5, range 30px                                                                                                                                              |
+| `notFound`        | 404 pages, each heading line    | Fuzzy text (rows jitter sideways for ~3s, then settle; again while hovered)                                                                                                                                                                                        | resting 0.18, hover 0.5, range 30px                                                                                                                                              |
 
 Tinting follows two tiers. Small interaction moments are orange: the name's
 scramble stand-ins, the cursor's glow trail, the button comet, the tilt glare, the timeline's scroll fill (orange as progress),
@@ -636,7 +637,8 @@ the service tiles' rim glow, particles and click wave; their spotlight is
 neutral (an `ink` light at 8% at most). The approach light's lean only moves
 the static top light, neutral with a trace of orange.
 The hero background stays neutral: characters in dark tones between the ground
-and `muted`, with ink flashes; its orange setting (the share of flashes that
+and `muted`, with ink flashes, capped by the vignette so they stay faint where the
+copy sits; its orange setting (the share of flashes that
 turn orange) is 0. The lanyard is a steel (`muted`) clip with orange stitching.
 The teaser's pixel card is neutral too (`line`, `faint` and `muted` pixels) with
 orange as a 15% minority; it ripples out from the centre when the card

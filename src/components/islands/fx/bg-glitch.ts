@@ -2,10 +2,12 @@
  * Letter glitch: the hero ground is a grid of DM Mono characters in dark
  * tones, a few re-rolling every tick with a brief ink (sometimes orange) flash.
  * A heavy vignette keeps the copy side dark; the edges and the upper right
- * carry the texture.
+ * carry the texture. The vignette also caps each flash: full ink at the edges,
+ * only a faint lift where the copy sits, so the hero text keeps its contrast.
  *
  * Contract: Canvas2D, crisp at DPR (capped at 2), ~30fps, only changed cells
- * are redrawn. Paused off-screen and when the tab is hidden; one static frame
+ * are redrawn. Paused off-screen and when the tab is hidden, and no loop at all
+ * when the grid is too small for any cell to re-roll (phones); one static frame
  * under reduced motion.
  */
 import { prefersReducedMotion, tokenRgb, type FxMount } from './types';
@@ -18,6 +20,10 @@ let FLASH: number[] = [];
 let ACCENT: number[] = [];
 const FLASH_MS = 420;
 const FRAME_MS = 33;
+/** How far a flash may go toward ink: FLASH_FLOOR where the copy sits, rising
+ *  with the vignette to full at the edges. */
+const FLASH_FLOOR = 0.12;
+const FLASH_GAIN = 1.6;
 
 const mix = (a: number[], b: number[], k: number) =>
   a.map((v, i) => Math.round(v + (b[i] - v) * k));
@@ -28,6 +34,7 @@ interface Cell {
   base: number[];
   flash: number; // ms left
   hue: number[];
+  cap: number; // 0-1, how far a flash may go toward its hue
 }
 
 export const mount: FxMount = (host, params) => {
@@ -49,18 +56,20 @@ export const mount: FxMount = (host, params) => {
   let raf = 0;
   let last = 0;
   let visible = true;
+  let perTick = 0; // cells re-rolled per tick
 
   const random = () => CHARS[Math.floor(Math.random() * CHARS.length)];
 
-  /** Dark tone by position: dark where the copy sits, lit at the edges and upper right. */
-  const tone = (x: number, y: number) => {
+  /** Vignette by position, 0-1: 0 where the copy sits, 1 at the edges and upper right. */
+  const vignette = (x: number, y: number) => {
     const dx = (x - 0.3) * 1.3;
     const dy = y - 0.55;
     const edge = Math.min(1, Math.sqrt(dx * dx + dy * dy) * 1.25);
     const corner = Math.exp(-((x - 0.95) ** 2 + (y - 0.05) ** 2) * 6) * 0.6;
-    const k = Math.min(1, edge ** 2.2 + corner) * 0.32 * (p.intensity ?? 1);
-    return mix(PAPER, MUTED, Math.min(0.9, k));
+    return Math.min(1, edge ** 2.2 + corner);
   };
+  /** Dark tone from the vignette, between the ground and muted. */
+  const tone = (v: number) => mix(PAPER, MUTED, Math.min(0.9, v * 0.32 * (p.intensity ?? 1)));
 
   const drawCell = (i: number) => {
     const c = cells[i];
@@ -69,7 +78,7 @@ export const mount: FxMount = (host, params) => {
     ctx.fillStyle = rgb(PAPER);
     ctx.fillRect(x, y, size, size);
     const f = c.flash > 0 ? c.flash / FLASH_MS : 0;
-    ctx.fillStyle = rgb(f > 0 ? mix(c.base, c.hue, f) : c.base);
+    ctx.fillStyle = rgb(f > 0 ? mix(c.base, c.hue, f * c.cap) : c.base);
     ctx.fillText(c.ch, x + size / 2, y + size / 2 + size * 0.04);
   };
 
@@ -88,13 +97,22 @@ export const mount: FxMount = (host, params) => {
     ctx.fillStyle = rgb(PAPER);
     ctx.fillRect(0, 0, w, h);
     flashing.clear();
-    cells = Array.from({ length: cols * rows }, (_, i) => ({
-      ch: random(),
-      base: tone(((i % cols) + 0.5) / cols, (Math.floor(i / cols) + 0.5) / rows),
-      flash: 0,
-      hue: FLASH,
-    }));
+    cells = Array.from({ length: cols * rows }, (_, i) => {
+      const v = vignette(((i % cols) + 0.5) / cols, (Math.floor(i / cols) + 0.5) / rows);
+      return {
+        ch: random(),
+        base: tone(v),
+        flash: 0,
+        hue: FLASH,
+        cap: Math.min(1, FLASH_FLOOR + FLASH_GAIN * v * v),
+      };
+    });
     cells.forEach((_, i) => drawCell(i));
+    // Re-roll a small share of the grid, scaled by speed. Nothing to re-roll
+    // (a small grid at a low speed): the static frame is all there is.
+    perTick = Math.round(cells.length * 0.012 * (p.speed ?? 1));
+    if (perTick) start();
+    else stop();
   };
 
   const tick = (now: number) => {
@@ -102,10 +120,7 @@ export const mount: FxMount = (host, params) => {
     const dt = now - last;
     if (dt < FRAME_MS) return;
     last = now;
-    const speed = p.speed ?? 1;
-    // Re-roll a small share of the grid, scaled by speed.
-    const n = Math.round(cells.length * 0.012 * speed);
-    for (let k = 0; k < n; k++) {
+    for (let k = 0; k < perTick; k++) {
       const i = Math.floor(Math.random() * cells.length);
       const c = cells[i];
       c.ch = random();
@@ -125,7 +140,7 @@ export const mount: FxMount = (host, params) => {
   };
 
   const start = () => {
-    if (still || raf || !visible || document.hidden) return;
+    if (still || raf || !perTick || !visible || document.hidden) return;
     last = performance.now();
     raf = requestAnimationFrame(tick);
   };

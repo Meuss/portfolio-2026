@@ -276,6 +276,8 @@ export const mount: FxMount = (host, params) => {
     placeAll();
     wall.style.visibility = 'hidden';
     if (toggle) toggle.style.visibility = 'hidden';
+    // Pauses the hidden wall's CSS scroll (Hero.astro) while the deck is up.
+    host.classList.add('has-deck');
     host.append(stage);
     stage.addEventListener('pointerdown', onDown);
     stage.addEventListener('pointermove', onDrag);
@@ -297,6 +299,7 @@ export const mount: FxMount = (host, params) => {
     order = [];
     wall.style.removeProperty('visibility');
     toggle?.style.removeProperty('visibility');
+    host.classList.remove('has-deck');
   };
 
   // --- Host listeners ---------------------------------------------------------

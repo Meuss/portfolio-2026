@@ -50,7 +50,7 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
 >
   <section class="border-b border-line bg-paper py-20 md:py-28">
     <div class="mx-auto max-w-6xl px-6 md:px-10">
-      <div class="grid gap-12 md:grid-cols-[1fr_1.15fr] md:gap-16">
+      <div class="grid grid-cols-[minmax(0,1fr)] gap-12 md:grid-cols-[1fr_1.15fr] md:gap-16">
         <!-- Intro + fallback contact path -->
         <div>
           <header data-reveal>
@@ -209,7 +209,7 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
                 data-max-bytes={attachmentMaxBytes}
                 data-extensions={attachmentExtensions.join(',')}
                 data-mime-types={attachmentMimeTypes.join(',')}
-                class="rounded-md border border-line bg-paper px-4 py-3 text-small text-muted file:mr-4 file:cursor-pointer file:rounded-sm file:border file:border-line file:bg-surface file:px-3 file:py-2 file:font-mono file:text-caption file:uppercase file:text-ink hover:file:border-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent aria-invalid:border-error"
+                class="w-full min-w-0 rounded-md border border-line bg-paper px-4 py-3 text-small text-muted file:mr-4 file:cursor-pointer file:rounded-sm file:border file:border-line file:bg-surface file:px-3 file:py-2 file:font-mono file:text-caption file:uppercase file:text-ink hover:file:border-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent aria-invalid:border-error"
               />
               <div class="hidden items-center justify-between gap-4" data-attachment-selected>
                 <span class="min-w-0 truncate text-small text-ink" data-attachment-name></span>
@@ -222,12 +222,13 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
                   {t('contactForm.attachmentRemove')}
                 </button>
               </div>
-              {/* Live region: stays in the DOM (empty) so the message is announced
-                  when the script fills it. */}
+              {/* Live region: always rendered (never display:none), so screen
+                  readers register it before the script fills it. Empty, it is
+                  taken out of the flow: no space, no gap, no shift. */}
               <p
                 id="attachment-error"
                 aria-live="polite"
-                class="text-small text-error empty:hidden"
+                class="text-small text-error empty:absolute"
                 data-type-error={t('contactForm.attachmentTypeError')}
                 data-size-error={withMax(t('contactForm.attachmentSizeError'))}
               ></p>
@@ -247,18 +248,20 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
             <button
               type="submit"
               data-fx-slot="primaryButton"
-              class="btn-primary mt-2 disabled:pointer-events-none disabled:opacity-60"
+              class="btn-primary mt-2 aria-disabled:pointer-events-none aria-disabled:opacity-60"
             >
               <span data-submit-label>{t('contactForm.submit')}</span>
             </button>
 
-            {/* Populated by the enhancement script below; empty and inert
-                without JS, so it never shows a blank box on the no-JS path. */}
+            {/* Populated by the enhancement script below. Always rendered, so
+                screen readers register the live region before text arrives;
+                empty (and always without JS) it is out of the flow, so it takes
+                no space and adds no gap. */}
             <p
               id="contact-form-status"
               role="status"
               aria-live="polite"
-              class="hidden text-body text-ink"
+              class="text-body text-ink empty:absolute"
               data-sending-text={t('contactForm.sending')}
               data-success-text={t('contactForm.successMessage')}
               data-error-text={t('contactForm.errorMessage')}
@@ -404,8 +407,14 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
         }),
       );
 
+      // While a send is in flight the button is aria-disabled, not disabled, so
+      // it keeps keyboard focus (in the page and in the dialog); repeat submits
+      // (Enter, clicks) are ignored here instead.
+      let sending = false;
+
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
+        if (sending) return;
 
         if (showAttachment()) {
           if (fileInput instanceof HTMLInputElement) fileInput.focus();
@@ -416,8 +425,8 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
         const successText = status.dataset.successText ?? '';
         const errorText = status.dataset.errorText ?? '';
 
-        if (submitButton instanceof HTMLButtonElement) submitButton.disabled = true;
-        status.classList.remove('hidden');
+        sending = true;
+        submitButton?.setAttribute('aria-disabled', 'true');
         // One colour class at a time: text-ink would otherwise outrank text-error.
         status.classList.remove('text-success', 'text-error');
         status.classList.add('text-ink');
@@ -442,7 +451,8 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
           status.textContent = errorText;
           status.classList.replace('text-ink', 'text-error');
         } finally {
-          if (submitButton instanceof HTMLButtonElement) submitButton.disabled = false;
+          sending = false;
+          submitButton?.removeAttribute('aria-disabled');
         }
       });
     }

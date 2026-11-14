@@ -92,7 +92,8 @@ const ogImage = new URL('/og-image.png', siteUrl).toString();
       {t('nav.skipToContent')}
     </a>
     <Header lang={lang} />
-    <main id="main-content">
+    {/* tabindex="-1" so the skip link really moves focus here (no ring on main itself). */}
+    <main id="main-content" tabindex="-1" class="focus:outline-none">
       <slot />
     </main>
     <Footer lang={lang} variant={footer} />

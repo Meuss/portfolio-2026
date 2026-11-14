@@ -5,11 +5,18 @@
  * pointer is over it, `range` the widest nudge in px.
  *
  * The real text stays in the host as visually hidden copy; the canvas is
- * aria-hidden. Uses the host's own font, size, weight and colour. Paused
- * off-screen and in hidden tabs. Reduced motion: one still, clean frame.
+ * aria-hidden. Uses the host's own font, size, weight and colour. The fuzz runs
+ * for the first SETTLE_MS, then settles on a still, clean frame and the loop
+ * stops; hovering wakes it, and it settles again shortly after the pointer
+ * leaves. Paused off-screen and in hidden tabs. Reduced motion: one still,
+ * clean frame.
  */
 import './text-fuzzy.css';
 import { prefersReducedMotion, type FxMount } from './types';
+
+/** How long the fuzz runs after load, and after the pointer leaves. */
+const SETTLE_MS = 3000;
+const LEAVE_MS = 600;
 
 export const mount: FxMount = (host, params) => {
   const p = params;
@@ -61,20 +68,28 @@ export const mount: FxMount = (host, params) => {
 
   let hovering = false;
   let fuzz = p.intensity ?? 0.18;
+  let until = performance.now() + SETTLE_MS; // fuzz until then (and while hovered)
+  let settled = false; // the still frame is up and the loop is off
   const draw = () => {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const rows = src.height;
     const range = pad * dpr;
     for (let y = 0; y < rows; y++) {
-      const dx = still ? 0 : (Math.random() - 0.5) * 2 * fuzz * range;
+      const dx = still || settled ? 0 : (Math.random() - 0.5) * 2 * fuzz * range;
       ctx.drawImage(src, 0, y, src.width, 1, range + dx, y, src.width, 1);
     }
   };
 
   let raf = 0;
   let visible = true;
-  const frame = () => {
+  const settle = () => {
+    stop();
+    settled = true;
+    draw();
+  };
+  const frame = (now: number) => {
+    if (!hovering && now >= until) return settle();
     // Ease toward the target fuzz so hover swells rather than snaps.
     const target = hovering ? (p.hover ?? 0.5) : (p.intensity ?? 0.18);
     fuzz += (target - fuzz) * 0.15;
@@ -82,15 +97,28 @@ export const mount: FxMount = (host, params) => {
     raf = requestAnimationFrame(frame);
   };
   const start = () => {
-    if (!still && !raf && visible && !document.hidden) raf = requestAnimationFrame(frame);
+    if (still || raf || !visible || document.hidden) return;
+    if (!hovering && performance.now() >= until) {
+      if (!settled) settle();
+      return;
+    }
+    settled = false;
+    raf = requestAnimationFrame(frame);
   };
   const stop = () => {
     cancelAnimationFrame(raf);
     raf = 0;
   };
 
-  const onEnter = () => (hovering = true);
-  const onLeave = () => (hovering = false);
+  const onEnter = () => {
+    hovering = true;
+    start();
+  };
+  const onLeave = () => {
+    hovering = false;
+    until = performance.now() + LEAVE_MS;
+    start();
+  };
   const onVisibility = () => (document.hidden ? stop() : start());
   const io = new IntersectionObserver(([e]) => {
     visible = e.isIntersecting;
