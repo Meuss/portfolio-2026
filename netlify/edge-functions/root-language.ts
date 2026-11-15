@@ -16,7 +16,7 @@ import { pickRootLocale } from '../../src/i18n/root-locale.ts';
 
 export default function rootLanguage(request: Request): Response | undefined {
   const url = new URL(request.url);
-  // `config` already limits this to GET/HEAD on `/`; anything else passes through.
+  // Netlify's config cannot list HEAD as a method, so the method is checked here.
   if (url.pathname !== '/' || (request.method !== 'GET' && request.method !== 'HEAD')) return;
 
   const locale = pickRootLocale(request.headers.get('accept-language'));
@@ -36,6 +36,5 @@ export default function rootLanguage(request: Request): Response | undefined {
 
 export const config = {
   path: '/',
-  method: ['GET', 'HEAD'],
   onError: 'bypass',
 };
