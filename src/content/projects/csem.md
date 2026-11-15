@@ -10,7 +10,7 @@ description:
 tech: ['Nuxt', 'Prismic']
 image: '../../assets/projects/csem.jpg'
 imageMobile: '../../assets/projects/csem-mobile.jpg'
-link: 'https://csem.ch/'
+link: 'https://www.csem.ch/'
 featured: false
 order: 5
 ---
