@@ -163,6 +163,7 @@ To deploy:
 - [Vitest](https://vitest.dev) for unit tests
 - Astro's built-in `i18n` routing (`/en/`, `/fr/`, `en` as default locale, explicitly
   prefixed) for bilingual content; on Netlify, `/` goes to `/en/` for English browsers and
-  to `/fr/` for everyone else (`netlify.toml`)
+  to `/fr/` for everyone else (one edge function,
+  `netlify/edge-functions/root-language.ts`; the rest of the site is static)
 - Contact form: [Netlify Forms](https://docs.netlify.com/manage/forms/setup/)
 - Visitor counts: [GoatCounter](https://www.goatcounter.com) (no cookies)
