@@ -118,6 +118,20 @@ not detected).
 
 ## Business cards
 
-`explorations/05-business-cards.html` has the earlier card layouts for this logo (Swiss 85 × 55 mm).
-They still set the name in Archivo Expanded; switch it to Schibsted Grotesk ExtraBold when making the
-print files. Tracked in https://github.com/Meuss/portfolio-2026/issues/1.
+The card is layout K2 "Noir" from `explorations/05-business-cards.html`: black on both sides, the
+two-line logo on the front, name, role, symbol and contact details on the back (Swiss 85 × 55 mm).
+
+The print files in `print/` are drawn by `build_cards.py` (same venv as above):
+
+```sh
+.venv/bin/python build_cards.py              # Vistaprint: 1.5 mm bleed, 88 × 58 mm pages
+.venv/bin/python build_cards.py --bleed 3    # most other printers: 91 × 61 mm pages
+```
+
+- `business-card-front.pdf`, `business-card-back.pdf`, and `business-card.pdf` (both, two pages)
+- `preview-front.png`, `preview-back.png`: the trimmed card, for a quick look
+
+The PDFs are vector CMYK with all text outlined (no fonts), TrimBox on the cut. Black is a rich black
+(C60 M40 Y40 K100), orange is Pantone 1585 C's CMYK (C0 M61 Y97 K0), white is unprinted paper.
+The copy (tagline, role, contact details) is at the top of the script. Tracked in
+https://github.com/Meuss/portfolio-2026/issues/1.
