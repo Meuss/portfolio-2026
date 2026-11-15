@@ -26,6 +26,16 @@ Before a PR, run `pnpm check && pnpm test && pnpm build`. CI runs the same check
 
 `netlify.toml` sets the build (`pnpm build`, publish `dist/`, Node 26). Connect the repo to a Netlify site and deploy. Netlify picks up the config on its own. Enable form detection (Forms) for the contact form.
 
+## Brand
+
+- **Logo:** the orange ring with the Moléson peak, beside "Thomas Miller" in Schibsted Grotesk ExtraBold. Tagline: "Développeur web · Bulle" / "Web developer · Bulle".
+- **Colours:** orange `#ff6a13` (the only colour, accent only), black `#121212`, white `#ffffff`, grey `#6b6b67`.
+- **Fonts:** Schibsted Grotesk for headings and body, DM Mono for labels and the tagline.
+- **Logo kit:** `brand/` holds the logo files (SVG/PNG), avatars, favicons and fonts. `brand/README.md` covers usage rules and how to rebuild (`brand/build_kit.py`).
+- **On the site:** the colours and fonts are the `@theme` tokens in `src/styles/global.css`. The [styleguide](https://claude.ai/artifact/Sn8r8BG7e8FA6TNQPVU1iu) shows them.
+- **Link previews:** `public/og/*.png`, drawn by `brand/build_og.py`. Re-run it after changing a headline, the tagline or the portrait.
+- **Email signature:** open `brand/email-signature.html`, click Copy and paste into Gmail. Its logo is served from `https://thomasmiller.ch/email/mark.png`.
+
 ## Tech stack
 
 - [Astro](https://astro.build) with static output
