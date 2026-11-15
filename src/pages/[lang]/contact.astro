@@ -284,7 +284,7 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
               id="contact-form-status"
               role="status"
               aria-live="polite"
-              class="text-body text-ink empty:absolute"
+              class="text-body text-ink focus:outline-none empty:absolute"
               data-sending-text={t('contactForm.sending')}
               data-success-text={t('contactForm.successMessage')}
               data-error-text={t('contactForm.errorMessage')}
@@ -466,9 +466,33 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
           });
 
           if (response.ok) {
-            status.textContent = successText;
-            status.classList.replace('text-ink', 'text-success');
+            // The result replaces the form: the same live region, now a larger
+            // message with a check mark (decorative; the text is what is read).
+            status.replaceChildren();
+            const mark = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            mark.setAttribute('viewBox', '0 0 24 24');
+            mark.setAttribute('fill', 'none');
+            mark.setAttribute('stroke', 'currentColor');
+            mark.setAttribute('stroke-width', '2');
+            mark.setAttribute('stroke-linecap', 'round');
+            mark.setAttribute('stroke-linejoin', 'round');
+            mark.setAttribute('aria-hidden', 'true');
+            mark.setAttribute('focusable', 'false');
+            mark.setAttribute('class', 'mt-1 size-6 shrink-0 text-success');
+            const tick = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            tick.setAttribute('d', 'M20 6 9 17l-5-5');
+            mark.append(tick);
+            const text = document.createElement('span');
+            text.textContent = successText;
+            status.append(mark, text);
+            status.classList.replace('text-body', 'text-lead');
+            status.classList.add('flex', 'items-start', 'gap-3');
             form.reset();
+            // Hide the fields and buttons (see the style block), then move
+            // focus off the vanished submit button onto the message.
+            form.setAttribute('data-sent', '');
+            status.tabIndex = -1;
+            status.focus();
           } else {
             throw new Error(`contact-form-submit-failed: ${response.status}`);
           }
@@ -516,7 +540,11 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
       dialog.addEventListener('close', () => {
         home.append(form);
         home.style.minHeight = '';
-        expand.focus();
+        // Sent: the expand button is hidden, so focus goes to the result.
+        const sentMessage = form.hasAttribute('data-sent')
+          ? form.querySelector<HTMLElement>('#contact-form-status')
+          : null;
+        (sentMessage ?? expand).focus();
       });
 
       collapse.addEventListener('click', () => dialog.close());
@@ -539,6 +567,11 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
     }
   </script>
   <style>
+    /* After a successful send only the status message stays in the card. */
+    #contact-form[data-sent] > :not(#contact-form-status),
+    [data-form-home]:has(#contact-form[data-sent]) [data-form-expand] {
+      display: none;
+    }
     /* In the larger view the form loses its own box (the dialog is the box),
        puts name and email side by side and gives the message the room. */
     .contact-dialog form {
