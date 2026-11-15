@@ -16,7 +16,7 @@ This repo uses **pnpm** (pinned via `packageManager` in `package.json`; run `cor
 
 Before pushing or opening a PR, run `pnpm check && pnpm test && pnpm build`. CI (`.github/workflows/ci.yml`) runs the format check, type check, tests, build and `pnpm check:links` on pull requests and pushes to `master`, on Node 26 with pnpm via corepack; Dependabot opens grouped monthly PRs (`.github/dependabot.yml`, TypeScript majors ignored until `astro check` supports 7).
 
-Node `>=26.0.0` is required (`engines`; `.nvmrc` pins Node 26, `netlify.toml` sets `NODE_VERSION = "26"`). The contact form uses **Netlify Forms** (see "Contact form" in README.md); it needs no key and only receives submissions on a Netlify deploy.
+Node `>=26.0.0` is required (`engines`; `.nvmrc` pins Node 26, `netlify.toml` sets `NODE_VERSION = "26"`). The contact form uses **Netlify Forms**; it needs no key and only receives submissions on a Netlify deploy.
 
 ### pnpm & supply-chain (impeccable)
 
