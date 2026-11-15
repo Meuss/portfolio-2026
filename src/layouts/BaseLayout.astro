@@ -6,6 +6,9 @@ import { languages, type Lang } from '../i18n/ui';
 import { switchLocalePath, useTranslations } from '../i18n/utils';
 import { goatcounterCode, goatcounterEndpoint } from '../data/analytics';
 import { ogLocale, shareImage, shareImageAlt, shareImagePath, type SharePage } from '../data/share';
+import { serializeJsonLd, structuredData } from '../data/structured-data';
+import { getImage } from 'astro:assets';
+import portrait from '../assets/profile.jpeg';
 
 interface Props {
   title: string;
@@ -51,6 +54,28 @@ const alternateLinks = locales.map((l) => ({
 const xDefaultHref = new URL(switchLocalePath(Astro.url, 'en'), siteUrl).toString();
 const ogImage = new URL(shareImagePath(lang, sharePage), siteUrl).toString();
 const ogImageAlt = shareImageAlt(lang, sharePage);
+
+// Structured data (src/data/structured-data.ts) on indexable pages only. The
+// share page (`shareImage`) names the page, which sets its schema.org type.
+const jsonLd = noindex
+  ? null
+  : serializeJsonLd(
+      structuredData({
+        lang,
+        page: sharePage,
+        site: siteUrl,
+        url: canonicalURL,
+        title,
+        description,
+        businessDescription: t('home.description'),
+        logo: new URL('/icon-512.png', siteUrl).toString(),
+        image: new URL(shareImagePath(lang, 'home'), siteUrl).toString(),
+        portrait: new URL(
+          (await getImage({ src: portrait, width: 800, format: 'jpg' })).src,
+          siteUrl,
+        ).toString(),
+      }),
+    );
 
 // Visitor counting (src/data/analytics.ts): production builds only, and only
 // with a code set. GoatCounter reports the canonical URL's path, so /en/… and
@@ -112,6 +137,8 @@ const goatcounterSettings = noindex ? JSON.stringify({ path: Astro.url.pathname 
     <meta property="og:image:alt" content={ogImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image:alt" content={ogImageAlt} />
+
+    {jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd} />}
 
     {goatcounterUrl && (
       <script

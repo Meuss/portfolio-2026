@@ -41,7 +41,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     // --- Homepage: hero ---
     'hero.name': 'Thomas Miller',
     'hero.tagline':
-      'I build and look after websites and apps for small businesses and independents in French-speaking Switzerland. I’m also a developer at the Marvelous Digital agency.',
+      'I build and look after websites and apps for small businesses and independents in the Gruyère region, the canton of Fribourg and across French-speaking Switzerland. I’m also a developer at the Marvelous Digital agency.',
     'hero.cta': 'Talk about your project',
     'hero.ctaSecondary': 'See the work',
     'hero.availability': 'Available for a few projects',
@@ -297,7 +297,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     // --- Homepage: page meta ---
     'home.title': 'Développeur web à Bulle, Suisse romande — Thomas Miller',
     'home.description':
-      'Sites vitrines, boutiques en ligne et applications sur mesure pour les petites entreprises et indépendants de Suisse romande, créés et suivis depuis Bulle.',
+      'Sites vitrines, boutiques en ligne et applications sur mesure pour les PME et indépendants de Suisse romande, créés et suivis depuis Bulle, en Gruyère.',
 
     // --- Share images (public/og/<lang>-<page>.png, drawn by brand/build_og.py) ---
     // A short promise per page, not its title. {headline} in og.imageAlt is the page's headline.
@@ -312,7 +312,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     // --- Homepage: hero ---
     'hero.name': 'Thomas Miller',
     'hero.tagline':
-      "Je crée et je maintiens des sites web et des applications pour les petites entreprises et les indépendants de Suisse romande. Je suis aussi développeur à l'agence Marvelous Digital.",
+      "Je crée et je maintiens des sites web et des applications pour les petites entreprises et les indépendants de la Gruyère, du canton de Fribourg et de toute la Suisse romande. Je suis aussi développeur à l'agence Marvelous Digital.",
     'hero.cta': 'Parlons de votre projet',
     'hero.ctaSecondary': 'Voir les projets',
     'hero.availability': 'Disponible pour des projets',
