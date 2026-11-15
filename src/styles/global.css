@@ -153,44 +153,69 @@
 
   /* -------------------------------------------------------------------------
      Scroll-reveal (progressive enhancement)
-     The hidden/animated base state is scoped to `no-preference` so that
-     reduced-motion users — and no-JS users (the `.is-visible` class is never
-     added) — always see fully-visible content with zero layout shift.
+     The animated states are scoped to `no-preference` so that reduced-motion
+     users — and no-JS users (the `html.js` gate) — always see fully-visible
+     content with zero layout shift.
+
+     Two steps, so the first screen never waits for a script (it holds the
+     page's largest paint, LCP):
+     1. On load every block rises in by itself (`reveal-in`, CSS only).
+     2. reveal.ts then marks the blocks that start below the first screen
+        `.is-pending` (hidden, no transition, so it is instant and unseen) and
+        adds `.is-visible` as each one scrolls in (the same rise, as a
+        transition).
   ------------------------------------------------------------------------- */
   @media (prefers-reduced-motion: no-preference) {
     /* The `html.js` gate is the no-JS guarantee: the class is only added by an
-       inline script in <head>, so without JS the hidden state never applies and
-       every `[data-reveal]` element renders fully visible. */
+       inline script in <head>, so without JS nothing animates and every
+       `[data-reveal]` element renders fully visible. */
     html.js [data-reveal] {
-      opacity: 0;
-      transform: translateY(1.25rem);
-      transition:
-        opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      animation: reveal-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
-    html.js [data-reveal].is-visible {
+    html.js [data-reveal].is-pending {
+      animation: none;
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+
+    html.js [data-reveal].is-pending.is-visible {
       opacity: 1;
       transform: none;
+      /* Longhands, so the stagger's transition-delay below still applies. */
+      transition-property: opacity, transform;
+      transition-duration: 0.7s;
+      transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     /* Optional tasteful stagger within a group */
     html.js [data-reveal][data-reveal-delay='1'] {
+      animation-delay: 0.08s;
       transition-delay: 0.08s;
     }
     html.js [data-reveal][data-reveal-delay='2'] {
+      animation-delay: 0.16s;
       transition-delay: 0.16s;
     }
     html.js [data-reveal][data-reveal-delay='3'] {
+      animation-delay: 0.24s;
       transition-delay: 0.24s;
     }
 
     /* Keyboard focus never waits for the reveal: a block holding focus shows
        at once (after the delay rules, which it overrides). */
     html.js [data-reveal]:focus-within {
+      animation: none;
       opacity: 1;
       transform: none;
       transition: none;
+    }
+  }
+
+  @keyframes reveal-in {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
     }
   }
 

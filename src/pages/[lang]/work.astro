@@ -45,8 +45,8 @@ const entries = [
           <p class="mt-5 max-w-2xl text-lead text-muted">{t('workPage.intro')}</p>
         </div>
 
-        {/* Legend doubles as a filter once JS is available. */}
-        <div class="work-filter" data-filter hidden>
+        {/* Legend doubles as a filter once JS is available (no JS: not shown). */}
+        <div class="work-filter" data-filter>
           <div
             role="group"
             aria-label={t('workPage.filterLabel')}
@@ -107,6 +107,16 @@ const entries = [
 </BaseLayout>
 
 <style>
+  /* Without JS there is no filter. With JS it holds its room from the first
+     paint and shows once work-filter.ts is ready, so the list below doesn't
+     jump down when it appears (that was the page's layout shift on phones). */
+  :global(html:not(.js)) .work-filter {
+    display: none;
+  }
+  .work-filter:not(.is-ready) {
+    visibility: hidden;
+  }
+
   .chip {
     display: inline-flex;
     align-items: center;

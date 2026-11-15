@@ -12,9 +12,11 @@ interface Props {
   lang: Lang;
   eager?: boolean;
   fxSlot?: 'featuredMedia' | 'workMedia';
+  /** The grid the card sits in (see ProjectFrame): 2 on /work, 3 on the homepage. */
+  columns?: 2 | 3;
 }
 
-const { project, lang, eager = false, fxSlot } = Astro.props;
+const { project, lang, eager = false, fxSlot, columns = 2 } = Astro.props;
 const t = useTranslations(lang);
 const { title, context, kind, description, tech, image, imageMobile, link, status, nda } =
   project.data;
@@ -33,6 +35,7 @@ const alt = t('project.screenshotAlt').replace('{name}', title);
           imageMobile={imageMobile}
           alt=""
           eager={eager}
+          columns={columns}
           fxSlot={fxSlot}
         />
       </a>
@@ -42,6 +45,7 @@ const alt = t('project.screenshotAlt').replace('{name}', title);
         imageMobile={imageMobile}
         alt={image ? alt : ''}
         eager={eager}
+        columns={columns}
         fxSlot={fxSlot}
       >
         {nda && (

@@ -1,6 +1,7 @@
 /**
  * Context filter for /work (progressive enhancement).
- * Without JS the filter stays `hidden` and every project is listed.
+ * Without JS the filter is not shown (work.astro) and every project is listed;
+ * with JS its room is kept from the first paint and it shows once this runs.
  */
 const root = document.querySelector<HTMLElement>('[data-filter]');
 const statusEl = document.querySelector<HTMLElement>('[data-filter-status]');
@@ -8,7 +9,7 @@ const items = Array.from(document.querySelectorAll<HTMLElement>('li[data-context
 
 if (root && items.length) {
   const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-filter-value]'));
-  root.hidden = false;
+  root.classList.add('is-ready');
 
   const apply = (value: string) => {
     let shown = 0;

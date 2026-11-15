@@ -6,21 +6,29 @@ interface Props {
   image?: ImageMetadata;
   imageMobile?: ImageMetadata;
   alt: string;
-  /** Rendered width hint for responsive srcset (CSS px of the frame). */
-  sizes?: string;
+  /** The grid the frame sits in: 2 columns from md on /work, 3 on the
+      homepage. Sets the `sizes` hints, so phones get a file near the width
+      the frame really has. */
+  columns?: 2 | 3;
   eager?: boolean;
   /** Effect slot for the screenshot (islands/fx): differs per page. */
   fxSlot?: 'featuredMedia' | 'workMedia' | 'workTeaser';
 }
 
-const {
-  image,
-  imageMobile,
-  alt,
-  sizes = '(min-width: 1024px) 34rem, 92vw',
-  eager = false,
-  fxSlot,
-} = Astro.props;
+const { image, imageMobile, alt, columns = 2, eager = false, fxSlot } = Astro.props;
+
+// The frame's width: the page column (max-w-6xl, px-6 then md:px-10) split
+// into the grid's columns (gap-x-10 on /work, gap-x-8 on the homepage). The
+// phone capture is 22% of it.
+const frame =
+  columns === 3
+    ? { wide: '21rem', md: 'calc(33.3vw - 3rem)', base: 'calc(100vw - 3rem)' }
+    : { wide: '32.25rem', md: 'calc(50vw - 3.75rem)', base: 'calc(100vw - 3rem)' };
+const sizes = `(min-width: 1152px) ${frame.wide}, (min-width: 768px) ${frame.md}, ${frame.base}`;
+const mobileSizes =
+  columns === 3
+    ? '(min-width: 768px) 4.75rem, 22vw'
+    : '(min-width: 1152px) 7.25rem, (min-width: 768px) calc(11vw - 0.8rem), 22vw';
 ---
 
 {/* A real screenshot of the shipped site on a surface plate; the phone
@@ -31,7 +39,7 @@ const {
       <Image
         src={image}
         alt={alt}
-        widths={[480, 800, 1200, 1600]}
+        widths={[480, 640, 800, 1200, 1600]}
         sizes={sizes}
         loading={eager ? 'eager' : 'lazy'}
         class="block aspect-[16/10] h-auto w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
@@ -48,7 +56,7 @@ const {
         src={imageMobile}
         alt=""
         widths={[160, 320]}
-        sizes="10rem"
+        sizes={mobileSizes}
         loading={eager ? 'eager' : 'lazy'}
         class="block aspect-[390/844] h-auto w-full object-cover object-top"
       />
