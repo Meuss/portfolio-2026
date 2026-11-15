@@ -10,6 +10,8 @@ interface Props {
       homepage. Sets the `sizes` hints, so phones get a file near the width
       the frame really has. */
   columns?: 2 | 3;
+  /** The page's first screenshot (the likely LCP): fetched at once with high
+      priority. Everything else stays lazy so it doesn't compete with it. */
   eager?: boolean;
   /** Effect slot for the screenshot (islands/fx): differs per page. */
   fxSlot?: 'featuredMedia' | 'workMedia' | 'workTeaser';
@@ -42,6 +44,7 @@ const mobileSizes =
         widths={[480, 640, 800, 1200, 1600]}
         sizes={sizes}
         loading={eager ? 'eager' : 'lazy'}
+        fetchpriority={eager ? 'high' : undefined}
         class="block aspect-[16/10] h-auto w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
       />
     ) : (

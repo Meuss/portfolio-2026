@@ -9,6 +9,12 @@ import { ogLocale, shareImage, shareImageAlt, shareImagePath, type SharePage } f
 import { serializeJsonLd, structuredData } from '../data/structured-data';
 import { getImage } from 'astro:assets';
 import portrait from '../assets/profile.jpeg';
+// The two faces every page paints its first screen with (Latin subset of the
+// heading/body face and DM Mono 500 for the labels). Preloaded, they download
+// next to the stylesheet instead of after it, which is what holds LCP back on
+// a slow connection.
+import bodyFont from '@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url';
+import monoFont from '@fontsource/dm-mono/files/dm-mono-latin-500-normal.woff2?url';
 
 interface Props {
   title: string;
@@ -95,6 +101,8 @@ const goatcounterSettings = noindex ? JSON.stringify({ path: Astro.url.pathname 
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={monoFont} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
