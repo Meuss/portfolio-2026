@@ -58,7 +58,7 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
   <section class="border-b border-line bg-paper py-20 md:py-28">
     <div class="mx-auto max-w-6xl px-6 md:px-10">
       <div class="grid grid-cols-[minmax(0,1fr)] gap-12 md:grid-cols-[1fr_1.15fr] md:gap-16">
-        <!-- Intro + fallback contact path -->
+        {/* Intro + fallback contact path */}
         <div>
           <header data-reveal>
             <h1 class="font-display text-headline text-ink">{t('contactPage.heading')}</h1>
@@ -82,8 +82,8 @@ const withMax = (text: string) => text.replace('{max}', String(attachmentMaxMb))
           </div>
         </div>
 
-        <!-- Form. On desktop with JS, the expand button moves this same form
-             into the dialog below and back, so there is only ever one set of fields. -->
+        {/* Form. On desktop with JS, the expand button moves this same form
+             into the dialog below and back, so there is only ever one set of fields. */}
         <div data-reveal data-reveal-delay="1" class="relative" data-form-home>
           {/* Shown by the script from 1024px up; absent without JS. */}
           <button

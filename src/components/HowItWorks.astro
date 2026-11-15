@@ -33,7 +33,7 @@ const faqColumns = [questions.slice(0, half), questions.slice(half)];
       <p class="mt-5 text-lead text-muted">{t('how.intro')}</p>
     </header>
 
-    <!-- Timeline: one hairline track that the step numerals interrupt, like
+    {/* Timeline: one hairline track that the step numerals interrupt, like
          stations on a route (each numeral sits on a paper ground that hides the
          track behind it). A row of four from `xl` (narrower columns break the
          French titles over three lines); below, the track runs down the left
@@ -48,7 +48,7 @@ const faqColumns = [questions.slice(0, half), questions.slice(half)];
          stretch itself; in the stack it runs on a little below the last step.
          The `howTimeline` effect adds the orange scroll fill (tail included)
          and holds each numeral as an outline until the fill reaches it. Track,
-         tail and numerals are decorative; the <ol> carries the order. -->
+         tail and numerals are decorative; the <ol> carries the order. */}
     <div
       class="relative mt-12 [--step-num:clamp(1.75rem,1.2rem_+_2.4vw,3.125rem)] md:mt-16"
       data-fx-slot="howTimeline"

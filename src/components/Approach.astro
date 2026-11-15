@@ -16,12 +16,12 @@ const points = [1, 2, 3].map((n) => ({
 ---
 
 <section class="relative isolate border-b border-line bg-paper py-20 md:py-28">
-  <!-- Top light: a soft pool of light hanging from the top centre, with a
+  {/* Top light: a soft pool of light hanging from the top centre, with a
        trace of orange under the top edge, a vignette and a film grain. Over
        the section's ground, under its content (the section is its own
        stacking context), clipped to the section, no pointer events.
        `approachLight` effect slot: the pool leans toward the pointer
-       (islands/fx/effects.ts). -->
+       (islands/fx/effects.ts). */}
   <div data-fx-slot="approachLight" class="approach-light" aria-hidden="true">
     <div class="approach-light-pool"></div>
     <div class="approach-light-vignette"></div>
@@ -29,17 +29,17 @@ const points = [1, 2, 3].map((n) => ({
   </div>
 
   <div class="mx-auto max-w-6xl px-6 md:px-10">
-    <!-- The statement runs full width on top; the reasons read across under it. -->
-    <!-- `approachHeading` effect slot: the words light up with the scroll (islands/fx/effects.ts). -->
+    {/* The statement runs full width on top; the reasons read across under it. */}
+    {/* `approachHeading` effect slot: the words light up with the scroll (islands/fx/effects.ts). */}
     <h2 data-fx-slot="approachHeading" class="max-w-4xl font-display text-headline text-ink">
       {t('approach.heading')}
     </h2>
 
-    <!-- Three reasons: a claim, then the sentence that backs it. Stacked rows
+    {/* Three reasons: a claim, then the sentence that backs it. Stacked rows
          divided by hairlines below `lg`; from `lg`, three columns separated by
          vertical hairline rules, on a shared subgrid so the three sentences
          start on one line. Claims are capped at 10em from `lg` so all three
-         break over two lines instead of one sitting short above a gap. -->
+         break over two lines instead of one sitting short above a gap. */}
     <ul
       class="mt-12 flex flex-col md:mt-16 lg:grid lg:grid-cols-3 lg:grid-rows-[auto_auto] lg:gap-y-3"
       role="list"

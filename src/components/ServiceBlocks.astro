@@ -19,13 +19,13 @@ const t = useTranslations(lang);
         <p class="mt-5 text-lead text-muted">{t('services.intro')}</p>
       </header>
 
-      <!-- The five services as tiles: one column on phones; from `sm`, two
+      {/* The five services as tiles: one column on phones; from `sm`, two
            tracks with the first tile across both; from `lg`, three tracks with
            the first tile two wide beside the second, then the other three in a
            row. Each tile is a `surface` plate with a 1px `line` rim, a muted
            mono index at the top and its title and blurb at the bottom.
            `servicesTiles` effect slot: light in the tiles under the pointer
-           (islands/fx/effects.ts). -->
+           (islands/fx/effects.ts). */}
       <div data-fx-slot="servicesTiles">
         <ol class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
           {headlineServices.map((service, i) => (
